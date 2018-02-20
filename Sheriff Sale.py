@@ -1,3 +1,8 @@
+"""
+TODO: - Split [self.table.addr] for clean address data
+TODO: - Refactor address_clean_up?
+"""
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import pandas as pd
@@ -7,19 +12,21 @@ import re
 
 
 class Main:
-    sheriff_sales_url = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=25'
     nj_parcels_url = 'http://njparcels.com/property/'
     nj_parcels_api_url = 'http://njparcels.com/api/v1.0/property/'
     trulia_url = 'https://www.trulia.com/'
-    header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}
+    # header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}
     # From http://www.whoishostingthis.com/tools/user-agent/
 
-    sale_date = "'02/22/2018'"
-    data = requests.get(sheriff_sales_url)
-    html = data.text
-    sheriff_sale_html = BeautifulSoup(html, 'html.parser')
-
     def __init__(self):
+        self.sheriff_sales_url = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=25'
+
+        try:
+            self.data = requests.get(self.sheriff_sales_url)
+        except ConnectionError:
+            print("Cannot Access URL")
+
+        self.sale_dates = []
         self.table_data = []
         self.table_addr = []
         self.addresses = []
@@ -33,17 +40,24 @@ class Main:
         driver.get(self.sheriff_sales_url)
         driver.maximize_window()
 
-        driver.find_element_by_xpath("//select[@id='PropertyStatusDate']/option[@value=" + self.sale_date + "]").click()
+        date = driver.find_elements_by_xpath('//select[@id="PropertyStatusDate"]/option')
+        for dates in date:
+            self.sale_dates.append(dates.get_attribute('value'))
+
+        self.sale_dates.pop(0)
+        # self.sale_dates = [(', '.join('"' + item + '"' for item in self.sale_dates))]
+
+        driver.find_element_by_xpath('//select[@id="PropertyStatusDate"]/option[@value="' + self.sale_dates[0] + '"]').click()
         driver.find_element_by_css_selector("[type=submit]").click()
 
         print("--HTML has been gathered--")
         page_source = driver.page_source
 
-        html = BeautifulSoup(page_source, 'html.parser')
+        _html = BeautifulSoup(page_source, 'html.parser')
 
         print("Appending all addresses from Sheriff Sale Website...\n")
 
-        for row in html.find_all('tr'):
+        for row in _html.find_all('tr'):
             self.table_data.append([td.text for td in row.find_all('td')])
 
         for i in self.table_data[1:]:
@@ -52,12 +66,12 @@ class Main:
         self.address_match()
         self.zip_match()
         self.city_match()
+        self.address_split()
         self.address_clean_up()
         self.data_frame()
 
-        print(self.df)
-
-        print('\n', 'Results:')
+        print('\n')
+        print('Results:')
         print('Total of {} elements in [table_addr]'.format(len(self.table_addr)))
         print('Total of {} elements in [addresses]'.format(len(self.addresses)))
         print('Total of {} elements in [cities]'.format(len(self.cities)))
@@ -66,12 +80,12 @@ class Main:
         driver.close()
 
     def data_frame(self):
-        self.df = pd.DataFrame({'Address': self.table_addr,
-                                'City': self.cities,
-                                'Zip Code': self.zip_codes})
+        df = pd.DataFrame({'Address': self.table_addr,
+                           'City': self.cities,
+                           'Zip Code': self.zip_codes})
         pd.set_option('display.max_rows', 1000)
         pd.set_option('max_colwidth', 60)
-        return
+        # print(df)
 
     def address_clean_up(self):
         self.table_addr = [x.replace('Avenue', 'Ave') for x in self.table_addr]
@@ -94,14 +108,14 @@ class Main:
         return city
 
     def address_match(self):
+        # for i in self.table_addr:
+
         # json_data = open('zip_codes.json', 'r').read()
         # data = json.loads(json_data)
         # print(data)
         pass
 
     def city_match(self):
-        # _city_pattern = re.compile(r'\b(?:%s)\b' % '|'.join(_city_list))
-
         json_string = open('zip_cities.json', 'r').read()
         json_object = json.loads(json_string)
         for i in self.zip_codes:
@@ -117,11 +131,12 @@ class Main:
             self.zip_codes.append(match)
 
     def address_split(self):
-        pass
-        # df5_rows = self.df5.rows()
-        # add_pattern = re.finditer(r'\d{1,5}\s\w+\s\w+\s\w+')
-        # add_match = add_pattern.findall(df5)
-        # print(df5_rows)
+        _add_pattern = re.compile(r'\b(?:%s)\b' % '|'.split('NJ'))
+        _add_match = _add_pattern.findall(str(self.table_addr))
+        for match in _add_match:
+            print(match)
+            self.addresses.append(match)
+            print(self.addresses)
 
     def nj_parcels_driver(self):
         driver = webdriver.Chrome()
