@@ -49,50 +49,29 @@ class Main:
         for i in self.table_data[1:]:
             self.table_addr.append(i[5])
 
+        self.address_match()
+        self.zip_match()
+        self.city_match()
         self.address_clean_up()
-
-        print('Total of {} elements in [table.addr]'.format(len(self.table_addr)))
-        print(self.table_addr)
-
         self.data_frame()
+
+        print(self.df)
+
+        print('\n', 'Results:')
+        print('Total of {} elements in [table_addr]'.format(len(self.table_addr)))
+        print('Total of {} elements in [addresses]'.format(len(self.addresses)))
+        print('Total of {} elements in [cities]'.format(len(self.cities)))
+        print('Total of {} elements in [zip_codes]'.format(len(self.zip_codes)))
 
         driver.close()
 
     def data_frame(self):
-        # TODO: Clean up the regex expression
-        # Partially Works
-        # add_pattern = re.compile(r'\d{1,5}\s\w+\s\w+\s\w+\s\w+\s\w+\s\w+', re.MULTILINE)
-
-        # Test a new regex
-
-        add_pattern = re.compile(r'\d{1,5}\s\w+\s\w+\s\w+', re.MULTILINE)
-        add_match = add_pattern.findall(str(self.table_addr))
-
-        # city_pattern = re.compile(r' ')
-        # city_match = city_pattern.findall(str(self.table_addr))
-
-        zip_pattern = re.compile(r'(0\d{4})+')
-        zip_match = zip_pattern.findall(str(self.table_addr))
-
-        for match in add_match:
-            self.addresses.append(match)
-
-        self.city_match()
-
-        self.zip_match()
-
-        for match in zip_match:
-            self.zip_codes.append(match)
-
-        self.address_clean_up()
-        # self.address_split()
-
-        print("\n--All addresses have been pulled from the Sheriff Sale Website--")
-        print("A total of {} addresses are listed".format(str(len(self.addresses))))
-        print("A total of {} cities are listed".format(str(len(self.cities))))
-        print("A total of {} zip codes are listed".format(str(len(self.zip_codes))))
-
-        # self.nj_parcels_driver()
+        self.df = pd.DataFrame({'Address': self.table_addr,
+                                'City': self.cities,
+                                'Zip Code': self.zip_codes})
+        pd.set_option('display.max_rows', 1000)
+        pd.set_option('max_colwidth', 60)
+        return
 
     def address_clean_up(self):
         self.table_addr = [x.replace('Avenue', 'Ave') for x in self.table_addr]
@@ -109,26 +88,33 @@ class Main:
         self.table_addr = [x.replace('East', 'E') for x in self.table_addr]
         self.table_addr = [x.replace('West', 'W') for x in self.table_addr]
 
-        # pattern = re.findall(r'NJ', self.table_addr)
-        # self.table_addr = [x.sub(' NJ', '') for x in self.table_addr)]
-
     def cities_list(self):
         with open('cities.txt', 'r') as f:
             city = [line.strip() for line in f]
         return city
 
+    def address_match(self):
+        # json_data = open('zip_codes.json', 'r').read()
+        # data = json.loads(json_data)
+        # print(data)
+        pass
+
     def city_match(self):
-        city_list = self.cities_list()
-        string = self.table_addr
-        _cities = re.findall(r'\b(?:%s)\b' % '|'.join(city_list), str(string))
-        print('Total number of listed address {}'.format(len(_cities), '\n'))
-        self.cities.append(_cities)
+        # _city_pattern = re.compile(r'\b(?:%s)\b' % '|'.join(_city_list))
+
+        json_string = open('zip_cities.json', 'r').read()
+        json_object = json.loads(json_string)
+        for i in self.zip_codes:
+            if i in json_object.keys():
+                self.cities.append(json_object[i])
+            if i not in json_object.keys():
+                self.cities.append('*missing*')
 
     def zip_match(self):
-        string = self.table_addr
-        zips = re.findall(r'\d{5}', str(string))
-        print('Total of {} elements in [zip_codes]'.format(len(self.table_addr)))
-        print(zips)
+        _zip_pattern = re.compile(r'\d{5}')
+        _zip_match = _zip_pattern.findall(str(self.table_addr))
+        for match in _zip_match:
+            self.zip_codes.append(match)
 
     def address_split(self):
         pass
