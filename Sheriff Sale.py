@@ -1,6 +1,7 @@
 """
 TODO: - Split [self.table.addr] for clean address data
 TODO: - Refactor address_clean_up?
+TODO: - Figure out x.replace("North") to not affect Northfield
 """
 
 from bs4 import BeautifulSoup
@@ -85,7 +86,7 @@ class Main:
                            'Zip Code': self.zip_codes})
         pd.set_option('display.max_rows', 1000)
         pd.set_option('max_colwidth', 60)
-        # print(df)
+        print(df['Address'])
 
     def address_clean_up(self):
         self.table_addr = [x.replace('Avenue', 'Ave') for x in self.table_addr]
@@ -121,7 +122,7 @@ class Main:
         for i in self.zip_codes:
             if i in json_object.keys():
                 self.cities.append(json_object[i])
-            if i not in json_object.keys():
+            elif i not in json_object.keys():
                 self.cities.append('*missing*')
 
     def zip_match(self):
@@ -131,12 +132,13 @@ class Main:
             self.zip_codes.append(match)
 
     def address_split(self):
-        _add_pattern = re.compile(r'\b(?:%s)\b' % '|'.split('NJ'))
+        # _add_pattern = re.compile(r'\b(?:%s)\b' % '|'.split('NJ'))
+        _city_list = self.cities_list()
+        _add_pattern = re.compile(r'(\b(?<=%s)\b' % '|'.join(_city_list))
         _add_match = _add_pattern.findall(str(self.table_addr))
         for match in _add_match:
-            print(match)
             self.addresses.append(match)
-            print(self.addresses)
+        print(self.addresses)
 
     def nj_parcels_driver(self):
         driver = webdriver.Chrome()
