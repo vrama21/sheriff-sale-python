@@ -1,12 +1,9 @@
 import requests
 import re
 import sqlite3
-import os
 import json
-import pprint
 from collections import OrderedDict, defaultdict
 from bs4 import BeautifulSoup
-from tqdm import tqdm
 from constants import *
 
 
@@ -104,85 +101,10 @@ class ParseNJParcels:
                 conn.commit()
 
 
-class ParseDatabase:
-    def __init__(self):
-        self.conn = sqlite3.connect('nj_parcels.db')
-        self.cur = self.conn.cursor()
-
-        parse = ParseNJParcels()
-        self.dict_keys = parse.main_dict.keys()
-
-    def build_database(self):
-        with self.conn:
-
-            county_list = self.dict_keys
-            county_list = [''.join(x.split()) for x in county_list]
-
-            try:
-                for county in county_list:
-                    self.cur.execute("""
-                                    CREATE TABLE ? (
-                                    City text,
-                                    Block text,
-                                    Address text,
-                                    Lot text
-                                    )""", county)
-            except sqlite3.OperationalError:
-                pass
-
-            self.conn.commit()
-            self.conn.close()
-
-    def select_data(self, county, address):
-        _address = address.upper()
-        self.cur.execute("""
-                    SELECT *
-                    FROM AtlanticCounty
-                    WHERE Address='122 REEDS RD'
-                    """)
-        data = self.cur.fetchone()
-        return data
-
-    def parse_json_url(self):
-        selected_data = self.select_data()
-
-        city_num_json = json.load(open('city_nums.json'))
-        city_num = city_num_json[data[0]]
-
-        url = nj_parcels_api_url + '{}_{}_{}.json'.format(city_num, data[1], data[3])
-        resp = requests.get(url)
-        _json = resp.json()
-
-        pp = pprint.PrettyPrinter(indent=4)
-        prop_param = _json['features'][0]['properties']
-        pp.pprint(prop_param)
-
-        block = prop_param['block']
-        county = prop_param['county']
-        lot = prop_param['lot']
-        mun = prop_param['mun']
-        owner_address = prop_param['owner_address']
-        owner_city = prop_param['owner_city']
-        owner_name = prop_param['owner_name']
-        owner_zip = prop_param['owner_zip']
-        pams_pin = prop_param['pams_pin']
-        property_location = prop_param['property_location']
-        sale_date = prop_param['sale_date']
-        sale_price = prop_param['sale_price']
-        taxes = prop_param['taxes']
-
-
 if __name__ == '__main__':
     main = ParseNJParcels(county='Atlantic County')
     main.build_main_dict()
     # main.build_database()
     # main.build_block_list()
     # main.build_address_list()
-
-    data = ParseDatabase()
-    data.select_data(county='AtlanticCounty', address='122 Reeds Rd')
-
-    # DICT STRUCTURE:
-    # main_dict[COUNTY][CITY][BLOCK_NUM][ADDRESS]
-
 
