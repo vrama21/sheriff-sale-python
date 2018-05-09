@@ -1,12 +1,8 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from constants import *
-from datetime import datetime
-import pandas as pd
 import requests
-import json
 import re
-import os
 
 
 class SheriffSale:
@@ -17,45 +13,36 @@ class SheriffSale:
             print("Cannot Access URL")
 
         self.table_addr = []
-        self.addresses = []
-        self.cities = []
-        self.zip_codes = []
 
         self.run_selenium()
 
     def run_selenium(self):
         sale_dates = []
         table_data = []
-        today_date = datetime.now().date()
 
-        if not os.path.exists('{}.html'.format(today_date)):
-            driver = webdriver.Chrome()
-            driver.get(sheriff_sales_url)
-            driver.maximize_window()
+        driver = webdriver.Chrome()
+        driver.get(sheriff_sales_url)
+        driver.maximize_window()
 
-            date = driver.find_elements_by_xpath('//select[@id="PropertyStatusDate"]/option')
-            for dates in date:
-                sale_dates.append(dates.get_attribute('value'))
+        date = driver.find_elements_by_xpath('//select[@id="PropertyStatusDate"]/option')
+        for dates in date:
+            sale_dates.append(dates.get_attribute('value'))
 
-            sale_dates.pop(0)
-            driver.find_element_by_xpath('//select[@id="PropertyStatusDate"]/option[@value="{}"]'.format(sale_dates[1])).click()
-            driver.find_element_by_css_selector("[type=submit]").click()
+        sale_dates.pop(0)
+        driver.find_element_by_xpath('//select[@id="PropertyStatusDate"]/option[@value="{}"]'.format(sale_dates[1])).click()
+        driver.find_element_by_css_selector("[type=submit]").click()
 
-            print("--HTML has been gathered--")
+        page_source = driver.page_source
+        _html = BeautifulSoup(page_source, 'html.parser')
 
-            page_source = driver.page_source
-            _html = BeautifulSoup(page_source, 'html.parser')
+        for row in _html.find_all('tr'):
+            table_data.append([td.text for td in row.find_all('td')])
 
-            print("Appending all addresses from Sheriff Sale Website...\n")
+        for i in table_data[1:]:
+            self.table_addr.append(i[5])
+        driver.close()
 
-            for row in _html.find_all('tr'):
-                table_data.append([td.text for td in row.find_all('td')])
-
-            for i in table_data[1:]:
-                self.table_addr.append(i[5])
-            driver.close()
-
-    def cleanup(self):
+        # Cleanup
         for key, value in replace_dict.items():
             self.table_addr = [re.sub(r'\b({})\b'.format(key), value, x) for x in self.table_addr]
 
@@ -66,27 +53,11 @@ class SheriffSale:
             a = re.split(regex, addr)
             text.append(a[0])
 
-        for i in text:
-            print(i)
-
-    def city_match(self):
-        json_string = open('zip_cities.json', 'r').read()
-        json_object = json.loads(json_string)
-
-        for i in self.zip_codes:
-
-            if i in json_object.keys():
-                self.cities.append(json_object[i])
-
-            elif i not in json_object.keys():
-                self.cities.append('*missing*')
+        return self.table_addr
 
 
 if __name__ == "__main__":
     main = SheriffSale()
-
-    main.city_match()
-    main.cleanup()
 
     print('\n')
     print('Results:')

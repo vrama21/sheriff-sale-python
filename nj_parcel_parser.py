@@ -56,19 +56,18 @@ class ParseNJParcels:
     def build_block_list(self):
         city_list = self.main_dict[self.county]
 
-        for city in city_list:
-            _soup = requests_content(nj_parcels_url + self.city_num_dict[str(self.city)])
+        _soup = requests_content(nj_parcels_url + self.city_num_dict[str(self.city)])
 
-            table_data = _soup.find('table', class_='table')
-            block_num_data = table_data.find_all('a', href=True)
-            block_num_text = [x.get_text() for x in block_num_data]
+        table_data = _soup.find('table', class_='table')
+        block_num_data = table_data.find_all('a', href=True)
+        block_num_text = [x.get_text() for x in block_num_data]
 
-            regex = r'(\d+(\.\d*)?)'
-            a = re.findall(regex, str(block_num_text))
-            block_nums = [x[0] for x in a]
+        regex = r'(\d+(\.\d*)?)'
+        a = re.findall(regex, str(block_num_text))
+        block_nums = [x[0] for x in a]
 
-            self.main_dict[self.county][self.city] = block_nums
-            # self.main_dict[self.county][city].update({block_nums: {}})
+        self.main_dict[self.county][self.city] = block_nums
+        # self.main_dict[self.county][city].update({block_nums: {}})
 
     def build_address_list(self):
         conn = sqlite3.connect('nj_parcels.db')
