@@ -20,6 +20,7 @@ replace_dict = {
     'Place': 'Pl',
     'South': 'S',
     'Street': 'St',
+    'Terrace': 'Terr',
     'West': 'W'
 }
 
@@ -44,8 +45,11 @@ city_list = [
     'Pleasantville',
     'Port Republic',
     'Somers Point',
-    'Ventnor City'
+    'Ventnor City',
+    'Weymouth',
+    'Williamstown'
 ]
+
 city_zip_dict = {
     "Absecon": "08201",
     "Atlantic City": "08401",
@@ -69,16 +73,19 @@ city_zip_dict = {
     "Ventnor City": "08406"
 }
 
-street_suffix_abbr = [
+street_suffix = [
     'Ave',
     'Blvd',
     'Cir',
+    'Croft',
     'Ct',
     'Dr',
     'Rd',
     'Ln',
     'Pl',
     'St',
+    'Terr',
+    'Way'
 ]
 remove_list = ['NJ',
                '08232',

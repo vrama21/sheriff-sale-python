@@ -12,13 +12,21 @@ class SheriffSale:
         except ConnectionError:
             print("Cannot Access URL")
 
-        self.table_addr = []
+        self.address_data = []
 
         self.run_selenium()
+
+    def __repr__(self):
+        self.__repr__ = self.__str__
+        return
+
+    def __str__(self):
+        return str(self.address_data)
 
     def run_selenium(self):
         sale_dates = []
         table_data = []
+        table_addr = []
 
         driver = webdriver.Chrome()
         driver.get(sheriff_sales_url)
@@ -39,29 +47,41 @@ class SheriffSale:
             table_data.append([td.text for td in row.find_all('td')])
 
         for i in table_data[1:]:
-            self.table_addr.append(i[5])
+            table_addr.append(i[5])
         driver.close()
 
         # Cleanup
         for key, value in replace_dict.items():
-            self.table_addr = [re.sub(r'\b({})\b'.format(key), value, x) for x in self.table_addr]
+            table_addr = [re.sub(r'\b({})\b'.format(key), value, x) for x in table_addr]
 
-        text = []
-        regex = re.compile(r'|'.join(city_list))
+        regex_by_city = re.compile(r'|'.join(city_list))
+        # regex_by_street_suffix = re.compile(r'\b|\b'.join(street_suffix))
+        regex_by_street_suffix = re.compile(r"(.+)\s*(" + r'\b|\b'.join(street_suffix) + r")\s*(.+)")
+        print(regex_by_street_suffix)
 
-        for addr in self.table_addr:
-            a = re.split(regex, addr)
-            text.append(a[0])
+        # a = [re.split(regex_by_street_suffix, row) for row in table_addr]
+        a = [re.search(regex_by_street_suffix, row).groups() for row in table_addr]
+        address = [''.join(x[0:2]) for x in a]
+        for i in address:
+            print(i)
 
-        return self.table_addr
+
+
+        # for row in table_addr:
+        #     initial_split = row.split('NJ')
+        #     address_0 = initial_split[0]
+        #     zip_code = initial_split[-1]
+        #
+        #     address = re.split(regex_by_city, str(address_0))
+        #     address = [x.split(' (') for x in address]
+        #     # a2 = [x.split(' )') for x in a1[1]]
+        #
+        #     # print(initial_split)
+        #     print(address[0][0])
+        #     print(zip_code)
+        # # return self.address_data
 
 
 if __name__ == "__main__":
     main = SheriffSale()
-
-    print('\n')
-    print('Results:')
-    print('Total of {} elements in [table_addr]'.format(len(main.table_addr)))
-    print('Total of {} elements in [addresses]'.format(len(main.addresses)))
-    print('Total of {} elements in [cities]'.format(len(main.cities)))
-    print('Total of {} elements in [zip_codes]'.format(len(main.zip_codes)))
+    print(main)

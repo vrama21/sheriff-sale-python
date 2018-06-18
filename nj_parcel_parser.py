@@ -2,6 +2,7 @@ import requests
 import re
 import sqlite3
 import json
+from sheriff_sale import SheriffSale
 from collections import OrderedDict, defaultdict
 from bs4 import BeautifulSoup
 from constants import *
@@ -24,10 +25,12 @@ class ParseNJParcels:
 
         self.county = county
         self.city = city
+        self.sheriff_sale_list = SheriffSale()
+        print(self.sheriff_sale_list)
 
     def build_main_dict(self):
         div_html = self.soup.find('div', class_='col-md-12')
-        div_child = div_html.find('div')\
+        div_child = div_html.find('div')
 
         city_names = []
         city_nums = []
