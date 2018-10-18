@@ -1,12 +1,10 @@
 
-# URLS
-nj_parcels_url = 'http://njparcels.com/property/'
-nj_parcels_api_url = 'http://njparcels.com/api/v1.0/property/'
-sheriff_sales_url = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=25'
-trulia_url = 'https://www.trulia.com/'
+NJ_PARCELS_URL = 'http://njparcels.com/property/'
+NJ_PARCELS_API = 'http://njparcels.com/api/v1.0/property/'
+SHERIFF_SALES_URL = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=25'
+SHERIFF_SALES_BASE_URL = 'https://salesweb.civilview.com'
 
-# Dictionaries
-replace_dict = {
+SUFFIX_ABBREVATIONS = {
     'Avenue': 'Ave',
     'Building': 'Bldg',
     'Boulevard': 'Blvd',
@@ -14,10 +12,10 @@ replace_dict = {
     'Court': 'Ct',
     'Drive': 'Dr',
     'East': 'E',
-    'Road': 'Rd',
     'Lane': 'Ln',
     'North': 'N',
     'Place': 'Pl',
+    'Road': 'Rd',
     'South': 'S',
     'Square': 'Sq',
     'Street': 'St',
@@ -25,7 +23,28 @@ replace_dict = {
     'West': 'W'
 }
 
-city_list = [
+ADDRESS_REGEX_SPLIT = [
+    'Avenue',
+    'Boardwalk',
+    'Boulevard',
+    'Circle',
+    'Cove',
+    'Croft',
+    'Court',
+    'Drive',
+    'Lane',
+    'Pike',
+    'Place',
+    'Road',
+    'Route',
+    'Square',
+    'Street',
+    'Terrace',
+    'Village',
+    'Way'
+]
+
+CITY_LIST = [
     'Absecon',
     'Atlantic City',
     'Brigantine',
@@ -43,6 +62,7 @@ city_list = [
     'Margate',
     'Mays Landing',
     'Mullica Township',
+    'Newtonville',
     'Northfield',
     'Pleasantville',
     'Port Republic',
@@ -52,7 +72,7 @@ city_list = [
     'Williamstown'
 ]
 
-city_zip_dict = {
+CITY_ZIP_DICT = {
     "Absecon": "08201",
     "Atlantic City": "08401",
     "Brigantine": "08203",
@@ -74,28 +94,3 @@ city_zip_dict = {
     "Somers Point": "08244",
     "Ventnor City": "08406"
 }
-
-street_suffix = [
-    'Ave',
-    'Blvd',
-    'Cir',
-    'Croft',
-    'Club',
-    'Ct',
-    'Dr',
-    'Rd',
-    'Ln',
-    'Pike',
-    'Pl',
-    'Run',
-    'Sq',
-    'St',
-    'Terr',
-    'Way'
-]
-remove_list = ['NJ',
-               '08232',
-               '08234',
-               '08201',
-               '08205',
-               '08232']

@@ -1,24 +1,22 @@
-import requests
-import re
-import sqlite3
 import json
+import re
+import requests
+import sqlite3
 from sheriff_sale import SheriffSale
-from collections import OrderedDict, defaultdict
-from bs4 import BeautifulSoup
+from collections import defaultdict
 from constants import *
-
-
-def requests_content(url):
-    html_data = requests.get(url)
-    content = html_data.content
-    soup = BeautifulSoup(content, 'html.parser')
-    return soup
+from utils import requests_content
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+# from database_models import Base
 
 
 class ParseNJParcels:
-
+    """
+    Web scraper for www.njparcels.com
+    """
     def __init__(self, county=None, city=None):
-        self.soup = requests_content(nj_parcels_url)
+        self.soup = requests_content(NJ_PARCELS_URL)
 
         self.city_num_dict = {}
         self.main_dict = defaultdict(dict)
@@ -26,7 +24,6 @@ class ParseNJParcels:
         self.county = county
         self.city = city
         self.sheriff_sale_list = SheriffSale()
-        print(self.sheriff_sale_list)
 
     def build_main_dict(self):
         div_html = self.soup.find('div', class_='col-md-12')
@@ -39,16 +36,13 @@ class ParseNJParcels:
         for i in div_child:
             if i.name == 'h2':
                 county_name = i.get_text()
-
             if i.name == 'span':
                 city_name = i.get_text()
                 city_names.append(city_name)
                 city_num = re.findall('/property/(.+)/"', str(i))
-
                 for num in city_num:
                     city_num = ''.join(num)
                     city_nums.append(city_num)
-
                 # self.main_dict[county_name] = city_name
                 self.main_dict[county_name].update({city_name: {}})
 
@@ -57,11 +51,9 @@ class ParseNJParcels:
             json.dump(self.city_num_dict, fp)
 
     def build_block_list(self):
-        city_list = self.main_dict[self.county]
+        soup = requests_content(NJ_PARCELS_URL + self.city_num_dict[str(self.city)])
 
-        _soup = requests_content(nj_parcels_url + self.city_num_dict[str(self.city)])
-
-        table_data = _soup.find('table', class_='table')
+        table_data = soup.find('table', class_='table')
         block_num_data = table_data.find_all('a', href=True)
         block_num_text = [x.get_text() for x in block_num_data]
 
@@ -79,7 +71,7 @@ class ParseNJParcels:
         block_num = self.main_dict[self.county][self.city]
 
         for block in block_num:
-            _url = nj_parcels_url + self.city_num_dict[str(self.city)] + '/' + block
+            _url = NJ_PARCELS_URL + self.city_num_dict[str(self.city)] + '/' + block
             _soup = requests_content(_url)
             print(_url)
 
@@ -101,6 +93,36 @@ class ParseNJParcels:
                             (self.city, block, addr[0], addr[1]))
 
                 conn.commit()
+
+    def parse_json_url(self, parsed_data):
+        # city_num_json = json.load(open('city_nums.json'))
+        with open('city_nums.json') as json_file:
+            json_full = []
+            json_prop = []
+
+            if len(parsed_data) > 1:
+                for i in parsed_data:
+                    city_num = json_file[i[0]]
+
+                    url = NJ_PARCELS_API + f'{city_num}_{i[1]}_{i[3]}.json'
+                    resp = requests.get(url)
+                    json_data = resp.json()
+                    json_full.append(json_data)
+            else:
+                try:
+                    city_num = json_file[parsed_data[0][0]]
+                    url = NJ_PARCELS_API + f'{city_num}_{parsed_data[0][1]}_{parsed_data[0][3]}.json'
+                    resp = requests.get(url)
+                    json_data = resp.json()
+                    json_full.append(json_data)
+                except IndexError:
+                    print('Error: Address could not be located in the database')
+
+            for j in json_full:
+                index = json_full.index(j)
+                json_prop.append(json_full[index]['features'][0]['properties'])
+
+            return json_prop
 
 
 if __name__ == '__main__':
