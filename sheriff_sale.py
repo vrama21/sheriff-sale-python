@@ -16,19 +16,28 @@ class SheriffSale:
             self.data = requests.get(SHERIFF_SALES_URL)
         except ConnectionError as err:
             raise ConnectionError("Cannot Access URL: ", err)
+
         self.session = requests.Session()
 
     def get_sale_dates(self):
+        """
+        Opens sheriff sale website and grabs all sale dates available in the drop-down form
+        """
+
         sale_dates = []
         soup = requests_content(SHERIFF_SALES_URL, self.session)
         for select in soup.find_all(name='select', attrs={'id': 'PropertyStatusDate'}):
             sale_dates = [option['value'] for option in select.find_all(name='option')[1:]]
         return sale_dates
 
-    def sheriff_sale_dict(self, table_data):
+    def sheriff_sale_dict(self, table_data, sanitized_table_data, maps_href, status_history):
+        """
+        Place all gathered data from sheriff sale in an organized dictionary
+        """
+
         table_dict = {
-            'sheriff#': [x[0] for x in table_data],
-            'court_case#': [x[1] for x in table_data],
+            'sheriff': [x[0] for x in table_data],
+            'court_case': [x[1] for x in table_data],
             'sale_date': [x[2] for x in table_data],
             'plaintiff': [x[3] for x in table_data],
             'defendant': [x[4] for x in table_data],
@@ -38,42 +47,41 @@ class SheriffSale:
             'judgment': [x[8] for x in table_data],
             'deed': [x[9] for x in table_data],
             'deed_address': [x[10] for x in table_data],
+            'maps_href': [x for x in maps_href],
+            'status_history': [x for x in status_history],
+            'address_sanitized': [x[0] for x in sanitized_table_data],
+            'unit': [x[1] for x in sanitized_table_data],
+            'city': [x[2] for x in sanitized_table_data],
+            'zip_code': [x[3] for x in sanitized_table_data],
         }
 
         return table_dict
 
-    def sanitized_dict(self, sanitized_table):
-        sanitized_dict = {
-            'address': [x[0] for x in sanitized_table],
-            'unit': [x[1] for x in sanitized_table],
-            'city': [x[2] for x in sanitized_table],
-            'zip_code': [x[3] for x in sanitized_table],
-        }
-
-        return sanitized_dict
-
-    def sheriff_sale_sanitized(self, table_data):
+    def sanitize_address_data(self, table_data):
         """
         Returns lists of sanitized address data in the format of (Address, Unit, City, Zip Code)
         """
+
         regex_street = re.compile(r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')')
         regex_unit = re.compile(r'(Unit\s[0-9A-Za-z-]+)')
         regex_city = re.compile(r'|'.join(CITY_LIST))
         regex_zip_code = re.compile(r'\d{5}')
 
+        address_data = [x[5] for x in table_data]
         # TODO: Figure out a way to print out which element in the list gives an attribute error.
         # Use only for testing nonetype data that needs to be adjusted in the constants
-        # street_match = [regex_street.findall(row) for row in table_dict['address']]
-        # city_match = [regex_city.findall(row) for row in table_data['address']]
+        # street_match = [regex_street.findall(row) for row in address_data]
+        # print(street_match)
+        # city_match = [regex_city.findall(row) for row in address_data[5]
 
-        street_match = [re.search(regex_street, row).group(0).rstrip() for row in (table_data['address'])]
+        street_match = [re.search(regex_street, row).group(0).rstrip() for row in address_data]
         for key, value in SUFFIX_ABBREVATIONS.items():
             street_match = [re.sub(fr'({key})', value, row) for row in street_match]
 
-        # TODO: May run into a problem where city names are located in the streeg (e.g. 123 Mays Landing Rd)
-        city_match = [re.search(regex_city, row).group(0) for row in table_data['address']]
-        zip_match = [re.search(regex_zip_code, row).group(0) for row in table_data['address']]
-        unit_match = [regex_unit.findall(row) for row in table_data['address']]
+        # TODO: May run into a problem where city names are located in the street (e.g. 123 Mays Landing Rd)
+        city_match = [re.search(regex_city, row).group(0) for row in address_data]
+        zip_match = [re.search(regex_zip_code, row).group(0) for row in address_data]
+        unit_match = [regex_unit.findall(row) for row in address_data]
 
         for i, unit in enumerate(unit_match):
             if unit:
@@ -81,7 +89,6 @@ class SheriffSale:
             else:
                 unit_match[i] = ''
 
-        # TODO: Do I need this when I can just access all the data from the dictionary??
         result = list(zip(street_match, unit_match, city_match, zip_match))
 
         return result
@@ -131,22 +138,18 @@ class SheriffSale:
         for table_data in status_history_data:
             status_history.append([x.text for x in table_data.find_all('td')])
 
-        # print(listing_details, maps_href_link, status_history)
-        return listing_details, maps_href_link, status_history
+        sanitized_listing_details = self.sanitize_address_data(listing_details)
+
+        return self.sheriff_sale_dict(listing_details, sanitized_listing_details, maps_href_link, status_history)
 
 
 if __name__ == "__main__":
     sheriff = SheriffSale()
     sale_date = sheriff.get_sale_dates()
-    listing_details = sheriff.selenium_driver(sale_date[0])
-    print(listing_details, '\n')
-    print(listing_details[0])
-    # sheriff_dict = sheriff.sheriff_sale_dict(listing_details)
-    # print('Not Santitized Address Data:', '\n', sheriff_dict['address'], '\n')
-    #
-    # sanitized = sheriff.sheriff_sale_sanitized(sheriff_dict)
-    # print('Sanitized Address Data:', '\n', sanitized)
-    #
-    # sanitized_dict = sheriff.sanitized_dict(sanitized)
-    # print(sanitized_dict['city'])
+    print(sale_date)
+    complete_data = sheriff.selenium_driver(sale_date[2])
+
+    # for key in complete_data.keys():
+    #     for value in complete_data[key]:
+
 
