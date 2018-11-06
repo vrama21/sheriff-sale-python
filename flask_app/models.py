@@ -1,13 +1,13 @@
 from flask_app import db
-from sqlalchemy import Integer, String
 
 
 class SheriffSale(db.Model):
 
     id = db.Column('id', db.Integer, primary_key=True)
+    property_id = db.Column('property_id', db.String(10), unique=True)
     sheriff = db.Column('sheriff', db.String(15))
     court_case = db.Column('court_case', db.String(15))
-    sale_date = db.Column('sale_date', db.String(10))
+    sale_date = db.Column('sale_date'), db.String(12)
     plaintiff = db.Column('plaintiff', db.String(30))
     defendant = db.Column('defendant', db.String(30))
     address = db.Column('address', db.String(100))
@@ -24,14 +24,11 @@ class SheriffSale(db.Model):
     zip_code = db.Column('zip_code', db.String(5))
 
     def __repr__(self):
-        return f"""SheriffSale('{sheriff}', '{court_case}', '{sale_date}',
-        '{plaintiff}', '{defendant}', '{address}', '{priors}', '{attorney}',
-        '{judgment}', '{deed}', '{deed_address}', '{maps_href}', 
-        '{address_sanitzed}', '{unit}', '{city}', '{zip_code}'"""
+        return f"""SheriffSale(''{self.sale_date}', '{self.judgment}',
+        '{self.address_sanitized}', '{self.unit}', '{self.city}', '{self.zip_code}'"""
 
 
-
-class NJParcelsDB(db.Model):
+class NJParcels(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     city = db.Column('City', db.String(60))
     block = db.Column('Block', db.Integer())

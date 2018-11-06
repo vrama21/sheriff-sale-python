@@ -24,6 +24,7 @@ SUFFIX_ABBREVATIONS = {
 }
 
 ADDRESS_REGEX_SPLIT = [
+    'Argyle',       # (Edge Case)
     'Avenue',
     'Boardwalk',
     'Boulevard',
@@ -33,13 +34,18 @@ ADDRESS_REGEX_SPLIT = [
     'Court',
     'Drive',
     'Lane',
+    'Highway',
+    'Hollow',       # (Edge Case)
+    'Mews',         # (Edge Case)
     'Pike',
     'Place',
     'Road',
     'Route',
+    'Run',
     'Square',
     'Street',
     'Terrace',
+    'Trail',
     'Village',
     'Way'
 ]
@@ -49,28 +55,40 @@ CITY_LIST = [
     'Atlantic City',
     'Brigantine',
     'Buena',
+    'Buena Boro',
+    'Buena Borough',
     'Buena Vista Township',
     'Corbin City',
+    'Dorothy',
     'Egg Harbor City',
     'Egg Harbor Township',
+    'Elwood',
     'Estell Manor',
     'Galloway Township',
     'Hamilton Township',
     'Hammonton',
+    'Landisville',
     'Linwood',
     'Longport',
-    'Margate',
+    'Margate City',
     'Mays Landing',
     'Mullica Township',
     'Newtonville',
     'Northfield',
     'Pleasantville',
+    'Pomona',
     'Port Republic',
     'Somers Point',
     'Ventnor City',
     'Weymouth',
     'Williamstown'
 ]
+
+CITY_LIST_SANITIZED = {
+    'Buena Borough': 'Buena',
+    'Margate City': 'Margate',
+    'Pomona': 'Galloway Township'
+}
 
 CITY_ZIP_DICT = {
     "Absecon": "08201",

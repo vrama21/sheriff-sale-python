@@ -14,46 +14,64 @@ def home():
     return render_template('layout.html', form=form)
 
 
+@app.route("/build_db", methods=['GET', 'POST'])
+def build_database():
+    form = SaleDateForm()
+
+    import json
+
+    with open('sheriff_sale_dump.json') as f:
+        sheriff_sale_json = json.load(f)
+
+        for data in sheriff_sale_json:
+            sheriff_sale_data = SheriffSale(
+                property_id=data['property_id'],
+                sheriff=data['listing_details']['sheriff'],
+                court_case=data['listing_details']['court_case'],
+                sale_date=data['listing_details']['sale_date'],
+                plaintiff=data['listing_details']['plaintiff'],
+                defendant=data['listing_details']['defendant'],
+                address=data['listing_details']['address'],
+                priors=data['listing_details']['priors'],
+                attorney=data['listing_details']['attorney'],
+                judgment=data['listing_details']['judgment'],
+                deed=data['listing_details']['deed'],
+                deed_address=data['listing_details']['deed_address'],
+                address_sanitized=data['sanitized']['address'],
+                unit=data['sanitized']['unit'],
+                city=data['sanitized']['city'],
+                zip_code=data['sanitized']['zip_code'],
+                maps_href=data['maps_href']
+                # status_history=data[12]
+            )
+            db.session.add(sheriff_sale_data)
+            db.session.commit()
+
+    return render_template('layout.html', form=form)
+
+
 @app.route("/table_data/<selected_date>", methods=['GET', 'POST'])
 def table_data(selected_date):
     form = SaleDateForm()
-    date = selected_date.replace('-', '/')
+
+    # date = selected_date.replace('-', '/')
+    # if date[3] == '0':
+    #     date = date[0:3] + date[4:]
+    #
     # sale_date = SheriffSale.query.filter_by(sale_date=date).first()
-
+    #
     # if sale_date:
-    #     sheriff_sale_data = SheriffSale.query.fetchall()
+    #     selected_data = SheriffSale.query.filter_by(sale_date=date).all()
+
     # else:
-    sheriff_sale_driver = sheriff_sale.selenium_driver(date)
-    for key in sheriff_sale_driver.keys():
-        for data in sheriff_sale_driver[key]:
-            sheriff_sale_data = SheriffSale(
-                                sheriff=data
-                        # court_case=sheriff_sale_driver['court_case'],
-                        # sale_date=sheriff_sale_driver['sale_date'],
-                        # plaintiff=sheriff_sale_driver['plaintiff'],
-                        # defendant=sheriff_sale_driver['defendant'],
-                        # address=sheriff_sale_driver['address'],
-                        # priors=sheriff_sale_driver['priors'],
-                        # attorney=sheriff_sale_driver['attorney'],
-                        # judgment=sheriff_sale_driver['judgment'],
-                        # deed=sheriff_sale_driver['deed'],
-                        # deed_address=sheriff_sale_driver['deed_address'],
-                        # maps_href=sheriff_sale_driver['maps_href'],
-                        # status_history=sheriff_sale_driver['status_history'],
-                        # address_sanitized=sheriff_sale_driver['address_sanitized'],
-                        # unit=sheriff_sale_driver['unit'],
-                        # city=sheriff_sale_driver['city'],
-                        # zip_code=sheriff_sale_driver['zip_code'],
-        )
-        db.session.add(sheriff_sale_data)
-        db.session.commit()
+        # sheriff_sale_driver = sheriff_sale.build_dict()
+    #
+    #     selected_data = SheriffSale.query.filter_by(sale_date=date).all()
+    #     return render_template('table_data.html',
+    #                            sheriff_sale_data=selected_data,
+    #                            form=form)
+    #
+    # return render_template('table_data.html',
+    #                        sheriff_sale_data=selected_data,
+    #                        form=form)
 
-    return render_template('table_data.html',
-                           sheriff_sale_data=sheriff_sale_data,
-                           form=form)
-
-
-@app.route("/test/<data>")
-def test(data):
-    form = SaleDateForm()
-    return render_template('about.html', form=form)
