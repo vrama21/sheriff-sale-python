@@ -59,7 +59,7 @@ class NJParcels:
     def build_address_list(self):
         block_num = self.main_dict[self.county][self.city]
 
-        for block in block_num:
+        for i, block in enumerate(block_num):
             _url = NJ_PARCELS_URL + self.city_num_dict[str(self.city)] + '/' + block
             _soup = requests_content(_url)
             print(_url)
@@ -73,8 +73,7 @@ class NJParcels:
 
             addr_lot_zip = [x for x in zip(addr_text, lot_num_text)]
 
-            block_index = block_num.index(block)
-            self.main_dict[self.county][self.city][block_index] = addr_lot_zip
+            self.main_dict[self.county][self.city][i] = addr_lot_zip
 
     def parse_json_url(self, parsed_data):
         # city_num_json = json.load(open('city_nums.json'))
@@ -108,7 +107,7 @@ class NJParcels:
 
 
 if __name__ == '__main__':
-    main = ParseNJParcels(county='Atlantic County')
+    main = NJParcels(county='Atlantic County')
     print(main.get_county_list())
     print(main.get_city_num_list())
     # main.build_main_dict()
