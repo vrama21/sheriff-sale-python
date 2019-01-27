@@ -1,4 +1,3 @@
-
 NJ_PARCELS_URL = 'http://njparcels.com/property/'
 NJ_PARCELS_API = 'http://njparcels.com/api/v1.0/property/'
 SHERIFF_SALES_URL = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=25'
@@ -26,9 +25,11 @@ SUFFIX_ABBREVATIONS = {
 ADDRESS_REGEX_SPLIT = [
     'Argyle',       # (Edge Case)
     'Avenue',
+    'Bay',
     'Boardwalk',
     'Boulevard',
     'Circle',
+    'Condo',        # (Edge Case)
     'Cove',
     'Croft',
     'Court',
@@ -40,7 +41,7 @@ ADDRESS_REGEX_SPLIT = [
     'Pike',
     'Place',
     'Road',
-    'Route',
+    'Route [0-9]+',
     'Run',
     'Square',
     'Street',
@@ -64,6 +65,7 @@ CITY_LIST = [
     'Egg Harbor Township',
     'Elwood',
     'Estell Manor',
+    'Folsom',
     'Galloway Township',
     'Hamilton Township',
     'Hammonton',
@@ -78,8 +80,11 @@ CITY_LIST = [
     'Pleasantville',
     'Pomona',
     'Port Republic',
+    'Richland',
     'Somers Point',
+    'Smithville',
     'Ventnor City',
+    'Vineland',
     'Weymouth',
     'Williamstown'
 ]

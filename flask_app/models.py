@@ -4,7 +4,7 @@ from flask_app import db
 class SheriffSaleDB(db.Model):
 
     id = db.Column('id', db.Integer, primary_key=True)
-    sheriff = db.Column('sheriff', db.String(15), unique=True)
+    sheriff = db.Column('sheriff', db.String(15))
     court_case = db.Column('court_case', db.String(25))
     sale_date = db.Column('sale_date', db.String(12))
     plaintiff = db.Column('plaintiff', db.String(30))
@@ -26,6 +26,7 @@ class SheriffSaleDB(db.Model):
         return f"""SheriffSaleDB(''{self.sale_date}', '{self.judgment}',
         '{self.address_sanitized}', '{self.unit}', '{self.city}', '{self.zip_code}',
         '{self.sheriff}'"""
+
 
 class NJParcelsDB(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
