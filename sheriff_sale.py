@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST
 from datetime import datetime, date
 from pathlib import Path
-from utils import requests_content
+from utils import requests_content, none_to_empty_string
 import json
 import logging
 import os
@@ -163,23 +163,9 @@ class SheriffSale:
         # TODO: Do it only on the last word to avoid instances such as (1614 W Ave)
         # Abbreviates all street suffixes (e.g. Street, Avenue to St and Ave)
         for key, value in SUFFIX_ABBREVATIONS.items():
-           street_match = [re.sub(fr'({key})', value, row) for row in street_match]
+            street_match = [re.sub(fr'({key})', value, row) for row in street_match]
 
-        # Inserts an empty string if there is no unit match
-        for i, unit in enumerate(unit_match):
-            if unit:
-                unit_match[i] = unit[0]
-            else:
-                unit_match[i] = ''
-
-        for i, secondary_unit in enumerate(secondary_unit_match):
-            if secondary_unit:
-                secondary_unit_match[i] = secondary_unit[0]
-            else:
-                secondary_unit_match[i] = ''
-
-        print(street_match)
-        result = list(zip(street_match, unit_match, city_match, zip_match))
+        result = list(zip(street_match, unit_match, secondary_unit_match, city_match, zip_match))
 
         return result
 
@@ -236,6 +222,7 @@ class SheriffSale:
                      'sanitized': {
                          'address': data[2][0],
                          'unit': data[2][1],
+                         'secondary_unit': data[2][2],
                          'city': data[2][2],
                          'zip_code': data[2][3]
                      },

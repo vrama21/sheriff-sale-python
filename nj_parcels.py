@@ -21,14 +21,17 @@ class NJParcels:
         self.main_dict = defaultdict(dict)
 
     def get_county_list(self):
+        """ Returns a list of all the available counties """
         county_list = [x.text for x in self.soup.find_all('h2', class_='countyname')]
         return county_list
 
     def get_city_list(self):
+        """ Returns a list of all the available cities """
         city_list = [x.text for x in self.soup.find_all('span', class_='muniname')]
         return city_list
 
     def get_city_num_list(self):
+        """ Returns a list of the numbers used for each city (E.g. Absecon is 0101) """
         div = self.soup.find('div', class_='col-md-12')
         find_all_nums = [re.findall('\d{4}', x['href']) for x in div.find_all('a', href=True)]
         city_num_list = [x[0] for x in find_all_nums[3:]]
@@ -43,13 +46,13 @@ class NJParcels:
             json.dump(city_num_dict, fp)
 
     def build_block_list(self):
-        soup = requests_content(NJ_PARCELS_URL + self.city_num_dict[str(self.city)])
+        soup = requests_content(f'{NJ_PARCELS_URL}{self.city_num_dict[str(self.city)]}')
 
         table_data = soup.find('table', class_='table')
         block_num_data = table_data.find_all('a', href=True)
         block_num_text = [x.get_text() for x in block_num_data]
 
-        regex = r'(\d+(\.\d*)?)'
+        regex = re.compile(r'(\d+(\.\d*)?)')
         a = re.findall(regex, str(block_num_text))
         block_nums = [x[0] for x in a]
 
@@ -76,7 +79,6 @@ class NJParcels:
             self.main_dict[self.county][self.city][i] = addr_lot_zip
 
     def parse_json_url(self, parsed_data):
-        # city_num_json = json.load(open('city_nums.json'))
         with open('city_nums.json') as json_file:
             json_full = []
             json_prop = []
@@ -109,6 +111,7 @@ class NJParcels:
 if __name__ == '__main__':
     main = NJParcels(county='Atlantic County')
     print(main.get_county_list())
+    print(main.get_city_list())
     print(main.get_city_num_list())
     # main.build_main_dict()
     # main.build_database()
