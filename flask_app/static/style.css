@@ -1,0 +1,33 @@
+body {
+    background: #fafafa;
+    color: #333333;
+}
+
+database-buttons{
+    margin-top: 5;
+}
+/*table {*/
+    /*table-layout: fixed;*/
+    /*width: 100px;*/
+/*}*/
+
+h4 .h4 {
+    margin-left: 5
+}
+nav {
+	background: #a0d3cc;
+	margin: 0;
+}
+
+table-container {
+    background: #DAD6D6;
+}
+
+table-results {
+    margin-left: 5
+}
+input {
+	display:inline-block;
+	vertical-align: middle;
+
+}

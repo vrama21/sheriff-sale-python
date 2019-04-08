@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST
 from datetime import datetime, date
 from pathlib import Path
@@ -169,9 +168,9 @@ class SheriffSale:
 
         return result
 
-    def build_db(self, data, db):
+    def build_db(self, data, model, db):
         for d in data:
-            _sheriff_sale_data = db(
+            _sheriff_sale_data = model(
                 sheriff=d['listing_details']['sheriff'],
                 court_case=d['listing_details']['court_case'],
                 sale_date=d['listing_details']['sale_date'],
@@ -235,6 +234,7 @@ class SheriffSale:
 
     def json_dump(self, data):
         # Check if json_dumps directory exists and create it if it does not exist
+        # TODO: Use pathlib instead
         current_dir = os.path.dirname(os.path.realpath(__file__))
         json_dumps_dir = current_dir + '\json_dumps'
 

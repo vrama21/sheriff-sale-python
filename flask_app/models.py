@@ -1,8 +1,21 @@
+from datetime import datetime
 from flask_app import db
+
+date_created = datetime.today().strftime('%m-%d-%Y')
+
+# class CustomModel(db.Model):
+#     id = db.Column('id', db.Integer, primary_key=True)
+#     # __table__ = SheriffSaleDB
+#     # __mapper_args__ = {
+#     #     'primary_key': [SheriffSaleDB.id]
+#     # }
+#
+#     def __init__(self):
+#         self.date_created = datetime.today().strftime('%m-%d-%Y')
 
 
 class SheriffSaleDB(db.Model):
-
+    __tablename__ = f"Sheriff Sale {date_created}"
     id = db.Column('id', db.Integer, primary_key=True)
     sheriff = db.Column('sheriff', db.String(15))
     court_case = db.Column('court_case', db.String(25))
@@ -19,6 +32,7 @@ class SheriffSaleDB(db.Model):
     # status_history = db.Column('status_history', db.String(100))
     address_sanitized = db.Column('address_sanitized', db.String(30))
     unit = db.Column('unit', db.String(20))
+    secondary_unit = db.Column('secondary_unit', db.String(20))
     city = db.Column('city', db.String(20))
     zip_code = db.Column('zip_code', db.String(5))
 

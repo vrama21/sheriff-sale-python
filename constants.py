@@ -74,6 +74,7 @@ CITY_LIST = [
     'Longport',
     'Margate City',
     'Mays Landing',
+    'Minotola',
     'Mullica Township',
     'Newtonville',
     'Northfield',
