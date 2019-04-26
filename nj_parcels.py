@@ -87,14 +87,14 @@ class NJParcels:
                 for i in parsed_data:
                     city_num = json_file[i[0]]
 
-                    url = NJ_PARCELS_API + f'{city_num}_{i[1]}_{i[3]}.json'
+                    url = f'{NJ_PARCELS_API}{city_num}_{i[1]}_{i[3]}.json'
                     resp = requests.get(url)
                     json_data = resp.json()
                     json_full.append(json_data)
             else:
                 try:
                     city_num = json_file[parsed_data[0][0]]
-                    url = NJ_PARCELS_API + f'{city_num}_{parsed_data[0][1]}_{parsed_data[0][3]}.json'
+                    url = f'{NJ_PARCELS_API}{city_num}_{parsed_data[0][1]}_{parsed_data[0][3]}.json'
                     resp = requests.get(url)
                     json_data = resp.json()
                     json_full.append(json_data)
