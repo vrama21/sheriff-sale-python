@@ -1,12 +1,13 @@
-from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST
-from datetime import datetime, date
-from pathlib import Path
-from utils import requests_content, none_to_empty_string
+import os
 import json
 import logging
-import os
-import requests
 import re
+import requests
+from datetime import datetime, date
+from pathlib import Path
+from utils import requests_content
+
+from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST
 
 
 class SheriffSale:
@@ -28,7 +29,6 @@ class SheriffSale:
         """
         Gathers all of sale dates available in the drop-down form
         """
-
         sale_dates = []
         for select in self.soup.find_all(name='select', attrs={'id': 'PropertyStatusDate'}):
             sale_dates = [option['value']
@@ -80,8 +80,8 @@ class SheriffSale:
 
     def get_all_listing_details_tables(self):
         """
-        Retrieves all table html data from each listings details. Run this once since its running several
-        requests on hundreds of links.
+        Retrieves all table html data from each listings details. Run this once since its running 
+        several requests on hundreds of links.
         """
         sale_links = self.get_sale_links()
         listings_table_data = []
@@ -97,7 +97,6 @@ class SheriffSale:
         Retrives data from each listing's detail page. Returns a list of table data,
         a google maps url, the status history.
         """
-
         listing_details_tables = self.get_all_listing_details_tables()
 
         table_data_html, status_history_html = [], []
@@ -126,7 +125,6 @@ class SheriffSale:
         """
         Returns lists of sanitized address data in the format of (Address, Unit, City, Zip Code)
         """
-
         regex_street = re.compile(
             r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
         regex_city = re.compile(r'(' + '|'.join(CITY_LIST) + ') NJ')
@@ -185,27 +183,27 @@ class SheriffSale:
 
         return result
 
-    def build_db(self, data, model, db):
-        for d in data:
-            _sheriff_sale_data = model(
-                sheriff=d['listing_details']['sheriff'],
-                court_case=d['listing_details']['court_case'],
-                sale_date=d['listing_details']['sale_date'],
-                plaintiff=d['listing_details']['plaintiff'],
-                defendant=d['listing_details']['defendant'],
-                address=d['listing_details']['address'],
-                priors=d['listing_details']['priors'],
-                attorney=d['listing_details']['attorney'],
-                judgment=d['listing_details']['judgment'],
-                deed=d['listing_details']['deed'],
-                deed_address=d['listing_details']['deed_address'],
-                address_sanitized=d['sanitized']['address'],
-                unit=d['sanitized']['unit'],
-                city=d['sanitized']['city'],
-                zip_code=d['sanitized']['zip_code'],
-                maps_href=d['maps_url']
-            )
-            return _sheriff_sale_data
+    # def build_db(self, data, model, db):
+    #     for d in data:
+    #         _sheriff_sale_data = model(
+    #             sheriff=d['listing_details']['sheriff'],
+    #             court_case=d['listing_details']['court_case'],
+    #             sale_date=d['listing_details']['sale_date'],
+    #             plaintiff=d['listing_details']['plaintiff'],
+    #             defendant=d['listing_details']['defendant'],
+    #             address=d['listing_details']['address'],
+    #             priors=d['listing_details']['priors'],
+    #             attorney=d['listing_details']['attorney'],
+    #             judgment=d['listing_details']['judgment'],
+    #             deed=d['listing_details']['deed'],
+    #             deed_address=d['listing_details']['deed_address'],
+    #             address_sanitized=d['sanitized']['address'],
+    #             unit=d['sanitized']['unit'],
+    #             city=d['sanitized']['city'],
+    #             zip_code=d['sanitized']['zip_code'],
+    #             maps_href=d['maps_url']
+    #         )
+    #         return _sheriff_sale_data
 
     def sheriff_sale_dict(self):
         """
@@ -243,8 +241,8 @@ class SheriffSale:
                          'address': data[2][0],
                          'unit': data[2][1],
                          'secondary_unit': data[2][2],
-                         'city': data[2][2],
-                         'zip_code': data[2][3]
+                         'city': data[2][3],
+                         'zip_code': data[2][4]
             },
                 'maps_url': data[3],
                 'status_history': data[4]

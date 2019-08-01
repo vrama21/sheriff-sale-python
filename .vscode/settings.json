@@ -1,3 +1,6 @@
 {
-    "python.pythonPath": "venv\\Scripts\\python.exe"
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "git.ignoreLimitWarning": true,
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
 }

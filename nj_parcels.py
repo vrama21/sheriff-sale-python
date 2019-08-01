@@ -1,8 +1,8 @@
+from collections import defaultdict
 import json
 import re
 import requests
-from collections import defaultdict
-from constants import *
+from constants import NJ_PARCELS_URL, NJ_PARCELS_API
 from utils import requests_content
 
 
@@ -33,17 +33,19 @@ class NJParcels:
     def get_city_num_list(self):
         """ Returns a list of the numbers used for each city (E.g. Absecon is 0101) """
         div = self.soup.find('div', class_='col-md-12')
-        find_all_nums = [re.findall('\d{4}', x['href']) for x in div.find_all('a', href=True)]
+        find_all_nums = [re.findall(r'\d{4}', x['href']) for x in div.find_all('a', href=True)]
         city_num_list = [x[0] for x in find_all_nums[3:]]
         return city_num_list
 
     def write_city_nums_json(self):
+        """ Writes a json file with each city and their respective city number
+        (E.g. Atlantic City: 0102) """
         city_names = self.get_city_list()
         city_nums = self.get_city_num_list()
 
-        with open('city_nums.json', 'w') as fp:
+        with open('city_nums.json', 'w') as file_path:
             city_num_dict = {key: value for (key, value) in zip(city_names, city_nums)}
-            json.dump(city_num_dict, fp)
+            json.dump(city_num_dict, file_path)
 
     def build_block_list(self):
         soup = requests_content(f'{NJ_PARCELS_URL}{self.city_num_dict[str(self.city)]}')
@@ -117,4 +119,3 @@ if __name__ == '__main__':
     # main.build_database()
     # main.build_block_list()
     # main.build_address_list()
-

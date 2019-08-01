@@ -1,7 +1,12 @@
+from pathlib import Path
+
 NJ_PARCELS_URL = 'http://njparcels.com/property/'
 NJ_PARCELS_API = 'http://njparcels.com/api/v1.0/property/'
 SHERIFF_SALES_URL = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=25'
 SHERIFF_SALES_BASE_URL = 'https://salesweb.civilview.com'
+
+BASE_DIR = Path(__file__).resolve().parent
+FLASK_APP_DIR = BASE_DIR.joinpath('flask_app')
 
 SUFFIX_ABBREVATIONS = {
     'Avenue': 'Ave',
