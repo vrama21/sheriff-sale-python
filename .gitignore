@@ -1,5 +1,8 @@
-*.vscode
 *.idea
-*__pycache__
-\venv
-\json_dumps
+*.pylintrc
+*.vscode
+
+__pycache__/
+flask_app/__pycache__/
+venv/
+json_dumps/
