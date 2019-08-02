@@ -1,7 +1,0 @@
-[MESSAGES CONTROL]
-enable=all
-disable=no-self-use,
-wrong-import-order,
-
-[FORMAT]
-max-line-length=240

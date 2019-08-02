@@ -4,5 +4,6 @@
 
 __pycache__/
 flask_app/__pycache__/
-venv/
+
 json_dumps/
+venv/
