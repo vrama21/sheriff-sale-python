@@ -28,7 +28,7 @@ class SheriffSaleDB(db.Model):
     judgment = db.Column('judgment', db.String(20))
     deed = db.Column('deed', db.String(50))
     deed_address = db.Column('deed_address', db.String(30))
-    maps_href = db.Column('maps_href', db.String(100))
+    maps_url = db.Column('maps_href', db.String(100))
     # status_history = db.Column('status_history', db.String(100))
     address_sanitized = db.Column('address_sanitized', db.String(30))
     unit = db.Column('unit', db.String(20))
