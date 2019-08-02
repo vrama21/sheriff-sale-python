@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 *.vscode
 *.idea
 *__pycache__
-=======
-venv
->>>>>>> master1
+\venv
+\json_dumps
