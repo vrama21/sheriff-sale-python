@@ -1,7 +1,21 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-container {
+    width: 50%;
+}
+
 body {
     background: #fafafa;
     color: #333333;
 }
+
+header {
+    background: #a0d3cc;
+}
+
 
 database-buttons{
     margin-top: 5;
@@ -14,9 +28,10 @@ database-buttons{
 h4 .h4 {
     margin-left: 5
 }
+
 nav {
-	background: #a0d3cc;
-	margin: 0;
+    background: #a0d3cc;
+    width: 1000px;
 }
 
 table-container {
@@ -26,8 +41,8 @@ table-container {
 table-results {
     margin-left: 5
 }
+
 input {
 	display:inline-block;
 	vertical-align: middle;
-
 }
