@@ -149,6 +149,7 @@ class SheriffSale:
                 row) for row in address_data]
             for i, street in enumerate(street_match_check):
                 if not street:
+                    # TODO: Log this
                     print('Street Error:', address_data[i])
 
         try:
@@ -159,6 +160,7 @@ class SheriffSale:
                 row) for row in address_data]
             for i, city in enumerate(city_match_check):
                 if not city:
+                    # TODO: Log this
                     print('City Error:', address_data[i])
 
         unit_match = [re.search(regex_unit, row) for row in address_data]

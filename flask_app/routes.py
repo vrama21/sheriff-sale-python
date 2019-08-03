@@ -24,15 +24,8 @@ def home():
     return render_template('home.html', form=form, db_mod_date=db_mod_date)
 
 
-@app.route("/database")
-def update_database():
-    form = SaleDateForm()
-
-    return render_template('update_database.html', form=form)
-
-
+# TODO: Remove app.route and have it as a function. Needs relocation
 # @app.route("/update_database")
-# TODO: Remove app.route and have it as a function
 def build_database():
     form = SaleDateForm()
 
@@ -78,4 +71,4 @@ def table_data(selected_date):
 
     return render_template('table_data.html',
                            sheriff_sale_data=selected_data,
-                           form=form, results=total_results)
+                           form=form, results=results)

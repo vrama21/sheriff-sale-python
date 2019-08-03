@@ -12,7 +12,6 @@ function move() {
     }
 }
 
-// TODO: Requires AJAX -- Need to understand further
 function UpdateDatabase() {
     const submit = document.getElementById("updateDatabase");
     const updateFunction = $.ajax({
