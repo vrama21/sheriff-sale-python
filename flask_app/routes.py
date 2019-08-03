@@ -19,7 +19,7 @@ def home():
     db_mod_date = time.ctime(os.path.getmtime(db_path))
 
     if request.method == 'POST':
-        return redirect(url_for('table_data', selected_date=form.sale_dates.data))
+        return redirect(url_for('table_data', selected_date=form.sale_date.data))
 
     return render_template('home.html', form=form, db_mod_date=db_mod_date)
 
@@ -31,7 +31,8 @@ def update_database():
     return render_template('update_database.html', form=form)
 
 
-@app.route("/update_database")
+# @app.route("/update_database")
+# TODO: Remove app.route and have it as a function
 def build_database():
     form = SaleDateForm()
 
@@ -69,13 +70,12 @@ def table_data(selected_date):
     # Convert date to url format
     date = quote(selected_date)
 
-    # selected_data = SheriffSaleDB.query.filter_by(sale_date=date).all()
-    # results = SheriffSaleDB.query.filter_by(sale_date=date).count()
+    selected_data = SheriffSaleDB.query.filter_by(sale_date=date).all()
+    results = SheriffSaleDB.query.filter_by(sale_date=date).count()
 
-    json_dumps_dir = BASE_DIR.joinpaths('json_dumps\\01_17_2019.json')
-    selected_data = json.loads(json_dumps_dir)
-    total_results = len(selected_data)
+    # json_dumps_dir = BASE_DIR.joinpaths('json_dumps\\01_17_2019.json')
+    # selected_data = json.loads(json_dumps_dir)
+
     return render_template('table_data.html',
                            sheriff_sale_data=selected_data,
                            form=form, results=total_results)
-

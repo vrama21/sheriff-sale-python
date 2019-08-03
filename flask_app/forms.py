@@ -7,5 +7,5 @@ SHERIFF_SALE_DATES = [(x.replace('/', '-'), x) for x in sheriff_sale.get_sale_da
 
 
 class SaleDateForm(FlaskForm):
-    sale_dates = SelectField(label='Select a Date', choices=SHERIFF_SALE_DATES)
-    submit = SubmitField('Submit')
+    sale_date = SelectField(label='Select a Date', choices=SHERIFF_SALE_DATES)
+    submit = SubmitField(label='Submit')

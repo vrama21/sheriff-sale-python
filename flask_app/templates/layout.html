@@ -8,28 +8,29 @@
 
     <title>Sheriff Sale App</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" href="{{ url_for('static', filename='main.js') }}"></script>
 </head>
 
 <body>
     <header>
         <div class="header-container">
             <h1>Sheriff Sale</h1>
-            <ul class="">
-                <li class="">
-                    <a class="" href="/">Home <span class="">(current)</span></a>
-                </li>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
             </ul>
-            <div class="date-form">
-                <form action="" method="POST" name="sale_dates">
-                    {{ form.sale_dates.label }}
-                    {{ form.sale_dates }}
-                    {{ form.submit(class_ = "btn btn-primary") }}
+            <div class="sale-date-form">
+                <form action="" method="POST">
+                    {{ form.sale_date.label }}
+                    {{ form.sale_date }}
+                    {{ form.submit(class_ = "submit") }}
                 </form>
             </div>
         </div>
     </header>
 
-    <main role="main" class="main-container">
+    <main class="main-container">
+
+
         {% block content %}{% endblock %}
     </main>
 

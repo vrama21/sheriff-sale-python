@@ -1,15 +1,66 @@
+/* Header */
 .header-container {
     display: flex;
     justify-content: space-between;
+    max-width: 1264px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: center;
 }
 
-.main-container {
-    width: 50%;
+/* Navbar */
+.navbar {
+    /* align-self: flex-start; */
 }
+
+ul.navbar li {
+    display: inline;
+    font-size: 16px;
+}
+
+ul.navbar li+li:before {
+    padding: 10px;
+    content: "\007c"
+}
+
+ul.navbar li a {
+    text-decoration: none;
+}
+/* Sale Date */
+
+.sale-date-form {
+    display: flex;
+}
+
+#sale_date {
+    font-family: 'Arial';
+    font-size: 18px;
+    height: 100%;
+    width: auto;
+}
+
+.submit {
+    height: 100%;
+}
+
+form.sale_date {
+    height: 30px;
+}
+
+
+.main-container {
+    max-width: 1264px;;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
 
 body {
     background: #fafafa;
     color: #333333;
+    margin: 0 auto;
+    font-family: 'Arial', 'Helvetica Neue', 'Helvetica', 'sans-serif', 'Ubuntu';
 }
 
 header {
