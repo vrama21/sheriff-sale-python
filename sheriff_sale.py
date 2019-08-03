@@ -1,4 +1,3 @@
-import os
 import json
 import logging
 import re
@@ -7,7 +6,7 @@ from datetime import datetime, date
 from pathlib import Path
 from utils import requests_content
 
-from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST
+from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST, BASE_DIR
 
 
 class SheriffSale:
@@ -251,18 +250,16 @@ class SheriffSale:
 
         return list_dicts
 
-    def json_dump(self, data):
+    def json_dumps(self, data):
         # Check if json_dumps directory exists and create it if it does not exist
-        # TODO: Use pathlib instead
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        json_dumps_dir = f'{current_dir}\\json_dumps'
+        json_dumps_dir = BASE_DIR.joinpath('json_dumps')
 
-        if not os.path.exists(json_dumps_dir):
-            os.makedirs(json_dumps_dir)
+        if not json_dumps_dir.exists():
+            json_dumps_dir.mkdir()
 
         # Create a json dump using the current date as the file name
         todays_date = date.today().strftime('%m_%d_%Y')
-        json_dumps_path = Path(f"{json_dumps_dir}\\{todays_date}.json")
+        json_dumps_path = Path(json_dumps_dir.joinpath(f'{todays_date}.json'))
 
         if not json_dumps_path.exists():
             with open(f'{json_dumps_path}', 'w') as f:
