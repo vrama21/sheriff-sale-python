@@ -24,36 +24,39 @@ def home():
     return render_template('home.html', form=form, db_mod_date=db_mod_date)
 
 
-# TODO: Remove app.route and have it as a function. Needs relocation
-# @app.route("/update_database")
+@app.route("/update_database", methods=['POST'])
 def build_database():
-    form = SaleDateForm()
-
     # if not SheriffSaleDB.exists():
-    sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
-    for d in sheriff_sale_data:
-        _sheriff_sale_data = SheriffSaleDB(
-            sheriff=d['listing_details']['sheriff'],
-            court_case=d['listing_details']['court_case'],
-            sale_date=d['listing_details']['sale_date'],
-            plaintiff=d['listing_details']['plaintiff'],
-            defendant=d['listing_details']['defendant'],
-            address=d['listing_details']['address'],
-            priors=d['listing_details']['priors'],
-            attorney=d['listing_details']['attorney'],
-            judgment=d['listing_details']['judgment'],
-            deed=d['listing_details']['deed'],
-            deed_address=d['listing_details']['deed_address'],
-            address_sanitized=d['sanitized']['address'],
-            unit=d['sanitized']['unit'],
-            city=d['sanitized']['city'],
-            zip_code=d['sanitized']['zip_code'],
-            maps_href=d['maps_url']
-        )
-        db.session.add(_sheriff_sale_data)
-        db.session.commit()
 
-    return render_template('home.html', form=form)
+    if request.method == 'POST':
+
+        sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
+        for row in sheriff_sale_data:
+            _sheriff_sale_data = SheriffSaleDB(
+                sheriff=row['listing_details']['sheriff'],
+                court_case=row['listing_details']['court_case'],
+                sale_date=row['listing_details']['sale_date'],
+                plaintiff=row['listing_details']['plaintiff'],
+                defendant=row['listing_details']['defendant'],
+                address=row['listing_details']['address'],
+                priors=row['listing_details']['priors'],
+                attorney=row['listing_details']['attorney'],
+                judgment=row['listing_details']['judgment'],
+                deed=row['listing_details']['deed'],
+                deed_address=row['listing_details']['deed_address'],
+                address_sanitized=row['sanitized']['address'],
+                unit=row['sanitized']['unit'],
+                city=row['sanitized']['city'],
+                zip_code=row['sanitized']['zip_code'],
+                maps_href=row['maps_url']
+            )
+            db.session.add(_sheriff_sale_data)
+            db.session.commit()
+
+        return render_template("home.html")
+
+    else:
+        return render_template("home.html")
 
 
 @app.route("/table_data/<selected_date>", methods=['GET', 'POST'])

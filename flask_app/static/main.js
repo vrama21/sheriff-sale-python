@@ -1,22 +1,32 @@
-function move() {
-    var elem = document.getElementById("myBar");
-    var width = 1;
-    var id = setInterval(frame, 10);
-    function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-        } else {
-            width++;
-            elem.style.width = width + '%';
-        }
-    }
-}
+// function move() {
+//     var elem = document.getElementById("myBar");
+//     var width = 1;
+//     var id = setInterval(frame, 10);
 
-function UpdateDatabase() {
-    const submit = document.getElementById("updateDatabase");
-    const updateFunction = $.ajax({
-        type: "POST",
-        url: "../routes.py"
-        // data: ""
-    })
-}
+//     function frame() {
+//         if (width >= 100) {
+//             clearInterval(id);
+//         } else {
+//             width++;
+//             elem.style.width = width + '%';
+//         }
+//     }
+// }
+
+$(document).ready(function() {
+    $("#update-database").click(function () {
+        $.ajax({
+            method: "POST",
+            url: "/update_database",
+            async: "asynchronous",
+            datatype: "json",
+            success: function (data) {
+                console.log(JSON.stringify(data))
+            },
+            error: function(request, status, error) {
+                console.log("Error: " + error)
+            }
+        })
+    });
+});
+
