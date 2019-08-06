@@ -4,7 +4,7 @@ import re
 import requests
 from datetime import datetime, date
 from pathlib import Path
-from utils import requests_content
+from utils import requests_content, none_to_empty_string
 
 from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST, BASE_DIR
 
@@ -127,7 +127,7 @@ class SheriffSale:
         regex_street = re.compile(
             r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
         regex_city = re.compile(r'(' + '|'.join(CITY_LIST) + ') NJ')
-        regex_unit = re.compile(r'(Unit|Apt.) ([0-9A-Za-z-]+)')
+        regex_unit = re.compile(r'(Unit|Apt).([0-9A-Za-z-]+)')
         regex_secondary_unit = re.compile(
             r'(Building|Estate) #?([0-9a-zA-Z]+)')
         regex_zip_code = re.compile(r'\d{5}')
@@ -162,10 +162,30 @@ class SheriffSale:
                 if not city:
                     # TODO: Log this
                     print('City Error:', address_data[i])
+        
+        # TODO: Some Major Cleanup required for this function
+        unit_match = []
+        for row in address_data:
+            _unit_match = re.search(regex_unit, row)
+            if _unit_match is None:
+                unit_match.append("")
+            else:
+                unit_match.append(_unit_match.group(0))
 
-        unit_match = [re.search(regex_unit, row) for row in address_data]
-        secondary_unit_match = [
-            re.search(regex_secondary_unit, row) for row in address_data]
+        secondary_unit_match = []
+        for row in address_data:
+            _secondary_unit_match = re.search(regex_secondary_unit, row)
+            if _secondary_unit_match is None:
+                secondary_unit_match.append("")
+            else:
+                secondary_unit_match.append(_secondary_unit_match.group(0))
+
+        print(unit_match)
+        print(secondary_unit_match)
+
+        # secondary_unit_match = [
+        #     re.search(regex_secondary_unit, row) for row in address_data]
+
         zip_match = [re.search(regex_zip_code, row).group(0)
                      for row in address_data]
 
@@ -183,28 +203,6 @@ class SheriffSale:
                           ))
 
         return result
-
-    # def build_db(self, data, model, db):
-    #     for d in data:
-    #         _sheriff_sale_data = model(
-    #             sheriff=d['listing_details']['sheriff'],
-    #             court_case=d['listing_details']['court_case'],
-    #             sale_date=d['listing_details']['sale_date'],
-    #             plaintiff=d['listing_details']['plaintiff'],
-    #             defendant=d['listing_details']['defendant'],
-    #             address=d['listing_details']['address'],
-    #             priors=d['listing_details']['priors'],
-    #             attorney=d['listing_details']['attorney'],
-    #             judgment=d['listing_details']['judgment'],
-    #             deed=d['listing_details']['deed'],
-    #             deed_address=d['listing_details']['deed_address'],
-    #             address_sanitized=d['sanitized']['address'],
-    #             unit=d['sanitized']['unit'],
-    #             city=d['sanitized']['city'],
-    #             zip_code=d['sanitized']['zip_code'],
-    #             maps_href=d['maps_url']
-    #         )
-    #         return _sheriff_sale_data
 
     def sheriff_sale_dict(self):
         """

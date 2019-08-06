@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_app import db
 
-date_created = datetime.today().strftime('%m-%d-%Y')
+# update_time = datetime.today().strftime('%m-%d-%Y')
 
 # class CustomModel(db.Model):
 #     id = db.Column('id', db.Integer, primary_key=True)
@@ -15,7 +15,7 @@ date_created = datetime.today().strftime('%m-%d-%Y')
 
 
 class SheriffSaleDB(db.Model):
-    __tablename__ = f"Sheriff Sale {date_created}"
+    __tablename__ = "Sheriff Sale"
     id = db.Column('id', db.Integer, primary_key=True)
     sheriff = db.Column('sheriff', db.String(15))
     court_case = db.Column('court_case', db.String(25))
@@ -28,7 +28,7 @@ class SheriffSaleDB(db.Model):
     judgment = db.Column('judgment', db.String(20))
     deed = db.Column('deed', db.String(50))
     deed_address = db.Column('deed_address', db.String(30))
-    maps_url = db.Column('maps_href', db.String(100))
+    maps_url = db.Column('maps_url', db.String(100))
     # status_history = db.Column('status_history', db.String(100))
     address_sanitized = db.Column('address_sanitized', db.String(30))
     unit = db.Column('unit', db.String(20))

@@ -58,11 +58,13 @@ ADDRESS_REGEX_SPLIT = [
 
 CITY_LIST = [
     'Absecon',
+    'Atlanic City',     # Edge Case
     'Atlantic City',
     'Brigantine',
     'Buena',
     'Buena Boro',
     'Buena Borough',
+    'Buena Vista',
     'Buena Vista Township',
     'Corbin City',
     'Dorothy',
@@ -92,6 +94,7 @@ CITY_LIST = [
     'Ventnor City',
     'Vineland',
     'Weymouth',
+    'Weymouth Township',
     'Williamstown'
 ]
 

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Sheriff Sale App</title>
-    
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -28,9 +28,8 @@
             </ul>
             <div class="sale-date-form">
                 <form action="" method="POST">
-                    {{ form.sale_date.label }}
                     {{ form.sale_date }}
-                    {{ form.submit(class_ = "submit") }}
+                    {{ form.submit(class_ = "btn btn-primary") }}
                 </form>
             </div>
         </div>

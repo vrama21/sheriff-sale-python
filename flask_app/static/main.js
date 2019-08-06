@@ -19,14 +19,20 @@ $(document).ready(function() {
             method: "POST",
             url: "/update_database",
             async: "asynchronous",
-            datatype: "json",
-            success: function (data) {
-                console.log(JSON.stringify(data))
+            success: function () {
+                console.log("Database Update - SUCCESS")
             },
             error: function(request, status, error) {
                 console.log("Error: " + error)
             }
         })
     });
+
+    // Disables the "Select a Date:"" option in the select field
+    $("#sale-date-select-field option:first-child").attr("disabled", true);
+
+    // $("#update-database").click(function () {
+    //     document.location.href
+    // })
 });
 
