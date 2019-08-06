@@ -127,7 +127,13 @@ class SheriffSale:
         for status in status_history_html:
             status_history.append([x.text for x in status.find_all('td')])
 
-        return table_data, maps_url, status_history
+        table_dict = {
+            'table_data': table_data,
+            'maps_url': maps_url,
+            'status_history': status_history
+        }
+
+        return table_dict
 
     def sanitize_address_data(self):
         """
@@ -189,12 +195,6 @@ class SheriffSale:
             else:
                 secondary_unit_match.append(_secondary_unit_match.group(0))
 
-        print(unit_match)
-        print(secondary_unit_match)
-
-        # secondary_unit_match = [
-        #     re.search(regex_secondary_unit, row) for row in address_data]
-
         zip_match = [re.search(regex_zip_code, row).group(0)
                      for row in address_data]
 
@@ -224,10 +224,10 @@ class SheriffSale:
         sanitized_table_data = self.sanitize_address_data()
 
         zipped = list(zip(property_id,
-                          [x for x in table_data[0]],
+                          [x for x in table_data['table_data']],
                           sanitized_table_data,
-                          table_data[1],
-                          table_data[2]
+                          table_data['maps_url'],
+                          table_data['status_history']
                           ))
 
         list_dicts = []
