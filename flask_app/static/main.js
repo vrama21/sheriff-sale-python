@@ -28,9 +28,6 @@ $(document).ready(function() {
         })
     });
 
-    // Disables the "Select a Date:"" option in the select field
-    $("#sale-date-select-field option:first-child").attr("disabled", true);
-
     // $("#update-database").click(function () {
     //     document.location.href
     // })

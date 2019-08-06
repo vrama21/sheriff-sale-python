@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
-        <button type="submit" class="btn btn-primary" id="update-database">Update Database</button>
+<div>
+    <a type="submit" class="btn btn-primary" id="update-database" href="{{ url_for('update_database') }}">Update
+        Database</a>
         Database Last Updated On: {{ db_mod_date }}
-    </div>
+</div>
 {% endblock content %}

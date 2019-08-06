@@ -4,7 +4,9 @@ import re
 import requests
 from datetime import datetime, date
 from pathlib import Path
+from urllib.parse import quote
 from utils import requests_content, none_to_empty_string
+
 
 from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST, BASE_DIR
 
@@ -32,6 +34,8 @@ class SheriffSale:
         for select in self.soup.find_all(name='select', attrs={'id': 'PropertyStatusDate'}):
             sale_dates = [option['value']
                           for option in select.find_all(name='option')[1:]]
+
+        sale_dates = [x.replace('/', '-') for x in sale_dates]
 
         return sale_dates
 
@@ -114,6 +118,11 @@ class SheriffSale:
             for link in table.find_all('a', href=True):
                 maps_url.append(link['href'])
 
+        # Converts the sale_date data from '1/1/2019' to '1-1-2019'
+        regex_sale_date = re.compile(r'(?![0-9]+)(\/)')
+        for listing in table_data:
+            listing[2] = re.sub(regex_sale_date, '-', listing[2])
+
         # Grabs the status history for each address
         for status in status_history_html:
             status_history.append([x.text for x in status.find_all('td')])
@@ -162,7 +171,7 @@ class SheriffSale:
                 if not city:
                     # TODO: Log this
                     print('City Error:', address_data[i])
-        
+
         # TODO: Some Major Cleanup required for this function
         unit_match = []
         for row in address_data:
@@ -204,6 +213,7 @@ class SheriffSale:
 
         return result
 
+    # TODO: Convert sale_date from ('mm/dd/yyyy') to ('mm-dd-yyyy')
     def sheriff_sale_dict(self):
         """
         Structures all sheriff sale data in a list of dictionaries
@@ -226,7 +236,7 @@ class SheriffSale:
                      'listing_details': {
                          'sheriff': data[1][0],
                          'court_case': data[1][1],
-                         'sale_date': datetime.strptime(data[1][2], '%m/%d/%Y').strftime('%m/%d/%Y'),
+                         'sale_date': datetime.strptime(data[1][2], '%m-%d-%Y').strftime('%m-%d-%Y'),
                          'plaintiff': data[1][3],
                          'defendant': data[1][4],
                          'address': data[1][5],
@@ -271,3 +281,5 @@ class SheriffSale:
 if __name__ == "__main__":
     SHERIFF = SheriffSale()
     a = SHERIFF.sheriff_sale_dict()
+    # b = SHERIFF.get_table_data()
+    print(a)

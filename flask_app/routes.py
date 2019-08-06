@@ -8,7 +8,7 @@ from constants import BASE_DIR, FLASK_APP_DIR
 import json
 import os
 import time
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -66,14 +66,11 @@ def update_database(methods=['POST']):
 def table_data(selected_date):
     form = SaleDateForm()
 
-    # Convert date to url format
-    date = quote(selected_date)
+    selected_data = SheriffSaleDB.query.filter_by(sale_date=selected_date).all()
+    results = SheriffSaleDB.query.filter_by(sale_date=selected_date).count()
 
-    selected_data = SheriffSaleDB.query.filter_by(sale_date=date).all()
-    results = SheriffSaleDB.query.filter_by(sale_date=date).count()
-
-    # json_dumps_dir = BASE_DIR.joinpaths('json_dumps\\01_17_2019.json')
-    # selected_data = json.loads(json_dumps_dir)
+    if request.method == 'POST':
+        return redirect(url_for('table_data', selected_date=form.sale_date.data))
 
     return render_template('table_data.html',
                            sheriff_sale_data=selected_data,

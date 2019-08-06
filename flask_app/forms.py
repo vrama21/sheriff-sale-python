@@ -3,12 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import SelectField, SubmitField
 from wtforms.validators import DataRequired
 
-SHERIFF_SALE_DATES = [(x.replace('/', '-'), x) for x in sheriff_sale.get_sale_dates()]
-SHERIFF_SALE_DATES.insert(0, (" ", "Select a Date:"))
-
-# SHERIFF_SALE_DATES = {'choices': [(x.replace('/', '-'), x) for x in sheriff_sale.get_sale_dates()]
-#                       'id': [enumerate(x) for x in ]
-#                       }
+SHERIFF_SALE_DATES = [(x, x) for x in sheriff_sale.get_sale_dates()]
 
 
 class SaleDateForm(FlaskForm):
