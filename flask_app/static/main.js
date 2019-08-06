@@ -28,8 +28,8 @@ $(document).ready(function() {
         })
     });
 
-    // $("#update-database").click(function () {
-    //     document.location.href
-    // })
+    $("#update-database").click(function () {
+        $(".progress-bar-container").css("display", "block")
+    });
 });
 
