@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def requests_content(url, session=None):
-    """ Creates a an html request session and returns the beautifulsoup parse"""
+    """ Creates a an html request session and returns the BeautifulSoup parse"""
     s = session
     while session:
         response = s.get(url)

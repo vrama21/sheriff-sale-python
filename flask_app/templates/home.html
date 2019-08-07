@@ -1,16 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 <div>
+    <a type="submit" class="btn btn-primary" id="check-for-update" href="{{ url_for('check_for_update') }}"></a>
     <a type="submit" class="btn btn-primary" id="update-database" href="{{ url_for('update_database') }}">Update
         Database</a>
     Database Last Updated On: {{ db_mod_date }}
 </div>
-<div class="progress-bar-container">
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0"
-            aria-valuemax="100">
-            40%
-        </div>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+        aria-valuemax="100">
+        40%
     </div>
 </div>
 {% endblock content %}

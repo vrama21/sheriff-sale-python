@@ -25,7 +25,8 @@ class SheriffSale:
 
         self.session = requests.Session()
         self.soup = requests_content(SHERIFF_SALES_URL, self.session)
-
+        self.table_div = self.soup.find('table', class_ = 'table table-striped ')
+        
     def get_sale_dates(self):
         """
         Gathers all of sale dates available in the drop-down form
@@ -45,7 +46,7 @@ class SheriffSale:
         in the form of "https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=563667001"
         """
         sale_links = []
-        for row in self.soup.find_all('tr')[1:]:
+        for row in self.soup.find_all('td', attrs={'class': 'hidden-print'}):
             for link in row.find_all('a', href=True):
                 sale_links.append(SHERIFF_SALES_BASE_URL + link['href'])
 
@@ -66,14 +67,16 @@ class SheriffSale:
         Gathers all the sheriff id's from the table_data
         'F-18001491'
         """
+        
         sheriff_ids = []
-        for row in self.soup.find_all('tr')[1:]:
+        for row in self.table_div.find_all('tr')[1:]:
             sheriff_ids.append(row.find_all('td')[1].text)
 
         return sheriff_ids
 
     def get_address_data(self):
         """Gathers all of the address data for each listing"""
+
         address_data = []
         for row in self.soup.find_all('tr')[1:]:
             for td in row.find_all('td')[5::5]:
@@ -280,6 +283,6 @@ class SheriffSale:
 
 if __name__ == "__main__":
     SHERIFF = SheriffSale()
-    a = SHERIFF.sheriff_sale_dict()
-    # b = SHERIFF.get_table_data()
-    print(a)
+    # a = SHERIFF.sheriff_sale_dict()
+    b = SHERIFF.get_sale_links()
+    print(b)

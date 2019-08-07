@@ -24,11 +24,16 @@ def home():
     return render_template('home.html', form=form, db_mod_date=db_mod_date)
 
 
+@app.route("/check_for_update")
+def check_for_update(methods=["POST"]):
+    sheriff_ids = sheriff_sale.get_sheriff_ids()    
+    db_sheriff_ids = SheriffSaleDB.query.filter_by(sheriff=sheriff_ids)
+    print(sheriff_ids)
+    print(db_sheriff_ids)
+
+
 @app.route("/update_database")
 def update_database(methods=['POST']):
-    # if not SheriffSaleDB.exists():
-
-    print('updating database............')
     # if request.method == 'POST':
 
     sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
