@@ -6,8 +6,6 @@ from datetime import datetime, date
 from pathlib import Path
 from urllib.parse import quote
 from utils import requests_content, none_to_empty_string
-
-
 from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST, BASE_DIR
 
 
@@ -25,7 +23,7 @@ class SheriffSale:
 
         self.session = requests.Session()
         self.soup = requests_content(SHERIFF_SALES_URL, self.session)
-        self.table_div = self.soup.find('table', class_ = 'table table-striped ')
+        self.table_div = self.soup.find('div', class_='table-responsive')
         
     def get_sale_dates(self):
         """
@@ -284,5 +282,5 @@ class SheriffSale:
 if __name__ == "__main__":
     SHERIFF = SheriffSale()
     # a = SHERIFF.sheriff_sale_dict()
-    b = SHERIFF.get_sale_links()
+    b = SHERIFF.get_sheriff_ids()
     print(b)

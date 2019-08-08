@@ -40,12 +40,10 @@ class NJParcels:
     def write_city_nums_json(self):
         """ Writes a json file with each city and their respective city number
         (E.g. Atlantic City: 0102) """
-        city_names = self.get_city_list()
-        city_nums = self.get_city_num_list()
 
-        with open('city_nums.json', 'w') as file_path:
-            city_num_dict = {key: value for (key, value) in zip(city_names, city_nums)}
-            json.dump(city_num_dict, file_path)
+        # with open('city_nums.json', 'w') as file_path:
+        #     city_num_dict = {county: {city: num} for (county, city, num) in zip(county_names, city_names, city_nums)}
+        #     json.dump(city_num_dict, file_path)
 
     def build_block_list(self):
         soup = requests_content(f'{NJ_PARCELS_URL}{self.city_num_dict[str(self.city)]}')
@@ -112,9 +110,10 @@ class NJParcels:
 
 if __name__ == '__main__':
     main = NJParcels(county='Atlantic County')
-    print(main.get_county_list())
-    print(main.get_city_list())
-    print(main.get_city_num_list())
+    main.write_city_nums_json()
+    # print(main.get_county_list())
+    # print(main.get_city_list())
+    # print(main.get_city_num_list())
     # main.build_main_dict()
     # main.build_database()
     # main.build_block_list()

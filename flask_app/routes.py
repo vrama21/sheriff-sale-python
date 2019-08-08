@@ -77,7 +77,7 @@ def table_data(selected_date):
     results = SheriffSaleDB.query.filter_by(sale_date=selected_date).count()
 
     if request.method == 'POST':
-        return redirect(url_for('table_data', selected_date=form.sale_date.data))
+        return redirect(url_for('table_data', selected_date=selected_date))
 
     return render_template('table_data.html',
                            sheriff_sale_data=selected_data,

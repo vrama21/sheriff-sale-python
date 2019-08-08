@@ -15,8 +15,9 @@
 </div>
 <hr />
 <div class="sale-date-form">
+    <span id="filter-span">Filters:</span>
+    <button id="filter-clear" class="btn btn-primary">Clear</button>
     <form action="" method="POST">
-        <span id="filters-span">Filters:</span>
         <div class="filter-container">
             <div>
                 County:
@@ -31,7 +32,7 @@
             {{ form.city }}
             {{ form.sale_date }}
         </div>
-        {{ form.submit(class_ = "btn btn-primary") }}
+        {{ form.search(class_ = "btn btn-primary") }}
     </form>
 </div>
 {% endblock content %}

@@ -13,6 +13,14 @@
 //     }
 // }
 
+clearFilters = function() {
+    selectTags = document.getElementsByTagName("select");
+
+    for (var i = 0; i < selectTags.length; i++) {
+        selectTags[i].selectedIndex = 0;
+    }
+}
+
 $(document).ready(function() {
     $("#update-database").click(function () {
         $.ajax({
@@ -31,5 +39,7 @@ $(document).ready(function() {
     $("#update-database").click(function () {
         $(".progress-bar-container").css("display", "block")
     });
+    
+    $("#filter-clear").click(clearFilters)
 });
 
