@@ -1,11 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="table-results">
-    <h4>
-        <small>
-            There are a total of {{ results }} results.
-        </small>
-    </h4>
+    <!-- <h5> -->
+    There are a total of {{ results }} results.
+    <!-- </h5> -->
 </div>
 <div class="grid-container">
     <div class="grid-header">Address</div>
@@ -16,7 +14,11 @@
 
     {% for data in sheriff_sale_data %}
     <div class="grid-item">
-        {{ data.address_sanitized }}
+        <a href={{ data.maps_url }} target="_blank">
+            {{ data.address_sanitized }}
+            <br>{{ data.unit }}
+            <br>{{ data.secondary_unit }}
+        </a>
     </div>
     <div class="grid-item">
         {{ data.city }}
@@ -24,7 +26,7 @@
     <div class="grid-item">
         {{ data.sale_date}}
     </div>
-    <div class="grid-item">
+    <div class="grid-item grid-item-priors">
         {{ data.priors }}
     </div>
     <div class="grid-item">

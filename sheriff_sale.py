@@ -6,7 +6,14 @@ from datetime import datetime, date
 from pathlib import Path
 from urllib.parse import quote
 from utils import requests_content, none_to_empty_string
-from constants import SHERIFF_SALES_URL, SHERIFF_SALES_BASE_URL, SUFFIX_ABBREVATIONS, ADDRESS_REGEX_SPLIT, CITY_LIST, BASE_DIR
+from constants import (
+    SHERIFF_SALES_URL,
+    SHERIFF_SALES_BASE_URL,
+    SUFFIX_ABBREVATIONS,
+    ADDRESS_REGEX_SPLIT,
+    CITY_LIST,
+    BASE_DIR,
+)
 
 
 class SheriffSale:
@@ -23,18 +30,21 @@ class SheriffSale:
 
         self.session = requests.Session()
         self.soup = requests_content(SHERIFF_SALES_URL, self.session)
-        self.table_div = self.soup.find('div', class_='table-responsive')
-        
+        self.table_div = self.soup.find("div", class_="table-responsive")
+
     def get_sale_dates(self):
         """
         Gathers all of sale dates available in the drop-down form
         """
         sale_dates = []
-        for select in self.soup.find_all(name='select', attrs={'id': 'PropertyStatusDate'}):
-            sale_dates = [option['value']
-                          for option in select.find_all(name='option')[1:]]
+        for select in self.soup.find_all(
+            name="select", attrs={"id": "PropertyStatusDate"}
+        ):
+            sale_dates = [
+                option["value"] for option in select.find_all(name="option")[1:]
+            ]
 
-        sale_dates = [x.replace('/', '-') for x in sale_dates]
+        sale_dates = [x.replace("/", "-") for x in sale_dates]
 
         return sale_dates
 
@@ -44,9 +54,9 @@ class SheriffSale:
         in the form of "https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=563667001"
         """
         sale_links = []
-        for row in self.soup.find_all('td', attrs={'class': 'hidden-print'}):
-            for link in row.find_all('a', href=True):
-                sale_links.append(SHERIFF_SALES_BASE_URL + link['href'])
+        for row in self.soup.find_all("td", attrs={"class": "hidden-print"}):
+            for link in row.find_all("a", href=True):
+                sale_links.append(SHERIFF_SALES_BASE_URL + link["href"])
 
         return sale_links
 
@@ -56,7 +66,7 @@ class SheriffSale:
         E.g. '563663246' from "/Sales/SaleDetails?PropertyId=563663246"
         """
         sale_links = self.get_sale_links()
-        property_id = [re.findall(r'\d{9}', x)[0] for x in sale_links]
+        property_id = [re.findall(r"\d{9}", x)[0] for x in sale_links]
 
         return property_id
 
@@ -65,10 +75,10 @@ class SheriffSale:
         Gathers all the sheriff id's from the table_data
         'F-18001491'
         """
-        
+
         sheriff_ids = []
-        for row in self.table_div.find_all('tr')[1:]:
-            sheriff_ids.append(row.find_all('td')[1].text)
+        for row in self.table_div.find_all("tr")[1:]:
+            sheriff_ids.append(row.find_all("td")[1].text)
 
         return sheriff_ids
 
@@ -76,8 +86,8 @@ class SheriffSale:
         """Gathers all of the address data for each listing"""
 
         address_data = []
-        for row in self.soup.find_all('tr')[1:]:
-            for td in row.find_all('td')[5::5]:
+        for row in self.soup.find_all("tr")[1:]:
+            for td in row.find_all("td")[5::5]:
                 address_data.append(td.text)
 
         return address_data
@@ -91,8 +101,7 @@ class SheriffSale:
         listings_table_data = []
         for links in sale_links:
             html = requests_content(links, self.session)
-            listings_table_data.append(
-                html.find('div', class_='table-responsive'))
+            listings_table_data.append(html.find("div", class_="table-responsive"))
 
         return listings_table_data
 
@@ -108,30 +117,30 @@ class SheriffSale:
 
         # Grabs all of the html for table data and status history
         for listing in listing_details_tables:
-            table_data_html.append(listing.find(
-                'table', class_='table table-striped'))
-            status_history_html.append(listing.find(
-                'table', class_='table table-striped '))
+            table_data_html.append(listing.find("table", class_="table table-striped"))
+            status_history_html.append(
+                listing.find("table", class_="table table-striped ")
+            )
 
         # Parses html to grab the table data as well as the google maps url
         for table in table_data_html:
-            table_data.append([x.text for x in table.find_all('td')[1::2]])
-            for link in table.find_all('a', href=True):
-                maps_url.append(link['href'])
+            table_data.append([x.text for x in table.find_all("td")[1::2]])
+            for link in table.find_all("a", href=True):
+                maps_url.append(link["href"])
 
         # Converts the sale_date data from '1/1/2019' to '1-1-2019'
-        regex_sale_date = re.compile(r'(?![0-9]+)(\/)')
+        regex_sale_date = re.compile(r"(?![0-9]+)(\/)")
         for listing in table_data:
-            listing[2] = re.sub(regex_sale_date, '-', listing[2])
+            listing[2] = re.sub(regex_sale_date, "-", listing[2])
 
         # Grabs the status history for each address
         for status in status_history_html:
-            status_history.append([x.text for x in status.find_all('td')])
+            status_history.append([x.text for x in status.find_all("td")])
 
         table_dict = {
-            'table_data': table_data,
-            'maps_url': maps_url,
-            'status_history': status_history
+            "table_data": table_data,
+            "maps_url": maps_url,
+            "status_history": status_history,
         }
 
         return table_dict
@@ -140,44 +149,39 @@ class SheriffSale:
         """
         Returns lists of sanitized address data in the format of (Address, Unit, City, Zip Code)
         """
-        regex_street = re.compile(
-            r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
-        regex_city = re.compile(r'(' + '|'.join(CITY_LIST) + ') NJ')
-        regex_unit = re.compile(r'(Unit|Apt).([0-9A-Za-z-]+)')
-        regex_secondary_unit = re.compile(
-            r'(Building|Estate) #?([0-9a-zA-Z]+)')
-        regex_zip_code = re.compile(r'\d{5}')
+        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
+        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") NJ")
+        regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
+        regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
+        regex_zip_code = re.compile(r"\d{5}")
 
         address_data = self.get_address_data()
 
         street_match, city_match = [], []
 
         try:
-            street_match = [re.search(regex_street, row)
-                            .group(0)
-                            .rstrip() for row in address_data]
+            street_match = [
+                re.search(regex_street, row).group(0).rstrip() for row in address_data
+            ]
 
             # Cleanup: Remove any periods
-            street_match = [re.sub(r'\.', '', row) for row in street_match]
+            street_match = [re.sub(r"\.", "", row) for row in street_match]
 
         except AttributeError:
-            street_match_check = [regex_street.findall(
-                row) for row in address_data]
+            street_match_check = [regex_street.findall(row) for row in address_data]
             for i, street in enumerate(street_match_check):
                 if not street:
                     # TODO: Log this
-                    print('Street Error:', address_data[i])
+                    print("Street Error:", address_data[i])
 
         try:
-            city_match = [re.search(regex_city, row).group(1)
-                          for row in address_data]
+            city_match = [re.search(regex_city, row).group(1) for row in address_data]
         except AttributeError:
-            city_match_check = [regex_city.findall(
-                row) for row in address_data]
+            city_match_check = [regex_city.findall(row) for row in address_data]
             for i, city in enumerate(city_match_check):
                 if not city:
                     # TODO: Log this
-                    print('City Error:', address_data[i])
+                    print("City Error:", address_data[i])
 
         # TODO: Some Major Cleanup required for this function
         unit_match = []
@@ -196,21 +200,16 @@ class SheriffSale:
             else:
                 secondary_unit_match.append(_secondary_unit_match.group(0))
 
-        zip_match = [re.search(regex_zip_code, row).group(0)
-                     for row in address_data]
+        zip_match = [re.search(regex_zip_code, row).group(0) for row in address_data]
 
         # TODO: Do it only on the last word to avoid instances such as (1614 W Ave)
         # Abbreviates all street suffixes (e.g. Street, Avenue to St and Ave)
         for key, value in SUFFIX_ABBREVATIONS.items():
-            street_match = [re.sub(fr'({key})', value, row)
-                            for row in street_match]
+            street_match = [re.sub(fr"({key})", value, row) for row in street_match]
 
-        result = list(zip(street_match,
-                          unit_match,
-                          secondary_unit_match,
-                          city_match,
-                          zip_match
-                          ))
+        result = list(
+            zip(street_match, unit_match, secondary_unit_match, city_match, zip_match)
+        )
 
         return result
 
@@ -224,38 +223,44 @@ class SheriffSale:
         table_data = self.get_table_data()
         sanitized_table_data = self.sanitize_address_data()
 
-        zipped = list(zip(property_id,
-                          [x for x in table_data['table_data']],
-                          sanitized_table_data,
-                          table_data['maps_url'],
-                          table_data['status_history']
-                          ))
+        zipped = list(
+            zip(
+                property_id,
+                [x for x in table_data["table_data"]],
+                sanitized_table_data,
+                table_data["maps_url"],
+                table_data["status_history"],
+            )
+        )
 
         list_dicts = []
         for data in zipped:
-            _dict = {'property_id': data[0],
-                     'listing_details': {
-                         'sheriff': data[1][0],
-                         'court_case': data[1][1],
-                         'sale_date': datetime.strptime(data[1][2], '%m-%d-%Y').strftime('%m-%d-%Y'),
-                         'plaintiff': data[1][3],
-                         'defendant': data[1][4],
-                         'address': data[1][5],
-                         'priors': data[1][6],
-                         'attorney': data[1][7],
-                         'judgment': data[1][8],
-                         'deed': data[1][9],
-                         'deed_address': data[1][10]
-            },
-                'sanitized': {
-                         'address': data[2][0],
-                         'unit': data[2][1],
-                         'secondary_unit': data[2][2],
-                         'city': data[2][3],
-                         'zip_code': data[2][4]
-            },
-                'maps_url': data[3],
-                'status_history': data[4]
+            _dict = {
+                "property_id": data[0],
+                "listing_details": {
+                    "sheriff": data[1][0],
+                    "court_case": data[1][1],
+                    "sale_date": datetime.strptime(data[1][2], "%m-%d-%Y").strftime(
+                        "%m-%d-%Y"
+                    ),
+                    "plaintiff": data[1][3],
+                    "defendant": data[1][4],
+                    "address": data[1][5],
+                    "priors": data[1][6],
+                    "attorney": data[1][7],
+                    "judgment": data[1][8],
+                    "deed": data[1][9],
+                    "deed_address": data[1][10],
+                },
+                "sanitized": {
+                    "address": data[2][0],
+                    "unit": data[2][1],
+                    "secondary_unit": data[2][2],
+                    "city": data[2][3],
+                    "zip_code": data[2][4],
+                },
+                "maps_url": data[3],
+                "status_history": data[4],
             }
             list_dicts.append(_dict)
 
@@ -263,17 +268,17 @@ class SheriffSale:
 
     def json_dumps(self, data):
         # Check if json_dumps directory exists and create it if it does not exist
-        json_dumps_dir = BASE_DIR.joinpath('json_dumps')
+        json_dumps_dir = BASE_DIR.joinpath("json_dumps")
 
         if not json_dumps_dir.exists():
             json_dumps_dir.mkdir()
 
         # Create a json dump using the current date as the file name
-        todays_date = date.today().strftime('%m_%d_%Y')
-        json_dumps_path = Path(json_dumps_dir.joinpath(f'{todays_date}.json'))
+        todays_date = date.today().strftime("%m_%d_%Y")
+        json_dumps_path = Path(json_dumps_dir.joinpath(f"{todays_date}.json"))
 
         if not json_dumps_path.exists():
-            with open(f'{json_dumps_path}', 'w') as f:
+            with open(f"{json_dumps_path}", "w") as f:
                 json.dump(data, f)
 
         return

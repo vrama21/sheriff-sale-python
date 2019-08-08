@@ -1,3 +1,7 @@
+:root {
+    --row-count: attr(.table-results);
+}
+
 /* Header */
 .header-container {
     display: flex;
@@ -8,10 +12,9 @@
     align-items: center;
 }
 
-/* Navbar */
-/* .navbar { */
-/* align-self: flex-start; */
-/* } */
+.navbar {
+    align-self: flex-end;
+}
 
 ul.navbar li {
     display: inline;
@@ -29,8 +32,6 @@ ul.navbar li a {
 
 /* Sale Date */
 
-.sale-date-form {
-}
 
 #sale_date {
     font-family: 'Arial';
@@ -58,7 +59,7 @@ form.sale_date {
 
 
 body {
-    background: #fafafa;
+    background: lightgoldenrodyellow;
     color: #333333;
     margin: 0 auto;
     font-family: 'Arial', 'Helvetica Neue', 'Helvetica', 'sans-serif', 'Ubuntu';
@@ -103,22 +104,24 @@ input {
 /* Grid */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(5, minmax(50px, 200px));
-    grid-template-rows: 1fr min-content;
+    grid-template-columns: repeat(5, auto);
     border-left: 1px solid black;
     border-bottom: 1px solid black;
+    text-align: center;
+    background-color: white;
 
 }
 
 .grid-header {
     padding: 10px;
-    font-family: 'Ubuntu';
-    font-size: 18px;
+    font-family: 'Arial Black';
+    font-size: 20px;
     justify-self: center;
     width: 100%;
     height: 100%;
     border-top: 1px solid black;
     border-right: 1px solid black;
+    background-color: lightgray;
 }
 
 .grid-item {
@@ -127,6 +130,15 @@ input {
     height: 100%;
     border-top: 1px solid black;
     border-right: 1px solid black;
+}
+
+.grid-item-priors {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.grid-item:nth-of-type(2) {
+    background-color: lightgray;
 }
 
 .progress {
@@ -142,4 +154,8 @@ input {
 #filters-span {
     grid-row-start: 1;
     grid-row-end: 2;
+}
+
+.maps-icon {
+    width: 25px;
 }

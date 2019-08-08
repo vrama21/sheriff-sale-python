@@ -13,7 +13,7 @@
 //     }
 // }
 
-clearFilters = function() {
+clearFilters = function () {
     selectTags = document.getElementsByTagName("select");
 
     for (var i = 0; i < selectTags.length; i++) {
@@ -21,7 +21,7 @@ clearFilters = function() {
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#update-database").click(function () {
         $.ajax({
             method: "POST",
@@ -30,7 +30,7 @@ $(document).ready(function() {
             success: function () {
                 console.log("Database Update - SUCCESS")
             },
-            error: function(request, status, error) {
+            error: function (request, status, error) {
                 console.log("Error: " + error)
             }
         })
@@ -39,7 +39,6 @@ $(document).ready(function() {
     $("#update-database").click(function () {
         $(".progress-bar-container").css("display", "block")
     });
-    
+
     $("#filter-clear").click(clearFilters)
 });
-

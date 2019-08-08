@@ -6,9 +6,8 @@ from constants import COUNTIES, CITY_LIST
 
 app = Flask(__name__)
 
-
-app.config['SECRET_KEY'] = '17a202d87bb99ee84fd5ebbec5130e0f'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
+app.config["SECRET_KEY"] = "17a202d87bb99ee84fd5ebbec5130e0f"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///main.db"
 
 db = SQLAlchemy(app)
 
