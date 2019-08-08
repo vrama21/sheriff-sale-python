@@ -75,26 +75,27 @@ def update_database(methods=["POST"]):
     return redirect(url_for("home"))
 
 
-@app.route("/table_data/", defaults={"city": None, "sale_date": None})
-@app.route("/table_data/<city><sale_date>", methods=["GET", "POST"])
+@app.route("/table_data/")
+@app.route("/table_data/<city>/<sale_date>", methods=["GET", "POST"])
+@app.route("/table_data/<city>", methods=["GET", "POST"])
+@app.route("/table_data/<sale_date>", methods=["GET", "POST"])
 def table_data(city, sale_date):
 
     selected = []
     results = int()
 
-    if city is None:
-        if sale_date is not None:
-            selected = SheriffSaleDB.query.filter_by(sale_date=sale_date).all()
-            results = SheriffSaleDB.query.filter_by(sale_date=sale_date).count()
-        elif sale_date is None:
-            selected = SheriffSaleDB.query.all()
-            results = SheriffSaleDB.query.count()
-            print(type(results))
+    print('City ', city)
+    print('\nSale Date ', sale_date)
 
-        return render_template(
-            "table_data.html", sheriff_sale_data=selected, results=results
-        )
+    args = [city, sale_date]
+    print('Args ', args)
+    if not args:
+        selected = SheriffSaleDB.query.all()
+        results = SheriffSaleDB.query.count()
+    else:
+        selected = SheriffSaleDB.query.filter_by(sale_date=sale_date).all()
+        results = SheriffSaleDB.query.filter_by(sale_date=sale_date).count()
 
-    print(selected)
-    print(results)
-
+    return render_template(
+        "table_data.html", sheriff_sale_data=selected, results=results
+    )

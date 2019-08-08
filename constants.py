@@ -99,6 +99,7 @@ CITY_LIST = [
 
 CITY_LIST_SANITIZED = {
     "Atlanic City": "Atlantic City",
+    "Buena Boro": "Buena",
     "Buena Borough": "Buena",
     "Margate City": "Margate",
     "Pomona": "Galloway Township",
