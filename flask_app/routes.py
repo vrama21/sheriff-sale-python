@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, redirect, session, make_response
 from flask_app import app, db, sheriff_sale, nj_parcels
-from flask_app.forms import SaleDateForm
+from flask_app.forms import SearchFilter
 from flask_app.models import SheriffSaleDB
 
 from constants import BASE_DIR, FLASK_APP_DIR
@@ -13,7 +13,7 @@ from urllib.parse import quote, unquote
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    form = SaleDateForm()
+    form = SearchFilter()
 
     db_path = FLASK_APP_DIR.joinpath('main.db')
     db_mod_date = time.ctime(os.path.getmtime(db_path))
@@ -26,10 +26,13 @@ def home():
 
 @app.route("/check_for_update")
 def check_for_update(methods=["POST"]):
-    sheriff_ids = sheriff_sale.get_sheriff_ids()    
-    db_sheriff_ids = SheriffSaleDB.query.filter_by(sheriff=sheriff_ids)
-    print(sheriff_ids)
-    print(db_sheriff_ids)
+    sheriff_ids = tuple(sheriff_sale.get_sheriff_ids())
+    print(len(sheriff_ids))
+    db_sheriff_ids = SheriffSaleDB.query.filter(SheriffSaleDB.sheriff.in_(sheriff_ids)).all()
+    db_sheriff_ids_count = SheriffSaleDB.query.filter(SheriffSaleDB.sheriff.in_(sheriff_ids)).count()
+    print(db_sheriff_ids_count)
+
+    return redirect(url_for('home'))
 
 
 @app.route("/update_database")
@@ -69,7 +72,6 @@ def update_database(methods=['POST']):
 
 @app.route("/table_data/<selected_date>", methods=['GET', 'POST'])
 def table_data(selected_date):
-    form = SaleDateForm()
 
     selected_data = SheriffSaleDB.query.filter_by(sale_date=selected_date).all()
     results = SheriffSaleDB.query.filter_by(sale_date=selected_date).count()
@@ -79,4 +81,4 @@ def table_data(selected_date):
 
     return render_template('table_data.html',
                            sheriff_sale_data=selected_data,
-                           form=form, results=results)
+                           results=results)

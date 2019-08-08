@@ -1,7 +1,8 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <div>
-    <a type="submit" class="btn btn-primary" id="check-for-update" href="{{ url_for('check_for_update') }}"></a>
+    <a type="submit" class="btn btn-primary" id="check-for-update" href="{{ url_for('check_for_update') }}">
+        Check for Updates
+    </a>
     <a type="submit" class="btn btn-primary" id="update-database" href="{{ url_for('update_database') }}">Update
         Database</a>
     Database Last Updated On: {{ db_mod_date }}
@@ -11,5 +12,26 @@
         aria-valuemax="100">
         40%
     </div>
+</div>
+<hr />
+<div class="sale-date-form">
+    <form action="" method="POST">
+        <span id="filters-span">Filters:</span>
+        <div class="filter-container">
+            <div>
+                County:
+            </div>
+            <div>
+                City:
+            </div>
+            <div>
+                Sale Date:
+            </div>
+            {{ form.county }}
+            {{ form.city }}
+            {{ form.sale_date }}
+        </div>
+        {{ form.submit(class_ = "btn btn-primary") }}
+    </form>
 </div>
 {% endblock content %}

@@ -58,7 +58,6 @@ ADDRESS_REGEX_SPLIT = [
 
 CITY_LIST = [
     'Absecon',
-    'Atlanic City',     # Edge Case
     'Atlantic City',
     'Brigantine',
     'Buena',
@@ -99,6 +98,7 @@ CITY_LIST = [
 ]
 
 CITY_LIST_SANITIZED = {
+    'Atlanic City': 'Atlantic City',
     'Buena Borough': 'Buena',
     'Margate City': 'Margate',
     'Pomona': 'Galloway Township'
@@ -126,3 +126,5 @@ CITY_ZIP_DICT = {
     "Somers Point": "08244",
     "Ventnor City": "08406"
 }
+
+COUNTIES = ['Atlantic', 'Bergen', 'Burlington', 'Camden', 'Cumberland', 'Essex', 'Gloucester', 'Hudson', 'Monmouth', 'Morris', 'Passaic', 'Salem', 'Union']

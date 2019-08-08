@@ -8,11 +8,27 @@
     </h4>
 </div>
 <div class="grid-container">
-    <div class="grid-headers">
-        {% for data in sheriff_sale_data %}
-        <div>
-            {{ data.address_sanitized }}, {{ data.city }}
-        </div>
-        {% endfor %}
+    <div class="grid-header">Address</div>
+    <div class="grid-header">City</div>
+    <div class="grid-header">Sale Date</div>
+    <div class="grid-header">Priors</div>
+    <div class="grid-header">Judgment</div>
+
+    {% for data in sheriff_sale_data %}
+    <div class="grid-item">
+        {{ data.address_sanitized }}
     </div>
+    <div class="grid-item">
+        {{ data.city }}
+    </div>
+    <div class="grid-item">
+        {{ data.sale_date}}
+    </div>
+    <div class="grid-item">
+        {{ data.priors }}
+    </div>
+    <div class="grid-item">
+        {{ data.judgment }}
+    </div>
+    {% endfor %}
 </div> {% endblock content %}
