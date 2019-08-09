@@ -51,7 +51,6 @@ form.sale_date {
 
 .main-container {
     max-width: 960px;
-    ;
     width: 100%;
     margin: 25px 25% 50px 25%;
 }
@@ -59,14 +58,15 @@ form.sale_date {
 
 
 body {
-    background: lightgoldenrodyellow;
+    background: #181E23;
     color: #333333;
     margin: 0 auto;
     font-family: 'Arial', 'Helvetica Neue', 'Helvetica', 'sans-serif', 'Ubuntu';
 }
 
 header {
-    background: #a0d3cc;
+    background: #050407;
+    color: white;
 }
 
 
@@ -92,8 +92,8 @@ table-container {
     background: #DAD6D6;
 }
 
-table-results {
-    margin-left: 5
+.table-results {
+    color: white;
 }
 
 input {
@@ -105,10 +105,12 @@ input {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(6, auto);
+    grid-template-rows: repeat(500, 60px);
     border-left: 1px solid black;
     border-bottom: 1px solid black;
     text-align: center;
-    background-color: white;
+    background-color: #1E2931;
+    color: white;
 
 }
 
@@ -121,24 +123,30 @@ input {
     height: 100%;
     border-top: 1px solid black;
     border-right: 1px solid black;
-    background-color: lightgray;
+    background-color: #302f30;
 }
 
 .grid-item {
-    padding: 10px;
+    padding: 0 10px 0 10px;
     width: 100%;
     height: 100%;
     border-top: 1px solid black;
     border-right: 1px solid black;
+    line-height: 20px;
 }
 
-.grid-item-priors {
+.grid-item-truncate {
     word-wrap: break-word;
+    overflow: hidden;
+}
+
+.grid-item-plaintiff {
+
 }
 
 /* TODO: Color every other row */
 .grid-item:nth-of-type(2) {
-    background-color: lightgray;
+    background-color: #302f30;
 }
 
 .progress {
