@@ -18,15 +18,6 @@ def home():
     db_path = FLASK_APP_DIR.joinpath("main.db")
     db_mod_date = time.ctime(os.path.getmtime(db_path))
 
-    # if request.method == "POST":
-    #     county = form.county.data
-    #     city = form.city.data
-    #     sale_date = form.sale_date.data
-
-    #     query = {"county": county, "city": city, "sale_date": sale_date}
-
-    #     return redirect(url_for("table_data", query=query))
-
     return render_template("home.html", form=form, db_mod_date=db_mod_date)
 
 
@@ -80,20 +71,20 @@ def update_database(methods=["POST"]):
 @app.route("/table_data", methods=["GET", "POST"])
 def table_data():
 
-    _county = request.args.get("county")
-    _city = request.args.get("city")
-    _sale_date = request.args.get("sale_date")
+    _query = SheriffSaleDB.query
+    _county = request.args.get("county", None)
+    _city = request.args.get("city", None)
+    _sale_date = request.args.get("sale_date", None)
 
-    _query = (
-        SheriffSaleDB.query.filter(
-            SheriffSaleDB.county == _county,
-            SheriffSaleDB.city == _city,
-            SheriffSaleDB.sale_date == _sale_date,
-        )
-        .all()
-    )
-    # query = SheriffSaleDB.query.filter_by(sale_date=sale_date).all()
-    _results = SheriffSaleDB.query.filter_by(sale_date=_sale_date).count()
+    if _county:
+        _query = _query.filter(SheriffSaleDB.county == _county)
+    if _city:
+        _query = _query.filter(SheriffSaleDB.city == _city)
+    if _sale_date:
+        _query = _query.filter(SheriffSaleDB.sale_date == _sale_date)
+    
+    query = _query.all()
+    results = _query.count()
 
-    return render_template("table_data.html", query=_query, results=_results)
+    return render_template("table_data.html", query=query, results=results)
 
