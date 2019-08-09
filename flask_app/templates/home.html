@@ -1,38 +1,40 @@
 {% extends "layout.html" %} {% block content %}
-<div>
-    <a type="submit" class="btn btn-primary" id="check-for-update" href="{{ url_for('check_for_update') }}">
-        Check for Updates
-    </a>
-    <a type="submit" class="btn btn-primary" id="update-database" href="{{ url_for('update_database') }}">Update
-        Database</a>
-    Database Last Updated On: {{ db_mod_date }}
+<div class="database-container">
+    <div class="database-buttons">
+        <a type="submit" class="btn btn-primary" id="check-for-update" href="{{ url_for('check_for_update') }}">
+            Check for Updates
+        </a>
+        <a type="submit" class="btn btn-primary" id="update-database" href="{{ url_for('update_database') }}">Update
+            Database</a>
+    </div>
+    <span>Database Last Updated On: {{ db_mod_date }}</span>
 </div>
-<div class="progress">
+
+<div class="progress-bar">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0"
         aria-valuemax="100">
         40%
     </div>
 </div>
-<hr />
-<div class="sale-date-form">
-    <span id="filter-span">Filters:</span>
-    <button id="filter-clear" class="btn btn-primary">Clear</button>
-    <form action="{{ url_for('table_data') }}" method="GET">
-        <div class="filter-container">
-            <div>
-                County:
+
+<div class="filter-container">
+    <div class="input-group">
+        <form action="{{ url_for('table_data') }}" method="GET">
+            <div class="input-group-prepend">
+                <label class="input-group-text">County</label>
+                {{ form.county(class_="custom-select") }}
+                <div class="input-group-prepend">
+                    <label class="input-group-text">City</label>
+                    {{ form.city(class_="custom-select") }}
+                </div>
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Sale Date</label>
+                    {{ form.sale_date(class_="custom-select") }}
+                </div>
+                <input class="btn btn-primary" type="submit" value="Submit">
             </div>
-            <div>
-                City:
-            </div>
-            <div>
-                Sale Date:
-            </div>
-            {{ form.county }}
-            {{ form.city }}
-            {{ form.sale_date }}
-        </div>
-        <input class="btn btn-primary" type="submit" value="Submit">
-    </form>
+        </form>
+        <button id="filter-reset" class="btn btn-secondary">Reset</button>
+    </div>
 </div>
 {% endblock content %}

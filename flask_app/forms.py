@@ -6,9 +6,9 @@ from wtforms.validators import DataRequired
 _COUNTIES = [(x, x) for x in COUNTIES]
 _CITIES = [(x, x) for x in CITY_LIST]
 _SALE_DATES = [(x, x) for x in sheriff_sale.get_sale_dates()]
-_COUNTIES.insert(0, ("", "--All--"))
-_CITIES.insert(0, ("", "--All--"))
-_SALE_DATES.insert(0, ("", "--All--"))
+_COUNTIES.insert(0, ("", "-All-"))
+_CITIES.insert(0, ("", "-All-"))
+_SALE_DATES.insert(0, ("", "-All-"))
 
 
 class SearchFilter(FlaskForm):

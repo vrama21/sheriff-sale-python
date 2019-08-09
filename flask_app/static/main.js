@@ -1,17 +1,30 @@
-// function move() {
-//     var elem = document.getElementById("myBar");
-//     var width = 1;
-//     var id = setInterval(frame, 10);
+$(document).ready(function () {
 
-//     function frame() {
-//         if (width >= 100) {
-//             clearInterval(id);
-//         } else {
-//             width++;
-//             elem.style.width = width + '%';
-//         }
-//     }
-// }
+    $("#update-database").click(function () {
+        $(".progress-bar").css("display", "block")
+    });
+
+    $("#filter-reset").click(clearFilters)
+});
+
+setGridRows = function () {
+    var elem = document.getElementsByClassName
+}
+
+progressBarAnimation = function () {
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 10);
+
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++;
+            elem.style.width = width + '%';
+        }
+    }
+}
 
 clearFilters = function () {
     selectTags = document.getElementsByTagName("select");
@@ -20,25 +33,3 @@ clearFilters = function () {
         selectTags[i].selectedIndex = 0;
     }
 }
-
-$(document).ready(function () {
-    $("#update-database").click(function () {
-        $.ajax({
-            method: "POST",
-            url: "/update_database",
-            async: "asynchronous",
-            success: function () {
-                console.log("Database Update - SUCCESS")
-            },
-            error: function (request, status, error) {
-                console.log("Error: " + error)
-            }
-        })
-    });
-
-    $("#update-database").click(function () {
-        $(".progress-bar-container").css("display", "block")
-    });
-
-    $("#filter-clear").click(clearFilters)
-});
