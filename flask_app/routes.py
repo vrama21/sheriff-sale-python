@@ -7,7 +7,7 @@ from constants import BASE_DIR, FLASK_APP_DIR
 
 import json
 import os
-import time 
+import time
 from urllib.parse import quote, unquote
 
 
@@ -20,7 +20,12 @@ def home():
 
     if request.method == "POST":
         return redirect(
-            url_for("table_data", city=form.city.data, sale_date=form.sale_date.data)
+            url_for(
+                "table_data",
+                county=form.county.data,
+                city=form.city.data,
+                sale_date=form.sale_date.data,
+            )
         )
 
     return render_template("home.html", form=form, db_mod_date=db_mod_date)
@@ -75,26 +80,28 @@ def update_database(methods=["POST"]):
     return redirect(url_for("home"))
 
 
-@app.route("/table_data/")
-@app.route("/table_data/<city>/<sale_date>", methods=["GET", "POST"])
+@app.route("/table_data/<county>", methods=["GET", "POST"])
 @app.route("/table_data/<city>", methods=["GET", "POST"])
 @app.route("/table_data/<sale_date>", methods=["GET", "POST"])
-def table_data(city, sale_date):
+def table_data(county=None, city=None, sale_date=None):
 
     selected = []
     results = int()
 
-    print('City ', city)
-    print('\nSale Date ', sale_date)
+    print("County ", county, type(county))
+    print("City ", city, type(city))
+    print("Sale Date ", sale_date, type(sale_date))
 
-    args = [city, sale_date]
-    print('Args ', args)
-    if not args:
+    if county is None and city is None and sale_date is None:
         selected = SheriffSaleDB.query.all()
         results = SheriffSaleDB.query.count()
-    else:
+    # TODO: This not working, city gets mixed into sale date and considers both a string
+    elif city is None and sale_date is not None:
         selected = SheriffSaleDB.query.filter_by(sale_date=sale_date).all()
         results = SheriffSaleDB.query.filter_by(sale_date=sale_date).count()
+    elif city is not None and sale_date is None:
+        selected = SheriffSaleDB.query.filter_by(city=city).all()
+        results = SheriffSaleDB.query.filter_by(city=city).count()
 
     return render_template(
         "table_data.html", sheriff_sale_data=selected, results=results

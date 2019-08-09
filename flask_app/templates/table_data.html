@@ -10,6 +10,7 @@
     <div class="grid-header">City</div>
     <div class="grid-header">Sale Date</div>
     <div class="grid-header">Priors</div>
+    <div class="grid-header">Plaintiff</div>
     <div class="grid-header">Judgment</div>
 
     {% for data in sheriff_sale_data %}
@@ -28,6 +29,9 @@
     </div>
     <div class="grid-item grid-item-priors">
         {{ data.priors }}
+    </div>
+    <div class="grid-item">
+        {{ data.plaintiff }}
     </div>
     <div class="grid-item">
         {{ data.judgment }}
