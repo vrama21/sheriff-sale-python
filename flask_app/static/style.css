@@ -50,22 +50,22 @@ form.sale_date {
 
 
 .main-container {
-    max-width: 960px;
+    max-width: 1264px;
     width: 100%;
-    margin: 25px 25% 50px 25%;
+    margin: 25px 10% 50px 10%;
 }
 
 
 
 body {
-    background: #181E23;
+    background: #030303;
     color: white;
     margin: 0 auto;
     font-family: 'Arial', 'Helvetica Neue', 'Helvetica', 'sans-serif', 'Ubuntu';
 }
 
 header {
-    background: #050407;
+    background: #1A1A1B;
     color: white;
 }
 
@@ -84,12 +84,8 @@ h4 .h4 {
 }
 
 nav {
-    background: #a0d3cc;
+    background: #1A1A1B;
     width: 1000px;
-}
-
-table-container {
-    background: #DAD6D6;
 }
 
 .table-results {
@@ -105,11 +101,11 @@ input {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(6, auto);
-    grid-template-rows: repeat(500, 60px);
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
+    /* grid-template-rows: repeat(500, 75px); */
+    border-left: 1px solid #343536;
+    border-bottom: 1px solid #343536;
     text-align: center;
-    background-color: #1E2931;
+    background-color: #1A1A1B;
     color: white;
 
 }
@@ -121,8 +117,8 @@ input {
     justify-self: center;
     width: 100%;
     height: 100%;
-    border-top: 1px solid black;
-    border-right: 1px solid black;
+    border-top: 1px solid #343536;
+    border-right: 1px solid #343536;
     background-color: #302f30;
 }
 
@@ -130,8 +126,8 @@ input {
     padding: 0 10px 0 10px;
     width: 100%;
     height: 100%;
-    border-top: 1px solid black;
-    border-right: 1px solid black;
+    border-top: 1px solid #343536;
+    border-right: 1px solid #343536;
     line-height: 20px;
 }
 

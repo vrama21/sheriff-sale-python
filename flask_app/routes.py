@@ -8,7 +8,7 @@ from constants import BASE_DIR, FLASK_APP_DIR
 import json
 import os
 import time
-from urllib.parse import quote, unquote
+from urllib.parse import urlencode
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -18,15 +18,14 @@ def home():
     db_path = FLASK_APP_DIR.joinpath("main.db")
     db_mod_date = time.ctime(os.path.getmtime(db_path))
 
-    if request.method == "POST":
-        return redirect(
-            url_for(
-                "table_data",
-                county=form.county.data,
-                city=form.city.data,
-                sale_date=form.sale_date.data,
-            )
-        )
+    # if request.method == "POST":
+    #     county = form.county.data
+    #     city = form.city.data
+    #     sale_date = form.sale_date.data
+
+    #     query = {"county": county, "city": city, "sale_date": sale_date}
+
+    #     return redirect(url_for("table_data", query=query))
 
     return render_template("home.html", form=form, db_mod_date=db_mod_date)
 
@@ -50,10 +49,8 @@ def check_for_update(methods=["POST"]):
 
 @app.route("/update_database")
 def update_database(methods=["POST"]):
-    # if request.method == 'POST':
-
     sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
-    print(sheriff_sale_data)
+
     for row in sheriff_sale_data:
         _sheriff_sale_data = SheriffSaleDB(
             sheriff=row["listing_details"]["sheriff"],
@@ -80,29 +77,23 @@ def update_database(methods=["POST"]):
     return redirect(url_for("home"))
 
 
-@app.route("/table_data/<county>", methods=["GET", "POST"])
-@app.route("/table_data/<city>", methods=["GET", "POST"])
-@app.route("/table_data/<sale_date>", methods=["GET", "POST"])
-def table_data(county=None, city=None, sale_date=None):
+@app.route("/table_data", methods=["GET", "POST"])
+def table_data():
 
-    selected = []
-    results = int()
+    _county = request.args.get("county")
+    _city = request.args.get("city")
+    _sale_date = request.args.get("sale_date")
 
-    print("County ", county, type(county))
-    print("City ", city, type(city))
-    print("Sale Date ", sale_date, type(sale_date))
-
-    if county is None and city is None and sale_date is None:
-        selected = SheriffSaleDB.query.all()
-        results = SheriffSaleDB.query.count()
-    # TODO: This not working, city gets mixed into sale date and considers both a string
-    elif city is None and sale_date is not None:
-        selected = SheriffSaleDB.query.filter_by(sale_date=sale_date).all()
-        results = SheriffSaleDB.query.filter_by(sale_date=sale_date).count()
-    elif city is not None and sale_date is None:
-        selected = SheriffSaleDB.query.filter_by(city=city).all()
-        results = SheriffSaleDB.query.filter_by(city=city).count()
-
-    return render_template(
-        "table_data.html", sheriff_sale_data=selected, results=results
+    _query = (
+        SheriffSaleDB.query.filter(
+            SheriffSaleDB.county == _county,
+            SheriffSaleDB.city == _city,
+            SheriffSaleDB.sale_date == _sale_date,
+        )
+        .all()
     )
+    # query = SheriffSaleDB.query.filter_by(sale_date=sale_date).all()
+    _results = SheriffSaleDB.query.filter_by(sale_date=_sale_date).count()
+
+    return render_template("table_data.html", query=_query, results=_results)
+

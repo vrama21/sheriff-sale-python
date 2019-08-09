@@ -17,5 +17,4 @@ class SearchFilter(FlaskForm):
     sale_date = SelectField(
         label="Select a Date", choices=_SALE_DATES, id="sale-date-select-field"
     )
-    search = SubmitField(label="Search")
 
