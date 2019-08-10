@@ -18,18 +18,22 @@ Web App:
     Database:
         - [ ] Add all NJ counties to Update Database
         - [ ] Build a progress bar to show the progress of the database update
+            - 100 / Total Results = % of each row Added
+                - (E.g) 400 Results: Each row = 0.25% of width per row added to database
         - [ ] Check for updates and append any new listings
 
     Table Data:
         - [x] Filter by County, City, & Sale Date
         - [ ] Change grid to bootstrap classes
         - [ ] Add secondary filter options (e.g defendant, status history)
-          - [ ] Dynamically adjust columns to account any adding or removing filters
+            - [ ] Dynamically adjust columns to account any adding or removing filters
         - [ ] Sort by Address alphabetically by default
-          - [ ] Sort by header (Sale Date, City, or Judgment)
+            - [ ] Sort by header (Sale Date, City, or Judgment)
         - [ ] Link images from trulia/zillow
+            - [ ] Use a modal to display the images
         - [ ] Apply background color to every other row
         - [ ] Dynamically make the grid row total = results
+        - [ ] Breadcrumbs at the top to show what filters you have selected
 
     HTML:
         - [ ] Consider breaking down the html files into smaller html files (e.g Database Functions, Search Menu) and use the Jinja include methods for cleaner files
