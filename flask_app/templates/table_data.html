@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="table-results">
-    There are a total of {{ results }} results.
+<div class="table-results col-md-12">
+    <h4> There are a total of {{ results }} results.</h4>
 </div>
 <div class="grid-container">
     <div class="grid-header">Address</div>
-    <div class="grid-header">City</div>
+    <div class="grid-header" id="city-header">City</div>
     <div class="grid-header">Sale Date</div>
     <div class="grid-header">Priors</div>
     <div class="grid-header">Plaintiff</div>

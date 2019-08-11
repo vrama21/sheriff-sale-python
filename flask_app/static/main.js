@@ -5,6 +5,7 @@ $(document).ready(function () {
     });
 
     $("#filter-reset").click(clearFilters)
+
 });
 
 setGridRows = function () {
@@ -32,4 +33,14 @@ clearFilters = function () {
     for (var i = 0; i < selectTags.length; i++) {
         selectTags[i].selectedIndex = 0;
     }
+}
+
+sortByHeader = function () {
+    headers = document.getElementsByClass("grid-header")
+
+    for (var i= 0; i < headers.length; i++) {
+        headers[i].addEventListener
+    }
+
+    headerTag.setAttribute("sort_by", "city_asc")
 }

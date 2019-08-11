@@ -83,8 +83,7 @@ def table_data():
     if _sale_date:
         _query = _query.filter(SheriffSaleDB.sale_date == _sale_date)
     
-    query = _query.all()
+    query = _query.order_by(SheriffSaleDB.city.asc()).all()
     results = _query.count()
 
     return render_template("table_data.html", query=query, results=results)
-

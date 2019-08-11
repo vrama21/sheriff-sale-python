@@ -24,9 +24,9 @@ Web App:
 
     Table Data:
         - [x] Filter by County, City, & Sale Date
-        - [ ] Change grid to bootstrap classes
+        - [x] Change grid to bootstrap classes
         - [ ] Add secondary filter options (e.g defendant, status history)
-            - [ ] Dynamically adjust columns to account any adding or removing filters
+            - [x] Dynamically adjust columns to account any adding or removing filters
         - [ ] Sort by Address alphabetically by default
             - [ ] Sort by header (Sale Date, City, or Judgment)
         - [ ] Link images from trulia/zillow
