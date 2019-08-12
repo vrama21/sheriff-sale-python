@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sheriff_sale import SheriffSale
 from nj_parcels import NJParcels
-from constants import COUNTIES, CITY_LIST
+from constants import CITY_LIST
 
 app = Flask(__name__)
 

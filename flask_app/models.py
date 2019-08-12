@@ -3,10 +3,10 @@ from flask_app import db
 
 
 class SheriffSaleDB(db.Model):
-    __tablename__ = "Sheriff Sale"
+    __tablename__ = "SheriffSale"
     id = db.Column("id", db.Integer, primary_key=True)
     sale_date = db.Column("sale_date", db.String(12))
-    county = db.column("county", db.String(20))
+    county = db.Column("county", db.String(20))
     address = db.Column("address", db.String(100))
     address_sanitized = db.Column("address_sanitized", db.String(30))
     unit = db.Column("unit", db.String(20))
@@ -20,8 +20,6 @@ class SheriffSaleDB(db.Model):
     priors = db.Column("priors", db.String(100))
     attorney = db.Column("attorney", db.String(100))
     judgment = db.Column("judgment", db.String(20))
-    deed = db.Column("deed", db.String(50))
-    deed_address = db.Column("deed_address", db.String(30))
     maps_url = db.Column("maps_url", db.String(100))
     # status_history = db.Column('status_history', db.String(100))
 
@@ -32,6 +30,7 @@ class SheriffSaleDB(db.Model):
 
 
 class NJParcelsDB(db.Model):
+    __tablename__ = "NJParcels"
     id = db.Column("id", db.Integer, primary_key=True)
     city = db.Column("City", db.String(60))
     block = db.Column("Block", db.Integer())

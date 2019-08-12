@@ -1,7 +1,11 @@
-from flask_app import sheriff_sale, COUNTIES, CITY_LIST
+from flask_app import sheriff_sale
 from flask_wtf import FlaskForm
 from wtforms import SelectField, SubmitField
 from wtforms.validators import DataRequired
+
+json_data = Path("..\json\NJParcels_CityNums.json")
+data = {}
+with 
 
 _COUNTIES = [(x, x) for x in COUNTIES]
 _CITIES = [(x, x) for x in CITY_LIST]

@@ -1,5 +1,7 @@
+import json
 import requests
 from bs4 import BeautifulSoup
+from pathlib import Path
 
 
 def requests_content(url, session=None):
@@ -20,3 +22,10 @@ def none_to_empty_string(match_object):
         else:
             match_object[i] = ""
     return match_object
+
+
+def load_json_data(json_path):
+    path = Path(json_path)
+    with open (path, 'r') as f:
+        json_data = json.load(f)
+        return json_data

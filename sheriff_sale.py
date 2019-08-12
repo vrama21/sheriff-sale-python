@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, date
 from pathlib import Path
 from urllib.parse import quote
-from utils import requests_content, none_to_empty_string
+from utils import requests_content, load_json_data
 from constants import (
     SHERIFF_SALES_URL,
     SHERIFF_SALES_BASE_URL,
@@ -29,8 +29,12 @@ class SheriffSale:
             raise ConnectionError("Cannot Access URL: ", err)
 
         self.session = requests.Session()
-        self.soup = requests_content(SHERIFF_SALES_URL, self.session)
-        self.table_div = self.soup.find("div", class_="table-responsive")
+
+        county_json_data = load_json_data("json\SheriffSaleCountyID.json")
+
+        for county in county_json_data.values():
+            self.soup = requests_content(f"{SHERIFF_SALES_URL}{county}", self.session)
+            self.table_div = self.soup.find("div", class_="table-responsive")
 
     def get_sale_dates(self):
         """
@@ -213,7 +217,6 @@ class SheriffSale:
 
         return result
 
-    # TODO: Convert sale_date from ('mm/dd/yyyy') to ('mm-dd-yyyy')
     def sheriff_sale_dict(self):
         """
         Structures all sheriff sale data in a list of dictionaries
@@ -266,26 +269,10 @@ class SheriffSale:
 
         return list_dicts
 
-    def json_dumps(self, data):
-        # Check if json_dumps directory exists and create it if it does not exist
-        json_dumps_dir = BASE_DIR.joinpath("json_dumps")
-
-        if not json_dumps_dir.exists():
-            json_dumps_dir.mkdir()
-
-        # Create a json dump using the current date as the file name
-        todays_date = date.today().strftime("%m_%d_%Y")
-        json_dumps_path = Path(json_dumps_dir.joinpath(f"{todays_date}.json"))
-
-        if not json_dumps_path.exists():
-            with open(f"{json_dumps_path}", "w") as f:
-                json.dump(data, f)
-
-        return
-
 
 if __name__ == "__main__":
     SHERIFF = SheriffSale()
+    print(SHERIFF.soup())
     # a = SHERIFF.sheriff_sale_dict()
-    b = SHERIFF.get_sheriff_ids()
-    print(b)
+    # b = SHERIFF.get_sheriff_ids()
+    # print(b)
