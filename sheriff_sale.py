@@ -30,10 +30,10 @@ class SheriffSale:
 
         self.session = requests.Session()
 
-        county_json_data = load_json_data("json\SheriffSaleCountyID.json")
-
-        for county in county_json_data.values():
-            self.soup = requests_content(f"{SHERIFF_SALES_URL}{county}", self.session)
+        county_json_data = load_json_data("SheriffSaleCountyID.json")
+        
+        for county_num in county_json_data.values():
+            self.soup = requests_content(f"{SHERIFF_SALES_URL}{county_num}", self.session)
             self.table_div = self.soup.find("div", class_="table-responsive")
 
     def get_sale_dates(self):
@@ -272,7 +272,6 @@ class SheriffSale:
 
 if __name__ == "__main__":
     SHERIFF = SheriffSale()
-    print(SHERIFF.soup())
     # a = SHERIFF.sheriff_sale_dict()
     # b = SHERIFF.get_sheriff_ids()
     # print(b)
