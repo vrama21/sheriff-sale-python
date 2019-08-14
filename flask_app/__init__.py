@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sheriff_sale import SheriffSale
 from nj_parcels import NJParcels
-from constants import CITY_LIST
+from constants import COUNTY_LIST, CITY_LIST
 from utils import load_json_data
 
 app = Flask(__name__)

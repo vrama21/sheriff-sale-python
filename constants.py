@@ -1,4 +1,6 @@
+import itertools
 from pathlib import Path
+from utils import load_json_data
 
 NJ_PARCELS_URL = "http://njparcels.com/property/"
 NJ_PARCELS_API = "http://njparcels.com/api/v1.0/property/"
@@ -7,6 +9,11 @@ SHERIFF_SALES_URL = "https://salesweb.civilview.com/Sales/SalesSearch?countyId="
 
 BASE_DIR = Path(__file__).resolve().parent
 FLASK_APP_DIR = BASE_DIR.joinpath("flask_app")
+
+SHERIFF_SALE_JSON_DATA = load_json_data("SheriffSaleCountyID.json")
+NJPARCELS_JSON_DATA = load_json_data("NJParcels_CityNums.json")
+COUNTY_LIST = sorted(list(NJPARCELS_JSON_DATA.keys()))
+CITY_LIST = sorted(itertools.chain.from_iterable([NJPARCELS_JSON_DATA[x].keys() for x in COUNTY_LIST]))
 
 SUFFIX_ABBREVATIONS = {
     "Avenue": "Ave",
