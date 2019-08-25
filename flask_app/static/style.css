@@ -129,7 +129,6 @@ header ul.navbar li a {
     overflow: hidden;
 }
 
-/* TODO: Color every other row */
-.grid-item:nth-of-type(2) {
-    background-color: #302f30;
+#data-table th{
+    width: 250px;
 }

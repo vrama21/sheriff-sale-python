@@ -44,23 +44,23 @@ def update_database(methods=["POST"]):
 
     for row in sheriff_sale_data:
         _sheriff_sale_data = SheriffSaleDB(
-            sheriff=row["listing_details"]["sheriff"],
-            court_case=row["listing_details"]["court_case"],
-            sale_date=row["listing_details"]["sale_date"],
-            plaintiff=row["listing_details"]["plaintiff"],
-            defendant=row["listing_details"]["defendant"],
-            address=row["listing_details"]["address"],
-            priors=row["listing_details"]["priors"],
-            attorney=row["listing_details"]["attorney"],
-            judgment=row["listing_details"]["judgment"],
-            deed=row["listing_details"]["deed"],
-            deed_address=row["listing_details"]["deed_address"],
-            maps_url=row["maps_url"],
-            address_sanitized=row["sanitized"]["address"],
-            unit=row["sanitized"]["unit"],
-            secondary_unit=row["sanitized"]["secondary_unit"],
-            city=row["sanitized"]["city"],
-            zip_code=row["sanitized"]["zip_code"],
+            sheriff=row.listing_details.sheriff,
+            court_case=row.listing_details.court_case,
+            sale_date=row.listing_details.sale_date,
+            plaintiff=row.listing_details.plaintiff,
+            defendant=row.listing_details.defendant,
+            address=row.listing_details.address,
+            priors=row.listing_details.priors,
+            attorney=row.listing_details.attorney,
+            judgment=row.listing_details.judgment,
+            deed=row.listing_details.deed,
+            deed_address=row.listing_details.deed_address,
+            maps_url=row.maps_url,
+            address_sanitized=row.sanitized.address,
+            unit=row.sanitized.unit,
+            secondary_unit=row.sanitized.secondary_unit,
+            city=row.sanitized.city,
+            zip_code=row.sanitized.zip_code,
         )
         db.session.add(_sheriff_sale_data)
         db.session.commit()
@@ -82,7 +82,7 @@ def table_data():
         _query = _query.filter(SheriffSaleDB.city == _city)
     if _sale_date:
         _query = _query.filter(SheriffSaleDB.sale_date == _sale_date)
-    
+
     query = _query.order_by(SheriffSaleDB.city.asc()).all()
     results = _query.count()
 
