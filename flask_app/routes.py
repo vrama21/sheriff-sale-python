@@ -41,6 +41,9 @@ def check_for_update(methods=["POST"]):
 @app.route("/update_database")
 def update_database(methods=["POST"]):
     sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
+    
+    total = len(sheriff_sale_data)
+    counter = 0
 
     for row in sheriff_sale_data:
         _sheriff_sale_data = SheriffSaleDB(
@@ -62,6 +65,8 @@ def update_database(methods=["POST"]):
             city=row.sanitized.city,
             zip_code=row.sanitized.zip_code,
         )
+        counter += 1
+        print(counter)
         db.session.add(_sheriff_sale_data)
         db.session.commit()
 

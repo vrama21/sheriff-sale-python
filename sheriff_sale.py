@@ -9,6 +9,7 @@ from utils import requests_content, load_json_data
 from constants import (
     SHERIFF_SALES_URL,
     SHERIFF_SALES_BASE_URL,
+    SHERIFF_SALE_JSON_DATA,
     SUFFIX_ABBREVATIONS,
     ADDRESS_REGEX_SPLIT,
     CITY_LIST,
@@ -30,9 +31,7 @@ class SheriffSale:
 
         self.session = requests.Session()
 
-        county_json_data = load_json_data("SheriffSaleCountyID.json")
-        
-        for county_num in county_json_data.values():
+        for county_num in SHERIFF_SALE_JSON_DATA.values():
             self.soup = requests_content(f"{SHERIFF_SALES_URL}{county_num}", self.session)
             self.table_div = self.soup.find("div", class_="table-responsive")
 
@@ -139,7 +138,10 @@ class SheriffSale:
 
         # Grabs the status history for each address
         for status in status_history_html:
-            status_history.append([x.text for x in status.find_all("td")])
+            try:
+                status_history.append([x.text for x in status.find_all("td")])
+            except AttributeError:
+                status_history.append([])
 
         table_dict = {
             "table_data": table_data,
@@ -204,7 +206,13 @@ class SheriffSale:
             else:
                 secondary_unit_match.append(_secondary_unit_match.group(0))
 
-        zip_match = [re.search(regex_zip_code, row).group(0) for row in address_data]
+        zip_match = []
+        for row in address_data:
+            _zip_match = re.search(regex_zip_code, row)
+            if _zip_match is None:
+                zip_match.append("")
+            else:
+                zip_match.append(_zip_match.group(0))
 
         # TODO: Do it only on the last word to avoid instances such as (1614 W Ave)
         # Abbreviates all street suffixes (e.g. Street, Avenue to St and Ave)

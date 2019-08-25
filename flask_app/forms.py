@@ -1,18 +1,10 @@
-from flask_app import sheriff_sale
-import itertools
-from flask_app import load_json_data
+from flask_app import sheriff_sale, load_json_data, CITY_LIST, COUNTY_LIST
 from flask_wtf import FlaskForm
 from wtforms import SelectField, SubmitField
 from wtforms.validators import DataRequired
 
-data = load_json_data("NJParcels_CityNums.json")
-counties = sorted(list(data.keys()))
-
-cities = [data[x].keys() for x in counties]
-cities = sorted(itertools.chain.from_iterable(cities))
-
-_COUNTIES = [(x, x) for x in counties]
-_CITIES = [(x, x) for x in cities]
+_COUNTIES = [(x, x) for x in COUNTY_LIST]
+_CITIES = [(x, x) for x in CITY_LIST]
 _SALE_DATES = [(x, x) for x in sheriff_sale.get_sale_dates()]
 
 _COUNTIES.insert(0, ("", "-All-"))
