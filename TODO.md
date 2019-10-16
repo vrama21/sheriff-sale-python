@@ -1,4 +1,12 @@
-Sheriff Sale:
+# NJ Parcels:
+    
+    Refactor:
+        - [ ] Majority of the code could use some refactoring.
+    
+    Tests:
+        - [ ] Write tests for the core functions
+
+# Sheriff Sale:
 
     - [ ] Consider grabbing the address data from the google maps urls provided from the sheriff sale website. This is a more accurate representation of the address and city of the listing.
   
@@ -13,7 +21,14 @@ Sheriff Sale:
         - [ ] 100 S N Carolina Ave: 100 S North Carolina Ave
         - [ ] 13 E Dr: 13 East Dr
 
-Web App:
+    Tests:
+        - [ ] Write tests for the core functions
+
+# Web App:
+
+    Data:
+        - [ ] Build a Django REST API to communicate data between front-end (React) & back-end (Django)
+            - Will render Django Templates useless. Separates the logic between the two for a better work-flow.
 
     Database:
         - [ ] Add all NJ counties to Update Database
@@ -42,7 +57,7 @@ Web App:
     CSS:
         - [x] Restructure all styles in a standard format
 
-Trulia:
+# Trulia:
 
     - Build a Trulia Scraper
         - [ ] Data to Gather:
