@@ -22,18 +22,16 @@ def home():
 
 
 @app.route("/check_for_update")
-def check_for_update(methods=["POST"]):
+def check_for_update(methods=["GET"]):
     sheriff_ids = tuple(sheriff_sale.get_sheriff_ids())
-    print(len(sheriff_ids))
 
     db_sheriff_ids = SheriffSaleDB.query.filter(
         SheriffSaleDB.sheriff.in_(sheriff_ids)
     ).all()
+    
     db_sheriff_ids_count = SheriffSaleDB.query.filter(
         SheriffSaleDB.sheriff.in_(sheriff_ids)
     ).count()
-    print(db_sheriff_ids)
-    print(db_sheriff_ids_count)
 
     return redirect(url_for("home"))
 

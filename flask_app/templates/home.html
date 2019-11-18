@@ -24,7 +24,7 @@
 
 <div class="filter-container row">
     <div class="input-group col-md-12">
-        <form action="{{ url_for('table_data') }}" method="GET">
+        <form action="{{ url_for('table_data') }}" method="POST">
             <div class="input-group-prepend">
                 <label class="input-group-text">County</label>
                 {{ form.county(class_="custom-select") }}
@@ -37,9 +37,9 @@
                     {{ form.sale_date(class_="custom-select") }}
                 </div>
                 <input class="btn btn-primary col-md-1" type="submit" value="Submit">
+                <button id="filter-reset" class="btn btn-secondary col-md-1">Reset</button>
             </div>
         </form>
-        <button id="filter-reset" class="btn btn-secondary col-md-1">Reset</button>
     </div>
 </div>
 
