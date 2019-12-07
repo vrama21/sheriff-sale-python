@@ -16,7 +16,7 @@ Sheriff Sale:
 Web App:
 
     Database:
-        - [ ] Add all NJ counties to Update Database
+        - [x] Add all NJ counties to Update Database
         - [ ] Build a progress bar to show the progress of the database update
             - 100 / Total Results = % of each row Added
                 - (E.g) 400 Results: Each row = 0.25% of width per row added to database
@@ -31,8 +31,8 @@ Web App:
             - [ ] Sort by header (Sale Date, City, or Judgment)
         - [ ] Link images from trulia/zillow
             - [ ] Use a modal to display the images
-        - [ ] Apply background color to every other row
-        - [ ] Dynamically make the grid row total = results
+        - [x] Apply background color to every other row
+        - [x] Dynamically make the grid row total = results
         - [ ] Breadcrumbs at the top to show what filters you have selected
         - [ ] Change city form to display cities for only selected county. If county == All, display all.
 

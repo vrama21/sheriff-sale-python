@@ -1,4 +1,12 @@
-from flask import render_template, url_for, request, redirect, session, make_response
+from flask import (
+    render_template,
+    url_for,
+    request,
+    redirect,
+    session,
+    make_response,
+    jsonify,
+)
 from flask_app import app, db, sheriff_sale, nj_parcels
 from flask_app.forms import SearchFilter
 from flask_app.models import SheriffSaleDB
@@ -23,25 +31,22 @@ def home():
 
 @app.route("/check_for_update")
 def check_for_update(methods=["POST"]):
-    sheriff_ids = tuple(sheriff_sale.get_sheriff_ids())
-    print(len(sheriff_ids))
+    # 1) Get the sheriff id's currently on the website
+    sheriff_sale_ids_current = sheriff_sale.get_sheriff_ids()
 
-    db_sheriff_ids = SheriffSaleDB.query.filter(
-        SheriffSaleDB.sheriff.in_(sheriff_ids)
-    ).all()
-    db_sheriff_ids_count = SheriffSaleDB.query.filter(
-        SheriffSaleDB.sheriff.in_(sheriff_ids)
-    ).count()
-    print(db_sheriff_ids)
-    print(db_sheriff_ids_count)
+    # 2) Query the db to get all the sheriff id's in the db
+    sheriff_sale_ids_db = SheriffSaleDB.query.with_entities(SheriffSaleDB.sheriff).all()
+    
+    # 3) Check for any differences in between
+    difference = list(set(sheriff_sale_ids_current) - set(sheriff_sale_ids_db))
 
-    return redirect(url_for("home"))
+    return jsonify(difference)
 
 
 @app.route("/update_database")
 def update_database(methods=["POST"]):
     sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
-    
+
     total = len(sheriff_sale_data)
     counter = 0
 

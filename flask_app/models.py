@@ -23,6 +23,28 @@ class SheriffSaleDB(db.Model):
     maps_url = db.Column("maps_url", db.String(100))
     # status_history = db.Column('status_history', db.String(100))
 
+    @property
+    def serialize(self):
+        return {
+            "id": self.id,
+            "sale_date": self.sale_date,
+            "county": self.county,
+            "address": self.address,
+            "address_sanitized": self.address_sanitized,
+            "unit": self.unit,
+            "secondary_unit": self.secondary_unit,
+            "city": self.city,
+            "zip_code": self.zip_code,
+            "sheriff": self.sheriff,
+            "court_case": self.court_case,
+            "plaintiff": self.plaintiff,
+            "defendant": self.defendant,
+            "priors": self.priors,
+            "attorney": self.attorney,
+            "judgment": self.sheriff,
+            "maps_url": self.sheriff,
+        }
+
     def __repr__(self):
         return f"""SheriffSaleDB(''{self.sale_date}', '{self.judgment}',
         '{self.address_sanitized}', '{self.unit}', '{self.city}', '{self.zip_code}',

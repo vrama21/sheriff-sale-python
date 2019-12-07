@@ -1,6 +1,7 @@
 :root {
     --row-count: attr(.table-results);
 }
+
 body {
     background: #030303;
     color: white;
@@ -129,6 +130,14 @@ header ul.navbar li a {
     overflow: hidden;
 }
 
-#data-table th{
+#data-table th {
     width: 250px;
+}
+
+#data-table-body tr {
+    height: 100px;
+}
+
+#data-table-body a {
+    color: #66a1ff;
 }
