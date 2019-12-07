@@ -41,9 +41,9 @@ class NJParcels:
         """ Writes a json file with each city and their respective city number
         (E.g. Atlantic City: 0102) """
 
-        # with open('city_nums.json', 'w') as file_path:
-        #     city_num_dict = {county: {city: num} for (county, city, num) in zip(county_names, city_names, city_nums)}
-        #     json.dump(city_num_dict, file_path)
+        with open('city_nums.json', 'w') as file_path:
+            city_num_dict = {county: {city: num} for (county, city, num) in zip(county_names, city_names, city_nums)}
+            json.dump(city_num_dict, file_path)
 
     def build_block_list(self):
         soup = requests_content(f'{NJ_PARCELS_URL}{self.city_num_dict[str(self.city)]}')
@@ -83,21 +83,20 @@ class NJParcels:
             json_full = []
             json_prop = []
 
+            print(parsed_data)
             if len(parsed_data) > 1:
                 for i in parsed_data:
                     city_num = json_file[i[0]]
 
                     url = f'{NJ_PARCELS_API}{city_num}_{i[1]}_{i[3]}.json'
-                    resp = requests.get(url)
-                    json_data = resp.json()
-                    json_full.append(json_data)
+                    resp = requests.get(url).json()
+                    json_full.append(resp)
             else:
                 try:
                     city_num = json_file[parsed_data[0][0]]
                     url = f'{NJ_PARCELS_API}{city_num}_{parsed_data[0][1]}_{parsed_data[0][3]}.json'
-                    resp = requests.get(url)
-                    json_data = resp.json()
-                    json_full.append(json_data)
+                    resp = requests.get(url).json()
+                    json_full.append(resp)
                 except IndexError:
                     print('Error: Address could not be located in the database')
 
@@ -107,14 +106,6 @@ class NJParcels:
 
             return json_prop
 
-
 if __name__ == '__main__':
     main = NJParcels(county='Atlantic County')
-    main.write_city_nums_json()
-    # print(main.get_county_list())
-    # print(main.get_city_list())
-    # print(main.get_city_num_list())
-    # main.build_main_dict()
-    # main.build_database()
-    # main.build_block_list()
-    # main.build_address_list()
+    main.parse_json_url()

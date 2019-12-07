@@ -5,7 +5,7 @@ from flask import (
     redirect,
     session,
     make_response,
-    jsonify,
+    jsonify
 )
 from flask_app import app, db, sheriff_sale, nj_parcels
 from flask_app.forms import SearchFilter

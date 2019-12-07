@@ -244,38 +244,38 @@ class SheriffSale:
             )
         )
 
-        list_dicts = []
-        for data in zipped:
-            _dict = {
-                "property_id": data[0],
+        data_list = []
+        for d in zipped:
+            data = {
+                "property_id": d[0],
                 "listing_details": {
-                    "sheriff": data[1][0],
-                    "court_case": data[1][1],
-                    "sale_date": datetime.strptime(data[1][2], "%m-%d-%Y").strftime(
+                    "sheriff": d[1][0],
+                    "court_case": d[1][1],
+                    "sale_date": datetime.strptime(d[1][2], "%m-%d-%Y").strftime(
                         "%m-%d-%Y"
                     ),
-                    "plaintiff": data[1][3],
-                    "defendant": data[1][4],
-                    "address": data[1][5],
-                    "priors": data[1][6],
-                    "attorney": data[1][7],
-                    "judgment": data[1][8],
-                    "deed": data[1][9],
-                    "deed_address": data[1][10],
+                    "plaintiff": d[1][3],
+                    "defendant": d[1][4],
+                    "address": d[1][5],
+                    "priors": d[1][6],
+                    "attorney": d[1][7],
+                    "judgment": d[1][8],
+                    "deed": d[1][9],
+                    "deed_address": d[1][10],
                 },
                 "sanitized": {
-                    "address": data[2][0],
-                    "unit": data[2][1],
-                    "secondary_unit": data[2][2],
-                    "city": data[2][3],
-                    "zip_code": data[2][4],
+                    "address": d[2][0],
+                    "unit": d[2][1],
+                    "secondary_unit": d[2][2],
+                    "city": d[2][3],
+                    "zip_code": d[2][4],
                 },
-                "maps_url": data[3],
-                "status_history": data[4],
+                "maps_url": d[3],
+                "status_history": d[4],
             }
-            list_dicts.append(_dict)
+            data_list.append(data)
 
-        return list_dicts
+        return data_list
 
 
 if __name__ == "__main__":
