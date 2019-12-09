@@ -4,9 +4,32 @@ $(document).ready(() => {
         $(".progress-bar").css("display", "block")
     });
 
+    // Updates city list based on selected county
+    function dynamicCityList () {
+        $("#county").on("change", function () {
+            const county = $(this).val();
+    
+            console.log(county);
+            console.log($("#city").val())
+    
+            $.ajax({
+                method: "GET",
+                url: "static/NJParcels_CityNums.json"
+            }).then(json => {
+                const cities = Object.keys(json[county]);
+                $("#city").empty();
+                cities.forEach(city => {
+                    const opt = $("<option>").text(city).val(city);
+                    $("#city").append(opt);
+                });
+                $("#city").prepend($("<option>").text("--All--").val("--All--"));
+            });
+        });
+    };
+
     $("#filter-reset").click(clearFilters);
 
-    dynamicTableID();
+    // dynamicTableID();
 
     // setGridRows = function () {
     //     var elem = document.getElementsByClassName

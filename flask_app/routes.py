@@ -5,7 +5,7 @@ from flask import (
     redirect,
     session,
     make_response,
-    jsonify
+    jsonify,
 )
 from flask_app import app, db, sheriff_sale, nj_parcels
 from flask_app.forms import SearchFilter
@@ -36,7 +36,7 @@ def check_for_update(methods=["POST"]):
 
     # 2) Query the db to get all the sheriff id's in the db
     sheriff_sale_ids_db = SheriffSaleDB.query.with_entities(SheriffSaleDB.sheriff).all()
-    
+
     # 3) Check for any differences in between
     difference = list(set(sheriff_sale_ids_current) - set(sheriff_sale_ids_db))
 
@@ -48,7 +48,6 @@ def update_database(methods=["POST"]):
     sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
 
     total = len(sheriff_sale_data)
-    counter = 0
 
     for row in sheriff_sale_data:
         _sheriff_sale_data = SheriffSaleDB(
@@ -70,8 +69,6 @@ def update_database(methods=["POST"]):
             city=row.sanitized.city,
             zip_code=row.sanitized.zip_code,
         )
-        counter += 1
-        print(counter)
         db.session.add(_sheriff_sale_data)
         db.session.commit()
 
@@ -81,19 +78,13 @@ def update_database(methods=["POST"]):
 @app.route("/table_data", methods=["GET", "POST"])
 def table_data():
 
-    _query = SheriffSaleDB.query
-    _county = request.args.get("county", None)
-    _city = request.args.get("city", None)
-    _sale_date = request.args.get("sale_date", None)
+    query = SheriffSaleDB.query
 
-    if _county:
-        _query = _query.filter(SheriffSaleDB.county == _county)
-    if _city:
-        _query = _query.filter(SheriffSaleDB.city == _city)
-    if _sale_date:
-        _query = _query.filter(SheriffSaleDB.sale_date == _sale_date)
+    for req in request.form:
+        if request.form[req]:
+            query = query.filter(getattr(SheriffSaleDB, req) == request.form[req])
 
-    query = _query.order_by(SheriffSaleDB.city.asc()).all()
-    results = _query.count()
+    results = query.count()
+    query = query.order_by(SheriffSaleDB.city.asc()).all()
 
     return render_template("table_data.html", query=query, results=results)
