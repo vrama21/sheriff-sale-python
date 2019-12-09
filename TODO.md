@@ -49,7 +49,7 @@
         - [x] Apply background color to every other row
         - [x] Dynamically make the grid row total = results
         - [ ] Breadcrumbs at the top to show what filters you have selected
-        - [ ] Change city form to display cities for only selected county. If county == All, display all.
+        - [x] Change city form to display cities for only selected county. If county == All, display all.
 
     HTML:
         - [ ] Consider breaking down the html files into smaller html files (e.g Database Functions, Search Menu) and use the Jinja include methods for cleaner files
