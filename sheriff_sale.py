@@ -189,30 +189,9 @@ class SheriffSale:
                     # TODO: Log this
                     print("City Error:", address_data[i])
 
-        # TODO: Some Major Cleanup required for this function
-        unit_match = []
-        for row in address_data:
-            _unit_match = re.search(regex_unit, row)
-            if _unit_match is None:
-                unit_match.append("")
-            else:
-                unit_match.append(_unit_match.group(0))
-
-        secondary_unit_match = []
-        for row in address_data:
-            _secondary_unit_match = re.search(regex_secondary_unit, row)
-            if _secondary_unit_match is None:
-                secondary_unit_match.append("")
-            else:
-                secondary_unit_match.append(_secondary_unit_match.group(0))
-
-        zip_match = []
-        for row in address_data:
-            _zip_match = re.search(regex_zip_code, row)
-            if _zip_match is None:
-                zip_match.append("")
-            else:
-                zip_match.append(_zip_match.group(0))
+        unit_match = self.match_parser(address_data, regex_unit)
+        secondary_unit_match = self.match_parser(address_data, regex_secondary_unit)
+        zip_match = self.match_parser(address_data, regex_zip_code)
 
         # TODO: Do it only on the last word to avoid instances such as (1614 W Ave)
         # Abbreviates all street suffixes (e.g. Street, Avenue to St and Ave)
@@ -224,6 +203,16 @@ class SheriffSale:
         )
 
         return result
+
+    def match_parser(self, address_data, regex):
+        match_results = []
+        for row in address_data:
+            match = re.search(regex, row)
+            if match is None:
+                match_results.append("")
+            else:
+                match_results.append(match.group(0))
+        return match_results
 
     def sheriff_sale_dict(self):
         """

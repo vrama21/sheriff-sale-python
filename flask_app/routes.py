@@ -77,7 +77,6 @@ def update_database(methods=["POST"]):
 
 @app.route("/table_data", methods=["GET", "POST"])
 def table_data():
-
     query = SheriffSaleDB.query
 
     for req in request.form:
