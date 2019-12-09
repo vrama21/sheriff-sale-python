@@ -4,6 +4,15 @@ $(document).ready(() => {
         $(".progress-bar").css("display", "block")
     });
 
+    $(".custom-checkbox").on("click", function () {
+        const filterName = $(this).text().toLowerCase();
+        const tableHead = $("#data-table").children("thead").children("tr");
+        hideTableCol(`${filterName}-col`);
+        // tableHead.append($("<th>").text(filterName));
+    });
+
+    $("#filter-reset").click(clearFilters);
+
     // Updates city list based on selected county
     $("#county").on("change", function () {
         const county = $(this).val();
@@ -46,14 +55,6 @@ $(document).ready(() => {
         };
     };
 
-    $("#filter-reset").on("click", function () {
-        const selectTags = $("select");
-
-        for (let i = 0; i < selectTags.length; i++) {
-            const element = selectTags[i];
-            element.selectedIndex = 0;
-        };
-    });
 
     function sortByHeader() {
         const headers = document.getElementsByClass("grid-header");
@@ -74,3 +75,21 @@ $(document).ready(() => {
         };
     };
 });
+
+const clearFilters = () => {
+    const selectTags = document.getElementsByTagName("select");
+
+    for (let i = 0; i < selectTags.length; i++) {
+        const element = selectTags[i];
+        element.selectedIndex = 0;
+    };
+};
+
+const hideTableCol = (elementID) => {
+    const lastColHeader = Array.prototype.slice.call(document.querySelectorAll('th:last-child', elementID), 0); // get the header cell
+    const lastColCells = Array.prototype.slice.call(document.querySelectorAll('td:last-child', elementID), 0).concat(lastColHeader); // get the column cells, and add header
+
+    lastColCells.forEach(cell => {
+        cell.style.display = 'none';
+    });
+};
