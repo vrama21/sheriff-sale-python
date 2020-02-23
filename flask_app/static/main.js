@@ -5,8 +5,8 @@ $(document).ready(() => {
     });
 
     $(".custom-checkbox").on("click", function () {
-        const filterName = $(this).text().toLowerCase();
-        const tableHead = $("#data-table").children("thead").children("tr");
+        const filterName = $(this).text().trim().toLowerCase();
+        // const tableHead = $("#data-table").children("thead").children("tr");
         hideTableCol(`${filterName}-col`);
         // tableHead.append($("<th>").text(filterName));
     });
@@ -53,17 +53,6 @@ $(document).ready(() => {
                 elem.style.width = width + '%';
             };
         };
-    };
-
-
-    function sortByHeader() {
-        const headers = document.getElementsByClass("grid-header");
-
-        header.forEach(element => {
-            element.addEventListener
-        });
-
-        // headerTag.setAttribute("sort_by", "city_asc")
     };
 
     function dynamicTableID() {

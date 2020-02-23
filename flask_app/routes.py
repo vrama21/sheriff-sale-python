@@ -7,7 +7,7 @@ from flask import (
     make_response,
     jsonify,
 )
-from flask_app import app, db, sheriff_sale, nj_parcels
+from flask_app import app, db, sheriff_sale, nj_parcels, COUNTY_LIST, CITY_LIST
 from flask_app.forms import SearchFilter
 from flask_app.models import SheriffSaleDB
 
@@ -19,14 +19,17 @@ import time
 from urllib.parse import urlencode
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/api/home", methods=["GET"])
 def home():
-    form = SearchFilter()
-
     db_path = FLASK_APP_DIR.joinpath("main.db")
     db_mod_date = time.ctime(os.path.getmtime(db_path))
 
-    return render_template("home.html", form=form, db_mod_date=db_mod_date)
+    counties = COUNTY_LIST
+    cities = CITY_LIST
+    sale_dates = sheriff_sale.get_sale_dates()
+
+    if request.method == "GET":
+        return jsonify(dbModDate=db_mod_date, counties=counties, cities=cities, saleDates=sale_dates)
 
 
 @app.route("/check_for_update")
