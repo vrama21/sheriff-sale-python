@@ -29,10 +29,15 @@ def home():
     sale_dates = sheriff_sale.get_sale_dates()
 
     if request.method == "GET":
-        return jsonify(dbModDate=db_mod_date, counties=counties, cities=cities, saleDates=sale_dates)
+        return jsonify(
+            dbModDate=db_mod_date,
+            counties=counties,
+            cities=cities,
+            saleDates=sale_dates,
+        )
 
 
-@app.route("/check_for_update")
+@app.route("/api/check_for_update")
 def check_for_update(methods=["POST"]):
     # 1) Get the sheriff id's currently on the website
     sheriff_sale_ids_current = sheriff_sale.get_sheriff_ids()
@@ -46,11 +51,10 @@ def check_for_update(methods=["POST"]):
     return jsonify(difference)
 
 
-@app.route("/update_database")
-def update_database(methods=["POST"]):
+@app.route("/api/update_database")
+def update_database(methods=["GET", "POST", "PUT"]):
+    # if request.method == "POST":
     sheriff_sale_data = sheriff_sale.sheriff_sale_dict()
-
-    total = len(sheriff_sale_data)
 
     for row in sheriff_sale_data:
         _sheriff_sale_data = SheriffSaleDB(
@@ -75,18 +79,30 @@ def update_database(methods=["POST"]):
         db.session.add(_sheriff_sale_data)
         db.session.commit()
 
-    return redirect(url_for("home"))
+    return jsonify({"message": "Sheriff Sale Database Successfully Updated"}), 200
 
 
-@app.route("/table_data", methods=["GET", "POST"])
+# else:
+#     return jsonify({'Updating the Sheriff Sale Database Failed'}), 401
+
+
+@app.route("/api/table_data", methods=["POST"])
 def table_data():
     query = SheriffSaleDB.query
+    data = request.get_json()
+    print(data)
 
-    for req in request.form:
-        if request.form[req]:
-            query = query.filter(getattr(SheriffSaleDB, req) == request.form[req])
+    if data:
+        for req in data:
+            if data[req]:
+                query = query.filter(getattr(SheriffSaleDB, req) == data[req])
 
-    results = query.count()
-    query = query.order_by(SheriffSaleDB.city.asc()).all()
+        # return jsonify([i.serialize for i in query.all()])
+        return jsonify(query.all())
+    else:
+        return jsonify({"message": "Data is null"})
 
-    return render_template("table_data.html", query=query, results=results)
+    # results = query.count()
+    # query = query.order_by(SheriffSaleDB.city.asc()).all()
+
+    # return render_template("table_data.html", query=query, results=results)

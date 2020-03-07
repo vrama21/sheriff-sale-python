@@ -8,10 +8,11 @@ const Home = () => {
 
   useEffect(() => {
     const url = "/api/home";
-    fetch(url, {
+    const options = {
       method: "GET",
       headers: { "Content-Type": "application/json" }
-    })
+    };
+    fetch(url, options)
       .then(resp => {
         resp.json().then(data => {
           console.log(data);
@@ -27,6 +28,21 @@ const Home = () => {
         console.log(err);
       });
   }, []);
+
+  const updateDatabase = () => {
+    const url = "/api/update_database";
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "text/plain" }
+    };
+    fetch(url, options)
+      .then(resp => {
+        console.log(resp);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -44,7 +60,7 @@ const Home = () => {
               type="submit"
               className="btn btn-primary"
               id="update-database"
-              href="{{ url_for('update_database') }}"
+              onClick={updateDatabase}
             >
               Update Database
             </button>
