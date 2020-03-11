@@ -3,8 +3,8 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from .scrapers.sheriff_sale import SheriffSale
 from .scrapers.nj_parcels import NJParcels
-from constants import COUNTY_LIST, CITY_LIST
-from utils import load_json_data
+from constants import *
+from utils import *
 
 app = Flask(__name__)
 CORS(app)

@@ -7,11 +7,17 @@ from flask import (
     make_response,
     jsonify,
 )
-from flask_app import app, db, sheriff_sale, nj_parcels, COUNTY_LIST, CITY_LIST
-from flask_app.forms import SearchFilter
+from flask_app import (
+    app,
+    db,
+    sheriff_sale,
+    nj_parcels,
+    COUNTY_LIST,
+    CITY_LIST,
+    BASE_DIR,
+    FLASK_APP_DIR,
+)
 from flask_app.models import SheriffSaleDB
-
-from constants import BASE_DIR, FLASK_APP_DIR
 
 import json
 import os
@@ -88,21 +94,16 @@ def update_database(methods=["GET", "POST", "PUT"]):
 
 @app.route("/api/table_data", methods=["POST"])
 def table_data():
-    query = SheriffSaleDB.query
     data = request.get_json()
     print(data)
 
+    query = SheriffSaleDB.query
     if data:
         for req in data:
             if data[req]:
                 query = query.filter(getattr(SheriffSaleDB, req) == data[req])
+                # query = query.order_by(SheriffSaleDB.city.asc()).all()
 
-        # return jsonify([i.serialize for i in query.all()])
-        return jsonify(query.all())
+        return jsonify([i.serialize for i in query.all()])
     else:
         return jsonify({"message": "Data is null"})
-
-    # results = query.count()
-    # query = query.order_by(SheriffSaleDB.city.asc()).all()
-
-    # return render_template("table_data.html", query=query, results=results)

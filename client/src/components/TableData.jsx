@@ -7,7 +7,7 @@ const TableData = props => {
       method: "POST",
       headers: { "Content-Type": "application/json" }
     };
-    
+
     fetch(url, options)
       .then(resp => {
         resp.json().then(data => {
@@ -20,24 +20,41 @@ const TableData = props => {
   }, []);
 
   return (
-    <table
-      id="data-table"
-      className="table table-striped table-bordered table-dark"
-    >
-      <thead>
-        <tr>
-          <th scope="col">Address</th>
-          <th scope="col">City</th>
-          <th scope="col">Sale Date</th>
-          {/* <!-- <th scope="col">Priors</th> --> */}
-          <th scope="col">Plaintiff</th>
-          <th id="judgment-col" scope="col">
-            Judgment
-          </th>
-        </tr>
-      </thead>
-      <tbody id="data-table-body">
-        <tr>
+    <>
+      <table
+        id="data-table"
+        className="table table-striped table-bordered table-dark"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">Sale Date</th>
+            {/* <!-- <th scope="col">Priors</th> --> */}
+            <th scope="col">Plaintiff</th>
+            <th id="judgment-col" scope="col">
+              Judgment
+            </th>
+          </tr>
+        </thead>
+        <tbody id="data-table-body">
+          {props.data.map(listing => (
+            <tr>
+              <td>
+                <a href={listing.maps_url} target="_blank">
+                  {listing.address_sanitized}
+                  <br></br>
+                  {listing.unit}
+                  <br></br>
+                  {listing.secondary_unit}
+                </a>
+              </td>
+              <td>{listing.city}</td>
+              <td>{listing.sale_date}</td>
+              <td>{listing.plaintiff}</td>
+              <td>{listing.judgment}</td>
+            </tr>
+          ))}
           {/* <td>
                         <a href={{ data.maps_url }} target="_blank">
                             {{ data.address_sanitized }}
@@ -50,9 +67,9 @@ const TableData = props => {
                     <!-- <td>{{ data.priors }}</td> -->
                     <td>{{ data.plaintiff }}</td>
                     <td>{{ data.judgment }}</td>*/}
-        </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </>
   );
 };
 

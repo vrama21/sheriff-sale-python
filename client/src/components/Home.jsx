@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import SearchFilters from "./SearchFilters";
+import TableData from "./TableData";
 import "./style.css";
 
-const Home = () => {
+const Home = props => {
   const [response, setResponse] = useState({});
   const [dbModDate, setDbModDate] = useState();
+  const [search, setSearch] = useState({});
+  const [data, setData] = useState();
 
   useEffect(() => {
     const url = "/api/home";
@@ -44,6 +47,37 @@ const Home = () => {
       });
   };
 
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setSearch({
+      ...search,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const url = "/api/table_data";
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(search)
+    };
+
+    await fetch(url, options)
+      .then(resp => {
+        resp.json().then(data => {
+          if (data) {
+            console.log(data);
+            setData(data);
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div className="database-container row">
@@ -68,7 +102,12 @@ const Home = () => {
           <span>Database Last Updated On: {dbModDate}</span>
         </div>
       </div>
-      <SearchFilters response={response} />
+      <SearchFilters
+        response={response}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+      {data && <TableData data={data} />}
     </>
   );
 };
