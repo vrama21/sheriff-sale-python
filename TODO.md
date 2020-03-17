@@ -26,10 +26,6 @@
 
 # Web App:
 
-    Data:
-        - [ ] Build a Django REST API to communicate data between front-end (React) & back-end (Django)
-            - Will render Django Templates useless. Separates the logic between the two for a better work-flow.
-
     Database:
         - [x] Add all NJ counties to Update Database
         - [ ] Build a progress bar to show the progress of the database update

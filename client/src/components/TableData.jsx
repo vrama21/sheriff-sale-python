@@ -41,7 +41,11 @@ const TableData = props => {
           {props.data.map(listing => (
             <tr>
               <td>
-                <a href={listing.maps_url} target="_blank">
+                <a
+                  href={listing.maps_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {listing.address_sanitized}
                   <br></br>
                   {listing.unit}

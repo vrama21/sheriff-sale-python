@@ -7,6 +7,7 @@ const Home = props => {
   const [response, setResponse] = useState({});
   const [dbModDate, setDbModDate] = useState();
   const [search, setSearch] = useState({});
+  const [filters, setFilters] = useState({});
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -35,12 +36,14 @@ const Home = props => {
   const updateDatabase = () => {
     const url = "/api/update_database";
     const options = {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "text/plain" }
     };
     fetch(url, options)
       .then(resp => {
-        console.log(resp);
+        resp.json().then(data => {
+          console.log(data);
+        });
       })
       .catch(err => {
         console.log(err);
@@ -78,6 +81,17 @@ const Home = props => {
       });
   };
 
+  const toggleChecked = () => {
+    // setFilters({
+    //   ...filters,
+    //   [name]: setChecked(prev => !prev)
+    // });
+    setFilters((prevState, divName) => ({
+      ...prevState,
+      [divName]: !prevState
+    }));
+  };
+
   return (
     <>
       <div className="database-container row">
@@ -106,6 +120,7 @@ const Home = props => {
         response={response}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        toggleChecked={toggleChecked}
       />
       {data && <TableData data={data} />}
     </>

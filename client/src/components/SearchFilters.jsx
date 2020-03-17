@@ -1,4 +1,5 @@
 import React from "react";
+import { FormGroup, FormControlLabel, Switch } from "@material-ui/core";
 import "./style.css";
 
 const SearchFilters = props => (
@@ -63,6 +64,16 @@ const SearchFilters = props => (
         </button>
       </div>
     </form>
+    <div className="col-md-12">
+      <FormGroup>
+        <FormControlLabel
+          control={<Switch />}
+          onChange={props.toggleChecked}
+          label="Judgment"
+          name="judgmentFilter"
+        />
+      </FormGroup>
+    </div>
   </div>
 );
 
