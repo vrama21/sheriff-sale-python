@@ -1,18 +1,16 @@
 import itertools
 from pathlib import Path
-from .utils import load_json_data
+from utils import load_json_data
 
 NJ_PARCELS_URL = "http://njparcels.com/property/"
 NJ_PARCELS_API = "http://njparcels.com/api/v1.0/property/"
 SHERIFF_SALES_BASE_URL = "https://salesweb.civilview.com"
 SHERIFF_SALES_URL = "https://salesweb.civilview.com/Sales/SalesSearch?countyId="
 
-
 SHERIFF_SALE_JSON_DATA = load_json_data("SheriffSaleCountyID.json")
 NJPARCELS_JSON_DATA = load_json_data("NJParcels_CityNums.json")
 TEST_JSON_DATA = load_json_data("test.json")
 test = load_json_data("test.json")
-print(test['Atlantic']['Cities'])
 COUNTY_LIST = sorted(list(NJPARCELS_JSON_DATA.keys()))
 CITY_LIST = sorted(itertools.chain.from_iterable([NJPARCELS_JSON_DATA[x].keys() for x in COUNTY_LIST]))
 

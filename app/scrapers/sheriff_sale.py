@@ -5,8 +5,8 @@ import requests
 from datetime import datetime, date
 from pathlib import Path
 from urllib.parse import quote
-from .utils import requests_content, load_json_data
-from .constants import (
+from utils import requests_content, load_json_data
+from constants import (
     SHERIFF_SALES_URL,
     SHERIFF_SALES_BASE_URL,
     SHERIFF_SALE_JSON_DATA,
@@ -16,9 +16,9 @@ from .constants import (
 )
 
 logging.basicConfig(
-    filename="sheriff_sale.log",
-    # level=logging.ERROR,
-    # format="%(asctime)s:%(levelname)s:%(message)s",
+    filename="logs/sheriff_sale.log",
+    level=logging.INFO,
+    format="%(asctime)s:%(levelname)s:%(message)s",
 )
 
 
@@ -27,20 +27,20 @@ class SheriffSale:
     Web scraper for sheriff sale website
     """
 
-    def __init__(self):
+    def __init__(self, county_id):
 
         try:
-            self.data = requests.get(SHERIFF_SALES_BASE_URL)
+            self.data = requests.get(SHERIFF_SALES_URL)
         except ConnectionError as err:
             raise ConnectionError("Cannot Access URL: ", err)
 
+        self.county_id = county_id
         self.session = requests.Session()
 
-        for county_num in SHERIFF_SALE_JSON_DATA.values():
-            self.soup = requests_content(
-                f"{SHERIFF_SALES_URL}{county_num}", self.session
-            )
-            self.table_div = self.soup.find("div", class_="table-responsive")
+        self.soup = requests_content(
+            f"{SHERIFF_SALES_URL}{self.county_id}", self.session
+        )
+        self.table_div = self.soup.find("div", class_="table-responsive")
 
     def get_sale_dates(self):
         """
@@ -170,43 +170,19 @@ class SheriffSale:
 
         address_data = self.get_address_data()
 
-        street_match, street_match_errors = [], []
-        city_match, city_match_errors = [], []
+        street_match, city_match = [], []
 
         for row in address_data:
             try:
                 street_match.append(re.search(regex_street, row).group(0).rstrip())
                 city_match.append(re.search(regex_city, row).group(1))
 
-            except AttributeError:
-                logging.warning(row)
-            
+            except AttributeError as e:
+                logging.info(e)
+                logging.error(row)
+
         print("Street Match: " + str(street_match))
-            # try:    
-                # street_match = [
-                #     re.search(regex_street, row).group(0).rstrip() for row in address_data
-                # ]
-
-                # Cleanup: Remove any periods
-                # street_match = [re.sub(r"\.", "", row) for row in street_match]
-
-
-            # except AttributeError:
-            #     street_match_check = [regex_street.findall(row) for row in address_data]
-            #     for i, street in enumerate(street_match_check):
-            #         if not street:
-            #             # TODO: Log this
-            #             print(address_data[i])
-            #             logging.error(address_data[i])
-
-        # try:
-        #     city_match = [re.search(regex_city, row).group(1) for row in address_data]
-        # except AttributeError:
-        #     city_match_check = [regex_city.findall(row) for row in address_data]
-        #     for i, city in enumerate(city_match_check):
-        #         if not city:
-        #             # TODO: Log this
-        #             logging.error(address_data[i])
+        print("City Match: " + str(city_match))
 
         unit_match = self.match_parser(address_data, regex_unit)
         secondary_unit_match = self.match_parser(address_data, regex_secondary_unit)
@@ -259,9 +235,9 @@ class SheriffSale:
                 "listing_details": {
                     "sheriff": d[1][0],
                     "court_case": d[1][1],
-                    "sale_date": datetime.strptime(d[1][2], "%m-%d-%Y").strftime(
-                        "%m-%d-%Y"
-                    ),
+                    # "sale_date": datetime.strptime(d[1][2], "%m-%d-%Y").strftime(
+                    #     "%m-%d-%Y"
+                    # ),
                     "plaintiff": d[1][3],
                     "defendant": d[1][4],
                     "address": d[1][5],
@@ -287,5 +263,5 @@ class SheriffSale:
 
 
 if __name__ == "__main__":
-    SHERIFF = SheriffSale()
-    print(SHERIFF.main())
+    SHERIFF = SheriffSale("25")
+    main = SHERIFF.main()

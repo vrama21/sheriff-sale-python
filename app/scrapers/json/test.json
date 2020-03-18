@@ -6,652 +6,1744 @@
                 "NJParcel_ID": "0101",
                 "ZipCode": "08201"
             },
-            "Atlantic City": "0102",
-            "Brigantine": "0103",
-            "Buena Boro": "0104",
-            "Buena Vista Twp": "0105",
-            "Corbin City": "0106",
-            "Egg Harbor City": "0107",
-            "Egg Harbor Twp": "0108",
-            "Estell Manor": "0109",
-            "Folsom Boro": "0110",
-            "Galloway Twp": "0111",
-            "Hamilton Twp": "1103",
-            "Hammonton Town": "0113",
-            "Linwood": "0114",
-            "Longport Boro": "0115",
-            "Margate": "0116",
-            "Mullica Twp": "0117",
-            "Northfield": "0118",
-            "Pleasantville": "0119",
-            "Port Republic": "0120",
-            "Somers Point": "0121",
-            "Ventnor": "0122",
-            "Weymouth Twp": "0123"
+            "Atlantic City": {
+                "NJParcel_ID": "0102"
+            },
+            "Brigantine": {
+                "NJParcel_ID": "0103"
+            },
+            "Buena Boro": {
+                "NJParcel_ID": "0104"
+            },
+            "Buena Vista Twp": {
+                "NJParcel_ID": "0105"
+            },
+            "Corbin City": {
+                "NJParcel_ID": "0106"
+            },
+            "Egg Harbor City": {
+                "NJParcel_ID": "0107"
+            },
+            "Egg Harbor Twp": {
+                "NJParcel_ID": "0108"
+            },
+            "Estell Manor": {
+                "NJParcel_ID": "0109"
+            },
+            "Folsom Boro": {
+                "NJParcel_ID": "0110"
+            },
+            "Galloway Twp": {
+                "NJParcel_ID": "0111"
+            },
+            "Hamilton Twp": {
+                "NJParcel_ID": "1103"
+            },
+            "Hammonton Town": {
+                "NJParcel_ID": "0113"
+            },
+            "Linwood": {
+                "NJParcel_ID": "0114"
+            },
+            "Longport Boro": {
+                "NJParcel_ID": "0115"
+            },
+            "Margate": {
+                "NJParcel_ID": "0116"
+            },
+            "Mullica Twp": {
+                "NJParcel_ID": "0117"
+            },
+            "Northfield": {
+                "NJParcel_ID": "0118"
+            },
+            "Pleasantville": {
+                "NJParcel_ID": "0119"
+            },
+            "Port Republic": {
+                "NJParcel_ID": "0120"
+            },
+            "Somers Point": {
+                "NJParcel_ID": "0121"
+            },
+            "Ventnor": {
+                "NJParcel_ID": "0122"
+            },
+            "Weymouth Twp": {
+                "NJParcel_ID": "0123"
+            }
         }
     },
     "Bergen": {
         "SheriffSale_ID": "7",
         "Cities": {
-            "Allendale Boro": "0201",
-            "Alpine Boro": "0202",
-            "Bergenfield Boro": "0203",
-            "Bogota Boro": "0204",
-            "Carlstadt Boro": "0205",
-            "Cliffside Park Boro": "0206",
-            "Closter Boro": "0207",
-            "Cresskill Boro": "0208",
-            "Demarest Boro": "0209",
-            "Dumont Boro": "0210",
-            "East Rutherford Boro": "0212",
-            "Edgewater Boro": "0213",
-            "Elmwood Park Boro": "0211",
-            "Emerson Boro": "0214",
-            "Englewood City": "0215",
-            "Englewood Cliffs Boro": "0216",
-            "Fair Lawn Boro": "0217",
-            "Fairview Boro": "0218",
-            "Fort Lee Boro": "0219",
-            "Franklin Lakes Boro": "0220",
-            "Garfield City": "0221",
-            "Glen Rock Boro": "0222",
-            "Hackensack City": "0223",
-            "Harrington Park Boro": "0224",
-            "Hasbrouck Heights Boro": "0225",
-            "Haworth Boro": "0226",
-            "Hillsdale Boro": "0227",
-            "Ho-Ho-Kus Boro": "0228",
-            "Leonia Boro": "0229",
-            "Little Ferry Boro": "0230",
-            "Lodi Boro": "0231",
-            "Lyndhurst Twp": "0232",
-            "Mahwah Twp": "0233",
-            "Maywood Boro": "0234",
-            "Midland Park Boro": "0235",
-            "Montvale Boro": "0236",
-            "Moonachie Boro": "0237",
-            "New Milford Boro": "0238",
-            "North Arlington Boro": "0239",
-            "Northvale Boro": "0240",
-            "Norwood Boro": "0241",
-            "Oakland Boro": "0242",
-            "Old Tappan Boro": "0243",
-            "Oradell Boro": "0244",
-            "Palisades Park Boro": "0245",
-            "Paramus Boro": "0246",
-            "Park Ridge Boro": "0247",
-            "Ramsey Boro": "0248",
-            "Ridgefield Boro": "0249",
-            "Ridgefield Park Village": "0250",
-            "Ridgewood Village": "0251",
-            "River Edge Boro": "0252",
-            "River Vale Twp": "0253",
-            "Rochelle Park Twp": "0254",
-            "Rockleigh Boro": "0255",
-            "Rutherford Boro": "0256",
-            "Saddle Brook Twp": "0257",
-            "Saddle River Boro": "0258",
-            "South Hackensack Twp": "0259",
-            "Teaneck Twp": "0260",
-            "Tenafly Boro": "0261",
-            "Teterboro Boro": "0262",
-            "Upper Saddle River Boro": "0263",
-            "Waldwick Boro": "0264",
-            "Wallington Boro": "0265",
-            "Washington Twp": "2122",
-            "Westwood Boro": "0267",
-            "Woodcliff Lake Boro": "0268",
-            "Wood-Ridge Boro": "0269",
-            "Wyckoff Twp": "0270"
+            "Allendale Boro": {
+                "NJParcel_ID": "0201"
+            },
+            "Alpine Boro": {
+                "NJParcel_ID": "0202"
+            },
+            "Bergenfield Boro": {
+                "NJParcel_ID": "0203"
+            },
+            "Bogota Boro": {
+                "NJParcel_ID": "0204"
+            },
+            "Carlstadt Boro": {
+                "NJParcel_ID": "0205"
+            },
+            "Cliffside Park Boro": {
+                "NJParcel_ID": "0206"
+            },
+            "Closter Boro": {
+                "NJParcel_ID": "0207"
+            },
+            "Cresskill Boro": {
+                "NJParcel_ID": "0208"
+            },
+            "Demarest Boro": {
+                "NJParcel_ID": "0209"
+            },
+            "Dumont Boro": {
+                "NJParcel_ID": "0210"
+            },
+            "East Rutherford Boro": {
+                "NJParcel_ID": "0212"
+            },
+            "Edgewater Boro": {
+                "NJParcel_ID": "0213"
+            },
+            "Elmwood Park Boro": {
+                "NJParcel_ID": "0211"
+            },
+            "Emerson Boro": {
+                "NJParcel_ID": "0214"
+            },
+            "Englewood City": {
+                "NJParcel_ID": "0215"
+            },
+            "Englewood Cliffs Boro": {
+                "NJParcel_ID": "0216"
+            },
+            "Fair Lawn Boro": {
+                "NJParcel_ID": "0217"
+            },
+            "Fairview Boro": {
+                "NJParcel_ID": "0218"
+            },
+            "Fort Lee Boro": {
+                "NJParcel_ID": "0219"
+            },
+            "Franklin Lakes Boro": {
+                "NJParcel_ID": "0220"
+            },
+            "Garfield City": {
+                "NJParcel_ID": "0221"
+            },
+            "Glen Rock Boro": {
+                "NJParcel_ID": "0222"
+            },
+            "Hackensack City": {
+                "NJParcel_ID": "0223"
+            },
+            "Harrington Park Boro": {
+                "NJParcel_ID": "0224"
+            },
+            "Hasbrouck Heights Boro": {
+                "NJParcel_ID": "0225"
+            },
+            "Haworth Boro": {
+                "NJParcel_ID": "0226"
+            },
+            "Hillsdale Boro": {
+                "NJParcel_ID": "0227"
+            },
+            "Ho-Ho-Kus Boro": {
+                "NJParcel_ID": "0228"
+            },
+            "Leonia Boro": {
+                "NJParcel_ID": "0229"
+            },
+            "Little Ferry Boro": {
+                "NJParcel_ID": "0230"
+            },
+            "Lodi Boro": {
+                "NJParcel_ID": "0231"
+            },
+            "Lyndhurst Twp": {
+                "NJParcel_ID": "0232"
+            },
+            "Mahwah Twp": {
+                "NJParcel_ID": "0233"
+            },
+            "Maywood Boro": {
+                "NJParcel_ID": "0234"
+            },
+            "Midland Park Boro": {
+                "NJParcel_ID": "0235"
+            },
+            "Montvale Boro": {
+                "NJParcel_ID": "0236"
+            },
+            "Moonachie Boro": {
+                "NJParcel_ID": "0237"
+            },
+            "New Milford Boro": {
+                "NJParcel_ID": "0238"
+            },
+            "North Arlington Boro": {
+                "NJParcel_ID": "0239"
+            },
+            "Northvale Boro": {
+                "NJParcel_ID": "0240"
+            },
+            "Norwood Boro": {
+                "NJParcel_ID": "0241"
+            },
+            "Oakland Boro": {
+                "NJParcel_ID": "0242"
+            },
+            "Old Tappan Boro": {
+                "NJParcel_ID": "0243"
+            },
+            "Oradell Boro": {
+                "NJParcel_ID": "0244"
+            },
+            "Palisades Park Boro": {
+                "NJParcel_ID": "0245"
+            },
+            "Paramus Boro": {
+                "NJParcel_ID": "0246"
+            },
+            "Park Ridge Boro": {
+                "NJParcel_ID": "0247"
+            },
+            "Ramsey Boro": {
+                "NJParcel_ID": "0248"
+            },
+            "Ridgefield Boro": {
+                "NJParcel_ID": "0249"
+            },
+            "Ridgefield Park Village": {
+                "NJParcel_ID": "0250"
+            },
+            "Ridgewood Village": {
+                "NJParcel_ID": "0251"
+            },
+            "River Edge Boro": {
+                "NJParcel_ID": "0252"
+            },
+            "River Vale Twp": {
+                "NJParcel_ID": "0253"
+            },
+            "Rochelle Park Twp": {
+                "NJParcel_ID": "0254"
+            },
+            "Rockleigh Boro": {
+                "NJParcel_ID": "0255"
+            },
+            "Rutherford Boro": {
+                "NJParcel_ID": "0256"
+            },
+            "Saddle Brook Twp": {
+                "NJParcel_ID": "0257"
+            },
+            "Saddle River Boro": {
+                "NJParcel_ID": "0258"
+            },
+            "South Hackensack Twp": {
+                "NJParcel_ID": "0259"
+            },
+            "Teaneck Twp": {
+                "NJParcel_ID": "0260"
+            },
+            "Tenafly Boro": {
+                "NJParcel_ID": "0261"
+            },
+            "Teterboro Boro": {
+                "NJParcel_ID": "0262"
+            },
+            "Upper Saddle River Boro": {
+                "NJParcel_ID": "0263"
+            },
+            "Waldwick Boro": {
+                "NJParcel_ID": "0264"
+            },
+            "Wallington Boro": {
+                "NJParcel_ID": "0265"
+            },
+            "Washington Twp": {
+                "NJParcel_ID": "2122"
+            },
+            "Westwood Boro": {
+                "NJParcel_ID": "0267"
+            },
+            "Woodcliff Lake Boro": {
+                "NJParcel_ID": "0268"
+            },
+            "Wood-Ridge Boro": {
+                "NJParcel_ID": "0269"
+            },
+            "Wyckoff Twp": {
+                "NJParcel_ID": "0270"
+            }
         }
     },
     "Burlington": {
         "SheriffSale_ID": "3",
         "Cities": {
-            "Bass River Twp": "0301",
-            "Beverly City": "0302",
-            "Bordentown City": "0303",
-            "Bordentown Twp": "0304",
-            "Burlington City": "0305",
-            "Burlington Twp": "0306",
-            "Chesterfield Twp": "0307",
-            "Cinnaminson Twp": "0308",
-            "Delanco Twp": "0309",
-            "Delran Twp": "0310",
-            "Eastampton Twp": "0311",
-            "Edgewater Park Twp": "0312",
-            "Evesham Twp": "0313",
-            "Fieldsboro Boro": "0314",
-            "Florence Twp": "0315",
-            "Hainesport Twp": "0316",
-            "Lumberton Twp": "0317",
-            "Mansfield Twp": "2116",
-            "Maple Shade Twp": "0319",
-            "Medford Lakes Boro": "0321",
-            "Medford Twp": "0320",
-            "Moorestown Twp": "0322",
-            "Mount Holly Twp": "0323",
-            "Mount Laurel Twp": "0324",
-            "New Hanover Twp": "0325",
-            "North Hanover Twp": "0326",
-            "Palmyra Boro": "0327",
-            "Pemberton Boro": "0328",
-            "Pemberton Twp": "0329",
-            "Riverside Twp": "0330",
-            "Riverton Boro": "0331",
-            "Shamong Twp": "0332",
-            "Southampton Twp": "0333",
-            "Springfield Twp": "2017",
-            "Tabernacle Twp": "0335",
-            "Westampton Twp": "0337",
-            "Willingboro Twp": "0338",
-            "Woodland Twp": "0339",
-            "Wrightstown Boro": "0340"
+            "Bass River Twp": {
+                "NJParcel_ID": "0301"
+            },
+            "Beverly City": {
+                "NJParcel_ID": "0302"
+            },
+            "Bordentown City": {
+                "NJParcel_ID": "0303"
+            },
+            "Bordentown Twp": {
+                "NJParcel_ID": "0304"
+            },
+            "Burlington City": {
+                "NJParcel_ID": "0305"
+            },
+            "Burlington Twp": {
+                "NJParcel_ID": "0306"
+            },
+            "Chesterfield Twp": {
+                "NJParcel_ID": "0307"
+            },
+            "Cinnaminson Twp": {
+                "NJParcel_ID": "0308"
+            },
+            "Delanco Twp": {
+                "NJParcel_ID": "0309"
+            },
+            "Delran Twp": {
+                "NJParcel_ID": "0310"
+            },
+            "Eastampton Twp": {
+                "NJParcel_ID": "0311"
+            },
+            "Edgewater Park Twp": {
+                "NJParcel_ID": "0312"
+            },
+            "Evesham Twp": {
+                "NJParcel_ID": "0313"
+            },
+            "Fieldsboro Boro": {
+                "NJParcel_ID": "0314"
+            },
+            "Florence Twp": {
+                "NJParcel_ID": "0315"
+            },
+            "Hainesport Twp": {
+                "NJParcel_ID": "0316"
+            },
+            "Lumberton Twp": {
+                "NJParcel_ID": "0317"
+            },
+            "Mansfield Twp": {
+                "NJParcel_ID": "2116"
+            },
+            "Maple Shade Twp": {
+                "NJParcel_ID": "0319"
+            },
+            "Medford Lakes Boro": {
+                "NJParcel_ID": "0321"
+            },
+            "Medford Twp": {
+                "NJParcel_ID": "0320"
+            },
+            "Moorestown Twp": {
+                "NJParcel_ID": "0322"
+            },
+            "Mount Holly Twp": {
+                "NJParcel_ID": "0323"
+            },
+            "Mount Laurel Twp": {
+                "NJParcel_ID": "0324"
+            },
+            "New Hanover Twp": {
+                "NJParcel_ID": "0325"
+            },
+            "North Hanover Twp": {
+                "NJParcel_ID": "0326"
+            },
+            "Palmyra Boro": {
+                "NJParcel_ID": "0327"
+            },
+            "Pemberton Boro": {
+                "NJParcel_ID": "0328"
+            },
+            "Pemberton Twp": {
+                "NJParcel_ID": "0329"
+            },
+            "Riverside Twp": {
+                "NJParcel_ID": "0330"
+            },
+            "Riverton Boro": {
+                "NJParcel_ID": "0331"
+            },
+            "Shamong Twp": {
+                "NJParcel_ID": "0332"
+            },
+            "Southampton Twp": {
+                "NJParcel_ID": "0333"
+            },
+            "Springfield Twp": {
+                "NJParcel_ID": "2017"
+            },
+            "Tabernacle Twp": {
+                "NJParcel_ID": "0335"
+            },
+            "Westampton Twp": {
+                "NJParcel_ID": "0337"
+            },
+            "Willingboro Twp": {
+                "NJParcel_ID": "0338"
+            },
+            "Woodland Twp": {
+                "NJParcel_ID": "0339"
+            },
+            "Wrightstown Boro": {
+                "NJParcel_ID": "0340"
+            }
         }
     },
     "Camden": {
         "SheriffSale_ID": "1",
         "Cities": {
-            "Audubon Boro": "0401",
-            "Audubon Park Boro": "0402",
-            "Barrington Boro": "0403",
-            "Bellmawr Boro": "0404",
-            "Berlin Boro": "0405",
-            "Berlin Twp": "0406",
-            "Brooklawn Boro": "0407",
-            "Camden City": "0408",
-            "Cherry Hill Twp": "0409",
-            "Chesilhurst Boro": "0410",
-            "Clementon Boro": "0411",
-            "Collingswood Boro": "0412",
-            "Gibbsboro Boro": "0413",
-            "Gloucester City": "0414",
-            "Gloucester Twp": "0415",
-            "Haddonfield Boro": "0417",
-            "Haddon Heights Boro": "0418",
-            "Haddon Twp": "0416",
-            "Hi-Nella Boro": "0419",
-            "Laurel Springs Boro": "0420",
-            "Lawnside Boro": "0421",
-            "Lindenwold Boro": "0422",
-            "Magnolia Boro": "0423",
-            "Merchantville Boro": "0424",
-            "Mount Ephraim Boro": "0425",
-            "Oaklyn Boro": "0426",
-            "Pennsauken Twp": "0427",
-            "Pine Hill Boro": "0428",
-            "Pine Valley Boro": "0429",
-            "Runnemede Boro": "0430",
-            "Somerdale Boro": "0431",
-            "Stratford Boro": "0432",
-            "Tavistock Boro": "0433",
-            "Voorhees Twp": "0434",
-            "Waterford Twp": "0435",
-            "Winslow Twp": "0436",
-            "Woodlynne Boro": "0437"
+            "Audubon Boro": {
+                "NJParcel_ID": "0401"
+            },
+            "Audubon Park Boro": {
+                "NJParcel_ID": "0402"
+            },
+            "Barrington Boro": {
+                "NJParcel_ID": "0403"
+            },
+            "Bellmawr Boro": {
+                "NJParcel_ID": "0404"
+            },
+            "Berlin Boro": {
+                "NJParcel_ID": "0405"
+            },
+            "Berlin Twp": {
+                "NJParcel_ID": "0406"
+            },
+            "Brooklawn Boro": {
+                "NJParcel_ID": "0407"
+            },
+            "Camden City": {
+                "NJParcel_ID": "0408"
+            },
+            "Cherry Hill Twp": {
+                "NJParcel_ID": "0409"
+            },
+            "Chesilhurst Boro": {
+                "NJParcel_ID": "0410"
+            },
+            "Clementon Boro": {
+                "NJParcel_ID": "0411"
+            },
+            "Collingswood Boro": {
+                "NJParcel_ID": "0412"
+            },
+            "Gibbsboro Boro": {
+                "NJParcel_ID": "0413"
+            },
+            "Gloucester City": {
+                "NJParcel_ID": "0414"
+            },
+            "Gloucester Twp": {
+                "NJParcel_ID": "0415"
+            },
+            "Haddonfield Boro": {
+                "NJParcel_ID": "0417"
+            },
+            "Haddon Heights Boro": {
+                "NJParcel_ID": "0418"
+            },
+            "Haddon Twp": {
+                "NJParcel_ID": "0416"
+            },
+            "Hi-Nella Boro": {
+                "NJParcel_ID": "0419"
+            },
+            "Laurel Springs Boro": {
+                "NJParcel_ID": "0420"
+            },
+            "Lawnside Boro": {
+                "NJParcel_ID": "0421"
+            },
+            "Lindenwold Boro": {
+                "NJParcel_ID": "0422"
+            },
+            "Magnolia Boro": {
+                "NJParcel_ID": "0423"
+            },
+            "Merchantville Boro": {
+                "NJParcel_ID": "0424"
+            },
+            "Mount Ephraim Boro": {
+                "NJParcel_ID": "0425"
+            },
+            "Oaklyn Boro": {
+                "NJParcel_ID": "0426"
+            },
+            "Pennsauken Twp": {
+                "NJParcel_ID": "0427"
+            },
+            "Pine Hill Boro": {
+                "NJParcel_ID": "0428"
+            },
+            "Pine Valley Boro": {
+                "NJParcel_ID": "0429"
+            },
+            "Runnemede Boro": {
+                "NJParcel_ID": "0430"
+            },
+            "Somerdale Boro": {
+                "NJParcel_ID": "0431"
+            },
+            "Stratford Boro": {
+                "NJParcel_ID": "0432"
+            },
+            "Tavistock Boro": {
+                "NJParcel_ID": "0433"
+            },
+            "Voorhees Twp": {
+                "NJParcel_ID": "0434"
+            },
+            "Waterford Twp": {
+                "NJParcel_ID": "0435"
+            },
+            "Winslow Twp": {
+                "NJParcel_ID": "0436"
+            },
+            "Woodlynne Boro": {
+                "NJParcel_ID": "0437"
+            }
         }
     },
     "Cape May": {
         "SheriffSale_ID": "",
         "Cities": {
-            "Avalon Boro": "0501",
-            "Cape May City": "0502",
-            "Cape May Point Boro": "0503",
-            "Dennis Twp": "0504",
-            "Lower Twp": "0505",
-            "Middle Twp": "0506",
-            "North Wildwood City": "0507",
-            "Ocean City": "0508",
-            "Sea Isle City": "0509",
-            "Stone Harbor Boro": "0510",
-            "Upper Twp": "0511",
-            "West Cape May Boro": "0512",
-            "West Wildwood Boro": "0513",
-            "Wildwood City": "0514",
-            "Wildwood Crest Boro": "0515",
-            "Woodbine Boro": "0516"
+            "Avalon Boro": {
+                "NJParcel_ID": "0501"
+            },
+            "Cape May City": {
+                "NJParcel_ID": "0502"
+            },
+            "Cape May Point Boro": {
+                "NJParcel_ID": "0503"
+            },
+            "Dennis Twp": {
+                "NJParcel_ID": "0504"
+            },
+            "Lower Twp": {
+                "NJParcel_ID": "0505"
+            },
+            "Middle Twp": {
+                "NJParcel_ID": "0506"
+            },
+            "North Wildwood City": {
+                "NJParcel_ID": "0507"
+            },
+            "Ocean City": {
+                "NJParcel_ID": "0508"
+            },
+            "Sea Isle City": {
+                "NJParcel_ID": "0509"
+            },
+            "Stone Harbor Boro": {
+                "NJParcel_ID": "0510"
+            },
+            "Upper Twp": {
+                "NJParcel_ID": "0511"
+            },
+            "West Cape May Boro": {
+                "NJParcel_ID": "0512"
+            },
+            "West Wildwood Boro": {
+                "NJParcel_ID": "0513"
+            },
+            "Wildwood City": {
+                "NJParcel_ID": "0514"
+            },
+            "Wildwood Crest Boro": {
+                "NJParcel_ID": "0515"
+            },
+            "Woodbine Boro": {
+                "NJParcel_ID": "0516"
+            }
         }
     },
     "Cumberland": {
         "SheriffSale_ID": "6",
         "Cities": {
-            "Bridgeton City": "0601",
-            "Commercial Twp": "0602",
-            "Deerfield Twp": "0603",
-            "Downe Twp": "0604",
-            "Fairfield Twp": "0707",
-            "Greenwich Twp": "2107",
-            "Hopewell Twp": "1106",
-            "Lawrence Twp": "1107",
-            "Maurice River Twp": "0609",
-            "Millville City": "0610",
-            "Shiloh Boro": "0611",
-            "Stow Creek Twp": "0612",
-            "Upper Deerfield Twp": "0613",
-            "Vineland City": "0614"
+            "Bridgeton City": {
+                "NJParcel_ID": "0601"
+            },
+            "Commercial Twp": {
+                "NJParcel_ID": "0602"
+            },
+            "Deerfield Twp": {
+                "NJParcel_ID": "0603"
+            },
+            "Downe Twp": {
+                "NJParcel_ID": "0604"
+            },
+            "Fairfield Twp": {
+                "NJParcel_ID": "0707"
+            },
+            "Greenwich Twp": {
+                "NJParcel_ID": "2107"
+            },
+            "Hopewell Twp": {
+                "NJParcel_ID": "1106"
+            },
+            "Lawrence Twp": {
+                "NJParcel_ID": "1107"
+            },
+            "Maurice River Twp": {
+                "NJParcel_ID": "0609"
+            },
+            "Millville City": {
+                "NJParcel_ID": "0610"
+            },
+            "Shiloh Boro": {
+                "NJParcel_ID": "0611"
+            },
+            "Stow Creek Twp": {
+                "NJParcel_ID": "0612"
+            },
+            "Upper Deerfield Twp": {
+                "NJParcel_ID": "0613"
+            },
+            "Vineland City": {
+                "NJParcel_ID": "0614}"
+            }
         }
     },
     "Essex": {
         "SheriffSale_ID": "2",
         "Cities": {
-            "Belleville Twp": "0701",
-            "Bloomfield Twp": "0702",
-            "Caldwell Boro": "0703",
-            "Cedar Grove Twp": "0704",
-            "City Of Orange Twp": "0717",
-            "East Orange City": "0705",
-            "Essex Fells Boro": "0706",
-            "Glen Ridge Boro": "0708",
-            "Irvington Twp": "0709",
-            "Livingston Twp": "0710",
-            "Maplewood Twp": "0711",
-            "Millburn Twp": "0712",
-            "Montclair Twp": "0713",
-            "Newark City": "0714",
-            "North Caldwell Boro": "0715",
-            "Nutley Twp": "0716",
-            "Roseland Boro": "0718",
-            "South Orange Village Twp": "0719",
-            "Verona Twp": "0720",
-            "West Caldwell Twp": "0721",
-            "West Orange Twp": "0722"
+            "Belleville Twp": {
+                "NJParcel_ID": "0701"
+            },
+            "Bloomfield Twp": {
+                "NJParcel_ID": "0702"
+            },
+            "Caldwell Boro": {
+                "NJParcel_ID": "0703"
+            },
+            "Cedar Grove Twp": {
+                "NJParcel_ID": "0704"
+            },
+            "City Of Orange Twp": {
+                "NJParcel_ID": "0717"
+            },
+            "East Orange City": {
+                "NJParcel_ID": "0705"
+            },
+            "Essex Fells Boro": {
+                "NJParcel_ID": "0706"
+            },
+            "Glen Ridge Boro": {
+                "NJParcel_ID": "0708"
+            },
+            "Irvington Twp": {
+                "NJParcel_ID": "0709"
+            },
+            "Livingston Twp": {
+                "NJParcel_ID": "0710"
+            },
+            "Maplewood Twp": {
+                "NJParcel_ID": "0711"
+            },
+            "Millburn Twp": {
+                "NJParcel_ID": "0712"
+            },
+            "Montclair Twp": {
+                "NJParcel_ID": "0713"
+            },
+            "Newark City": {
+                "NJParcel_ID": "0714"
+            },
+            "North Caldwell Boro": {
+                "NJParcel_ID": "0715"
+            },
+            "Nutley Twp": {
+                "NJParcel_ID": "0716"
+            },
+            "Roseland Boro": {
+                "NJParcel_ID": "0718"
+            },
+            "South Orange Village Twp": {
+                "NJParcel_ID": "0719"
+            },
+            "Verona Twp": {
+                "NJParcel_ID": "0720"
+            },
+            "West Caldwell Twp": {
+                "NJParcel_ID": "0721"
+            },
+            "West Orange Twp": {
+                "NJParcel_ID": "0722"
+            }
         }
     },
     "Gloucester": {
         "SheriffSale_ID": "19",
         "Cities": {
-            "Clayton Boro": "0801",
-            "Deptford Twp": "0802",
-            "East Greenwich Twp": "0803",
-            "Elk Twp": "0804",
-            "Franklin Twp": "2105",
-            "Glassboro Boro": "0806",
-            "Harrison Twp": "0808",
-            "Logan Twp": "0809",
-            "Mantua Twp": "0810",
-            "Monroe Twp": "1212",
-            "National Park Boro": "0812",
-            "Newfield Boro": "0813",
-            "Paulsboro Boro": "0814",
-            "Pitman Boro": "0815",
-            "South Harrison Twp": "0816",
-            "Swedesboro Boro": "0817",
-            "Wenonah Boro": "0819",
-            "West Deptford Twp": "0820",
-            "Westville Boro": "0821",
-            "Woodbury City": "0822",
-            "Woodbury Heights Boro": "0823",
-            "Woolwich Twp": "0824"
+            "Clayton Boro": {
+                "NJParcel_ID": "0801"
+            },
+            "Deptford Twp": {
+                "NJParcel_ID": "0802"
+            },
+            "East Greenwich Twp": {
+                "NJParcel_ID": "0803"
+            },
+            "Elk Twp": {
+                "NJParcel_ID": "0804"
+            },
+            "Franklin Twp": {
+                "NJParcel_ID": "2105"
+            },
+            "Glassboro Boro": {
+                "NJParcel_ID": "0806"
+            },
+            "Harrison Twp": {
+                "NJParcel_ID": "0808"
+            },
+            "Logan Twp": {
+                "NJParcel_ID": "0809"
+            },
+            "Mantua Twp": {
+                "NJParcel_ID": "0810"
+            },
+            "Monroe Twp": {
+                "NJParcel_ID": "1212"
+            },
+            "National Park Boro": {
+                "NJParcel_ID": "0812"
+            },
+            "Newfield Boro": {
+                "NJParcel_ID": "0813"
+            },
+            "Paulsboro Boro": {
+                "NJParcel_ID": "0814"
+            },
+            "Pitman Boro": {
+                "NJParcel_ID": "0815"
+            },
+            "South Harrison Twp": {
+                "NJParcel_ID": "0816"
+            },
+            "Swedesboro Boro": {
+                "NJParcel_ID": "0817"
+            },
+            "Wenonah Boro": {
+                "NJParcel_ID": "0819"
+            },
+            "West Deptford Twp": {
+                "NJParcel_ID": "0820"
+            },
+            "Westville Boro": {
+                "NJParcel_ID": "0821"
+            },
+            "Woodbury City": {
+                "NJParcel_ID": "0822"
+            },
+            "Woodbury Heights Boro": {
+                "NJParcel_ID": "0823"
+            },
+            "Woolwich Twp": {
+                "NJParcel_ID": "0824"
+            }
         }
     },
     "Hudson": {
         "SheriffSale_ID": "10",
         "Cities": {
-            "Bayonne City": "0901",
-            "East Newark Boro": "0902",
-            "Guttenberg Town": "0903",
-            "Harrison Town": "0904",
-            "Hoboken City": "0905",
-            "Jersey City": "0906",
-            "Kearny Town": "0907",
-            "North Bergen Twp": "0908",
-            "Secaucus Town": "0909",
-            "Union": "0910",
-            "Weehawken Twp": "0911",
-            "West New York Town": "0912"
+            "Bayonne City": {
+                "NJParcel_ID": "0901"
+            },
+            "East Newark Boro": {
+                "NJParcel_ID": "0902"
+            },
+            "Guttenberg Town": {
+                "NJParcel_ID": "0903"
+            },
+            "Harrison Town": {
+                "NJParcel_ID": "0904"
+            },
+            "Hoboken City": {
+                "NJParcel_ID": "0905"
+            },
+            "Jersey City": {
+                "NJParcel_ID": "0906"
+            },
+            "Kearny Town": {
+                "NJParcel_ID": "0907"
+            },
+            "North Bergen Twp": {
+                "NJParcel_ID": "0908"
+            },
+            "Secaucus Town": {
+                "NJParcel_ID": "0909"
+            },
+            "Union": {
+                "NJParcel_ID": "0910"
+            },
+            "Weehawken Twp": {
+                "NJParcel_ID": "0911"
+            },
+            "West New York Town": {
+                "NJParcel_ID": "0912"
+            }
         }
     },
     "Hunterdon": {
         "SheriffSale_ID": "",
         "Cities": {
-            "Alexandria Twp": "1001",
-            "Bethlehem Twp": "1002",
-            "Bloomsbury Boro": "1003",
-            "Califon Boro": "1004",
-            "Clinton Town": "1005",
-            "Clinton Twp": "1006",
-            "Delaware Twp": "1007",
-            "East Amwell Twp": "1008",
-            "Flemington Boro": "1009",
-            "Frenchtown Boro": "1011",
-            "Glen Gardner Boro": "1012",
-            "Hampton Boro": "1013",
-            "High Bridge Boro": "1014",
-            "Holland Twp": "1015",
-            "Kingwood Twp": "1016",
-            "Lambertville City": "1017",
-            "Lebanon Boro": "1018",
-            "Lebanon Twp": "1019",
-            "Milford Boro": "1020",
-            "Raritan Twp": "1021",
-            "Readington Twp": "1022",
-            "Stockton Boro": "1023",
-            "Tewksbury Twp": "1024",
-            "Union Twp": "2019",
-            "West Amwell Twp": "1026"
+            "Alexandria Twp": {
+                "NJParcel_ID": "1001"
+            },
+            "Bethlehem Twp": {
+                "NJParcel_ID": "1002"
+            },
+            "Bloomsbury Boro": {
+                "NJParcel_ID": "1003"
+            },
+            "Califon Boro": {
+                "NJParcel_ID": "1004"
+            },
+            "Clinton Town": {
+                "NJParcel_ID": "1005"
+            },
+            "Clinton Twp": {
+                "NJParcel_ID": "1006"
+            },
+            "Delaware Twp": {
+                "NJParcel_ID": "1007"
+            },
+            "East Amwell Twp": {
+                "NJParcel_ID": "1008"
+            },
+            "Flemington Boro": {
+                "NJParcel_ID": "1009"
+            },
+            "Frenchtown Boro": {
+                "NJParcel_ID": "1011"
+            },
+            "Glen Gardner Boro": {
+                "NJParcel_ID": "1012"
+            },
+            "Hampton Boro": {
+                "NJParcel_ID": "1013"
+            },
+            "High Bridge Boro": {
+                "NJParcel_ID": "1014"
+            },
+            "Holland Twp": {
+                "NJParcel_ID": "1015"
+            },
+            "Kingwood Twp": {
+                "NJParcel_ID": "1016"
+            },
+            "Lambertville City": {
+                "NJParcel_ID": "1017"
+            },
+            "Lebanon Boro": {
+                "NJParcel_ID": "1018"
+            },
+            "Lebanon Twp": {
+                "NJParcel_ID": "1019"
+            },
+            "Milford Boro": {
+                "NJParcel_ID": "1020"
+            },
+            "Raritan Twp": {
+                "NJParcel_ID": "1021"
+            },
+            "Readington Twp": {
+                "NJParcel_ID": "1022"
+            },
+            "Stockton Boro": {
+                "NJParcel_ID": "1023"
+            },
+            "Tewksbury Twp": {
+                "NJParcel_ID": "1024"
+            },
+            "Union Twp": {
+                "NJParcel_ID": "2019"
+            },
+            "West Amwell Twp": {
+                "NJParcel_ID": "1026"
+            }
         }
     },
     "Mercer": {
         "SheriffSale_ID": "",
         "Cities": {
-            "East Windsor Twp": "1101",
-            "Ewing Twp": "1102",
-            "Hightstown Boro": "1104",
-            "Hopewell Boro": "1105",
-            "Pennington Boro": "1108",
-            "Princeton": "1114",
-            "Robbinsville Twp": "1112",
-            "Trenton City": "1111",
-            "West Windsor Twp": "1113"
+            "East Windsor Twp": {
+                "NJParcel_ID": "1101"
+            },
+            "Ewing Twp": {
+                "NJParcel_ID": "1102"
+            },
+            "Hightstown Boro": {
+                "NJParcel_ID": "1104"
+            },
+            "Hopewell Boro": {
+                "NJParcel_ID": "1105"
+            },
+            "Pennington Boro": {
+                "NJParcel_ID": "1108"
+            },
+            "Princeton": {
+                "NJParcel_ID": "1114"
+            },
+            "Robbinsville Twp": {
+                "NJParcel_ID": "1112"
+            },
+            "Trenton City": {
+                "NJParcel_ID": "1111"
+            },
+            "West Windsor Twp": {
+                "NJParcel_ID": "1113"
+            }
         }
     },
     "Middlesex": {
         "SheriffSale_ID": "",
         "Cities": {
-            "Carteret Boro": "1201",
-            "Cranbury Twp": "1202",
-            "Dunellen Boro": "1203",
-            "East Brunswick Twp": "1204",
-            "Edison Twp": "1205",
-            "Helmetta Boro": "1206",
-            "Highland Park Boro": "1207",
-            "Jamesburg Boro": "1208",
-            "Metuchen Boro": "1209",
-            "Middlesex Boro": "1210",
-            "Milltown Boro": "1211",
-            "New Brunswick City": "1213",
-            "North Brunswick Twp": "1214",
-            "Old Bridge Twp": "1215",
-            "Perth Amboy City": "1216",
-            "Piscataway Twp": "1217",
-            "Plainsboro Twp": "1218",
-            "Sayreville Boro": "1219",
-            "South Amboy City": "1220",
-            "South Brunswick Twp": "1221",
-            "South Plainfield Boro": "1222",
-            "South River Boro": "1223",
-            "Spotswood Boro": "1224",
-            "Woodbridge Twp": "1225"
+            "Carteret Boro": {
+                "NJParcel_ID": "1201"
+            },
+            "Cranbury Twp": {
+                "NJParcel_ID": "1202"
+            },
+            "Dunellen Boro": {
+                "NJParcel_ID": "1203"
+            },
+            "East Brunswick Twp": {
+                "NJParcel_ID": "1204"
+            },
+            "Edison Twp": {
+                "NJParcel_ID": "1205"
+            },
+            "Helmetta Boro": {
+                "NJParcel_ID": "1206"
+            },
+            "Highland Park Boro": {
+                "NJParcel_ID": "1207"
+            },
+            "Jamesburg Boro": {
+                "NJParcel_ID": "1208"
+            },
+            "Metuchen Boro": {
+                "NJParcel_ID": "1209"
+            },
+            "Middlesex Boro": {
+                "NJParcel_ID": "1210"
+            },
+            "Milltown Boro": {
+                "NJParcel_ID": "1211"
+            },
+            "New Brunswick City": {
+                "NJParcel_ID": "1213"
+            },
+            "North Brunswick Twp": {
+                "NJParcel_ID": "1214"
+            },
+            "Old Bridge Twp": {
+                "NJParcel_ID": "1215"
+            },
+            "Perth Amboy City": {
+                "NJParcel_ID": "1216"
+            },
+            "Piscataway Twp": {
+                "NJParcel_ID": "1217"
+            },
+            "Plainsboro Twp": {
+                "NJParcel_ID": "1218"
+            },
+            "Sayreville Boro": {
+                "NJParcel_ID": "1219"
+            },
+            "South Amboy City": {
+                "NJParcel_ID": "1220"
+            },
+            "South Brunswick Twp": {
+                "NJParcel_ID": "1221"
+            },
+            "South Plainfield Boro": {
+                "NJParcel_ID": "1222"
+            },
+            "South River Boro": {
+                "NJParcel_ID": "1223"
+            },
+            "Spotswood Boro": {
+                "NJParcel_ID": "1224"
+            },
+            "Woodbridge Twp": {
+                "NJParcel_ID": "1225"
+            }
         }
     },
     "Monmouth": {
         "SheriffSale_ID": "8",
         "Cities": {
-            "Aberdeen Twp": "1301",
-            "Allenhurst Boro": "1302",
-            "Allentown Boro": "1303",
-            "Asbury Park City": "1304",
-            "Atlantic Highlands Boro": "1305",
-            "Avon-By-The-Sea Boro": "1306",
-            "Belmar Boro": "1307",
-            "Bradley Beach Boro": "1308",
-            "Brielle Boro": "1309",
-            "Colts Neck Twp": "1310",
-            "Deal Boro": "1311",
-            "Eatontown Boro": "1312",
-            "Englishtown Boro": "1313",
-            "Fair Haven Boro": "1314",
-            "Farmingdale Boro": "1315",
-            "Freehold Boro": "1316",
-            "Freehold Twp": "1317",
-            "Hazlet Twp": "1318",
-            "Highlands Boro": "1319",
-            "Holmdel Twp": "1320",
-            "Howell Twp": "1321",
-            "Interlaken Boro": "1322",
-            "Keansburg Boro": "1323",
-            "Keyport Boro": "1324",
-            "Lake Como Boro": "1346",
-            "Little Silver Boro": "1325",
-            "Loch Arbour Village": "1326",
-            "Long Branch City": "1327",
-            "Manalapan Twp": "1328",
-            "Manasquan Boro": "1329",
-            "Marlboro Twp": "1330",
-            "Matawan Boro": "1331",
-            "Middletown Twp": "1332",
-            "Millstone Twp": "1333",
-            "Monmouth Beach Boro": "1334",
-            "Neptune City Boro": "1336",
-            "Neptune Twp": "1335",
-            "Oceanport Boro": "1338",
-            "Ocean Twp": "1521",
-            "Red Bank Boro": "1339",
-            "Roosevelt Boro": "1340",
-            "Rumson Boro": "1341",
-            "Sea Bright Boro": "1342",
-            "Sea Girt Boro": "1343",
-            "Shrewsbury Boro": "1344",
-            "Shrewsbury Twp": "1345",
-            "Spring Lake Boro": "1347",
-            "Spring Lake Heights Boro": "1348",
-            "Tinton Falls Boro": "1349",
-            "Union Beach Boro": "1350",
-            "Upper Freehold Twp": "1351",
-            "Wall Twp": "1352",
-            "West Long Branch Boro": "1353"
+            "Aberdeen Twp": {
+                "NJParcel_ID": "1301"
+            },
+            "Allenhurst Boro": {
+                "NJParcel_ID": "1302"
+            },
+            "Allentown Boro": {
+                "NJParcel_ID": "1303"
+            },
+            "Asbury Park City": {
+                "NJParcel_ID": "1304"
+            },
+            "Atlantic Highlands Boro": {
+                "NJParcel_ID": "1305"
+            },
+            "Avon-By-The-Sea Boro": {
+                "NJParcel_ID": "1306"
+            },
+            "Belmar Boro": {
+                "NJParcel_ID": "1307"
+            },
+            "Bradley Beach Boro": {
+                "NJParcel_ID": "1308"
+            },
+            "Brielle Boro": {
+                "NJParcel_ID": "1309"
+            },
+            "Colts Neck Twp": {
+                "NJParcel_ID": "1310"
+            },
+            "Deal Boro": {
+                "NJParcel_ID": "1311"
+            },
+            "Eatontown Boro": {
+                "NJParcel_ID": "1312"
+            },
+            "Englishtown Boro": {
+                "NJParcel_ID": "1313"
+            },
+            "Fair Haven Boro": {
+                "NJParcel_ID": "1314"
+            },
+            "Farmingdale Boro": {
+                "NJParcel_ID": "1315"
+            },
+            "Freehold Boro": {
+                "NJParcel_ID": "1316"
+            },
+            "Freehold Twp": {
+                "NJParcel_ID": "1317"
+            },
+            "Hazlet Twp": {
+                "NJParcel_ID": "1318"
+            },
+            "Highlands Boro": {
+                "NJParcel_ID": "1319"
+            },
+            "Holmdel Twp": {
+                "NJParcel_ID": "1320"
+            },
+            "Howell Twp": {
+                "NJParcel_ID": "1321"
+            },
+            "Interlaken Boro": {
+                "NJParcel_ID": "1322"
+            },
+            "Keansburg Boro": {
+                "NJParcel_ID": "1323"
+            },
+            "Keyport Boro": {
+                "NJParcel_ID": "1324"
+            },
+            "Lake Como Boro": {
+                "NJParcel_ID": "1346"
+            },
+            "Little Silver Boro": {
+                "NJParcel_ID": "1325"
+            },
+            "Loch Arbour Village": {
+                "NJParcel_ID": "1326"
+            },
+            "Long Branch City": {
+                "NJParcel_ID": "1327"
+            },
+            "Manalapan Twp": {
+                "NJParcel_ID": "1328"
+            },
+            "Manasquan Boro": {
+                "NJParcel_ID": "1329"
+            },
+            "Marlboro Twp": {
+                "NJParcel_ID": "1330"
+            },
+            "Matawan Boro": {
+                "NJParcel_ID": "1331"
+            },
+            "Middletown Twp": {
+                "NJParcel_ID": "1332"
+            },
+            "Millstone Twp": {
+                "NJParcel_ID": "1333"
+            },
+            "Monmouth Beach Boro": {
+                "NJParcel_ID": "1334"
+            },
+            "Neptune City Boro": {
+                "NJParcel_ID": "1336"
+            },
+            "Neptune Twp": {
+                "NJParcel_ID": "1335"
+            },
+            "Oceanport Boro": {
+                "NJParcel_ID": "1338"
+            },
+            "Ocean Twp": {
+                "NJParcel_ID": "1521"
+            },
+            "Red Bank Boro": {
+                "NJParcel_ID": "1339"
+            },
+            "Roosevelt Boro": {
+                "NJParcel_ID": "1340"
+            },
+            "Rumson Boro": {
+                "NJParcel_ID": "1341"
+            },
+            "Sea Bright Boro": {
+                "NJParcel_ID": "1342"
+            },
+            "Sea Girt Boro": {
+                "NJParcel_ID": "1343"
+            },
+            "Shrewsbury Boro": {
+                "NJParcel_ID": "1344"
+            },
+            "Shrewsbury Twp": {
+                "NJParcel_ID": "1345"
+            },
+            "Spring Lake Boro": {
+                "NJParcel_ID": "1347"
+            },
+            "Spring Lake Heights Boro": {
+                "NJParcel_ID": "1348"
+            },
+            "Tinton Falls Boro": {
+                "NJParcel_ID": "1349"
+            },
+            "Union Beach Boro": {
+                "NJParcel_ID": "1350"
+            },
+            "Upper Freehold Twp": {
+                "NJParcel_ID": "1351"
+            },
+            "Wall Twp": {
+                "NJParcel_ID": "1352"
+            },
+            "West Long Branch Boro": {
+                "NJParcel_ID": "1353"
+            }
         }
     },
     "Morris": {
         "SheriffSale_ID": "9",
         "Cities": {
-            "Boonton Town": "1401",
-            "Boonton Twp": "1402",
-            "Butler Boro": "1403",
-            "Chatham Boro": "1404",
-            "Chatham Twp": "1405",
-            "Chester Boro": "1406",
-            "Chester Twp": "1407",
-            "Denville Twp": "1408",
-            "Dover Town": "1409",
-            "East Hanover Twp": "1410",
-            "Florham Park Boro": "1411",
-            "Hanover Twp": "1412",
-            "Harding Twp": "1413",
-            "Jefferson Twp": "1414",
-            "Kinnelon Boro": "1415",
-            "Lincoln Park Boro": "1416",
-            "Long Hill Twp": "1430",
-            "Madison Boro": "1417",
-            "Mendham Boro": "1418",
-            "Mendham Twp": "1419",
-            "Mine Hill Twp": "1420",
-            "Montville Twp": "1421",
-            "Morris Plains Boro": "1423",
-            "Morristown Town": "1424",
-            "Morris Twp": "1422",
-            "Mountain Lakes Boro": "1425",
-            "Mount Arlington Boro": "1426",
-            "Mount Olive Twp": "1427",
-            "Netcong Boro": "1428",
-            "Parsippany-Troy Hills Twp": "1429",
-            "Pequannock Twp": "1431",
-            "Randolph Twp": "1432",
-            "Riverdale Boro": "1433",
-            "Rockaway Boro": "1434",
-            "Rockaway Twp": "1435",
-            "Roxbury Twp": "1436",
-            "Victory Gardens Boro": "1437",
-            "Wharton Boro": "1439"
+            "Boonton Town": {
+                "NJParcel_ID": "1401"
+            },
+            "Boonton Twp": {
+                "NJParcel_ID": "1402"
+            },
+            "Butler Boro": {
+                "NJParcel_ID": "1403"
+            },
+            "Chatham Boro": {
+                "NJParcel_ID": "1404"
+            },
+            "Chatham Twp": {
+                "NJParcel_ID": "1405"
+            },
+            "Chester Boro": {
+                "NJParcel_ID": "1406"
+            },
+            "Chester Twp": {
+                "NJParcel_ID": "1407"
+            },
+            "Denville Twp": {
+                "NJParcel_ID": "1408"
+            },
+            "Dover Town": {
+                "NJParcel_ID": "1409"
+            },
+            "East Hanover Twp": {
+                "NJParcel_ID": "1410"
+            },
+            "Florham Park Boro": {
+                "NJParcel_ID": "1411"
+            },
+            "Hanover Twp": {
+                "NJParcel_ID": "1412"
+            },
+            "Harding Twp": {
+                "NJParcel_ID": "1413"
+            },
+            "Jefferson Twp": {
+                "NJParcel_ID": "1414"
+            },
+            "Kinnelon Boro": {
+                "NJParcel_ID": "1415"
+            },
+            "Lincoln Park Boro": {
+                "NJParcel_ID": "1416"
+            },
+            "Long Hill Twp": {
+                "NJParcel_ID": "1430"
+            },
+            "Madison Boro": {
+                "NJParcel_ID": "1417"
+            },
+            "Mendham Boro": {
+                "NJParcel_ID": "1418"
+            },
+            "Mendham Twp": {
+                "NJParcel_ID": "1419"
+            },
+            "Mine Hill Twp": {
+                "NJParcel_ID": "1420"
+            },
+            "Montville Twp": {
+                "NJParcel_ID": "1421"
+            },
+            "Morris Plains Boro": {
+                "NJParcel_ID": "1423"
+            },
+            "Morristown Town": {
+                "NJParcel_ID": "1424"
+            },
+            "Morris Twp": {
+                "NJParcel_ID": "1422"
+            },
+            "Mountain Lakes Boro": {
+                "NJParcel_ID": "1425"
+            },
+            "Mount Arlington Boro": {
+                "NJParcel_ID": "1426"
+            },
+            "Mount Olive Twp": {
+                "NJParcel_ID": "1427"
+            },
+            "Netcong Boro": {
+                "NJParcel_ID": "1428"
+            },
+            "Parsippany-Troy Hills Twp": {
+                "NJParcel_ID": "1429"
+            },
+            "Pequannock Twp": {
+                "NJParcel_ID": "1431"
+            },
+            "Randolph Twp": {
+                "NJParcel_ID": "1432"
+            },
+            "Riverdale Boro": {
+                "NJParcel_ID": "1433"
+            },
+            "Rockaway Boro": {
+                "NJParcel_ID": "1434"
+            },
+            "Rockaway Twp": {
+                "NJParcel_ID": "1435"
+            },
+            "Roxbury Twp": {
+                "NJParcel_ID": "1436"
+            },
+            "Victory Gardens Boro": {
+                "NJParcel_ID": "1437"
+            },
+            "Wharton Boro": {
+                "NJParcel_ID": "1439"
+            }
         }
     },
     "Ocean": {
         "SheriffSale_ID": "",
         "Cities": {
-            "Barnegat Light Boro": "1502",
-            "Barnegat Twp": "1501",
-            "Bay Head Boro": "1503",
-            "Beach Haven Boro": "1504",
-            "Beachwood Boro": "1505",
-            "Berkeley Twp": "1506",
-            "Brick Twp": "1507",
-            "Eagleswood Twp": "1509",
-            "Harvey Cedars Boro": "1510",
-            "Island Heights Boro": "1511",
-            "Jackson Twp": "1512",
-            "Lacey Twp": "1513",
-            "Lakehurst Boro": "1514",
-            "Lakewood Twp": "1515",
-            "Lavallette Boro": "1516",
-            "Little Egg Harbor Twp": "1517",
-            "Long Beach Twp": "1518",
-            "Manchester Twp": "1519",
-            "Mantoloking Boro": "1520",
-            "Ocean Gate Boro": "1522",
-            "Pine Beach Boro": "1523",
-            "Plumsted Twp": "1524",
-            "Point Pleasant Beach Boro": "1526",
-            "Point Pleasant Boro": "1525",
-            "Seaside Heights Boro": "1527",
-            "Seaside Park Boro": "1528",
-            "Ship Bottom Boro": "1529",
-            "South Toms River Boro": "1530",
-            "Stafford Twp": "1531",
-            "Surf City Boro": "1532",
-            "Toms River Twp": "1508",
-            "Tuckerton Boro": "1533"
+            "Barnegat Light Boro": {
+                "NJParcel_ID": "1502"
+            },
+            "Barnegat Twp": {
+                "NJParcel_ID": "1501"
+            },
+            "Bay Head Boro": {
+                "NJParcel_ID": "1503"
+            },
+            "Beach Haven Boro": {
+                "NJParcel_ID": "1504"
+            },
+            "Beachwood Boro": {
+                "NJParcel_ID": "1505"
+            },
+            "Berkeley Twp": {
+                "NJParcel_ID": "1506"
+            },
+            "Brick Twp": {
+                "NJParcel_ID": "1507"
+            },
+            "Eagleswood Twp": {
+                "NJParcel_ID": "1509"
+            },
+            "Harvey Cedars Boro": {
+                "NJParcel_ID": "1510"
+            },
+            "Island Heights Boro": {
+                "NJParcel_ID": "1511"
+            },
+            "Jackson Twp": {
+                "NJParcel_ID": "1512"
+            },
+            "Lacey Twp": {
+                "NJParcel_ID": "1513"
+            },
+            "Lakehurst Boro": {
+                "NJParcel_ID": "1514"
+            },
+            "Lakewood Twp": {
+                "NJParcel_ID": "1515"
+            },
+            "Lavallette Boro": {
+                "NJParcel_ID": "1516"
+            },
+            "Little Egg Harbor Twp": {
+                "NJParcel_ID": "1517"
+            },
+            "Long Beach Twp": {
+                "NJParcel_ID": "1518"
+            },
+            "Manchester Twp": {
+                "NJParcel_ID": "1519"
+            },
+            "Mantoloking Boro": {
+                "NJParcel_ID": "1520"
+            },
+            "Ocean Gate Boro": {
+                "NJParcel_ID": "1522"
+            },
+            "Pine Beach Boro": {
+                "NJParcel_ID": "1523"
+            },
+            "Plumsted Twp": {
+                "NJParcel_ID": "1524"
+            },
+            "Point Pleasant Beach Boro": {
+                "NJParcel_ID": "1526"
+            },
+            "Point Pleasant Boro": {
+                "NJParcel_ID": "1525"
+            },
+            "Seaside Heights Boro": {
+                "NJParcel_ID": "1527"
+            },
+            "Seaside Park Boro": {
+                "NJParcel_ID": "1528"
+            },
+            "Ship Bottom Boro": {
+                "NJParcel_ID": "1529"
+            },
+            "South Toms River Boro": {
+                "NJParcel_ID": "1530"
+            },
+            "Stafford Twp": {
+                "NJParcel_ID": "1531"
+            },
+            "Surf City Boro": {
+                "NJParcel_ID": "1532"
+            },
+            "Toms River Twp": {
+                "NJParcel_ID": "1508"
+            },
+            "Tuckerton Boro": {
+                "NJParcel_ID": "1533"
+            }
         }
     },
     "Passaic": {
         "SheriffSale_ID": "17",
         "Cities": {
-            "Bloomingdale Boro": "1601",
-            "Clifton City": "1602",
-            "Haledon Boro": "1603",
-            "Hawthorne Boro": "1604",
-            "Little Falls Twp": "1605",
-            "North Haledon Boro": "1606",
-            "Passaic City": "1607",
-            "Paterson City": "1608",
-            "Pompton Lakes Boro": "1609",
-            "Prospect Park Boro": "1610",
-            "Ringwood Boro": "1611",
-            "Totowa Boro": "1612",
-            "Wanaque Boro": "1613",
-            "Wayne Twp": "1614",
-            "West Milford Twp": "1615",
-            "Woodland Park Boro": "1616"
+            "Bloomingdale Boro": {
+                "NJParcel_ID": "1601"
+            },
+            "Clifton City": {
+                "NJParcel_ID": "1602"
+            },
+            "Haledon Boro": {
+                "NJParcel_ID": "1603"
+            },
+            "Hawthorne Boro": {
+                "NJParcel_ID": "1604"
+            },
+            "Little Falls Twp": {
+                "NJParcel_ID": "1605"
+            },
+            "North Haledon Boro": {
+                "NJParcel_ID": "1606"
+            },
+            "Passaic City": {
+                "NJParcel_ID": "1607"
+            },
+            "Paterson City": {
+                "NJParcel_ID": "1608"
+            },
+            "Pompton Lakes Boro": {
+                "NJParcel_ID": "1609"
+            },
+            "Prospect Park Boro": {
+                "NJParcel_ID": "1610"
+            },
+            "Ringwood Boro": {
+                "NJParcel_ID": "1611"
+            },
+            "Totowa Boro": {
+                "NJParcel_ID": "1612"
+            },
+            "Wanaque Boro": {
+                "NJParcel_ID": "1613"
+            },
+            "Wayne Twp": {
+                "NJParcel_ID": "1614"
+            },
+            "West Milford Twp": {
+                "NJParcel_ID": "1615"
+            },
+            "Woodland Park Boro": {
+                "NJParcel_ID": "1616"
+            }
         }
     },
     "Salem": {
         "SheriffSale_ID": "20",
         "Cities": {
-            "Alloway Twp": "1701",
-            "Carneys Point Twp": "1702",
-            "Elmer Boro": "1703",
-            "Elsinboro Twp": "1704",
-            "Lower Alloways Creek Twp": "1705",
-            "Mannington Twp": "1706",
-            "Oldmans Twp": "1707",
-            "Penns Grove Boro": "1708",
-            "Pennsville Twp": "1709",
-            "Pilesgrove Twp": "1710",
-            "Pittsgrove Twp": "1711",
-            "Quinton Twp": "1712",
-            "Salem City": "1713",
-            "Upper Pittsgrove Twp": "1714",
-            "Woodstown Boro": "1715"
+            "Alloway Twp": {
+                "NJParcel_ID": "1701"
+            },
+            "Carneys Point Twp": {
+                "NJParcel_ID": "1702"
+            },
+            "Elmer Boro": {
+                "NJParcel_ID": "1703"
+            },
+            "Elsinboro Twp": {
+                "NJParcel_ID": "1704"
+            },
+            "Lower Alloways Creek Twp": {
+                "NJParcel_ID": "1705"
+            },
+            "Mannington Twp": {
+                "NJParcel_ID": "1706"
+            },
+            "Oldmans Twp": {
+                "NJParcel_ID": "1707"
+            },
+            "Penns Grove Boro": {
+                "NJParcel_ID": "1708"
+            },
+            "Pennsville Twp": {
+                "NJParcel_ID": "1709"
+            },
+            "Pilesgrove Twp": {
+                "NJParcel_ID": "1710"
+            },
+            "Pittsgrove Twp": {
+                "NJParcel_ID": "1711"
+            },
+            "Quinton Twp": {
+                "NJParcel_ID": "1712"
+            },
+            "Salem City": {
+                "NJParcel_ID": "1713"
+            },
+            "Upper Pittsgrove Twp": {
+                "NJParcel_ID": "1714"
+            },
+            "Woodstown Boro": {
+                "NJParcel_ID": "1715"
+            }
         }
     },
     "Somerset": {
         "SheriffSale_ID": "",
         "Cities": {
-            "Bedminster Twp": "1801",
-            "Bernards Twp": "1802",
-            "Bernardsville Boro": "1803",
-            "Bound Brook Boro": "1804",
-            "Branchburg Twp": "1805",
-            "Bridgewater Twp": "1806",
-            "Far Hills Boro": "1807",
-            "Green Brook Twp": "1809",
-            "Hillsborough Twp": "1810",
-            "Manville Boro": "1811",
-            "Millstone Boro": "1812",
-            "Montgomery Twp": "1813",
-            "North Plainfield Boro": "1814",
-            "Peapack-Gladstone Boro": "1815",
-            "Raritan Boro": "1816",
-            "Rocky Hill Boro": "1817",
-            "Somerville Boro": "1818",
-            "South Bound Brook Boro": "1819",
-            "Warren Twp": "1820",
-            "Watchung Boro": "1821"
+            "Bedminster Twp": {
+                "NJParcel_ID": "1801"
+            },
+            "Bernards Twp": {
+                "NJParcel_ID": "1802"
+            },
+            "Bernardsville Boro": {
+                "NJParcel_ID": "1803"
+            },
+            "Bound Brook Boro": {
+                "NJParcel_ID": "1804"
+            },
+            "Branchburg Twp": {
+                "NJParcel_ID": "1805"
+            },
+            "Bridgewater Twp": {
+                "NJParcel_ID": "1806"
+            },
+            "Far Hills Boro": {
+                "NJParcel_ID": "1807"
+            },
+            "Green Brook Twp": {
+                "NJParcel_ID": "1809"
+            },
+            "Hillsborough Twp": {
+                "NJParcel_ID": "1810"
+            },
+            "Manville Boro": {
+                "NJParcel_ID": "1811"
+            },
+            "Millstone Boro": {
+                "NJParcel_ID": "1812"
+            },
+            "Montgomery Twp": {
+                "NJParcel_ID": "1813"
+            },
+            "North Plainfield Boro": {
+                "NJParcel_ID": "1814"
+            },
+            "Peapack-Gladstone Boro": {
+                "NJParcel_ID": "1815"
+            },
+            "Raritan Boro": {
+                "NJParcel_ID": "1816"
+            },
+            "Rocky Hill Boro": {
+                "NJParcel_ID": "1817"
+            },
+            "Somerville Boro": {
+                "NJParcel_ID": "1818"
+            },
+            "South Bound Brook Boro": {
+                "NJParcel_ID": "1819"
+            },
+            "Warren Twp": {
+                "NJParcel_ID": "1820"
+            },
+            "Watchung Boro": {
+                "NJParcel_ID": "1821"
+            }
         }
     },
     "Sussex": {
         "SheriffSale_ID": "",
         "Cities": {
-            "Andover Boro": "1901",
-            "Andover Twp": "1902",
-            "Branchville Boro": "1903",
-            "Byram Twp": "1904",
-            "Frankford Twp": "1905",
-            "Franklin Boro": "1906",
-            "Fredon Twp": "1907",
-            "Green Twp": "1908",
-            "Hamburg Boro": "1909",
-            "Hampton Twp": "1910",
-            "Hardyston Twp": "1911",
-            "Hopatcong Boro": "1912",
-            "Lafayette Twp": "1913",
-            "Montague Twp": "1914",
-            "Newton Town": "1915",
-            "Ogdensburg Boro": "1916",
-            "Sandyston Twp": "1917",
-            "Sparta Twp": "1918",
-            "Stanhope Boro": "1919",
-            "Stillwater Twp": "1920",
-            "Sussex Boro": "1921",
-            "Vernon Twp": "1922",
-            "Walpack Twp": "1923",
-            "Wantage Twp": "1924"
+            "Andover Boro": {
+                "NJParcel_ID": "1901"
+            },
+            "Andover Twp": {
+                "NJParcel_ID": "1902"
+            },
+            "Branchville Boro": {
+                "NJParcel_ID": "1903"
+            },
+            "Byram Twp": {
+                "NJParcel_ID": "1904"
+            },
+            "Frankford Twp": {
+                "NJParcel_ID": "1905"
+            },
+            "Franklin Boro": {
+                "NJParcel_ID": "1906"
+            },
+            "Fredon Twp": {
+                "NJParcel_ID": "1907"
+            },
+            "Green Twp": {
+                "NJParcel_ID": "1908"
+            },
+            "Hamburg Boro": {
+                "NJParcel_ID": "1909"
+            },
+            "Hampton Twp": {
+                "NJParcel_ID": "1910"
+            },
+            "Hardyston Twp": {
+                "NJParcel_ID": "1911"
+            },
+            "Hopatcong Boro": {
+                "NJParcel_ID": "1912"
+            },
+            "Lafayette Twp": {
+                "NJParcel_ID": "1913"
+            },
+            "Montague Twp": {
+                "NJParcel_ID": "1914"
+            },
+            "Newton Town": {
+                "NJParcel_ID": "1915"
+            },
+            "Ogdensburg Boro": {
+                "NJParcel_ID": "1916"
+            },
+            "Sandyston Twp": {
+                "NJParcel_ID": "1917"
+            },
+            "Sparta Twp": {
+                "NJParcel_ID": "1918"
+            },
+            "Stanhope Boro": {
+                "NJParcel_ID": "1919"
+            },
+            "Stillwater Twp": {
+                "NJParcel_ID": "1920"
+            },
+            "Sussex Boro": {
+                "NJParcel_ID": "1921"
+            },
+            "Vernon Twp": {
+                "NJParcel_ID": "1922"
+            },
+            "Walpack Twp": {
+                "NJParcel_ID": "1923"
+            },
+            "Wantage Twp": {
+                "NJParcel_ID": "1924"
+            }
         }
     },
     "Union": {
         "SheriffSale_ID": "15",
         "Cities": {
-            "Berkeley Heights Twp": "2001",
-            "Clark Twp": "2002",
-            "Cranford Twp": "2003",
-            "Elizabeth": "2004",
-            "Fanwood Boro": "2005",
-            "Garwood Boro": "2006",
-            "Hillside Twp": "2007",
-            "Kenilworth Boro": "2008",
-            "Linden": "2009",
-            "Mountainside Boro": "2010",
-            "New Providence Boro": "2011",
-            "Plainfield City": "2012",
-            "Rahway City": "2013",
-            "Roselle Boro": "2014",
-            "Roselle Park Boro": "2015",
-            "Scotch Plains Twp": "2016",
-            "Summit": "2018",
-            "Westfield Town": "2020",
-            "Winfield Twp": "2021"
+            "Berkeley Heights Twp": {
+                "NJParcel_ID": "2001"
+            },
+            "Clark Twp": {
+                "NJParcel_ID": "2002"
+            },
+            "Cranford Twp": {
+                "NJParcel_ID": "2003"
+            },
+            "Elizabeth": {
+                "NJParcel_ID": "2004"
+            },
+            "Fanwood Boro": {
+                "NJParcel_ID": "2005"
+            },
+            "Garwood Boro": {
+                "NJParcel_ID": "2006"
+            },
+            "Hillside Twp": {
+                "NJParcel_ID": "2007"
+            },
+            "Kenilworth Boro": {
+                "NJParcel_ID": "2008"
+            },
+            "Linden": {
+                "NJParcel_ID": "2009"
+            },
+            "Mountainside Boro": {
+                "NJParcel_ID": "2010"
+            },
+            "New Providence Boro": {
+                "NJParcel_ID": "2011"
+            },
+            "Plainfield City": {
+                "NJParcel_ID": "2012"
+            },
+            "Rahway City": {
+                "NJParcel_ID": "2013"
+            },
+            "Roselle Boro": {
+                "NJParcel_ID": "2014"
+            },
+            "Roselle Park Boro": {
+                "NJParcel_ID": "2015"
+            },
+            "Scotch Plains Twp": {
+                "NJParcel_ID": "2016"
+            },
+            "Summit": {
+                "NJParcel_ID": "2018"
+            },
+            "Westfield Town": {
+                "NJParcel_ID": "2020"
+            },
+            "Winfield Twp": {
+                "NJParcel_ID": "2021"
+            }
         }
     },
     "Warren": {
         "SheriffSale_ID": "",
         "Cities": {
-            "Allamuchy Twp": "2101",
-            "Alpha Boro": "2102",
-            "Belvidere Town": "2103",
-            "Blairstown Twp": "2104",
-            "Frelinghuysen Twp": "2106",
-            "Hackettstown Town": "2108",
-            "Hardwick Twp": "2109",
-            "Harmony Twp": "2110",
-            "Hope Twp": "2111",
-            "Independence Twp": "2112",
-            "Knowlton Twp": "2113",
-            "Liberty Twp": "2114",
-            "Lopatcong Twp": "2115",
-            "Oxford Twp": "2117",
-            "Phillipsburg Town": "2119",
-            "Pohatcong Twp": "2120",
-            "Washington Boro": "2121",
-            "White Twp": "2123"
+            "Allamuchy Twp": {
+                "NJParcel_ID": "2101"
+            },
+            "Alpha Boro": {
+                "NJParcel_ID": "2102"
+            },
+            "Belvidere Town": {
+                "NJParcel_ID": "2103"
+            },
+            "Blairstown Twp": {
+                "NJParcel_ID": "2104"
+            },
+            "Frelinghuysen Twp": {
+                "NJParcel_ID": "2106"
+            },
+            "Hackettstown Town": {
+                "NJParcel_ID": "2108"
+            },
+            "Hardwick Twp": {
+                "NJParcel_ID": "2109"
+            },
+            "Harmony Twp": {
+                "NJParcel_ID": "2110"
+            },
+            "Hope Twp": {
+                "NJParcel_ID": "2111"
+            },
+            "Independence Twp": {
+                "NJParcel_ID": "2112"
+            },
+            "Knowlton Twp": {
+                "NJParcel_ID": "2113"
+            },
+            "Liberty Twp": {
+                "NJParcel_ID": "2114"
+            },
+            "Lopatcong Twp": {
+                "NJParcel_ID": "2115"
+            },
+            "Oxford Twp": {
+                "NJParcel_ID": "2117"
+            },
+            "Phillipsburg Town": {
+                "NJParcel_ID": "2119"
+            },
+            "Pohatcong Twp": {
+                "NJParcel_ID": "2120"
+            },
+            "Washington Boro": {
+                "NJParcel_ID": "2121"
+            },
+            "White Twp": {
+                "NJParcel_ID": "2123"
+            }
         }
     }
 }
