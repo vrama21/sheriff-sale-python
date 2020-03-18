@@ -1,256 +1,70 @@
-2020-03-17 20:06:21,761:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,762:ERROR:113 Iris Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,762:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,762:ERROR:21 Point Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,762:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,762:ERROR:23 Meadow Circle Mays Landing NJ 08330
-2020-03-17 20:06:21,763:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,763:ERROR:316 North Oxford Avenue Ventnor City NJ 08406
-2020-03-17 20:06:21,763:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,763:ERROR:531 Tenth Avenue Galloway NJ 08205
-2020-03-17 20:06:21,763:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,763:ERROR:3900 Vail Avenue Mullica Township NJ 08037
-2020-03-17 20:06:21,764:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,764:ERROR:124 Fifth Avenue Mullica Township NJ 08037
-2020-03-17 20:06:21,764:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,764:ERROR:3538 Reading Avenue Mullica Township NJ 08037
-2020-03-17 20:06:21,764:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,764:ERROR:2310 Fifth Avenue Mullica Township NJ 08037
-2020-03-17 20:06:21,765:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,765:ERROR:305 Shady Terrace (Commonly known as Buena Vista Twp, NJ 08310) Williamstown NJ 08094
-2020-03-17 20:06:21,765:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,766:ERROR:604 South West Avenue Minotola NJ 08341
-2020-03-17 20:06:21,766:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,766:ERROR:94 Northridge Drive Mays Landing NJ 08330
-2020-03-17 20:06:21,766:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,766:ERROR:18 Whitewater Lane Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,767:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,767:ERROR:209 Eagon Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,767:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,767:ERROR:192 Leeds Point Road Galloway Township NJ 08205
-2020-03-17 20:06:21,767:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,767:ERROR:3040 Fernwood Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,768:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,768:ERROR:6303 Ventnor Avenue Unit 10 Ventnor City NJ 08406
-2020-03-17 20:06:21,768:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,768:ERROR:352 Elton Lane Galloway Township NJ 08205
-2020-03-17 20:06:21,768:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,768:ERROR:9407 and 9403 Ventnor Avenue Margate City NJ 08402
-2020-03-17 20:06:21,769:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,769:ERROR:6303 Ventnor Avenue Unit 8 Ventnor City NJ 08406
-2020-03-17 20:06:21,769:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,769:ERROR:110 Suffolk Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,769:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,769:ERROR:100 Trotter Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,769:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,770:ERROR:28 Thornhill Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,770:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,770:ERROR:310 East White Horse Pike Galloway Township NJ 08205
-2020-03-17 20:06:21,770:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,770:ERROR:48 West White Horse Pike Galloway Township NJ 08205
-2020-03-17 20:06:21,771:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,771:ERROR:5694-96-98 Mays Landing Road Mays Landing NJ 08330
-2020-03-17 20:06:21,771:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,771:ERROR:108 Suffolk Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,772:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,772:ERROR:221 South Pitney Road Galloway Township NJ 08205
-2020-03-17 20:06:21,772:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,772:ERROR:260 South Washington Street Hammonton NJ 08037
-2020-03-17 20:06:21,773:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,773:ERROR:712 Fifth Road Buena Vista Township NJ 08310
-2020-03-17 20:06:21,773:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,773:ERROR:1392 Mays Landing Somers Point Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,773:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,773:ERROR:309 Rosemarie Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,774:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,774:ERROR:722 Fifth Road Newtonville NJ 08346
-2020-03-17 20:06:21,774:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,774:ERROR:154 Twenty-Fourth Avenue Mullica Township NJ 08037
-2020-03-17 20:06:21,774:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,774:ERROR:7471 Smith Avenue Mays Landing NJ 08330
-2020-03-17 20:06:21,774:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,775:ERROR:110 Cindy Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,775:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,775:ERROR:505 East Bradford Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,775:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,775:ERROR:805 Fairview Avenue Hammonton NJ 08037
-2020-03-17 20:06:21,776:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,776:ERROR:2668 Camp Swiss Lane Sweetwater NJ 08037
-2020-03-17 20:06:21,776:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,776:ERROR:4680 Ocean Heights Avenue Mays Landing NJ 08330
-2020-03-17 20:06:21,776:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,776:ERROR:222 Gunpowder Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,776:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,776:ERROR:317 Dorchester Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,777:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,777:ERROR:109 Plymouth Street Buena Vista Township NJ 08310
-2020-03-17 20:06:21,777:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,777:ERROR:205 Maple Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,778:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,778:ERROR:5777 Holly Street Mays Landing NJ 08330
-2020-03-17 20:06:21,778:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,778:ERROR:50 Providence Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,778:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,778:ERROR:13 Rally Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,779:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,779:ERROR:59 Liberty Court Galloway NJ 08205
-2020-03-17 20:06:21,779:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,779:ERROR:469 South Ash Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,779:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,779:ERROR:4528 Concord Place Mays Landing NJ 08330
-2020-03-17 20:06:21,780:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,780:ERROR:6 Adams Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,780:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,780:ERROR:2 Millard Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,780:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,780:ERROR:5701 Marshall Avenue Unit 5701 Ventnor City NJ 08406
-2020-03-17 20:06:21,781:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,781:ERROR:205 West Beach Road Williamstown NJ 08094
-2020-03-17 20:06:21,781:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,781:ERROR:6304 Oliver Avenue Mays Landing NJ 08330
-2020-03-17 20:06:21,781:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,781:ERROR:33 South Iowa Ave Unit B6 Atlantic City NJ 08401
-2020-03-17 20:06:21,782:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,782:ERROR:303 Longport Boulevard CG17C Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,783:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,783:ERROR:348 Ninth Street Buena Vista Township NJ 08310
-2020-03-17 20:06:21,783:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,783:ERROR:301 Orange Tree Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,783:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,783:ERROR:662 Lakefront Circle Galloway Township NJ 08205
-2020-03-17 20:06:21,783:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,783:ERROR:449 Tulip Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,784:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,784:ERROR:712 Fishers Creek Road Galloway NJ 08205
-2020-03-17 20:06:21,784:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,785:ERROR:4807 Hawthorne Lane Mays Landing NJ 08330
-2020-03-17 20:06:21,785:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,785:ERROR:6918 Railroad Boulevard Mays Landing NJ 08330
-2020-03-17 20:06:21,785:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,785:ERROR:311 Patterson Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,786:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,786:ERROR:1405 Dekalb Street Galloway Township NJ 08205
-2020-03-17 20:06:21,786:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,786:ERROR:606 East Dickinson Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,787:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,787:ERROR:215 Beacon Hill Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,788:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,788:ERROR:308 Nectar Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,788:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,788:ERROR:137 Kensington Drive Galloway Township NJ 08205
-2020-03-17 20:06:21,788:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,789:ERROR:9 Winners Court Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,789:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,789:ERROR:292 North Grand Street Hammonton NJ 08037
-2020-03-17 20:06:21,789:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,789:ERROR:826 East Moss Mill Road Galloway Township NJ 08205
-2020-03-17 20:06:21,789:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,789:ERROR:152 Club Place Galloway Township NJ 08205
-2020-03-17 20:06:21,790:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,790:ERROR:80 Centennial Drive Hammonton NJ 08037
-2020-03-17 20:06:21,790:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,790:ERROR:285 Aloe Street Galloway Township NJ 08205
-2020-03-17 20:06:21,790:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,790:ERROR:6415 Delilah Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,791:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,791:ERROR:48 South New York Road Unit C-1 Galloway Township NJ 08205
-2020-03-17 20:06:21,791:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,791:ERROR:6042 Hickory Street Mays Landing NJ 08330
-2020-03-17 20:06:21,791:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,791:ERROR:217 Great Creek Road Galloway Township NJ 08205
-2020-03-17 20:06:21,792:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,792:ERROR:530 Bellevue Avenue Hammonton NJ 08037
-2020-03-17 20:06:21,792:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,792:ERROR:174 Rumson Drive Galloway NJ 08205
-2020-03-17 20:06:21,792:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,792:ERROR:113 East Weymouth Road Buena NJ 08310
-2020-03-17 20:06:21,793:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,793:ERROR:144 Rutgers Court Galloway Township NJ 08205
-2020-03-17 20:06:21,793:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,793:ERROR:804 Sixth Road Newtonville NJ 08346
-2020-03-17 20:06:21,793:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,794:ERROR:54 Cranberry Drive (Mailing address of Mays Landing) Hamilton Township NJ 08330
-2020-03-17 20:06:21,794:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,794:ERROR:117 South Leeds Point Road Galloway NJ 08205
-2020-03-17 20:06:21,794:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,794:ERROR:113 Glenrock Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,795:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,795:ERROR:20 Rushwood Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,795:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,795:ERROR:4887 Bala Court Mays Landing NJ 08330
-2020-03-17 20:06:21,795:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,795:ERROR:5 Princeton Place Mays Landing NJ 08330
-2020-03-17 20:06:21,796:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,796:ERROR:110 Woodberry Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,796:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,796:ERROR:184 Blackman Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,796:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,796:ERROR:175 Winnepeg Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,796:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,796:ERROR:10 Seneca Drive Unit E, Building 2 Galloway Township NJ 08205
-2020-03-17 20:06:21,797:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,797:ERROR:3507 Tomocomo Drive Hammonton NJ 08037
-2020-03-17 20:06:21,797:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,797:ERROR:308 Jefferson Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,798:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,798:ERROR:110 South Philadelphia Avenue (a/k/a 110-12 South Philadelphia), Ventnor City NJ 08406
-2020-03-17 20:06:21,798:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,798:ERROR:204 North Dudley Avenue Ventnor City NJ 08406
-2020-03-17 20:06:21,799:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,799:ERROR:219 Eagon Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,799:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,799:ERROR:32A Oxford Village Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,799:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,799:ERROR:108 Woodpecker Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,800:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,800:ERROR:65 Cheshire Drive Unit D Galloway Township NJ 08205
-2020-03-17 20:06:21,800:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,800:ERROR:101 South Mount Airy Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,800:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,800:ERROR:428 Orange Tree Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,801:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,801:ERROR:338 Superior Road Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,801:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,801:ERROR:42 Seneca Drive Galloway Township NJ 08205
-2020-03-17 20:06:21,801:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,801:ERROR:301 South Willow Avenue Galloway Township NJ 08205
-2020-03-17 20:06:21,802:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,802:ERROR:6 Chesire Drive Galloway Township NJ 08205
-2020-03-17 20:06:21,802:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,802:ERROR: 
-2020-03-17 20:06:21,802:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,802:ERROR:460 South White Horse Pike Hammonton NJ 08037
-2020-03-17 20:06:21,803:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,803:ERROR:126 Portland Avenue North Apt. B, a/k/a 126 A&B North Portland Ventnor City NJ 08406
-2020-03-17 20:06:21,804:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,804:ERROR:509 Cushman Avenue (commonly known as Williamstown) Buena Vista Township NJ 08310
-2020-03-17 20:06:21,804:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,804:ERROR:21 Farragut Avenue Mays Landing NJ 08330
-2020-03-17 20:06:21,804:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,804:ERROR:1006 Scarborough Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,805:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,805:ERROR:434 Bella Vita Court Hammonton NJ 08037
-2020-03-17 20:06:21,805:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,805:ERROR:9 Charles Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,805:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,805:ERROR:211 West Pacific Avenue Buena Borough NJ 08341
-2020-03-17 20:06:21,806:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,806:ERROR:10 Renee Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,806:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,806:ERROR:316 Pine Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,806:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,806:ERROR:6309 Benson Avenue Mays Landing NJ 08330
-2020-03-17 20:06:21,807:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,807:ERROR:68 La Costa Drive Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,807:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,807:ERROR:119 South New York Road Galloway Township NJ 08205
-2020-03-17 20:06:21,808:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,808:ERROR:77 South Mount Airy Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,808:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,808:ERROR:7184 1st Avenue Mays Landing NJ 08330
-2020-03-17 20:06:21,808:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,808:ERROR:5348 White Horse Pike Mailing Address: Egg Harbor City Mullica Township NJ 08062
-2020-03-17 20:06:21,809:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,809:ERROR:3061 Spruce Avenue Egg Harbor Township NJ 08234
-2020-03-17 20:06:21,809:INFO:'NoneType' object has no attribute 'group'
-2020-03-17 20:06:21,809:ERROR:574 Revere Way Galloway Township NJ 08205
+2020-03-18 01:36:34,823:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,823:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,823:ERROR:238 THE PROMENADE EDGEWATER NJ 07020
+2020-03-18 01:36:34,825:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,825:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,825:ERROR:18 CROOKED HILL OAKLAND NJ 07436
+2020-03-18 01:36:34,827:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,827:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,827:ERROR:15-01 BROADWAY UNIT 24 FAIR LAWN NJ 07410
+2020-03-18 01:36:34,831:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,831:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,831:ERROR:388 PATHWAY MANOR WYCKOFF NJ 07481
+2020-03-18 01:36:34,834:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 183, in sanitize_address_data
+    city_match.append(re.search(regex_city, row.title()).group(1))
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,834:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,834:ERROR:28 HOOVER STREET NOTRH ARLINGTON NJ
+2020-03-18 01:36:34,842:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,842:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,842:ERROR:247 THE PROMENADE EDGEWATER NJ 07020
+2020-03-18 01:36:34,844:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,844:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,844:ERROR:18 SKY TOP RIDGE OAKLAND NJ 07436
+2020-03-18 01:36:34,853:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,854:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,854:ERROR:2 HIDDEN GORGE OAKLAND NJ 07436
+2020-03-18 01:36:34,856:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,856:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,856:ERROR:10 HENION GARDEN MAHWAH NJ 07430
+2020-03-18 01:36:34,859:INFO:Traceback (most recent call last):
+  File "app/scrapers/sheriff_sale.py", line 182, in sanitize_address_data
+    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+AttributeError: 'NoneType' object has no attribute 'group'
+
+2020-03-18 01:36:34,859:INFO:'NoneType' object has no attribute 'group'
+2020-03-18 01:36:34,860:ERROR:241 THE PROMENADE EDGEWATER NJ 07020

@@ -9,17 +9,21 @@ from utils import requests_content, load_json_data
 from constants import (
     SHERIFF_SALES_URL,
     SHERIFF_SALES_BASE_URL,
-    SHERIFF_SALE_JSON_DATA,
+    NJ_JSON_DATA,
     SUFFIX_ABBREVATIONS,
     ADDRESS_REGEX_SPLIT,
-    CITY_LIST,
+    CITY_LIST
 )
 
-logging.basicConfig(
-    filename="logs/sheriff_sale.log",
-    level=logging.INFO,
-    format="%(asctime)s:%(levelname)s:%(message)s",
-)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+formatter = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
+
+file_handler = logging.FileHandler("logs/sheriff_sale.log")
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
 
 
 class SheriffSale:
@@ -163,7 +167,7 @@ class SheriffSale:
         Returns lists of sanitized address data in the format of (Address, Unit, City, Zip Code)
         """
         regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
-        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") NJ")
+        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
         regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
         regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
         regex_zip_code = re.compile(r"\d{5}")
@@ -173,16 +177,18 @@ class SheriffSale:
         street_match, city_match = [], []
 
         for row in address_data:
-            try:
-                street_match.append(re.search(regex_street, row).group(0).rstrip())
-                city_match.append(re.search(regex_city, row).group(1))
+            if row != " ":
+                try:
+                    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+                    city_match.append(re.search(regex_city, row.title()).group(1))
 
-            except AttributeError as e:
-                logging.info(e)
-                logging.error(row)
+                except AttributeError as e:
+                    import sys, traceback
 
-        print("Street Match: " + str(street_match))
-        print("City Match: " + str(city_match))
+                    tb = traceback.format_exc()
+                    logger.info(tb)
+                    logger.info(e)
+                    logger.error(row)
 
         unit_match = self.match_parser(address_data, regex_unit)
         secondary_unit_match = self.match_parser(address_data, regex_secondary_unit)
@@ -263,5 +269,6 @@ class SheriffSale:
 
 
 if __name__ == "__main__":
-    SHERIFF = SheriffSale("25")
+    SHERIFF = SheriffSale("7")
     main = SHERIFF.main()
+    # print(main)

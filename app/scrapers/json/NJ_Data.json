@@ -1,0 +1,2299 @@
+{
+    "Atlantic": {
+        "SheriffSale_ID": "25",
+        "Cities": {
+            "Absecon": {
+                "NJParcel_ID": "0101",
+                "ZipCode": "08201"
+            },
+            "Atlantic City": {
+                "NJParcel_ID": "0102",
+                "ZipCode": "08401"
+            },
+            "Brigantine": {
+                "NJParcel_ID": "0103",
+                "ZipCode": "08203"
+            },
+            "Buena": {
+                "NJParcel_ID": ["0104", "0105"],
+                "ZipCode": ["08094", "08310", "08317", "08326"]
+            },
+            "Corbin City": {
+                "NJParcel_ID": "0106",
+                "ZipCode": "08270"
+            },
+            "Egg Harbor City": {
+                "NJParcel_ID": "0107",
+                "ZipCode": "08215"
+            },
+            "Egg Harbor Township": {
+                "NJParcel_ID": "0108",
+                "ZipCode": "08234"
+            },
+            "Estell Manor": {
+                "NJParcel_ID": "0109",
+                "ZipCode": "08319"
+            },
+            "Folsom Boro": {
+                "NJParcel_ID": "0110",
+                "ZipCode": ""
+            },
+            "Galloway Township": {
+                "NJParcel_ID": "0111",
+                "ZipCode": "08205"
+            },
+            "Hamilton Twp": {
+                "NJParcel_ID": "1103",
+                "ZipCode": ""
+            },
+            "Hammonton": {
+                "NJParcel_ID": "0113",
+                "ZipCode": "08037"
+            },
+            "Linwood": {
+                "NJParcel_ID": "0114",
+                "ZipCode": "08221"
+            },
+            "Longport": {
+                "NJParcel_ID": "0115",
+                "ZipCode": "08403"
+            },
+            "Margate": {
+                "NJParcel_ID": "0116",
+                "ZipCode": "08402"
+            },
+            "Mays Landing": {
+                "NJParcel_ID": "0117",
+                "ZipCode": ["08062", "08217"]
+            },
+            "Mullica Township": {
+                "NJParcel_ID": "0117",
+                "ZipCode": ["08062", "08217"]
+            },
+            "Northfield": {
+                "NJParcel_ID": "0118",
+                "ZipCode": "08225"
+            },
+            "Pleasantville": {
+                "NJParcel_ID": "0119",
+                "ZipCode": "08232"
+            },
+            "Port Republic": {
+                "NJParcel_ID": "0120",
+                "ZipCode": "08241"
+            },
+            "Somers Point": {
+                "NJParcel_ID": "0121",
+                "ZipCode": "08244"
+            },
+            "Ventnor City": {
+                "NJParcel_ID": "0122",
+                "ZipCode": "08406"
+            },
+            "Weymouth Twp": {
+                "NJParcel_ID": "0123",
+                "ZipCode": ""
+            },
+            "Williamstown": {
+                "NJParcel_ID": "0123",
+                "ZipCode": "08094"
+            }
+        }
+    },
+    "Bergen": {
+        "SheriffSale_ID": "7",
+        "Cities": {
+            "Allendale Boro": {
+                "NJParcel_ID": "0201",
+                "ZipCode": ""
+            },
+            "Alpine Boro": {
+                "NJParcel_ID": "0202",
+                "ZipCode": ""
+            },
+            "Bergenfield Boro": {
+                "NJParcel_ID": "0203",
+                "ZipCode": ""
+            },
+            "Bogota Boro": {
+                "NJParcel_ID": "0204",
+                "ZipCode": ""
+            },
+            "Carlstadt Boro": {
+                "NJParcel_ID": "0205",
+                "ZipCode": ""
+            },
+            "Cliffside Park Boro": {
+                "NJParcel_ID": "0206",
+                "ZipCode": ""
+            },
+            "Closter Boro": {
+                "NJParcel_ID": "0207",
+                "ZipCode": ""
+            },
+            "Cresskill Boro": {
+                "NJParcel_ID": "0208",
+                "ZipCode": ""
+            },
+            "Demarest Boro": {
+                "NJParcel_ID": "0209",
+                "ZipCode": ""
+            },
+            "Dumont Boro": {
+                "NJParcel_ID": "0210",
+                "ZipCode": ""
+            },
+            "East Rutherford Boro": {
+                "NJParcel_ID": "0212",
+                "ZipCode": ""
+            },
+            "Edgewater Boro": {
+                "NJParcel_ID": "0213",
+                "ZipCode": ""
+            },
+            "Elmwood Park Boro": {
+                "NJParcel_ID": "0211",
+                "ZipCode": ""
+            },
+            "Emerson Boro": {
+                "NJParcel_ID": "0214",
+                "ZipCode": ""
+            },
+            "Englewood City": {
+                "NJParcel_ID": "0215",
+                "ZipCode": ""
+            },
+            "Englewood Cliffs Boro": {
+                "NJParcel_ID": "0216",
+                "ZipCode": ""
+            },
+            "Fair Lawn Boro": {
+                "NJParcel_ID": "0217",
+                "ZipCode": ""
+            },
+            "Fairview Boro": {
+                "NJParcel_ID": "0218",
+                "ZipCode": ""
+            },
+            "Fort Lee Boro": {
+                "NJParcel_ID": "0219",
+                "ZipCode": ""
+            },
+            "Franklin Lakes Boro": {
+                "NJParcel_ID": "0220",
+                "ZipCode": ""
+            },
+            "Garfield City": {
+                "NJParcel_ID": "0221",
+                "ZipCode": ""
+            },
+            "Glen Rock Boro": {
+                "NJParcel_ID": "0222",
+                "ZipCode": ""
+            },
+            "Hackensack City": {
+                "NJParcel_ID": "0223",
+                "ZipCode": ""
+            },
+            "Harrington Park Boro": {
+                "NJParcel_ID": "0224",
+                "ZipCode": ""
+            },
+            "Hasbrouck Heights Boro": {
+                "NJParcel_ID": "0225",
+                "ZipCode": ""
+            },
+            "Haworth Boro": {
+                "NJParcel_ID": "0226",
+                "ZipCode": ""
+            },
+            "Hillsdale Boro": {
+                "NJParcel_ID": "0227",
+                "ZipCode": ""
+            },
+            "Ho-Ho-Kus Boro": {
+                "NJParcel_ID": "0228",
+                "ZipCode": ""
+            },
+            "Leonia Boro": {
+                "NJParcel_ID": "0229",
+                "ZipCode": ""
+            },
+            "Little Ferry Boro": {
+                "NJParcel_ID": "0230",
+                "ZipCode": ""
+            },
+            "Lodi Boro": {
+                "NJParcel_ID": "0231",
+                "ZipCode": ""
+            },
+            "Lyndhurst Twp": {
+                "NJParcel_ID": "0232",
+                "ZipCode": ""
+            },
+            "Mahwah Twp": {
+                "NJParcel_ID": "0233",
+                "ZipCode": ""
+            },
+            "Maywood Boro": {
+                "NJParcel_ID": "0234",
+                "ZipCode": ""
+            },
+            "Midland Park Boro": {
+                "NJParcel_ID": "0235",
+                "ZipCode": ""
+            },
+            "Montvale Boro": {
+                "NJParcel_ID": "0236",
+                "ZipCode": ""
+            },
+            "Moonachie Boro": {
+                "NJParcel_ID": "0237",
+                "ZipCode": ""
+            },
+            "New Milford Boro": {
+                "NJParcel_ID": "0238",
+                "ZipCode": ""
+            },
+            "North Arlington Boro": {
+                "NJParcel_ID": "0239",
+                "ZipCode": ""
+            },
+            "Northvale Boro": {
+                "NJParcel_ID": "0240",
+                "ZipCode": ""
+            },
+            "Norwood Boro": {
+                "NJParcel_ID": "0241",
+                "ZipCode": ""
+            },
+            "Oakland Boro": {
+                "NJParcel_ID": "0242",
+                "ZipCode": ""
+            },
+            "Old Tappan Boro": {
+                "NJParcel_ID": "0243",
+                "ZipCode": ""
+            },
+            "Oradell Boro": {
+                "NJParcel_ID": "0244",
+                "ZipCode": ""
+            },
+            "Palisades Park Boro": {
+                "NJParcel_ID": "0245",
+                "ZipCode": ""
+            },
+            "Paramus Boro": {
+                "NJParcel_ID": "0246",
+                "ZipCode": ""
+            },
+            "Park Ridge Boro": {
+                "NJParcel_ID": "0247",
+                "ZipCode": ""
+            },
+            "Ramsey Boro": {
+                "NJParcel_ID": "0248",
+                "ZipCode": ""
+            },
+            "Ridgefield Boro": {
+                "NJParcel_ID": "0249",
+                "ZipCode": ""
+            },
+            "Ridgefield Park Village": {
+                "NJParcel_ID": "0250",
+                "ZipCode": ""
+            },
+            "Ridgewood Village": {
+                "NJParcel_ID": "0251",
+                "ZipCode": ""
+            },
+            "River Edge Boro": {
+                "NJParcel_ID": "0252",
+                "ZipCode": ""
+            },
+            "River Vale Twp": {
+                "NJParcel_ID": "0253",
+                "ZipCode": ""
+            },
+            "Rochelle Park Twp": {
+                "NJParcel_ID": "0254",
+                "ZipCode": ""
+            },
+            "Rockleigh Boro": {
+                "NJParcel_ID": "0255",
+                "ZipCode": ""
+            },
+            "Rutherford Boro": {
+                "NJParcel_ID": "0256",
+                "ZipCode": ""
+            },
+            "Saddle Brook Twp": {
+                "NJParcel_ID": "0257",
+                "ZipCode": ""
+            },
+            "Saddle River Boro": {
+                "NJParcel_ID": "0258",
+                "ZipCode": ""
+            },
+            "South Hackensack Twp": {
+                "NJParcel_ID": "0259",
+                "ZipCode": ""
+            },
+            "Teaneck Twp": {
+                "NJParcel_ID": "0260",
+                "ZipCode": ""
+            },
+            "Tenafly Boro": {
+                "NJParcel_ID": "0261",
+                "ZipCode": ""
+            },
+            "Teterboro Boro": {
+                "NJParcel_ID": "0262",
+                "ZipCode": ""
+            },
+            "Upper Saddle River Boro": {
+                "NJParcel_ID": "0263",
+                "ZipCode": ""
+            },
+            "Waldwick Boro": {
+                "NJParcel_ID": "0264",
+                "ZipCode": ""
+            },
+            "Wallington Boro": {
+                "NJParcel_ID": "0265",
+                "ZipCode": ""
+            },
+            "Washington Twp": {
+                "NJParcel_ID": "2122",
+                "ZipCode": ""
+            },
+            "Westwood Boro": {
+                "NJParcel_ID": "0267",
+                "ZipCode": ""
+            },
+            "Woodcliff Lake Boro": {
+                "NJParcel_ID": "0268",
+                "ZipCode": ""
+            },
+            "Wood-Ridge Boro": {
+                "NJParcel_ID": "0269",
+                "ZipCode": ""
+            },
+            "Wyckoff Twp": {
+                "NJParcel_ID": "0270",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Burlington": {
+        "SheriffSale_ID": "3",
+        "Cities": {
+            "Bass River Twp": {
+                "NJParcel_ID": "0301",
+                "ZipCode": ""
+            },
+            "Beverly City": {
+                "NJParcel_ID": "0302",
+                "ZipCode": ""
+            },
+            "Bordentown City": {
+                "NJParcel_ID": "0303",
+                "ZipCode": ""
+            },
+            "Bordentown Twp": {
+                "NJParcel_ID": "0304",
+                "ZipCode": ""
+            },
+            "Burlington City": {
+                "NJParcel_ID": "0305",
+                "ZipCode": ""
+            },
+            "Burlington Twp": {
+                "NJParcel_ID": "0306",
+                "ZipCode": ""
+            },
+            "Chesterfield Twp": {
+                "NJParcel_ID": "0307",
+                "ZipCode": ""
+            },
+            "Cinnaminson Twp": {
+                "NJParcel_ID": "0308",
+                "ZipCode": ""
+            },
+            "Delanco Twp": {
+                "NJParcel_ID": "0309",
+                "ZipCode": ""
+            },
+            "Delran Twp": {
+                "NJParcel_ID": "0310",
+                "ZipCode": ""
+            },
+            "Eastampton Twp": {
+                "NJParcel_ID": "0311",
+                "ZipCode": ""
+            },
+            "Edgewater Park Twp": {
+                "NJParcel_ID": "0312",
+                "ZipCode": ""
+            },
+            "Evesham Twp": {
+                "NJParcel_ID": "0313",
+                "ZipCode": ""
+            },
+            "Fieldsboro Boro": {
+                "NJParcel_ID": "0314",
+                "ZipCode": ""
+            },
+            "Florence Twp": {
+                "NJParcel_ID": "0315",
+                "ZipCode": ""
+            },
+            "Hainesport Twp": {
+                "NJParcel_ID": "0316",
+                "ZipCode": ""
+            },
+            "Lumberton Twp": {
+                "NJParcel_ID": "0317",
+                "ZipCode": ""
+            },
+            "Mansfield Twp": {
+                "NJParcel_ID": "2116",
+                "ZipCode": ""
+            },
+            "Maple Shade Twp": {
+                "NJParcel_ID": "0319",
+                "ZipCode": ""
+            },
+            "Medford Lakes Boro": {
+                "NJParcel_ID": "0321",
+                "ZipCode": ""
+            },
+            "Medford Twp": {
+                "NJParcel_ID": "0320",
+                "ZipCode": ""
+            },
+            "Moorestown Twp": {
+                "NJParcel_ID": "0322",
+                "ZipCode": ""
+            },
+            "Mount Holly Twp": {
+                "NJParcel_ID": "0323",
+                "ZipCode": ""
+            },
+            "Mount Laurel Twp": {
+                "NJParcel_ID": "0324",
+                "ZipCode": ""
+            },
+            "New Hanover Twp": {
+                "NJParcel_ID": "0325",
+                "ZipCode": ""
+            },
+            "North Hanover Twp": {
+                "NJParcel_ID": "0326",
+                "ZipCode": ""
+            },
+            "Palmyra Boro": {
+                "NJParcel_ID": "0327",
+                "ZipCode": ""
+            },
+            "Pemberton Boro": {
+                "NJParcel_ID": "0328",
+                "ZipCode": ""
+            },
+            "Pemberton Twp": {
+                "NJParcel_ID": "0329",
+                "ZipCode": ""
+            },
+            "Riverside Twp": {
+                "NJParcel_ID": "0330",
+                "ZipCode": ""
+            },
+            "Riverton Boro": {
+                "NJParcel_ID": "0331",
+                "ZipCode": ""
+            },
+            "Shamong Twp": {
+                "NJParcel_ID": "0332",
+                "ZipCode": ""
+            },
+            "Southampton Twp": {
+                "NJParcel_ID": "0333",
+                "ZipCode": ""
+            },
+            "Springfield Twp": {
+                "NJParcel_ID": "2017",
+                "ZipCode": ""
+            },
+            "Tabernacle Twp": {
+                "NJParcel_ID": "0335",
+                "ZipCode": ""
+            },
+            "Westampton Twp": {
+                "NJParcel_ID": "0337",
+                "ZipCode": ""
+            },
+            "Willingboro Twp": {
+                "NJParcel_ID": "0338",
+                "ZipCode": ""
+            },
+            "Woodland Twp": {
+                "NJParcel_ID": "0339",
+                "ZipCode": ""
+            },
+            "Wrightstown Boro": {
+                "NJParcel_ID": "0340",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Camden": {
+        "SheriffSale_ID": "1",
+        "Cities": {
+            "Audubon Boro": {
+                "NJParcel_ID": "0401",
+                "ZipCode": ""
+            },
+            "Audubon Park Boro": {
+                "NJParcel_ID": "0402",
+                "ZipCode": ""
+            },
+            "Barrington Boro": {
+                "NJParcel_ID": "0403",
+                "ZipCode": ""
+            },
+            "Bellmawr Boro": {
+                "NJParcel_ID": "0404",
+                "ZipCode": ""
+            },
+            "Berlin Boro": {
+                "NJParcel_ID": "0405",
+                "ZipCode": ""
+            },
+            "Berlin Twp": {
+                "NJParcel_ID": "0406",
+                "ZipCode": ""
+            },
+            "Brooklawn Boro": {
+                "NJParcel_ID": "0407",
+                "ZipCode": ""
+            },
+            "Camden City": {
+                "NJParcel_ID": "0408",
+                "ZipCode": ""
+            },
+            "Cherry Hill Twp": {
+                "NJParcel_ID": "0409",
+                "ZipCode": ""
+            },
+            "Chesilhurst Boro": {
+                "NJParcel_ID": "0410",
+                "ZipCode": ""
+            },
+            "Clementon Boro": {
+                "NJParcel_ID": "0411",
+                "ZipCode": ""
+            },
+            "Collingswood Boro": {
+                "NJParcel_ID": "0412",
+                "ZipCode": ""
+            },
+            "Gibbsboro Boro": {
+                "NJParcel_ID": "0413",
+                "ZipCode": ""
+            },
+            "Gloucester City": {
+                "NJParcel_ID": "0414",
+                "ZipCode": ""
+            },
+            "Gloucester Twp": {
+                "NJParcel_ID": "0415",
+                "ZipCode": ""
+            },
+            "Haddonfield Boro": {
+                "NJParcel_ID": "0417",
+                "ZipCode": ""
+            },
+            "Haddon Heights Boro": {
+                "NJParcel_ID": "0418",
+                "ZipCode": ""
+            },
+            "Haddon Twp": {
+                "NJParcel_ID": "0416",
+                "ZipCode": ""
+            },
+            "Hi-Nella Boro": {
+                "NJParcel_ID": "0419",
+                "ZipCode": ""
+            },
+            "Laurel Springs Boro": {
+                "NJParcel_ID": "0420",
+                "ZipCode": ""
+            },
+            "Lawnside Boro": {
+                "NJParcel_ID": "0421",
+                "ZipCode": ""
+            },
+            "Lindenwold Boro": {
+                "NJParcel_ID": "0422",
+                "ZipCode": ""
+            },
+            "Magnolia Boro": {
+                "NJParcel_ID": "0423",
+                "ZipCode": ""
+            },
+            "Merchantville Boro": {
+                "NJParcel_ID": "0424",
+                "ZipCode": ""
+            },
+            "Mount Ephraim Boro": {
+                "NJParcel_ID": "0425",
+                "ZipCode": ""
+            },
+            "Oaklyn Boro": {
+                "NJParcel_ID": "0426",
+                "ZipCode": ""
+            },
+            "Pennsauken Twp": {
+                "NJParcel_ID": "0427",
+                "ZipCode": ""
+            },
+            "Pine Hill Boro": {
+                "NJParcel_ID": "0428",
+                "ZipCode": ""
+            },
+            "Pine Valley Boro": {
+                "NJParcel_ID": "0429",
+                "ZipCode": ""
+            },
+            "Runnemede Boro": {
+                "NJParcel_ID": "0430",
+                "ZipCode": ""
+            },
+            "Somerdale Boro": {
+                "NJParcel_ID": "0431",
+                "ZipCode": ""
+            },
+            "Stratford Boro": {
+                "NJParcel_ID": "0432",
+                "ZipCode": ""
+            },
+            "Tavistock Boro": {
+                "NJParcel_ID": "0433",
+                "ZipCode": ""
+            },
+            "Voorhees Twp": {
+                "NJParcel_ID": "0434",
+                "ZipCode": ""
+            },
+            "Waterford Twp": {
+                "NJParcel_ID": "0435",
+                "ZipCode": ""
+            },
+            "Winslow Twp": {
+                "NJParcel_ID": "0436",
+                "ZipCode": ""
+            },
+            "Woodlynne Boro": {
+                "NJParcel_ID": "0437",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Cape May": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "Avalon Boro": {
+                "NJParcel_ID": "0501",
+                "ZipCode": ""
+            },
+            "Cape May City": {
+                "NJParcel_ID": "0502",
+                "ZipCode": ""
+            },
+            "Cape May Point Boro": {
+                "NJParcel_ID": "0503",
+                "ZipCode": ""
+            },
+            "Dennis Twp": {
+                "NJParcel_ID": "0504",
+                "ZipCode": ""
+            },
+            "Lower Twp": {
+                "NJParcel_ID": "0505",
+                "ZipCode": ""
+            },
+            "Middle Twp": {
+                "NJParcel_ID": "0506",
+                "ZipCode": ""
+            },
+            "North Wildwood City": {
+                "NJParcel_ID": "0507",
+                "ZipCode": ""
+            },
+            "Ocean City": {
+                "NJParcel_ID": "0508",
+                "ZipCode": ""
+            },
+            "Sea Isle City": {
+                "NJParcel_ID": "0509",
+                "ZipCode": ""
+            },
+            "Stone Harbor Boro": {
+                "NJParcel_ID": "0510",
+                "ZipCode": ""
+            },
+            "Upper Twp": {
+                "NJParcel_ID": "0511",
+                "ZipCode": ""
+            },
+            "West Cape May Boro": {
+                "NJParcel_ID": "0512",
+                "ZipCode": ""
+            },
+            "West Wildwood Boro": {
+                "NJParcel_ID": "0513",
+                "ZipCode": ""
+            },
+            "Wildwood City": {
+                "NJParcel_ID": "0514",
+                "ZipCode": ""
+            },
+            "Wildwood Crest Boro": {
+                "NJParcel_ID": "0515",
+                "ZipCode": ""
+            },
+            "Woodbine Boro": {
+                "NJParcel_ID": "0516",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Cumberland": {
+        "SheriffSale_ID": "6",
+        "Cities": {
+            "Bridgeton City": {
+                "NJParcel_ID": "0601",
+                "ZipCode": ""
+            },
+            "Commercial Twp": {
+                "NJParcel_ID": "0602",
+                "ZipCode": ""
+            },
+            "Deerfield Twp": {
+                "NJParcel_ID": "0603",
+                "ZipCode": ""
+            },
+            "Downe Twp": {
+                "NJParcel_ID": "0604",
+                "ZipCode": ""
+            },
+            "Fairfield Twp": {
+                "NJParcel_ID": "0707",
+                "ZipCode": ""
+            },
+            "Greenwich Twp": {
+                "NJParcel_ID": "2107",
+                "ZipCode": ""
+            },
+            "Hopewell Twp": {
+                "NJParcel_ID": "1106",
+                "ZipCode": ""
+            },
+            "Lawrence Twp": {
+                "NJParcel_ID": "1107",
+                "ZipCode": ""
+            },
+            "Maurice River Twp": {
+                "NJParcel_ID": "0609",
+                "ZipCode": ""
+            },
+            "Millville City": {
+                "NJParcel_ID": "0610",
+                "ZipCode": ""
+            },
+            "Shiloh Boro": {
+                "NJParcel_ID": "0611",
+                "ZipCode": ""
+            },
+            "Stow Creek Twp": {
+                "NJParcel_ID": "0612",
+                "ZipCode": ""
+            },
+            "Upper Deerfield Twp": {
+                "NJParcel_ID": "0613",
+                "ZipCode": ""
+            },
+            "Vineland City": {
+                "NJParcel_ID": "0614}",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Essex": {
+        "SheriffSale_ID": "2",
+        "Cities": {
+            "Belleville Twp": {
+                "NJParcel_ID": "0701",
+                "ZipCode": ""
+            },
+            "Bloomfield Twp": {
+                "NJParcel_ID": "0702",
+                "ZipCode": ""
+            },
+            "Caldwell Boro": {
+                "NJParcel_ID": "0703",
+                "ZipCode": ""
+            },
+            "Cedar Grove Twp": {
+                "NJParcel_ID": "0704",
+                "ZipCode": ""
+            },
+            "City Of Orange Twp": {
+                "NJParcel_ID": "0717",
+                "ZipCode": ""
+            },
+            "East Orange City": {
+                "NJParcel_ID": "0705",
+                "ZipCode": ""
+            },
+            "Essex Fells Boro": {
+                "NJParcel_ID": "0706",
+                "ZipCode": ""
+            },
+            "Glen Ridge Boro": {
+                "NJParcel_ID": "0708",
+                "ZipCode": ""
+            },
+            "Irvington Twp": {
+                "NJParcel_ID": "0709",
+                "ZipCode": ""
+            },
+            "Livingston Twp": {
+                "NJParcel_ID": "0710",
+                "ZipCode": ""
+            },
+            "Maplewood Twp": {
+                "NJParcel_ID": "0711",
+                "ZipCode": ""
+            },
+            "Millburn Twp": {
+                "NJParcel_ID": "0712",
+                "ZipCode": ""
+            },
+            "Montclair Twp": {
+                "NJParcel_ID": "0713",
+                "ZipCode": ""
+            },
+            "Newark City": {
+                "NJParcel_ID": "0714",
+                "ZipCode": ""
+            },
+            "North Caldwell Boro": {
+                "NJParcel_ID": "0715",
+                "ZipCode": ""
+            },
+            "Nutley Twp": {
+                "NJParcel_ID": "0716",
+                "ZipCode": ""
+            },
+            "Roseland Boro": {
+                "NJParcel_ID": "0718",
+                "ZipCode": ""
+            },
+            "South Orange Village Twp": {
+                "NJParcel_ID": "0719",
+                "ZipCode": ""
+            },
+            "Verona Twp": {
+                "NJParcel_ID": "0720",
+                "ZipCode": ""
+            },
+            "West Caldwell Twp": {
+                "NJParcel_ID": "0721",
+                "ZipCode": ""
+            },
+            "West Orange Twp": {
+                "NJParcel_ID": "0722",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Gloucester": {
+        "SheriffSale_ID": "19",
+        "Cities": {
+            "Clayton Boro": {
+                "NJParcel_ID": "0801",
+                "ZipCode": ""
+            },
+            "Deptford Twp": {
+                "NJParcel_ID": "0802",
+                "ZipCode": ""
+            },
+            "East Greenwich Twp": {
+                "NJParcel_ID": "0803",
+                "ZipCode": ""
+            },
+            "Elk Twp": {
+                "NJParcel_ID": "0804",
+                "ZipCode": ""
+            },
+            "Franklin Twp": {
+                "NJParcel_ID": "2105",
+                "ZipCode": ""
+            },
+            "Glassboro Boro": {
+                "NJParcel_ID": "0806",
+                "ZipCode": ""
+            },
+            "Harrison Twp": {
+                "NJParcel_ID": "0808",
+                "ZipCode": ""
+            },
+            "Logan Twp": {
+                "NJParcel_ID": "0809",
+                "ZipCode": ""
+            },
+            "Mantua Twp": {
+                "NJParcel_ID": "0810",
+                "ZipCode": ""
+            },
+            "Monroe Twp": {
+                "NJParcel_ID": "1212",
+                "ZipCode": ""
+            },
+            "National Park Boro": {
+                "NJParcel_ID": "0812",
+                "ZipCode": ""
+            },
+            "Newfield Boro": {
+                "NJParcel_ID": "0813",
+                "ZipCode": ""
+            },
+            "Paulsboro Boro": {
+                "NJParcel_ID": "0814",
+                "ZipCode": ""
+            },
+            "Pitman Boro": {
+                "NJParcel_ID": "0815",
+                "ZipCode": ""
+            },
+            "South Harrison Twp": {
+                "NJParcel_ID": "0816",
+                "ZipCode": ""
+            },
+            "Swedesboro Boro": {
+                "NJParcel_ID": "0817",
+                "ZipCode": ""
+            },
+            "Wenonah Boro": {
+                "NJParcel_ID": "0819",
+                "ZipCode": ""
+            },
+            "West Deptford Twp": {
+                "NJParcel_ID": "0820",
+                "ZipCode": ""
+            },
+            "Westville Boro": {
+                "NJParcel_ID": "0821",
+                "ZipCode": ""
+            },
+            "Woodbury City": {
+                "NJParcel_ID": "0822",
+                "ZipCode": ""
+            },
+            "Woodbury Heights Boro": {
+                "NJParcel_ID": "0823",
+                "ZipCode": ""
+            },
+            "Woolwich Twp": {
+                "NJParcel_ID": "0824",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Hudson": {
+        "SheriffSale_ID": "10",
+        "Cities": {
+            "Bayonne City": {
+                "NJParcel_ID": "0901",
+                "ZipCode": ""
+            },
+            "East Newark Boro": {
+                "NJParcel_ID": "0902",
+                "ZipCode": ""
+            },
+            "Guttenberg Town": {
+                "NJParcel_ID": "0903",
+                "ZipCode": ""
+            },
+            "Harrison Town": {
+                "NJParcel_ID": "0904",
+                "ZipCode": ""
+            },
+            "Hoboken City": {
+                "NJParcel_ID": "0905",
+                "ZipCode": ""
+            },
+            "Jersey City": {
+                "NJParcel_ID": "0906",
+                "ZipCode": ""
+            },
+            "Kearny Town": {
+                "NJParcel_ID": "0907",
+                "ZipCode": ""
+            },
+            "North Bergen Twp": {
+                "NJParcel_ID": "0908",
+                "ZipCode": ""
+            },
+            "Secaucus Town": {
+                "NJParcel_ID": "0909",
+                "ZipCode": ""
+            },
+            "Union": {
+                "NJParcel_ID": "0910",
+                "ZipCode": ""
+            },
+            "Weehawken Twp": {
+                "NJParcel_ID": "0911",
+                "ZipCode": ""
+            },
+            "West New York Town": {
+                "NJParcel_ID": "0912",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Hunterdon": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "Alexandria Twp": {
+                "NJParcel_ID": "1001",
+                "ZipCode": ""
+            },
+            "Bethlehem Twp": {
+                "NJParcel_ID": "1002",
+                "ZipCode": ""
+            },
+            "Bloomsbury Boro": {
+                "NJParcel_ID": "1003",
+                "ZipCode": ""
+            },
+            "Califon Boro": {
+                "NJParcel_ID": "1004",
+                "ZipCode": ""
+            },
+            "Clinton Town": {
+                "NJParcel_ID": "1005",
+                "ZipCode": ""
+            },
+            "Clinton Twp": {
+                "NJParcel_ID": "1006",
+                "ZipCode": ""
+            },
+            "Delaware Twp": {
+                "NJParcel_ID": "1007",
+                "ZipCode": ""
+            },
+            "East Amwell Twp": {
+                "NJParcel_ID": "1008",
+                "ZipCode": ""
+            },
+            "Flemington Boro": {
+                "NJParcel_ID": "1009",
+                "ZipCode": ""
+            },
+            "Frenchtown Boro": {
+                "NJParcel_ID": "1011",
+                "ZipCode": ""
+            },
+            "Glen Gardner Boro": {
+                "NJParcel_ID": "1012",
+                "ZipCode": ""
+            },
+            "Hampton Boro": {
+                "NJParcel_ID": "1013",
+                "ZipCode": ""
+            },
+            "High Bridge Boro": {
+                "NJParcel_ID": "1014",
+                "ZipCode": ""
+            },
+            "Holland Twp": {
+                "NJParcel_ID": "1015",
+                "ZipCode": ""
+            },
+            "Kingwood Twp": {
+                "NJParcel_ID": "1016",
+                "ZipCode": ""
+            },
+            "Lambertville City": {
+                "NJParcel_ID": "1017",
+                "ZipCode": ""
+            },
+            "Lebanon Boro": {
+                "NJParcel_ID": "1018",
+                "ZipCode": ""
+            },
+            "Lebanon Twp": {
+                "NJParcel_ID": "1019",
+                "ZipCode": ""
+            },
+            "Milford Boro": {
+                "NJParcel_ID": "1020",
+                "ZipCode": ""
+            },
+            "Raritan Twp": {
+                "NJParcel_ID": "1021",
+                "ZipCode": ""
+            },
+            "Readington Twp": {
+                "NJParcel_ID": "1022",
+                "ZipCode": ""
+            },
+            "Stockton Boro": {
+                "NJParcel_ID": "1023",
+                "ZipCode": ""
+            },
+            "Tewksbury Twp": {
+                "NJParcel_ID": "1024",
+                "ZipCode": ""
+            },
+            "Union Twp": {
+                "NJParcel_ID": "2019",
+                "ZipCode": ""
+            },
+            "West Amwell Twp": {
+                "NJParcel_ID": "1026",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Mercer": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "East Windsor Twp": {
+                "NJParcel_ID": "1101",
+                "ZipCode": ""
+            },
+            "Ewing Twp": {
+                "NJParcel_ID": "1102",
+                "ZipCode": ""
+            },
+            "Hightstown Boro": {
+                "NJParcel_ID": "1104",
+                "ZipCode": ""
+            },
+            "Hopewell Boro": {
+                "NJParcel_ID": "1105",
+                "ZipCode": ""
+            },
+            "Pennington Boro": {
+                "NJParcel_ID": "1108",
+                "ZipCode": ""
+            },
+            "Princeton": {
+                "NJParcel_ID": "1114",
+                "ZipCode": ""
+            },
+            "Robbinsville Twp": {
+                "NJParcel_ID": "1112",
+                "ZipCode": ""
+            },
+            "Trenton City": {
+                "NJParcel_ID": "1111",
+                "ZipCode": ""
+            },
+            "West Windsor Twp": {
+                "NJParcel_ID": "1113",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Middlesex": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "Carteret Boro": {
+                "NJParcel_ID": "1201",
+                "ZipCode": ""
+            },
+            "Cranbury Twp": {
+                "NJParcel_ID": "1202",
+                "ZipCode": ""
+            },
+            "Dunellen Boro": {
+                "NJParcel_ID": "1203",
+                "ZipCode": ""
+            },
+            "East Brunswick Twp": {
+                "NJParcel_ID": "1204",
+                "ZipCode": ""
+            },
+            "Edison Twp": {
+                "NJParcel_ID": "1205",
+                "ZipCode": ""
+            },
+            "Helmetta Boro": {
+                "NJParcel_ID": "1206",
+                "ZipCode": ""
+            },
+            "Highland Park Boro": {
+                "NJParcel_ID": "1207",
+                "ZipCode": ""
+            },
+            "Jamesburg Boro": {
+                "NJParcel_ID": "1208",
+                "ZipCode": ""
+            },
+            "Metuchen Boro": {
+                "NJParcel_ID": "1209",
+                "ZipCode": ""
+            },
+            "Middlesex Boro": {
+                "NJParcel_ID": "1210",
+                "ZipCode": ""
+            },
+            "Milltown Boro": {
+                "NJParcel_ID": "1211",
+                "ZipCode": ""
+            },
+            "New Brunswick City": {
+                "NJParcel_ID": "1213",
+                "ZipCode": ""
+            },
+            "North Brunswick Twp": {
+                "NJParcel_ID": "1214",
+                "ZipCode": ""
+            },
+            "Old Bridge Twp": {
+                "NJParcel_ID": "1215",
+                "ZipCode": ""
+            },
+            "Perth Amboy City": {
+                "NJParcel_ID": "1216",
+                "ZipCode": ""
+            },
+            "Piscataway Twp": {
+                "NJParcel_ID": "1217",
+                "ZipCode": ""
+            },
+            "Plainsboro Twp": {
+                "NJParcel_ID": "1218",
+                "ZipCode": ""
+            },
+            "Sayreville Boro": {
+                "NJParcel_ID": "1219",
+                "ZipCode": ""
+            },
+            "South Amboy City": {
+                "NJParcel_ID": "1220",
+                "ZipCode": ""
+            },
+            "South Brunswick Twp": {
+                "NJParcel_ID": "1221",
+                "ZipCode": ""
+            },
+            "South Plainfield Boro": {
+                "NJParcel_ID": "1222",
+                "ZipCode": ""
+            },
+            "South River Boro": {
+                "NJParcel_ID": "1223",
+                "ZipCode": ""
+            },
+            "Spotswood Boro": {
+                "NJParcel_ID": "1224",
+                "ZipCode": ""
+            },
+            "Woodbridge Twp": {
+                "NJParcel_ID": "1225",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Monmouth": {
+        "SheriffSale_ID": "8",
+        "Cities": {
+            "Aberdeen Twp": {
+                "NJParcel_ID": "1301",
+                "ZipCode": ""
+            },
+            "Allenhurst Boro": {
+                "NJParcel_ID": "1302",
+                "ZipCode": ""
+            },
+            "Allentown Boro": {
+                "NJParcel_ID": "1303",
+                "ZipCode": ""
+            },
+            "Asbury Park City": {
+                "NJParcel_ID": "1304",
+                "ZipCode": ""
+            },
+            "Atlantic Highlands Boro": {
+                "NJParcel_ID": "1305",
+                "ZipCode": ""
+            },
+            "Avon-By-The-Sea Boro": {
+                "NJParcel_ID": "1306",
+                "ZipCode": ""
+            },
+            "Belmar Boro": {
+                "NJParcel_ID": "1307",
+                "ZipCode": ""
+            },
+            "Bradley Beach Boro": {
+                "NJParcel_ID": "1308",
+                "ZipCode": ""
+            },
+            "Brielle Boro": {
+                "NJParcel_ID": "1309",
+                "ZipCode": ""
+            },
+            "Colts Neck Twp": {
+                "NJParcel_ID": "1310",
+                "ZipCode": ""
+            },
+            "Deal Boro": {
+                "NJParcel_ID": "1311",
+                "ZipCode": ""
+            },
+            "Eatontown Boro": {
+                "NJParcel_ID": "1312",
+                "ZipCode": ""
+            },
+            "Englishtown Boro": {
+                "NJParcel_ID": "1313",
+                "ZipCode": ""
+            },
+            "Fair Haven Boro": {
+                "NJParcel_ID": "1314",
+                "ZipCode": ""
+            },
+            "Farmingdale Boro": {
+                "NJParcel_ID": "1315",
+                "ZipCode": ""
+            },
+            "Freehold Boro": {
+                "NJParcel_ID": "1316",
+                "ZipCode": ""
+            },
+            "Freehold Twp": {
+                "NJParcel_ID": "1317",
+                "ZipCode": ""
+            },
+            "Hazlet Twp": {
+                "NJParcel_ID": "1318",
+                "ZipCode": ""
+            },
+            "Highlands Boro": {
+                "NJParcel_ID": "1319",
+                "ZipCode": ""
+            },
+            "Holmdel Twp": {
+                "NJParcel_ID": "1320",
+                "ZipCode": ""
+            },
+            "Howell Twp": {
+                "NJParcel_ID": "1321",
+                "ZipCode": ""
+            },
+            "Interlaken Boro": {
+                "NJParcel_ID": "1322",
+                "ZipCode": ""
+            },
+            "Keansburg Boro": {
+                "NJParcel_ID": "1323",
+                "ZipCode": ""
+            },
+            "Keyport Boro": {
+                "NJParcel_ID": "1324",
+                "ZipCode": ""
+            },
+            "Lake Como Boro": {
+                "NJParcel_ID": "1346",
+                "ZipCode": ""
+            },
+            "Little Silver Boro": {
+                "NJParcel_ID": "1325",
+                "ZipCode": ""
+            },
+            "Loch Arbour Village": {
+                "NJParcel_ID": "1326",
+                "ZipCode": ""
+            },
+            "Long Branch City": {
+                "NJParcel_ID": "1327",
+                "ZipCode": ""
+            },
+            "Manalapan Twp": {
+                "NJParcel_ID": "1328",
+                "ZipCode": ""
+            },
+            "Manasquan Boro": {
+                "NJParcel_ID": "1329",
+                "ZipCode": ""
+            },
+            "Marlboro Twp": {
+                "NJParcel_ID": "1330",
+                "ZipCode": ""
+            },
+            "Matawan Boro": {
+                "NJParcel_ID": "1331",
+                "ZipCode": ""
+            },
+            "Middletown Twp": {
+                "NJParcel_ID": "1332",
+                "ZipCode": ""
+            },
+            "Millstone Twp": {
+                "NJParcel_ID": "1333",
+                "ZipCode": ""
+            },
+            "Monmouth Beach Boro": {
+                "NJParcel_ID": "1334",
+                "ZipCode": ""
+            },
+            "Neptune City Boro": {
+                "NJParcel_ID": "1336",
+                "ZipCode": ""
+            },
+            "Neptune Twp": {
+                "NJParcel_ID": "1335",
+                "ZipCode": ""
+            },
+            "Oceanport Boro": {
+                "NJParcel_ID": "1338",
+                "ZipCode": ""
+            },
+            "Ocean Twp": {
+                "NJParcel_ID": "1521",
+                "ZipCode": ""
+            },
+            "Red Bank Boro": {
+                "NJParcel_ID": "1339",
+                "ZipCode": ""
+            },
+            "Roosevelt Boro": {
+                "NJParcel_ID": "1340",
+                "ZipCode": ""
+            },
+            "Rumson Boro": {
+                "NJParcel_ID": "1341",
+                "ZipCode": ""
+            },
+            "Sea Bright Boro": {
+                "NJParcel_ID": "1342",
+                "ZipCode": ""
+            },
+            "Sea Girt Boro": {
+                "NJParcel_ID": "1343",
+                "ZipCode": ""
+            },
+            "Shrewsbury Boro": {
+                "NJParcel_ID": "1344",
+                "ZipCode": ""
+            },
+            "Shrewsbury Twp": {
+                "NJParcel_ID": "1345",
+                "ZipCode": ""
+            },
+            "Spring Lake Boro": {
+                "NJParcel_ID": "1347",
+                "ZipCode": ""
+            },
+            "Spring Lake Heights Boro": {
+                "NJParcel_ID": "1348",
+                "ZipCode": ""
+            },
+            "Tinton Falls Boro": {
+                "NJParcel_ID": "1349",
+                "ZipCode": ""
+            },
+            "Union Beach Boro": {
+                "NJParcel_ID": "1350",
+                "ZipCode": ""
+            },
+            "Upper Freehold Twp": {
+                "NJParcel_ID": "1351",
+                "ZipCode": ""
+            },
+            "Wall Twp": {
+                "NJParcel_ID": "1352",
+                "ZipCode": ""
+            },
+            "West Long Branch Boro": {
+                "NJParcel_ID": "1353",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Morris": {
+        "SheriffSale_ID": "9",
+        "Cities": {
+            "Boonton Town": {
+                "NJParcel_ID": "1401",
+                "ZipCode": ""
+            },
+            "Boonton Twp": {
+                "NJParcel_ID": "1402",
+                "ZipCode": ""
+            },
+            "Butler Boro": {
+                "NJParcel_ID": "1403",
+                "ZipCode": ""
+            },
+            "Chatham Boro": {
+                "NJParcel_ID": "1404",
+                "ZipCode": ""
+            },
+            "Chatham Twp": {
+                "NJParcel_ID": "1405",
+                "ZipCode": ""
+            },
+            "Chester Boro": {
+                "NJParcel_ID": "1406",
+                "ZipCode": ""
+            },
+            "Chester Twp": {
+                "NJParcel_ID": "1407",
+                "ZipCode": ""
+            },
+            "Denville Twp": {
+                "NJParcel_ID": "1408",
+                "ZipCode": ""
+            },
+            "Dover Town": {
+                "NJParcel_ID": "1409",
+                "ZipCode": ""
+            },
+            "East Hanover Twp": {
+                "NJParcel_ID": "1410",
+                "ZipCode": ""
+            },
+            "Florham Park Boro": {
+                "NJParcel_ID": "1411",
+                "ZipCode": ""
+            },
+            "Hanover Twp": {
+                "NJParcel_ID": "1412",
+                "ZipCode": ""
+            },
+            "Harding Twp": {
+                "NJParcel_ID": "1413",
+                "ZipCode": ""
+            },
+            "Jefferson Twp": {
+                "NJParcel_ID": "1414",
+                "ZipCode": ""
+            },
+            "Kinnelon Boro": {
+                "NJParcel_ID": "1415",
+                "ZipCode": ""
+            },
+            "Lincoln Park Boro": {
+                "NJParcel_ID": "1416",
+                "ZipCode": ""
+            },
+            "Long Hill Twp": {
+                "NJParcel_ID": "1430",
+                "ZipCode": ""
+            },
+            "Madison Boro": {
+                "NJParcel_ID": "1417",
+                "ZipCode": ""
+            },
+            "Mendham Boro": {
+                "NJParcel_ID": "1418",
+                "ZipCode": ""
+            },
+            "Mendham Twp": {
+                "NJParcel_ID": "1419",
+                "ZipCode": ""
+            },
+            "Mine Hill Twp": {
+                "NJParcel_ID": "1420",
+                "ZipCode": ""
+            },
+            "Montville Twp": {
+                "NJParcel_ID": "1421",
+                "ZipCode": ""
+            },
+            "Morris Plains Boro": {
+                "NJParcel_ID": "1423",
+                "ZipCode": ""
+            },
+            "Morristown Town": {
+                "NJParcel_ID": "1424",
+                "ZipCode": ""
+            },
+            "Morris Twp": {
+                "NJParcel_ID": "1422",
+                "ZipCode": ""
+            },
+            "Mountain Lakes Boro": {
+                "NJParcel_ID": "1425",
+                "ZipCode": ""
+            },
+            "Mount Arlington Boro": {
+                "NJParcel_ID": "1426",
+                "ZipCode": ""
+            },
+            "Mount Olive Twp": {
+                "NJParcel_ID": "1427",
+                "ZipCode": ""
+            },
+            "Netcong Boro": {
+                "NJParcel_ID": "1428",
+                "ZipCode": ""
+            },
+            "Parsippany-Troy Hills Twp": {
+                "NJParcel_ID": "1429",
+                "ZipCode": ""
+            },
+            "Pequannock Twp": {
+                "NJParcel_ID": "1431",
+                "ZipCode": ""
+            },
+            "Randolph Twp": {
+                "NJParcel_ID": "1432",
+                "ZipCode": ""
+            },
+            "Riverdale Boro": {
+                "NJParcel_ID": "1433",
+                "ZipCode": ""
+            },
+            "Rockaway Boro": {
+                "NJParcel_ID": "1434",
+                "ZipCode": ""
+            },
+            "Rockaway Twp": {
+                "NJParcel_ID": "1435",
+                "ZipCode": ""
+            },
+            "Roxbury Twp": {
+                "NJParcel_ID": "1436",
+                "ZipCode": ""
+            },
+            "Victory Gardens Boro": {
+                "NJParcel_ID": "1437",
+                "ZipCode": ""
+            },
+            "Wharton Boro": {
+                "NJParcel_ID": "1439",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Ocean": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "Barnegat Light Boro": {
+                "NJParcel_ID": "1502",
+                "ZipCode": ""
+            },
+            "Barnegat Twp": {
+                "NJParcel_ID": "1501",
+                "ZipCode": ""
+            },
+            "Bay Head Boro": {
+                "NJParcel_ID": "1503",
+                "ZipCode": ""
+            },
+            "Beach Haven Boro": {
+                "NJParcel_ID": "1504",
+                "ZipCode": ""
+            },
+            "Beachwood Boro": {
+                "NJParcel_ID": "1505",
+                "ZipCode": ""
+            },
+            "Berkeley Twp": {
+                "NJParcel_ID": "1506",
+                "ZipCode": ""
+            },
+            "Brick Twp": {
+                "NJParcel_ID": "1507",
+                "ZipCode": ""
+            },
+            "Eagleswood Twp": {
+                "NJParcel_ID": "1509",
+                "ZipCode": ""
+            },
+            "Harvey Cedars Boro": {
+                "NJParcel_ID": "1510",
+                "ZipCode": ""
+            },
+            "Island Heights Boro": {
+                "NJParcel_ID": "1511",
+                "ZipCode": ""
+            },
+            "Jackson Twp": {
+                "NJParcel_ID": "1512",
+                "ZipCode": ""
+            },
+            "Lacey Twp": {
+                "NJParcel_ID": "1513",
+                "ZipCode": ""
+            },
+            "Lakehurst Boro": {
+                "NJParcel_ID": "1514",
+                "ZipCode": ""
+            },
+            "Lakewood Twp": {
+                "NJParcel_ID": "1515",
+                "ZipCode": ""
+            },
+            "Lavallette Boro": {
+                "NJParcel_ID": "1516",
+                "ZipCode": ""
+            },
+            "Little Egg Harbor Twp": {
+                "NJParcel_ID": "1517",
+                "ZipCode": ""
+            },
+            "Long Beach Twp": {
+                "NJParcel_ID": "1518",
+                "ZipCode": ""
+            },
+            "Manchester Twp": {
+                "NJParcel_ID": "1519",
+                "ZipCode": ""
+            },
+            "Mantoloking Boro": {
+                "NJParcel_ID": "1520",
+                "ZipCode": ""
+            },
+            "Ocean Gate Boro": {
+                "NJParcel_ID": "1522",
+                "ZipCode": ""
+            },
+            "Pine Beach Boro": {
+                "NJParcel_ID": "1523",
+                "ZipCode": ""
+            },
+            "Plumsted Twp": {
+                "NJParcel_ID": "1524",
+                "ZipCode": ""
+            },
+            "Point Pleasant Beach Boro": {
+                "NJParcel_ID": "1526",
+                "ZipCode": ""
+            },
+            "Point Pleasant Boro": {
+                "NJParcel_ID": "1525",
+                "ZipCode": ""
+            },
+            "Seaside Heights Boro": {
+                "NJParcel_ID": "1527",
+                "ZipCode": ""
+            },
+            "Seaside Park Boro": {
+                "NJParcel_ID": "1528",
+                "ZipCode": ""
+            },
+            "Ship Bottom Boro": {
+                "NJParcel_ID": "1529",
+                "ZipCode": ""
+            },
+            "South Toms River Boro": {
+                "NJParcel_ID": "1530",
+                "ZipCode": ""
+            },
+            "Stafford Twp": {
+                "NJParcel_ID": "1531",
+                "ZipCode": ""
+            },
+            "Surf City Boro": {
+                "NJParcel_ID": "1532",
+                "ZipCode": ""
+            },
+            "Toms River Twp": {
+                "NJParcel_ID": "1508",
+                "ZipCode": ""
+            },
+            "Tuckerton Boro": {
+                "NJParcel_ID": "1533",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Passaic": {
+        "SheriffSale_ID": "17",
+        "Cities": {
+            "Bloomingdale Boro": {
+                "NJParcel_ID": "1601",
+                "ZipCode": ""
+            },
+            "Clifton City": {
+                "NJParcel_ID": "1602",
+                "ZipCode": ""
+            },
+            "Haledon Boro": {
+                "NJParcel_ID": "1603",
+                "ZipCode": ""
+            },
+            "Hawthorne Boro": {
+                "NJParcel_ID": "1604",
+                "ZipCode": ""
+            },
+            "Little Falls Twp": {
+                "NJParcel_ID": "1605",
+                "ZipCode": ""
+            },
+            "North Haledon Boro": {
+                "NJParcel_ID": "1606",
+                "ZipCode": ""
+            },
+            "Passaic City": {
+                "NJParcel_ID": "1607",
+                "ZipCode": ""
+            },
+            "Paterson City": {
+                "NJParcel_ID": "1608",
+                "ZipCode": ""
+            },
+            "Pompton Lakes Boro": {
+                "NJParcel_ID": "1609",
+                "ZipCode": ""
+            },
+            "Prospect Park Boro": {
+                "NJParcel_ID": "1610",
+                "ZipCode": ""
+            },
+            "Ringwood Boro": {
+                "NJParcel_ID": "1611",
+                "ZipCode": ""
+            },
+            "Totowa Boro": {
+                "NJParcel_ID": "1612",
+                "ZipCode": ""
+            },
+            "Wanaque Boro": {
+                "NJParcel_ID": "1613",
+                "ZipCode": ""
+            },
+            "Wayne Twp": {
+                "NJParcel_ID": "1614",
+                "ZipCode": ""
+            },
+            "West Milford Twp": {
+                "NJParcel_ID": "1615",
+                "ZipCode": ""
+            },
+            "Woodland Park Boro": {
+                "NJParcel_ID": "1616",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Salem": {
+        "SheriffSale_ID": "20",
+        "Cities": {
+            "Alloway Twp": {
+                "NJParcel_ID": "1701",
+                "ZipCode": ""
+            },
+            "Carneys Point Twp": {
+                "NJParcel_ID": "1702",
+                "ZipCode": ""
+            },
+            "Elmer Boro": {
+                "NJParcel_ID": "1703",
+                "ZipCode": ""
+            },
+            "Elsinboro Twp": {
+                "NJParcel_ID": "1704",
+                "ZipCode": ""
+            },
+            "Lower Alloways Creek Twp": {
+                "NJParcel_ID": "1705",
+                "ZipCode": ""
+            },
+            "Mannington Twp": {
+                "NJParcel_ID": "1706",
+                "ZipCode": ""
+            },
+            "Oldmans Twp": {
+                "NJParcel_ID": "1707",
+                "ZipCode": ""
+            },
+            "Penns Grove Boro": {
+                "NJParcel_ID": "1708",
+                "ZipCode": ""
+            },
+            "Pennsville Twp": {
+                "NJParcel_ID": "1709",
+                "ZipCode": ""
+            },
+            "Pilesgrove Twp": {
+                "NJParcel_ID": "1710",
+                "ZipCode": ""
+            },
+            "Pittsgrove Twp": {
+                "NJParcel_ID": "1711",
+                "ZipCode": ""
+            },
+            "Quinton Twp": {
+                "NJParcel_ID": "1712",
+                "ZipCode": ""
+            },
+            "Salem City": {
+                "NJParcel_ID": "1713",
+                "ZipCode": ""
+            },
+            "Upper Pittsgrove Twp": {
+                "NJParcel_ID": "1714",
+                "ZipCode": ""
+            },
+            "Woodstown Boro": {
+                "NJParcel_ID": "1715",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Somerset": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "Bedminster Twp": {
+                "NJParcel_ID": "1801",
+                "ZipCode": ""
+            },
+            "Bernards Twp": {
+                "NJParcel_ID": "1802",
+                "ZipCode": ""
+            },
+            "Bernardsville Boro": {
+                "NJParcel_ID": "1803",
+                "ZipCode": ""
+            },
+            "Bound Brook Boro": {
+                "NJParcel_ID": "1804",
+                "ZipCode": ""
+            },
+            "Branchburg Twp": {
+                "NJParcel_ID": "1805",
+                "ZipCode": ""
+            },
+            "Bridgewater Twp": {
+                "NJParcel_ID": "1806",
+                "ZipCode": ""
+            },
+            "Far Hills Boro": {
+                "NJParcel_ID": "1807",
+                "ZipCode": ""
+            },
+            "Green Brook Twp": {
+                "NJParcel_ID": "1809",
+                "ZipCode": ""
+            },
+            "Hillsborough Twp": {
+                "NJParcel_ID": "1810",
+                "ZipCode": ""
+            },
+            "Manville Boro": {
+                "NJParcel_ID": "1811",
+                "ZipCode": ""
+            },
+            "Millstone Boro": {
+                "NJParcel_ID": "1812",
+                "ZipCode": ""
+            },
+            "Montgomery Twp": {
+                "NJParcel_ID": "1813",
+                "ZipCode": ""
+            },
+            "North Plainfield Boro": {
+                "NJParcel_ID": "1814",
+                "ZipCode": ""
+            },
+            "Peapack-Gladstone Boro": {
+                "NJParcel_ID": "1815",
+                "ZipCode": ""
+            },
+            "Raritan Boro": {
+                "NJParcel_ID": "1816",
+                "ZipCode": ""
+            },
+            "Rocky Hill Boro": {
+                "NJParcel_ID": "1817",
+                "ZipCode": ""
+            },
+            "Somerville Boro": {
+                "NJParcel_ID": "1818",
+                "ZipCode": ""
+            },
+            "South Bound Brook Boro": {
+                "NJParcel_ID": "1819",
+                "ZipCode": ""
+            },
+            "Warren Twp": {
+                "NJParcel_ID": "1820",
+                "ZipCode": ""
+            },
+            "Watchung Boro": {
+                "NJParcel_ID": "1821",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Sussex": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "Andover Boro": {
+                "NJParcel_ID": "1901",
+                "ZipCode": ""
+            },
+            "Andover Twp": {
+                "NJParcel_ID": "1902",
+                "ZipCode": ""
+            },
+            "Branchville Boro": {
+                "NJParcel_ID": "1903",
+                "ZipCode": ""
+            },
+            "Byram Twp": {
+                "NJParcel_ID": "1904",
+                "ZipCode": ""
+            },
+            "Frankford Twp": {
+                "NJParcel_ID": "1905",
+                "ZipCode": ""
+            },
+            "Franklin Boro": {
+                "NJParcel_ID": "1906",
+                "ZipCode": ""
+            },
+            "Fredon Twp": {
+                "NJParcel_ID": "1907",
+                "ZipCode": ""
+            },
+            "Green Twp": {
+                "NJParcel_ID": "1908",
+                "ZipCode": ""
+            },
+            "Hamburg Boro": {
+                "NJParcel_ID": "1909",
+                "ZipCode": ""
+            },
+            "Hampton Twp": {
+                "NJParcel_ID": "1910",
+                "ZipCode": ""
+            },
+            "Hardyston Twp": {
+                "NJParcel_ID": "1911",
+                "ZipCode": ""
+            },
+            "Hopatcong Boro": {
+                "NJParcel_ID": "1912",
+                "ZipCode": ""
+            },
+            "Lafayette Twp": {
+                "NJParcel_ID": "1913",
+                "ZipCode": ""
+            },
+            "Montague Twp": {
+                "NJParcel_ID": "1914",
+                "ZipCode": ""
+            },
+            "Newton Town": {
+                "NJParcel_ID": "1915",
+                "ZipCode": ""
+            },
+            "Ogdensburg Boro": {
+                "NJParcel_ID": "1916",
+                "ZipCode": ""
+            },
+            "Sandyston Twp": {
+                "NJParcel_ID": "1917",
+                "ZipCode": ""
+            },
+            "Sparta Twp": {
+                "NJParcel_ID": "1918",
+                "ZipCode": ""
+            },
+            "Stanhope Boro": {
+                "NJParcel_ID": "1919",
+                "ZipCode": ""
+            },
+            "Stillwater Twp": {
+                "NJParcel_ID": "1920",
+                "ZipCode": ""
+            },
+            "Sussex Boro": {
+                "NJParcel_ID": "1921",
+                "ZipCode": ""
+            },
+            "Vernon Twp": {
+                "NJParcel_ID": "1922",
+                "ZipCode": ""
+            },
+            "Walpack Twp": {
+                "NJParcel_ID": "1923",
+                "ZipCode": ""
+            },
+            "Wantage Twp": {
+                "NJParcel_ID": "1924",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Union": {
+        "SheriffSale_ID": "15",
+        "Cities": {
+            "Berkeley Heights Twp": {
+                "NJParcel_ID": "2001",
+                "ZipCode": ""
+            },
+            "Clark Twp": {
+                "NJParcel_ID": "2002",
+                "ZipCode": ""
+            },
+            "Cranford Twp": {
+                "NJParcel_ID": "2003",
+                "ZipCode": ""
+            },
+            "Elizabeth": {
+                "NJParcel_ID": "2004",
+                "ZipCode": ""
+            },
+            "Fanwood Boro": {
+                "NJParcel_ID": "2005",
+                "ZipCode": ""
+            },
+            "Garwood Boro": {
+                "NJParcel_ID": "2006",
+                "ZipCode": ""
+            },
+            "Hillside Twp": {
+                "NJParcel_ID": "2007",
+                "ZipCode": ""
+            },
+            "Kenilworth Boro": {
+                "NJParcel_ID": "2008",
+                "ZipCode": ""
+            },
+            "Linden": {
+                "NJParcel_ID": "2009",
+                "ZipCode": ""
+            },
+            "Mountainside Boro": {
+                "NJParcel_ID": "2010",
+                "ZipCode": ""
+            },
+            "New Providence Boro": {
+                "NJParcel_ID": "2011",
+                "ZipCode": ""
+            },
+            "Plainfield City": {
+                "NJParcel_ID": "2012",
+                "ZipCode": ""
+            },
+            "Rahway City": {
+                "NJParcel_ID": "2013",
+                "ZipCode": ""
+            },
+            "Roselle Boro": {
+                "NJParcel_ID": "2014",
+                "ZipCode": ""
+            },
+            "Roselle Park Boro": {
+                "NJParcel_ID": "2015",
+                "ZipCode": ""
+            },
+            "Scotch Plains Twp": {
+                "NJParcel_ID": "2016",
+                "ZipCode": ""
+            },
+            "Summit": {
+                "NJParcel_ID": "2018",
+                "ZipCode": ""
+            },
+            "Westfield Town": {
+                "NJParcel_ID": "2020",
+                "ZipCode": ""
+            },
+            "Winfield Twp": {
+                "NJParcel_ID": "2021",
+                "ZipCode": ""
+            }
+        }
+    },
+    "Warren": {
+        "SheriffSale_ID": "",
+        "Cities": {
+            "Allamuchy Twp": {
+                "NJParcel_ID": "2101",
+                "ZipCode": ""
+            },
+            "Alpha Boro": {
+                "NJParcel_ID": "2102",
+                "ZipCode": ""
+            },
+            "Belvidere Town": {
+                "NJParcel_ID": "2103",
+                "ZipCode": ""
+            },
+            "Blairstown Twp": {
+                "NJParcel_ID": "2104",
+                "ZipCode": ""
+            },
+            "Frelinghuysen Twp": {
+                "NJParcel_ID": "2106",
+                "ZipCode": ""
+            },
+            "Hackettstown Town": {
+                "NJParcel_ID": "2108",
+                "ZipCode": ""
+            },
+            "Hardwick Twp": {
+                "NJParcel_ID": "2109",
+                "ZipCode": ""
+            },
+            "Harmony Twp": {
+                "NJParcel_ID": "2110",
+                "ZipCode": ""
+            },
+            "Hope Twp": {
+                "NJParcel_ID": "2111",
+                "ZipCode": ""
+            },
+            "Independence Twp": {
+                "NJParcel_ID": "2112",
+                "ZipCode": ""
+            },
+            "Knowlton Twp": {
+                "NJParcel_ID": "2113",
+                "ZipCode": ""
+            },
+            "Liberty Twp": {
+                "NJParcel_ID": "2114",
+                "ZipCode": ""
+            },
+            "Lopatcong Twp": {
+                "NJParcel_ID": "2115",
+                "ZipCode": ""
+            },
+            "Oxford Twp": {
+                "NJParcel_ID": "2117",
+                "ZipCode": ""
+            },
+            "Phillipsburg Town": {
+                "NJParcel_ID": "2119",
+                "ZipCode": ""
+            },
+            "Pohatcong Twp": {
+                "NJParcel_ID": "2120",
+                "ZipCode": ""
+            },
+            "Washington Boro": {
+                "NJParcel_ID": "2121",
+                "ZipCode": ""
+            },
+            "White Twp": {
+                "NJParcel_ID": "2123",
+                "ZipCode": ""
+            }
+        }
+    }
+}
