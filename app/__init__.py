@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from .scrapers.sheriff_sale import SheriffSale
-from .scrapers.nj_parcels import NJParcels
+# from .scrapers.sheriff_sale import SheriffSale
+# from .scrapers.nj_parcels import NJParcels
 
 app = Flask(__name__)
 CORS(app)
@@ -13,7 +13,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-sheriff_sale = SheriffSale()
-nj_parcels = NJParcels()
+# sheriff_sale = SheriffSale()
+# nj_parcels = NJParcels()
 
 from app import routes

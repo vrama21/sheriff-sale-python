@@ -5,11 +5,11 @@ import requests
 from datetime import datetime, date
 from pathlib import Path
 from urllib.parse import quote
-from utils import requests_content, load_json_data
-from constants import (
+from .utils import requests_content, load_json_data
+from .constants import (
     SHERIFF_SALES_URL,
     SHERIFF_SALES_BASE_URL,
-    NJ_JSON_DATA,
+    NJ_DATA,
     SUFFIX_ABBREVATIONS,
     ADDRESS_REGEX_SPLIT,
     CITY_LIST

@@ -6,7 +6,7 @@ import "./style.css";
 const Home = props => {
   const [response, setResponse] = useState({});
   const [dbModDate, setDbModDate] = useState();
-  const [search, setSearch] = useState({});
+  const [search, setSearch] = useState({county: ""});
   const [filters, setFilters] = useState({});
   const [data, setData] = useState();
 
@@ -23,7 +23,8 @@ const Home = props => {
           setResponse({
             counties: data.counties,
             cities: data.cities,
-            saleDates: data.saleDates
+            saleDates: data.saleDates,
+            NJData: data.NJData
           });
           setDbModDate(data.dbModDate);
         });
@@ -118,6 +119,7 @@ const Home = props => {
       </div>
       <SearchFilters
         response={response}
+        search={search}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         toggleChecked={toggleChecked}

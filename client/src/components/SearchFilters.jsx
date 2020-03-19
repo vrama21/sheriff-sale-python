@@ -30,12 +30,22 @@ const SearchFilters = props => (
             onChange={props.handleChange}
           >
             <option value="">--Choose--</option>
-            {props.response.cities &&
-              props.response.cities.map((city, i) => (
-                <option key={i} value={city}>
-                  {city}
-                </option>
-              ))}
+
+            {props.search.county
+              ? Object.keys(
+                  props.response.NJData[props.search.county].Cities
+                ).map((city, i) => (
+                  <option key={i} value={city}>
+                    {city}
+                  </option>
+                ))
+              : <option></option>
+              // props.response.cities.map((city, i) => (
+              //     <option key={i} value={city}>
+              //       {city}
+              //     </option>
+              //   ))
+                }
           </select>
         </div>
         <div className="input-group-prepend">

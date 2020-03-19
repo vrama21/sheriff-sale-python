@@ -7,10 +7,11 @@ from flask import (
     make_response,
     jsonify,
 )
-from app import app, db, sheriff_sale, nj_parcels
+from app import app, db
 from app.models import SheriffSaleDB
 
-from .scrapers.constants import COUNTY_LIST, CITY_LIST, TEST_JSON_DATA
+from .scrapers.sheriff_sale import SheriffSale
+from .scrapers.constants import COUNTY_LIST, CITY_LIST, NJ_DATA
 from settings import FLASK_APP_DIR
 
 import json
@@ -18,6 +19,7 @@ import os
 import time
 from urllib.parse import urlencode
 
+sheriff_sale = SheriffSale("15")
 
 @app.route("/api/home", methods=["GET"])
 def home():
@@ -26,7 +28,7 @@ def home():
 
     counties = COUNTY_LIST
     cities = CITY_LIST
-    test = TEST_JSON_DATA
+    nj_data = NJ_DATA
     sale_dates = sheriff_sale.get_sale_dates()
 
     if request.method == "GET":
@@ -35,7 +37,7 @@ def home():
             counties=counties,
             cities=cities,
             saleDates=sale_dates,
-            json_data=test,
+            NJData=nj_data
         )
 
 

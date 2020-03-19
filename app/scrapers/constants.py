@@ -1,14 +1,14 @@
 from itertools import chain
 from pathlib import Path
-from utils import load_json_data
+from .utils import load_json_data
 
 NJ_PARCELS_URL = "http://njparcels.com/property/"
 NJ_PARCELS_API = "http://njparcels.com/api/v1.0/property/"
 SHERIFF_SALES_BASE_URL = "https://salesweb.civilview.com"
 SHERIFF_SALES_URL = "https://salesweb.civilview.com/Sales/SalesSearch?countyId="
 
-NJ_JSON_DATA = load_json_data("NJ_Data.json")
-COUNTY_LIST = sorted(list(NJ_JSON_DATA.keys()))
+NJ_DATA = load_json_data("NJ_Data.json")
+COUNTY_LIST = sorted(list(NJ_DATA.keys()))
 
 SUFFIX_ABBREVATIONS = {
     "Avenue": "Ave",
