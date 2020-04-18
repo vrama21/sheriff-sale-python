@@ -1,6 +1,6 @@
 import React from "react";
 import { FormGroup, FormControlLabel, Switch } from "@material-ui/core";
-import "./style.css";
+import "style.css";
 
 const SearchFilters = props => (
   <div className="filter-container row">

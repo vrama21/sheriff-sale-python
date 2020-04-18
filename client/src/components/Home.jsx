@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import SearchFilters from "./SearchFilters";
-import TableData from "./TableData";
-import "./style.css";
+import SearchFilters from "components/SearchFilters";
+import TableData from "components/TableData";
+import "style.css";
 
 const Home = props => {
   const [response, setResponse] = useState({});
