@@ -1,57 +1,25 @@
 import React, { useState, useEffect } from "react";
 import SearchFilters from "components/SearchFilters";
 import TableData from "components/TableData";
-import "style.css";
+import useFetch from "hooks/useFetch";
 
-const Home = props => {
-  const [response, setResponse] = useState({});
-  const [dbModDate, setDbModDate] = useState();
-  const [search, setSearch] = useState({county: ""});
-  const [filters, setFilters] = useState({});
+const Home = () => {
   const [data, setData] = useState();
+  const [filters, setFilters] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState({ county: "" });
+  const response = useFetch("/api/home", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  });
+  const updateDatabase = useFetch("/api/update_database", {
+    method: "POST",
+    headers: { "Content-Type": "text/plain" }
+  });
 
-  useEffect(() => {
-    const url = "/api/home";
-    const options = {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    };
-    fetch(url, options)
-      .then(resp => {
-        resp.json().then(data => {
-          console.log(data);
-          setResponse({
-            counties: data.counties,
-            cities: data.cities,
-            saleDates: data.saleDates,
-            NJData: data.NJData
-          });
-          setDbModDate(data.dbModDate);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  const toggle = () => setIsOpen(!isOpen);
 
-  const updateDatabase = () => {
-    const url = "/api/update_database";
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" }
-    };
-    fetch(url, options)
-      .then(resp => {
-        resp.json().then(data => {
-          console.log(data);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const handleChange = event => {
+  const onChange = event => {
     const { name, value } = event.target;
     setSearch({
       ...search,
@@ -59,7 +27,7 @@ const Home = props => {
     });
   };
 
-  const handleSubmit = async event => {
+  const onSubmit = async event => {
     event.preventDefault();
     const url = "/api/table_data";
     const options = {
@@ -82,17 +50,6 @@ const Home = props => {
       });
   };
 
-  const toggleChecked = () => {
-    // setFilters({
-    //   ...filters,
-    //   [name]: setChecked(prev => !prev)
-    // });
-    setFilters((prevState, divName) => ({
-      ...prevState,
-      [divName]: !prevState
-    }));
-  };
-
   return (
     <>
       <div className="database-container row">
@@ -106,25 +63,31 @@ const Home = props => {
               Check for Updates
             </button>
             <button
-              type="submit"
               className="btn btn-primary"
               id="update-database"
               onClick={updateDatabase}
+              type="submit"
             >
               Update Database
             </button>
+            <button
+              className="btn btn-danger"
+              id="filters"
+              onClick={toggle}
+            >
+              Filters
+            </button>
           </div>
-          <span>Database Last Updated On: {dbModDate}</span>
+          <span>Database Last Updated On: {}</span>
         </div>
       </div>
       <SearchFilters
+        onChange={onChange}
+        onSubmit={onSubmit}
         response={response}
         search={search}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        toggleChecked={toggleChecked}
       />
-      {data && <TableData data={data} />}
+      {data && (<TableData data={data} />)}
     </>
   );
 };

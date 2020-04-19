@@ -1,21 +1,20 @@
 import React from "react";
 // import { FormGroup, FormControlLabel, Switch } from "@material-ui/core";
-import "style.css";
 
-const SearchFilters = props => (
+const SearchFilters = ({ onChange, onSubmit, response, search }) => (
   <div className="filter-container row">
-    <form method="POST" onSubmit={props.handleSubmit}>
+    <form method="POST" onSubmit={onSubmit}>
       <div className="input-group col-md-12">
         <div className="input-group-prepend">
           <label className="input-group-text">County</label>
           <select
             className="custom-select"
             name="county"
-            onChange={props.handleChange}
+            onChange={onChange}
           >
             <option value="">--Choose--</option>
-            {props.response.counties &&
-              props.response.counties.map((county, i) => (
+            {response.counties &&
+              response.counties.map((county, i) => (
                 <option key={i} value={county}>
                   {county}
                 </option>
@@ -27,20 +26,20 @@ const SearchFilters = props => (
           <select
             className="custom-select"
             name="city"
-            onChange={props.handleChange}
+            onChange={onChange}
           >
             <option value="">--Choose--</option>
 
-            {props.search.county
+            {search.county
               ? Object.keys(
-                  props.response.NJData[props.search.county].Cities
+                  response.NJData[search.county].Cities
                 ).map((city, i) => (
                   <option key={i} value={city}>
                     {city}
                   </option>
                 ))
               : <option></option>
-              // props.response.cities.map((city, i) => (
+              // response.cities.map((city, i) => (
               //     <option key={i} value={city}>
               //       {city}
               //     </option>
@@ -53,11 +52,11 @@ const SearchFilters = props => (
           <select
             className="custom-select"
             name="sale_date"
-            onChange={props.handleChange}
+            onChange={onChange}
           >
             <option value="">--Choose--</option>
-            {props.response.saleDates &&
-              props.response.saleDates.map((saleDate, i) => (
+            {response.saleDates &&
+              response.saleDates.map((saleDate, i) => (
                 <option key={i} value={saleDate}>
                   {saleDate}
                 </option>
@@ -78,7 +77,7 @@ const SearchFilters = props => (
       {/* <FormGroup>
         <FormControlLabel
           control={<Switch />}
-          onChange={props.toggleChecked}
+          onChange={toggleChecked}
           label="Judgment"
           name="judgmentFilter"
         />

@@ -1,3 +1,9 @@
+// @import 'tailwindcss/base';
+// @import 'tailwindcss/components';
+// @import 'tailwindcss/utilities';
+
+@import './variables';
+
 :root {
     --row-count: attr(.table-results);
 }
@@ -67,31 +73,85 @@ header ul.navbar li a {
     margin-top: 15px;
 }
 
+/* FILTER */
+
 .filter-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-    padding: 20px;
-    border: 1px gray solid;
-}
-
-.filter-container > .input-group-text {
-    background-color: #c9c9c9;
-}
-
-.filter-container > .custom-select {
-    margin-left: 3px;
-    margin-right: 15px;
-    width: 200px;
-}
-
-.filter-container select {
-    margin-right: 5px;
-}
-
-.filter-container input {
-    margin-right: 5px;
-}
+    animation: tile-animation .3s linear forwards;
+    position: relative;
+    margin: 0 auto;
+    z-index: 2;
+    max-width: 530px;
+  
+    &::after {
+      content: '';
+      position: absolute;
+      top: 60px;
+      left: 40px;
+      @media screen and (max-width: 1080px) {
+        left: 30px;
+      }
+      @media screen and (max-width: 1024px) {
+        left: 45px;
+      }
+      @media screen and (max-width: 768px) {
+        left: 100px;
+      }
+      @media screen and (max-width: 500px) {
+        left: 50px;
+      }
+      width: 14px;
+      height: 14px;
+      background-color: white;
+      transform: rotate(45deg);
+      display: block;
+      margin: -7px auto 0;
+    }
+  
+    .container {
+      @media screen and (min-width: 300px) and (max-width: 500px) {
+        font-size: 0.9rem;
+      }
+    }
+  
+    .call-to-action {
+      padding: 1rem;
+      width: 50%;
+    }
+  
+    .cancel-value {
+      padding: 1rem;
+      border: 1px solid $primary-blue;
+      color: $primary-blue;
+      text-align: center;
+    }
+  }
+  
+  .filter-contents {
+    position: absolute;
+    transform: translate(0%, 10%);
+    background-color: white;
+    width: 100%;
+    top: -52px;
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .filter-header > h1 {
+    padding-top: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 1rem;
+  }
+  
+  .filter-group > h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
 
 /* Table Data Page */
 .table-results {
