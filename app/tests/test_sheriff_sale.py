@@ -1,10 +1,10 @@
 from constants import ADDRESS_REGEX_SPLIT, CITY_LIST
 import re
 from sheriff_sale import SheriffSale
+import unittests
 
 
 class TestSheriffSale:
-
     def __init__(self):
         self.sheriff_sale = SheriffSale()
 
