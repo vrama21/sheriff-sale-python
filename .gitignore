@@ -27,8 +27,8 @@ node_modules/
 .vscode/
 
 # pycache
-__pycache__
-**/__pycache__
+__pycache__/
+**/__pycache__/
 
 # application
 logs/
