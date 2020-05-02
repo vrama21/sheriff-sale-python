@@ -51,18 +51,18 @@ const Home = () => {
 
   return (
     <>
-      <div className="database-container row">
+      <div className="database-container">
         <div className="col-md-12">
           <div className="database-buttons">
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-blue"
               id="check-for-update"
             >
               Check for Updates
             </button>
             <button
-              className="btn btn-primary"
+              className="btn btn-blue"
               id="update-database"
               // onClick={updateDatabase}
               type="submit"

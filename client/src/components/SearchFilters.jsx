@@ -7,13 +7,13 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
   const saleDates = response && response.saleDates;
 
   return (
-    <div className="filter-container row">
+    <div className="flex">
       <form method="POST" onSubmit={onSubmit}>
         <div className="input-group col-md-12">
           <div className="input-group-prepend">
             <label className="input-group-text">County</label>
             <select
-              className="custom-select"
+              className=""
               name="county"
               onChange={onChange}
             >
@@ -28,7 +28,7 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
           <div className="input-group-prepend">
             <label className="input-group-text">City</label>
             <select
-              className="custom-select"
+              className=""
               name="city"
               onChange={onChange}
             >
@@ -43,17 +43,16 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
           <div className="input-group-prepend">
             <label className="input-group-text">Sale Date</label>
             <select
-              className="custom-select"
+              className=""
               name="sale_date"
               onChange={onChange}
             >
               <option value="">--Choose--</option>
-              {/* {response.saleDates &&
-                response.saleDates.map((saleDate, i) => (
-                  <option key={i} value={saleDate}>
-                    {saleDate}
-                  </option>
-                ))} */}
+              {saleDates && saleDates.map((saleDate, i) => (
+                <option key={`saleDate-${i}`} value={saleDate}>
+                  {saleDate}
+                </option>
+              ))}
             </select>
           </div>
           <input
