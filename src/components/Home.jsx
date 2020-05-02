@@ -3,15 +3,17 @@ import SearchFilters from "components/SearchFilters";
 import TableData from "components/TableData";
 import useFetch from "hooks/useFetch";
 
+const fetchOptions = {
+  method: "POST",
+  headers: { "Content-Type": "application/json" }
+}
+
 const Home = () => {
-  const [data, setData] = useState();
-  const [filters, setFilters] = useState({});
+  const [data, setData] = useState(undefined);
+  const [filters, setFilters] = useState(undefined);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState({ county: "" });
-  const response = useFetch("/api/home", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
-  });
+  const response = useFetch("/api/home", fetchOptions);
 
   const toggle = () => setIsOpen(!isOpen);
 
