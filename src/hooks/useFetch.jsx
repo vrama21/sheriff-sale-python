@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const useFetch = (url, options = {}) => {
     const [response, setResponse] = useState(null);
@@ -16,7 +16,7 @@ const useFetch = (url, options = {}) => {
         };
 
         fetchData();
-    }, []);
+    }, [options, url]);
 
     return { response, error };
 };
