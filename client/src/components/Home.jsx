@@ -4,7 +4,7 @@ import TableData from "components/TableData";
 import useFetch from "hooks/useFetch";
 
 const fetchOptions = {
-  method: "POST",
+  method: "GET",
   headers: { "Content-Type": "application/json" }
 }
 
@@ -13,7 +13,8 @@ const Home = () => {
   const [filters, setFilters] = useState(undefined);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState({ county: "" });
-  const response = useFetch("/api/home", fetchOptions);
+  const { response } = useFetch("/api/home", fetchOptions);
+  console.log(response);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -76,7 +77,7 @@ const Home = () => {
               Filters
             </button>
           </div>
-          <span>Database Last Updated On: {}</span>
+          <span>Database Last Updated On: {response && response.dbModDate}</span>
         </div>
       </div>
       <SearchFilters

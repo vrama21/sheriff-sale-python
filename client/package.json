@@ -1,5 +1,5 @@
 {
-  "name": "SheriffSale",
+  "name": "sheriff_sale",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,7 +7,9 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "concurrently": "^5.2.0",
     "node-sass": "^4.13.1",
+    "nodesass": "0.0.2-security",
     "postcss": "^7.0.27",
     "postcss-import": "^12.0.1",
     "react": "^16.12.0",
