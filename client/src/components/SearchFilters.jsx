@@ -7,26 +7,30 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
   const saleDates = response && response.saleDates;
 
   return (
-    <div className="flex">
+    <div>
       <form method="POST" onSubmit={onSubmit}>
-        <div className="input-group col-md-12">
-          <div className="input-group-prepend">
-            <label className="input-group-text">County</label>
+        <div className="flex">
+          <div className="select-group">
+            <label className="select-label">County</label>
             <select
-              className=""
+              className="select-styled"
               name="county"
               onChange={onChange}
             >
               <option value="">--Choose--</option>
               {response && counties.map((county, i) => (
-                <option key={`county-${i}`} value={county}>
+                <option
+                  className="select-options"
+                  key={`county-${i}`}
+                  value={county}
+                >
                   {county}
                 </option>
               ))}
             </select>
           </div>
-          <div className="input-group-prepend">
-            <label className="input-group-text">City</label>
+          <div className="select-group">
+            <label className="select-label">City</label>
             <select
               className=""
               name="city"
@@ -41,7 +45,7 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
             </select>
           </div>
           <div className="input-group-prepend">
-            <label className="input-group-text">Sale Date</label>
+            <label className="select-label">Sale Date</label>
             <select
               className=""
               name="sale_date"
