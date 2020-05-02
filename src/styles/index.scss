@@ -1,12 +1,9 @@
-// @import 'tailwindcss/base';
-// @import 'tailwindcss/components';
-// @import 'tailwindcss/utilities';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @import './variables';
-
-:root {
-    --row-count: attr(.table-results);
-}
+// @import '../components/SearchFilters.jsx';
 
 body {
     background: #030303;

@@ -12,18 +12,8 @@ from .constants import (
     NJ_DATA,
     SUFFIX_ABBREVATIONS,
     ADDRESS_REGEX_SPLIT,
-    CITY_LIST
+    CITY_LIST,
 )
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-formatter = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
-
-file_handler = logging.FileHandler("logs/sheriff_sale.log")
-file_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
 
 
 class SheriffSale:
@@ -179,7 +169,9 @@ class SheriffSale:
         for row in address_data:
             if row != " ":
                 try:
-                    street_match.append(re.search(regex_street, row.title()).group(0).rstrip().title())
+                    street_match.append(
+                        re.search(regex_street, row.title()).group(0).rstrip().title()
+                    )
                     city_match.append(re.search(regex_city, row.title()).group(1))
 
                 except AttributeError as e:

@@ -12,10 +12,6 @@ const Home = () => {
     method: "GET",
     headers: { "Content-Type": "application/json" }
   });
-  const updateDatabase = useFetch("/api/update_database", {
-    method: "POST",
-    headers: { "Content-Type": "text/plain" }
-  });
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -65,7 +61,7 @@ const Home = () => {
             <button
               className="btn btn-primary"
               id="update-database"
-              onClick={updateDatabase}
+              // onClick={updateDatabase}
               type="submit"
             >
               Update Database
