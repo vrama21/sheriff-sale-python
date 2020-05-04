@@ -175,12 +175,13 @@ class SheriffSale:
                     city_match.append(re.search(regex_city, row.title()).group(1))
 
                 except AttributeError as e:
-                    import sys, traceback
+                    print(e)
+                    # import sys, traceback
 
-                    tb = traceback.format_exc()
-                    logger.info(tb)
-                    logger.info(e)
-                    logger.error(row)
+                    # tb = traceback.format_exc()
+                    # logger.info(tb)
+                    # logger.info(e)
+                    # logger.error(row)
 
         unit_match = self.match_parser(address_data, regex_unit)
         secondary_unit_match = self.match_parser(address_data, regex_secondary_unit)

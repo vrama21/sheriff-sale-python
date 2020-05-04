@@ -51,10 +51,12 @@ header ul.navbar li a {
   display: inline-block;
   position: relative;
   font-size: 16px;
-  color: $select-color;
   padding: 8px 15px;
-  background-color: $light-grey;
   border-radius: 1rem;
+
+  // &:hover {
+  //   background-color: darken($light-grey, 8);
+  // }
 
   .select-hidden {
     display: none;
@@ -62,14 +64,8 @@ header ul.navbar li a {
     padding-right: 10px;
   }
 
-  .select-label {
-    background-color: lighten($select-background, 5);
-    margin-right: 1rem;
-    border-right: 1px black solid;
-  }
-
   .select-styled {
-    background-color: $select-background;
+    background-color: inherit;
     // padding: 8px 15px;
     // @include transition(all 0.2s ease-in);
     &:after {
@@ -82,15 +78,12 @@ header ul.navbar li a {
       top: 16px;
       right: 10px;
     }
-    &:hover {
-      background-color: darken($select-background, 2);
-    }
     &:active,
     &.active {
-      background-color: darken($select-background, 5);
+      // background-color: darken($select-background, 5);
       &:after {
         top: 9px;
-        border-color: transparent transparent $select-color transparent;
+        // border-color: transparent transparent $select-color transparent;
       }
     }
   }

@@ -7,23 +7,23 @@ from flask import (
     make_response,
     jsonify,
 )
-from app import app, db
-from app.models import SheriffSaleDB
-
+from . import app, db
+from .models import SheriffSaleDB
 from .scrapers.sheriff_sale import SheriffSale
 from .scrapers.constants import COUNTY_LIST, CITY_LIST, NJ_DATA
-from settings import FLASK_APP_DIR
+from .settings import BASE_DIR
 
 import json
 import os
 import time
 from urllib.parse import urlencode
+from pathlib import Path
 
 sheriff_sale = SheriffSale("15")
 
 @app.route("/api/home", methods=["GET"])
 def home():
-    db_path = FLASK_APP_DIR.joinpath("main.db")
+    db_path = Path(BASE_DIR, 'main.db')
     db_mod_date = time.ctime(os.path.getmtime(db_path))
 
     counties = COUNTY_LIST

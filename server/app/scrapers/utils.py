@@ -1,7 +1,8 @@
 import json
 import requests
 from bs4 import BeautifulSoup
-from pathlib import PurePath, Path
+from pathlib import Path
+from ..settings import BASE_DIR
 
 def requests_content(url, session=None):
     """ Creates a an html request session and returns the BeautifulSoup parse"""
@@ -24,8 +25,8 @@ def none_to_empty_string(match_object):
     return match_object
 
 
-def load_json_data(json_path, json_file):
-    path = Path(json_path, json_file)
+def load_json_data(json_file):
+    path = Path(BASE_DIR, 'json', json_file)
     with open (path, 'r') as file:
         json_data = json.load(file)
         return json_data

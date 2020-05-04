@@ -1,5 +1,4 @@
 import React from "react";
-// import { FormGroup, FormControlLabel, Switch } from "@material-ui/core";
 
 const SearchFilters = ({ onChange, onSubmit, response, search }) => {
   const counties = response && response.counties;
@@ -7,11 +6,11 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
   const saleDates = response && response.saleDates;
 
   return (
-    <div className="container mx-auto text-center">
+    <div className="flex justify-center mt-5">
       <form method="POST" onSubmit={onSubmit}>
-        <div className="flex">
-          <div className="select-group">
-            <label className="select-label">County</label>
+        <div>
+          <div className="select-group mx-4 bg-gray-400 hover:bg-gray-500">
+            <label className="mr-4">County</label>
             <select
               className="select-styled"
               name="county"
@@ -29,10 +28,10 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
               ))}
             </select>
           </div>
-          <div className="select-group">
-            <label className="select-label">City</label>
+          <div className="select-group mx-4 bg-gray-400 hover:bg-gray-500">
+            <label className="mr-4">City</label>
             <select
-              className=""
+              className="select-styled"
               name="city"
               onChange={onChange}
             >
@@ -44,10 +43,10 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
               ))}
             </select>
           </div>
-          <div className="input-group-prepend">
-            <label className="select-label">Sale Date</label>
+          <div className="select-group mx-4 bg-gray-400 hover:bg-gray-500">
+            <label className="mr-4">Sale Date</label>
             <select
-              className=""
+              className="select-styled"
               name="sale_date"
               onChange={onChange}
             >
@@ -60,25 +59,18 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
             </select>
           </div>
           <input
-            className="btn btn-primary col-md-1"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             type="submit"
             value="Submit"
-          ></input>
-          <button id="filter-reset" className="btn btn-secondary col-md-1">
+          />
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            id="filter-reset"
+          >
             Reset
         </button>
         </div>
       </form>
-      <div className="col-md-12">
-        {/* <FormGroup>
-        <FormControlLabel
-          control={<Switch />}
-          onChange={toggleChecked}
-          label="Judgment"
-          name="judgmentFilter"
-        />
-      </FormGroup> */}
-      </div>
     </div>
   );
 };
