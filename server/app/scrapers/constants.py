@@ -1,5 +1,3 @@
-from itertools import chain
-from pathlib import Path
 from .utils import load_json_data
 
 NJ_PARCELS_URL = "http://njparcels.com/property/"

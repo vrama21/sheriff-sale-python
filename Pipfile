@@ -13,6 +13,7 @@ flask-sqlalchemy = "*"
 flask-wtf = "*"
 flask-cors = "*"
 pylint = "*"
+pycodestyle = "*"
 
 [requires]
 python_version = "3.8"

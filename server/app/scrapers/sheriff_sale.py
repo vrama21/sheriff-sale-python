@@ -21,7 +21,7 @@ class SheriffSale:
     Web scraper for sheriff sale website
     """
 
-    def __init__(self, county_id):
+    def __init__(self, county_id=None):
 
         try:
             self.data = requests.get(SHERIFF_SALES_URL)
@@ -98,7 +98,7 @@ class SheriffSale:
 
     def get_all_listing_details_tables(self):
         """
-        Retrieves all table html data from each listings details. Run this once since its running 
+        Retrieves all table html data from each listings details. Run this once since its running
         several requests on hundreds of links.
         """
         sale_links = self.get_sale_links()

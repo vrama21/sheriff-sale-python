@@ -3,48 +3,68 @@ import SearchFilters from "components/SearchFilters";
 import TableData from "components/TableData";
 import useFetch from "hooks/useFetch";
 
-const fetchOptions = {
-  method: "GET",
-  headers: { "Content-Type": "application/json" }
-}
 
 const Home = () => {
   const [data, setData] = useState(undefined);
   const [filters, setFilters] = useState(undefined);
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState({ county: "" });
-  const { response } = useFetch("/api/home", fetchOptions);
-  console.log(response);
+  const [search, setSearch] = useState(undefined);
+  const { response } = useFetch("/api/home", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const onChange = event => {
+  const onChange = (event) => {
     const { name, value } = event.target;
     setSearch({
       ...search,
-      [name]: value
+      [name]: value,
     });
   };
 
-  const onSubmit = async event => {
+  const updateDatabase = async (event) => {
+    event.preventDefault();
+    const url = "/api/update_database";
+    const options = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify(search),
+    };
+
+    await fetch(url, options)
+      .then((resp) => {
+        resp.json().then((data) => {
+          if (data) {
+            console.log(data);
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onSubmit = async (event) => {
     event.preventDefault();
     const url = "/api/table_data";
     const options = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(search)
+      // headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(search),
     };
 
     await fetch(url, options)
-      .then(resp => {
-        resp.json().then(data => {
+      .then((resp) => {
+        resp.json().then((data) => {
           if (data) {
             console.log(data);
             setData(data);
           }
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -59,22 +79,22 @@ const Home = () => {
             id="check-for-update"
           >
             Check for Updates
-            </button>
+          </button>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             id="update-database"
-            // onClick={updateDatabase}
+            onClick={updateDatabase}
             type="submit"
           >
             Update Database
-            </button>
+          </button>
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             id="filters"
             onClick={toggle}
           >
             Filters
-            </button>
+          </button>
         </div>
         <span>Database Last Updated On: {response && response.dbModDate}</span>
       </div>
@@ -84,7 +104,7 @@ const Home = () => {
         response={response}
         search={search}
       />
-      {data && (<TableData data={data} />)}
+      {data && <TableData data={data} />}
     </div>
   );
 };
