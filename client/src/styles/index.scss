@@ -53,6 +53,8 @@ header ul.navbar li a {
   font-size: 16px;
   color: $select-color;
   padding: 8px 15px;
+  background-color: $light-grey;
+  border-radius: 1rem;
 
   .select-hidden {
     display: none;
@@ -62,6 +64,8 @@ header ul.navbar li a {
 
   .select-label {
     background-color: lighten($select-background, 5);
+    margin-right: 1rem;
+    border-right: 1px black solid;
   }
 
   .select-styled {

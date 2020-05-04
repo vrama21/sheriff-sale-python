@@ -7,7 +7,7 @@ const SearchFilters = ({ onChange, onSubmit, response, search }) => {
   const saleDates = response && response.saleDates;
 
   return (
-    <div>
+    <div className="container mx-auto text-center">
       <form method="POST" onSubmit={onSubmit}>
         <div className="flex">
           <div className="select-group">

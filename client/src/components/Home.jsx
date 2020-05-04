@@ -50,35 +50,33 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="container mx-auto">
       <div className="database-container">
-        <div className="col-md-12">
-          <div className="database-buttons">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="check-for-update"
-            >
-              Check for Updates
+        <div className="database-buttons">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            id="check-for-update"
+          >
+            Check for Updates
             </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="update-database"
-              // onClick={updateDatabase}
-              type="submit"
-            >
-              Update Database
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            id="update-database"
+            // onClick={updateDatabase}
+            type="submit"
+          >
+            Update Database
             </button>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              id="filters"
-              onClick={toggle}
-            >
-              Filters
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            id="filters"
+            onClick={toggle}
+          >
+            Filters
             </button>
-          </div>
-          <span>Database Last Updated On: {response && response.dbModDate}</span>
         </div>
+        <span>Database Last Updated On: {response && response.dbModDate}</span>
       </div>
       <SearchFilters
         onChange={onChange}
@@ -87,7 +85,7 @@ const Home = () => {
         search={search}
       />
       {data && (<TableData data={data} />)}
-    </>
+    </div>
   );
 };
 

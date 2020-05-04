@@ -5,7 +5,7 @@ import TableData from "./components/TableData"
 
 function App() {
   return (
-    <div className="container">
+    <div>
       <Router>
         <Switch>
           <Route exact path="/">

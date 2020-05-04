@@ -1,26 +1,16 @@
 import React, { useEffect } from "react";
+import useFetch from '../hooks/useFetch'
 
-const TableData = props => {
-  useEffect(() => {
-    const url = "/api/table_data";
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" }
-    };
+const options = {
+  method: "POST",
+  headers: { "Content-Type": "application/json" }
+};
 
-    fetch(url, options)
-      .then(resp => {
-        resp.json().then(data => {
-          console.log(data);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+const TableData = () => {
+  const table_data = useFetch('/api/table_data', options);
 
   return (
-    <>
+    <div>
       <table
         id="data-table"
         className="table table-striped table-bordered table-dark"
@@ -38,7 +28,7 @@ const TableData = props => {
           </tr>
         </thead>
         <tbody id="data-table-body">
-          {props.data.map(listing => (
+          {table_data && table_data.map(listing => (
             <tr>
               <td>
                 <a
@@ -73,7 +63,7 @@ const TableData = props => {
                     <td>{{ data.judgment }}</td>*/}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
