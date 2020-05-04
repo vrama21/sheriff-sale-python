@@ -23,9 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 node_modules/
 
-# vscode
-.vscode/
-
 # pycache
 __pycache__/
 **/__pycache__/
