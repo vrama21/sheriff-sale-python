@@ -9,14 +9,14 @@ from flask import (jsonify, make_response, redirect, render_template, request,
 
 from . import app, db
 from .models import SheriffSaleDB
-from .scrapers.constants import CITY_LIST, COUNTY_LIST, NJ_DATA
-from .scrapers.sheriff_sale import SheriffSale
+from .constants import CITY_LIST, COUNTY_LIST, NJ_DATA
 from .settings import BASE_DIR
+from .scrapers.sheriff_sale import SheriffSale
 
 
 @app.route("/api/home", methods=["GET"])
 def home():
-    sheriff_sale = SheriffSale()
+    sheriff_sale = SheriffSale("15")
 
     db_path = Path(BASE_DIR, 'main.db')
     db_mod_date = time.ctime(os.path.getmtime(db_path))
@@ -96,18 +96,19 @@ def update_database(methods=["GET", "POST"]):
         return jsonify({'Updating the Sheriff Sale Database Failed'}), 401
 
 
-@app.route("/api/table_data", methods=["POST"])
+@app.route("/api/table_data", methods=["GET", "POST"])
 def table_data():
-    data = request.get_json()
-    print(data)
+    print('test')
+    # data = request.get_json()
+    # print(data)
 
-    query = SheriffSaleDB.query
-    if data:
-        for req in data:
-            if data[req]:
-                query = query.filter(getattr(SheriffSaleDB, req) == data[req])
-                # query = query.order_by(SheriffSaleDB.city.asc()).all()
-
-        return jsonify([i.serialize for i in query.all()])
-    else:
-        return jsonify({"message": "Data is null"})
+    # query = SheriffSaleDB.query
+    # if data:
+    #     for req in data:
+    #         if data[req]:
+    #             query = query.filter(getattr(SheriffSaleDB, req) == data[req])
+    # query = query.order_by(SheriffSaleDB.city.asc()).all()
+    # if query:
+    return jsonify([i.serialize for i in SheriffSaleDB.query.all()])
+    # else:
+    #     return jsonify({"message": "Data is null"})
