@@ -1,14 +1,6 @@
-import React, { useEffect } from "react";
-import useFetch from '../hooks/useFetch'
+import React from "react";
 
-const options = {
-  method: "POST",
-  headers: { "Content-Type": "application/json" }
-};
-
-const TableData = () => {
-  const table_data = useFetch('/api/table_data', options);
-
+const TableData = ({ data }) => {
   return (
     <div>
       <table
@@ -28,7 +20,7 @@ const TableData = () => {
           </tr>
         </thead>
         <tbody id="data-table-body">
-          {table_data && table_data.map(listing => (
+          {data && data.map(listing => (
             <tr>
               <td>
                 <a

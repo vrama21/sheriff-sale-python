@@ -3,6 +3,8 @@
 @import "tailwindcss/utilities";
 
 @import "./variables";
+@import "../components/Checkbox/checkbox";
+@import "../components/Listing/listing";
 
 body {
   background: #030303;

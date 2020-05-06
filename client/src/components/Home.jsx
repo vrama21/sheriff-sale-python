@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
 import SearchFilters from "components/SearchFilters";
-import TableData from "components/TableData";
 import useFetch from "hooks/useFetch";
+import Listing from "components/Listing/Listing";
 
+const initialFilterState = {
+  judgement: true,
+};
 
 const Home = () => {
-  const [data, setData] = useState(undefined);
-  const [filters, setFilters] = useState(undefined);
+  const data = useFetch("/api/table_data", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  const [filters, setFilters] = useState(initialFilterState);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState(undefined);
-  const { response } = useFetch("/api/home", {
+  const listings = useFetch("/api/home", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -22,6 +28,11 @@ const Home = () => {
       ...search,
       [name]: value,
     });
+  };
+
+  const onFilterChange = (event, valueOverride) => {
+    const { name } = event.target;
+    setFilters({ ...filters, [name]: valueOverride });
   };
 
   const updateDatabase = async (event) => {
@@ -46,28 +57,28 @@ const Home = () => {
       });
   };
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    const url = "/api/table_data";
-    const options = {
-      method: "POST",
-      // headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(search),
-    };
+  // const onSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const url = "/api/table_data";
+  //   const options = {
+  //     method: "POST",
+  //     // headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(search),
+  //   };
 
-    await fetch(url, options)
-      .then((resp) => {
-        resp.json().then((data) => {
-          if (data) {
-            console.log(data);
-            setData(data);
-          }
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //   await fetch(url, options)
+  //     .then((resp) => {
+  //       resp.json().then((data) => {
+  //         if (data) {
+  //           console.log(data);
+  //           setData(data);
+  //         }
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <div className="container mx-auto">
@@ -96,15 +107,18 @@ const Home = () => {
             Filters
           </button>
         </div>
-        <span>Database Last Updated On: {response && response.dbModDate}</span>
+        {/* <span>Database Last Updated On: {listings && listings.response.dbModDate}</span> */}
       </div>
-      <SearchFilters
-        onChange={onChange}
-        onSubmit={onSubmit}
-        response={response}
-        search={search}
-      />
-      {data && <TableData data={data} />}
+      {isOpen && (
+        <SearchFilters
+          onChange={onChange}
+          onFilterChange={onFilterChange}
+          // onSubmit={onSubmit}
+          response={listings.response}
+          search={search}
+        />
+      )}
+      <Listing data={data.response} />
     </div>
   );
 };
