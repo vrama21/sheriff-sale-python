@@ -8,10 +8,6 @@ const initialFilterState = {
 };
 
 const Home = () => {
-  const data = useFetch("/api/table_data", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
   const [filters, setFilters] = useState(initialFilterState);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState(undefined);
@@ -41,7 +37,6 @@ const Home = () => {
     const options = {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      data: JSON.stringify(search),
     };
 
     await fetch(url, options)
@@ -56,29 +51,6 @@ const Home = () => {
         console.log(err);
       });
   };
-
-  // const onSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const url = "/api/table_data";
-  //   const options = {
-  //     method: "POST",
-  //     // headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(search),
-  //   };
-
-  //   await fetch(url, options)
-  //     .then((resp) => {
-  //       resp.json().then((data) => {
-  //         if (data) {
-  //           console.log(data);
-  //           setData(data);
-  //         }
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   return (
     <div className="container mx-auto">
@@ -107,7 +79,7 @@ const Home = () => {
             Filters
           </button>
         </div>
-        {/* <span>Database Last Updated On: {listings && listings.response.dbModDate}</span> */}
+        <span>Database Last Updated On: {listings.response && listings.response.dbModDate}</span>
       </div>
       {isOpen && (
         <SearchFilters
@@ -118,7 +90,7 @@ const Home = () => {
           search={search}
         />
       )}
-      <Listing data={data.response} />
+      <Listing data={listings.response && listings.response.tableData} />
     </div>
   );
 };
