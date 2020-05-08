@@ -40,6 +40,8 @@ def home():
 
 @app.route("/api/check_for_update")
 def check_for_update(methods=["POST"]):
+    sheriff_sale = SheriffSale("15")
+
     # 1) Get the sheriff id's currently on the website
     sheriff_sale_ids_current = sheriff_sale.get_sheriff_ids()
 

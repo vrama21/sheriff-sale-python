@@ -2,9 +2,9 @@ import React from "react";
 import CheckboxInput from "components/Checkbox/Checkbox";
 
 const SearchFilters = ({ onChange, onFilterChange, onSubmit, response }) => {
-  const counties = response && response.counties;
-  const cities = response && response.cities;
-  const saleDates = response && response.saleDates;
+  const counties = response?.counties;
+  const cities = response?.cities;
+  const saleDates = response?.saleDates;
 
   return (
     <div className="bg-white">
@@ -24,28 +24,26 @@ const SearchFilters = ({ onChange, onFilterChange, onSubmit, response }) => {
                 onChange={onChange}
               >
                 <option value="">--Choose--</option>
-                {response &&
-                  counties.map((county, i) => (
-                    <option
-                      className="select-options"
-                      key={`county-${i}`}
-                      value={county}
-                    >
-                      {county}
-                    </option>
-                  ))}
+                {counties.map((county, i) => (
+                  <option
+                    className="select-options"
+                    key={`county-${i}`}
+                    value={county}
+                  >
+                    {county}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="select-group mx-4 bg-gray-400 hover:bg-gray-500">
               <label className="mr-4">City</label>
               <select className="select-styled" name="city" onChange={onChange}>
                 <option value="">--Choose--</option>
-                {cities &&
-                  cities.map((city, i) => (
-                    <option key={`city-${i}`} value={city}>
-                      {city}
-                    </option>
-                  ))}
+                {cities.map((city, i) => (
+                  <option key={`city-${i}`} value={city}>
+                    {city}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="select-group mx-4 bg-gray-400 hover:bg-gray-500">
@@ -56,12 +54,11 @@ const SearchFilters = ({ onChange, onFilterChange, onSubmit, response }) => {
                 onChange={onChange}
               >
                 <option value="">--Choose--</option>
-                {saleDates &&
-                  saleDates.map((saleDate, i) => (
-                    <option key={`saleDate-${i}`} value={saleDate}>
-                      {saleDate}
-                    </option>
-                  ))}
+                {saleDates.map((saleDate, i) => (
+                  <option key={`saleDate-${i}`} value={saleDate}>
+                    {saleDate}
+                  </option>
+                ))}
               </select>
             </div>
             <input

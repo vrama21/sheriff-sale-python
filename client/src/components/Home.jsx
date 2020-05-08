@@ -79,7 +79,7 @@ const Home = () => {
             Filters
           </button>
         </div>
-        <span>Database Last Updated On: {listings.response && listings.response.dbModDate}</span>
+        <span>Database Last Updated On: {listings.response?.dbModDate}</span>
       </div>
       {isOpen && (
         <SearchFilters
@@ -90,7 +90,7 @@ const Home = () => {
           search={search}
         />
       )}
-      <Listing data={listings.response && listings.response.tableData} />
+      <Listing data={listings.response?.tableData} />
     </div>
   );
 };
