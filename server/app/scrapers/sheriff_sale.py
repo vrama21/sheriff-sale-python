@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 import requests
 
-from ..constants import (ADDRESS_REGEX_SPLIT, CITY_LIST, NJ_DATA,
+from ..constants import (ADDRESS_REGEX_SPLIT, CITY_LIST, COUNTY_MAP, NJ_DATA,
                          SHERIFF_SALES_BASE_URL, SHERIFF_SALES_URL,
                          SUFFIX_ABBREVATIONS)
 from ..utils import load_json_data, requests_content
@@ -157,6 +157,7 @@ class SheriffSale:
         regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
         regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
         regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
+        # TODO: Search from the end of the string for the zip code
         regex_zip_code = re.compile(r"\d{5}")
 
         address_data = self.get_address_data()
@@ -259,6 +260,6 @@ class SheriffSale:
 
 
 if __name__ == "__main__":
-    SHERIFF = SheriffSale("7")
+    SHERIFF = SheriffSale("15")
     main = SHERIFF.main()
     # print(main)

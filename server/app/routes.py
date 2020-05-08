@@ -25,6 +25,7 @@ def home():
     cities = CITY_LIST
     nj_data = NJ_DATA
     sale_dates = sheriff_sale.get_sale_dates()
+    table_data = [data.serialize for data in SheriffSaleDB.query.all()]
 
     if request.method == "GET":
         return jsonify(
@@ -32,7 +33,8 @@ def home():
             counties=counties,
             cities=cities,
             saleDates=sale_dates,
-            NJData=nj_data
+            njData=nj_data,
+            tableData=table_data
         )
 
 
@@ -53,14 +55,8 @@ def check_for_update(methods=["POST"]):
 
 @app.route("/api/update_database")
 def update_database(methods=["GET", "POST"]):
-    print('here')
-    print(request.data)
+    sheriff_sale = SheriffSale("15")
 
-    county = None
-    if (request.data == "Atlantic"):
-        county = "15"
-
-    sheriff_sale = SheriffSale(county)
     if request.method == "GET":
         sheriff_sale_data = sheriff_sale.main()
 
@@ -93,22 +89,4 @@ def update_database(methods=["GET", "POST"]):
         }), 200)
 
     else:
-        return jsonify({'Updating the Sheriff Sale Database Failed'}), 401
-
-
-@app.route("/api/table_data", methods=["GET", "POST"])
-def table_data():
-    print('test')
-    # data = request.get_json()
-    # print(data)
-
-    # query = SheriffSaleDB.query
-    # if data:
-    #     for req in data:
-    #         if data[req]:
-    #             query = query.filter(getattr(SheriffSaleDB, req) == data[req])
-    # query = query.order_by(SheriffSaleDB.city.asc()).all()
-    # if query:
-    return jsonify([i.serialize for i in SheriffSaleDB.query.all()])
-    # else:
-    #     return jsonify({"message": "Data is null"})
+        return jsonify({'message': 'Updating the Sheriff Sale Database Failed'}), 401
