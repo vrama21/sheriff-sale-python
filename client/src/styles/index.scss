@@ -126,11 +126,6 @@ header ul.navbar li a {
   margin-bottom: 5px;
 }
 
-.progress-bar {
-  display: none;
-  margin-top: 15px;
-}
-
 /* FILTER */
 
 .filter-container {
@@ -138,50 +133,7 @@ header ul.navbar li a {
   position: relative;
   margin: 0 auto;
   z-index: 2;
-  max-width: 530px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 60px;
-    left: 40px;
-    @media screen and (max-width: 1080px) {
-      left: 30px;
-    }
-    @media screen and (max-width: 1024px) {
-      left: 45px;
-    }
-    @media screen and (max-width: 768px) {
-      left: 100px;
-    }
-    @media screen and (max-width: 500px) {
-      left: 50px;
-    }
-    width: 14px;
-    height: 14px;
-    background-color: white;
-    transform: rotate(45deg);
-    display: block;
-    margin: -7px auto 0;
-  }
-
-  .container {
-    @media screen and (min-width: 300px) and (max-width: 500px) {
-      font-size: 0.9rem;
-    }
-  }
-
-  .call-to-action {
-    padding: 1rem;
-    width: 50%;
-  }
-
-  .cancel-value {
-    padding: 1rem;
-    border: 1px solid $primary-blue;
-    color: $primary-blue;
-    text-align: center;
-  }
+  padding: 2rem;
 }
 
 .filter-contents {
