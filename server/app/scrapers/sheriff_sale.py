@@ -16,20 +16,23 @@ from ..constants import (
     SUFFIX_ABBREVATIONS,
 )
 from ..utils import load_json_data, requests_content
+from ..settings import BASE_DIR
 
 
 class SheriffSale:
     """
     Web scraper for sheriff sale website
     """
-    def __init__(self, county_id=None):
+    def __init__(self, county=None):
 
         try:
             self.data = requests.get(SHERIFF_SALES_URL)
         except ConnectionError as err:
             raise ConnectionError("Cannot Access URL: ", err)
 
-        self.county_id = county_id
+        self.county_name = list(county.keys())[0]
+        self.county_id = county.get(self.county_name)
+
         self.session = requests.Session()
 
         self.soup = requests_content(f"{SHERIFF_SALES_URL}{self.county_id}",
@@ -39,7 +42,8 @@ class SheriffSale:
         if self.table_div is None:
             print('Table Div was not captured')
 
-        with open('sheriff_sale.html', 'w') as f:
+        path = Path(BASE_DIR, 'scrapers')
+        with open(f'{path}/sheriff_sale-{self.county_name}-{self.county_id}.html', 'w') as f:
             f.write(str(self.table_div))
 
     def get_sale_dates(self):

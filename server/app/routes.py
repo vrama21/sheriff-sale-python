@@ -16,7 +16,7 @@ from .scrapers.sheriff_sale import SheriffSale
 
 @app.route("/api/home", methods=["GET"])
 def home():
-    sheriff_sale = SheriffSale("15")
+    sheriff_sale = SheriffSale({"Atlantic": "15"})
 
     db_path = Path(BASE_DIR, 'main.db')
     db_mod_date = time.ctime(os.path.getmtime(db_path))
@@ -28,14 +28,12 @@ def home():
     table_data = [data.serialize for data in SheriffSaleDB.query.all()]
 
     if request.method == "GET":
-        return jsonify(
-            dbModDate=db_mod_date,
-            counties=counties,
-            cities=cities,
-            saleDates=sale_dates,
-            njData=nj_data,
-            tableData=table_data
-        )
+        return jsonify(dbModDate=db_mod_date,
+                       counties=counties,
+                       cities=cities,
+                       saleDates=sale_dates,
+                       njData=nj_data,
+                       tableData=table_data)
 
 
 @app.route("/api/sheriff_sale")
@@ -96,4 +94,5 @@ def update_database(methods=["GET", "POST"]):
         }), 200)
 
     else:
-        return jsonify({'message': 'Updating the Sheriff Sale Database Failed'}), 401
+        return jsonify(
+            {'message': 'Updating the Sheriff Sale Database Failed'}), 401
