@@ -64,7 +64,6 @@ def check_for_update(methods=["POST"]):
 @app.route("/api/update_database")
 def update_database(methods=["GET", "POST"]):
     sheriff_sale = SheriffSale("15")
-
     if request.method == "GET":
         sheriff_sale_data = sheriff_sale.main()
 

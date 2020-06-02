@@ -7,12 +7,7 @@ const SearchFilters = ({ onChange, onFilterChange, onSubmit, response }) => {
   const saleDates = response?.saleDates;
 
   return (
-    <div className="bg-white">
-      <CheckboxInput
-        label="Judgement"
-        name="judgement"
-        onChange={onFilterChange}
-      />
+    <div className="filter-container">
       <div className="flex justify-center mt-5">
         <form method="POST" onSubmit={onSubmit}>
           <div>
