@@ -6,10 +6,15 @@ from pathlib import Path
 from urllib.parse import quote
 
 import requests
-
-from ..constants import (ADDRESS_REGEX_SPLIT, CITY_LIST, COUNTY_MAP, NJ_DATA,
-                         SHERIFF_SALES_BASE_URL, SHERIFF_SALES_URL,
-                         SUFFIX_ABBREVATIONS)
+from ..constants import (
+    ADDRESS_REGEX_SPLIT,
+    CITY_LIST,
+    COUNTY_MAP,
+    NJ_DATA,
+    SHERIFF_SALES_BASE_URL,
+    SHERIFF_SALES_URL,
+    SUFFIX_ABBREVATIONS,
+)
 from ..utils import load_json_data, requests_content
 
 
@@ -17,7 +22,6 @@ class SheriffSale:
     """
     Web scraper for sheriff sale website
     """
-
     def __init__(self, county_id=None):
 
         try:
@@ -28,21 +32,26 @@ class SheriffSale:
         self.county_id = county_id
         self.session = requests.Session()
 
-        self.soup = requests_content(
-            f"{SHERIFF_SALES_URL}{self.county_id}", self.session
-        )
-        self.table_div = self.soup.find("div", class_="table-responsive")
+        self.soup = requests_content(f"{SHERIFF_SALES_URL}{self.county_id}",
+                                     self.session)
+
+        self.table_div = self.soup.find("table", class_="table table-striped")
+        if self.table_div is None:
+            print('Table Div was not captured')
+
+        with open('sheriff_sale.html', 'w') as f:
+            f.write(str(self.table_div))
 
     def get_sale_dates(self):
         """
         Gathers all of sale dates available in the drop-down form
         """
         sale_dates = []
-        for select in self.soup.find_all(
-            name="select", attrs={"id": "PropertyStatusDate"}
-        ):
+        for select in self.soup.find_all(name="select",
+                                         attrs={"id": "PropertyStatusDate"}):
             sale_dates = [
-                option["value"] for option in select.find_all(name="option")[1:]
+                option["value"]
+                for option in select.find_all(name="option")[1:]
             ]
 
         sale_dates = [x.replace("/", "-") for x in sale_dates]
@@ -102,7 +111,8 @@ class SheriffSale:
         listings_table_data = []
         for links in sale_links:
             html = requests_content(links, self.session)
-            listings_table_data.append(html.find("div", class_="table-responsive"))
+            listings_table_data.append(
+                html.find("div", class_="table-responsive"))
 
         return listings_table_data
 
@@ -118,10 +128,10 @@ class SheriffSale:
 
         # Grabs all of the html for table data and status history
         for listing in listing_details_tables:
-            table_data_html.append(listing.find("table", class_="table table-striped"))
+            table_data_html.append(
+                listing.find("table", class_="table table-striped"))
             status_history_html.append(
-                listing.find("table", class_="table table-striped ")
-            )
+                listing.find("table", class_="table table-striped "))
 
         # Parses html to grab the table data as well as the google maps url
         for table in table_data_html:
@@ -153,10 +163,12 @@ class SheriffSale:
         """
         Returns lists of sanitized address data in the format of (Address, Unit, City, Zip Code)
         """
-        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
+        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) +
+                                  r")\s")
         regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
         regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
-        regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
+        regex_secondary_unit = re.compile(
+            r"(Building|Estate) #?([0-9a-zA-Z]+)")
         # TODO: Search from the end of the string for the zip code
         regex_zip_code = re.compile(r"\d{5}")
 
@@ -168,9 +180,10 @@ class SheriffSale:
             if row != " ":
                 try:
                     street_match.append(
-                        re.search(regex_street, row.title()).group(0).rstrip().title()
-                    )
-                    city_match.append(re.search(regex_city, row.title()).group(1))
+                        re.search(regex_street,
+                                  row.title()).group(0).rstrip().title())
+                    city_match.append(
+                        re.search(regex_city, row.title()).group(1))
 
                 except AttributeError as e:
                     print(e)
@@ -182,17 +195,20 @@ class SheriffSale:
                     # logger.error(row)
 
         unit_match = self.match_parser(address_data, regex_unit)
-        secondary_unit_match = self.match_parser(address_data, regex_secondary_unit)
+        secondary_unit_match = self.match_parser(address_data,
+                                                 regex_secondary_unit)
         zip_match = self.match_parser(address_data, regex_zip_code)
 
         # TODO: Do it only on the last word to avoid instances such as (1614 W Ave)
         # Abbreviates all street suffixes (e.g. Street, Avenue to St and Ave)
         for key, value in SUFFIX_ABBREVATIONS.items():
-            street_match = [re.sub(fr"({key})", value, row) for row in street_match]
+            street_match = [
+                re.sub(fr"({key})", value, row) for row in street_match
+            ]
 
         result = list(
-            zip(street_match, unit_match, secondary_unit_match, city_match, zip_match)
-        )
+            zip(street_match, unit_match, secondary_unit_match, city_match,
+                zip_match))
 
         return result
 
@@ -222,8 +238,7 @@ class SheriffSale:
                 sanitized_table_data,
                 table_data["maps_url"],
                 table_data["status_history"],
-            )
-        )
+            ))
 
         data_list = []
         for d in zipped:

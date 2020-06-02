@@ -4,4 +4,5 @@
   "python.linting.enabled": true,
   "python.lintOnSave": true,
   "python.linting.pycodestyleEnabled": true,
+  "python.formatting.provider": "yapf",
 }
