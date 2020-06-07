@@ -1,10 +1,12 @@
 import json
 from pathlib import Path
-
+import pprint
 import requests
 from bs4 import BeautifulSoup
 
 from .settings import BASE_DIR
+
+pp = pprint.PrettyPrinter(indent=4)
 
 
 def requests_content(url, session=None):
