@@ -15,7 +15,7 @@
             "class": "logging.FileHandler",
             "level": "DEBUG",
             "formatter": "default",
-            "filename": "errors.log"
+            "filename": "server/app/logs/errors.log"
         }
     },
     "root": {
