@@ -28,4 +28,4 @@ __pycache__/
 **/__pycache__/
 
 # application
-**/logs
+errors.log
