@@ -38,7 +38,7 @@ def home():
 
 @app.route("/api/sheriff_sale")
 def run_sheriff_sale(methods=["GET"]):
-    sheriff_sale = SheriffSale("25")
+    sheriff_sale = SheriffSale({"Atlantic": "25"})
     return jsonify("Success"), 200
 
 

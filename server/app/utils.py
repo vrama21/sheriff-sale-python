@@ -28,8 +28,8 @@ def none_to_empty_string(match_object):
     return match_object
 
 
-def load_json_data(json_file):
-    path = Path(BASE_DIR, 'json', json_file)
+def load_json_data(json_path):
+    path = Path(BASE_DIR, json_path)
     with open(path, 'r') as file:
         json_data = json.load(file)
         return json_data
