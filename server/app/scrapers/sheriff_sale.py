@@ -38,13 +38,13 @@ class SheriffSale:
         self.soup = requests_content(f"{SHERIFF_SALES_URL}{self.county_id}",
                                      self.session)
 
-        self.table_div = self.soup.find("table", class_="table table-striped")
-        if self.table_div is None:
-            print('Table Div was not captured')
+        self.table_div = self.soup.find("table", class_="table table-striped  ")
+        if not self.table_div:
+            logging.error('The Sheriff Sale Table Div was not captured')
 
-        path = Path(BASE_DIR, 'scrapers')
-        with open(f'{path}/sheriff_sale-{self.county_name}-{self.county_id}.html', 'w') as f:
-            f.write(str(self.table_div))
+        # path = Path(BASE_DIR, 'scrapers')
+        # with open(f'{path}/sheriff_sale-{self.county_name}-{self.county_id}.html', 'w') as f:
+        #     f.write(str(self.table_div))
 
     def get_sale_dates(self):
         """
@@ -190,7 +190,7 @@ class SheriffSale:
                         re.search(regex_city, row.title()).group(1))
 
                 except AttributeError as e:
-                    print(e)
+                    logging.error(e)
                     # import sys, traceback
 
                     # tb = traceback.format_exc()
