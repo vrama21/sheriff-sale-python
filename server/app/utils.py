@@ -3,6 +3,8 @@ from pathlib import Path
 import pprint
 import requests
 from bs4 import BeautifulSoup
+import re
+import logging
 
 from .settings import BASE_DIR
 
@@ -35,3 +37,13 @@ def load_json_data(json_path):
     with open(path, 'r') as file:
         json_data = json.load(file)
         return json_data
+
+
+def match_parser(self, regex, target, regexGroup=0, log=True):
+    try:
+        match = re.search(regex, target).group(regexGroup).rstrip().title()
+        return match
+    except AttributeError as err:
+        if log:
+            logging.error(f'{err} - {target}')
+        return None
