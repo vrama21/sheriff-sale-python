@@ -38,8 +38,11 @@ def home():
 
 @app.route("/api/sheriff_sale")
 def run_sheriff_sale(methods=["GET"]):
-    sheriff_sale = SheriffSale({"Atlantic": "25"})
-    return jsonify("Success"), 200
+    atlantic = {"Atlantic": "25"}
+    camden = {"Camden": "1"}
+    sheriff_sale = SheriffSale(atlantic)
+    response = sheriff_sale.get_table_data()
+    return jsonify(response), 200
 
 
 @app.route("/api/check_for_update")
