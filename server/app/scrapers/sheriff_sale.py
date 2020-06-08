@@ -15,7 +15,7 @@ from ..constants import (
     SHERIFF_SALES_URL,
     SUFFIX_ABBREVATIONS,
 )
-from ..utils import load_json_data, requests_content, pp
+from ..utils import load_json_data, requests_content, match_parser
 from ..settings import BASE_DIR
 
 
@@ -24,7 +24,6 @@ class SheriffSale:
     Web scraper for sheriff sale website
     """
     def __init__(self, county=None):
-
         try:
             self.data = requests.get(SHERIFF_SALES_URL)
         except ConnectionError as err:
@@ -88,7 +87,9 @@ class SheriffSale:
         return sheriff_ids
 
     def get_address_data(self):
-        """Gathers all of the address data for each listing"""
+        """
+        Gathers all of the address data for each listing
+        """
 
         address_data = []
         for row in self.soup.find_all("tr")[1:]:
@@ -99,8 +100,7 @@ class SheriffSale:
 
     def get_all_listing_details_tables(self):
         """
-        Retrieves all table html data from each listings details. Run this once since its running
-        several requests on hundreds of links.
+        Retrieves all table html data from each listings details.
         """
         sale_links = self.get_sale_links()
 
@@ -115,10 +115,41 @@ class SheriffSale:
 
         return listings_table_data
 
+    def sanitize_address(self, address):
+        """
+        Returns lists of sanitized address data in the format of { address, city, unit, secondary_unit, zip_code }
+        """
+        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
+        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
+        regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
+        regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
+        regex_zip_code = re.compile(r"\d{5}")
+
+        results = []
+
+        street_match = match_parser(regex_street, address)
+        city_match = match_parser(regex_city, address, regexGroup=1)
+        unit_match = match_parser(regex_unit, address, log=False)
+        secondary_unit_match = match_parser(regex_secondary_unit, address, log=False)
+        zip_code_match = match_parser(regex_zip_code, address, log=False)
+
+        try:
+            for key, value in SUFFIX_ABBREVATIONS.items():
+                re.sub(key, value, street_match)
+        except TypeError:
+            pass
+
+        return {
+            'street': street_match,
+            'city': city_match,
+            'zipCode': zip_code_match,
+            'unit': unit_match,
+            'unitSecondary': secondary_unit_match
+        }
+
     def get_table_data(self):
         """
-        Retrives data from each listing's detail page. Returns a list of table data,
-        a google maps url, the status history.
+        Gathers all of the listings for a specified county and returns it in a dictionary
         """
         listing_details_tables = self.get_all_listing_details_tables()
 
@@ -162,44 +193,3 @@ class SheriffSale:
             table_data.append(listing_table_dict)
 
         return table_data
-
-    def sanitize_address(self, address):
-        """
-        Returns lists of sanitized address data in the format of (Address, Unit, City, Zip Code)
-        """
-        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
-        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
-        regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
-        regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
-        regex_zip_code = re.compile(r"\d{5}")
-
-        results = []
-
-        street_match = self.match_parser(regex_street, address)
-        city_match = self.match_parser(regex_city, address, regexGroup=1)
-        unit_match = self.match_parser(regex_unit, address, log=False)
-        secondary_unit_match = self.match_parser(regex_secondary_unit, address, log=False)
-        zip_code_match = self.match_parser(regex_zip_code, address, log=False)
-
-        try:
-            for key, value in SUFFIX_ABBREVATIONS.items():
-                re.sub(key, value, street_match)
-        except TypeError:
-            pass
-
-        return {
-            'street': street_match,
-            'city': city_match,
-            'zipCode': zip_code_match,
-            'unit': unit_match,
-            'unitSecondary': secondary_unit_match
-        }
-
-    def match_parser(self, regex, target, regexGroup=0, log=True):
-        try:
-            match = re.search(regex, target).group(regexGroup).rstrip().title()
-            return match
-        except AttributeError as err:
-            if log:
-                logging.error(f'{err} - {target}')
-            return None
