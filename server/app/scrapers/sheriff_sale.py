@@ -15,7 +15,7 @@ from ..constants import (
     SHERIFF_SALES_URL,
     SUFFIX_ABBREVATIONS,
 )
-from ..utils import load_json_data, requests_content
+from ..utils import load_json_data, requests_content, pp
 from ..settings import BASE_DIR
 
 
@@ -35,28 +35,19 @@ class SheriffSale:
 
         self.session = requests.Session()
 
-        self.soup = requests_content(f"{SHERIFF_SALES_URL}{self.county_id}",
-                                     self.session)
+        self.soup = requests_content(f"{SHERIFF_SALES_URL}{self.county_id}", self.session)
 
-        self.table_div = self.soup.find("table", class_="table table-striped  ")
+        self.table_div = self.soup.find("table", class_="table table-striped")
         if not self.table_div:
             logging.error('The Sheriff Sale Table Div was not captured')
-
-        # path = Path(BASE_DIR, 'scrapers')
-        # with open(f'{path}/sheriff_sale-{self.county_name}-{self.county_id}.html', 'w') as f:
-        #     f.write(str(self.table_div))
 
     def get_sale_dates(self):
         """
         Gathers all of sale dates available in the drop-down form
         """
         sale_dates = []
-        for select in self.soup.find_all(name="select",
-                                         attrs={"id": "PropertyStatusDate"}):
-            sale_dates = [
-                option["value"]
-                for option in select.find_all(name="option")[1:]
-            ]
+        for select in self.soup.find_all(name="select", attrs={"id": "PropertyStatusDate"}):
+            sale_dates = [option["value"] for option in select.find_all(name="option")[1:]]
 
         sale_dates = [x.replace("/", "-") for x in sale_dates]
 
@@ -80,9 +71,9 @@ class SheriffSale:
         E.g. '563663246' from "/Sales/SaleDetails?PropertyId=563663246"
         """
         sale_links = self.get_sale_links()
-        property_id = [re.findall(r"\d{9}", x)[0] for x in sale_links]
+        property_ids = [re.findall(r"\d{9}", x)[0] for x in sale_links]
 
-        return property_id
+        return property_ids
 
     def get_sheriff_ids(self):
         """
@@ -112,11 +103,15 @@ class SheriffSale:
         several requests on hundreds of links.
         """
         sale_links = self.get_sale_links()
+
         listings_table_data = []
+
         for links in sale_links:
-            html = requests_content(links, self.session)
-            listings_table_data.append(
-                html.find("div", class_="table-responsive"))
+            request = requests_content(links, self.session)
+            property_id = re.search(r'\d{9}', links).group(0)
+            html = request.find("div", class_="table-responsive")
+
+            listings_table_data.append({"propertyId": property_id, "html": html})
 
         return listings_table_data
 
@@ -127,158 +122,84 @@ class SheriffSale:
         """
         listing_details_tables = self.get_all_listing_details_tables()
 
-        table_data_html, status_history_html = [], []
-        table_data, maps_url, status_history = [], [], []
+        listing_keys = [
+            'sheriff', 'courtCase', 'saleDate', 'plaintiff', 'defendant', 'address', 'priors', 'attorney', 'judgement',
+            'deed', 'deedAddress'
+        ]
+        status_history_keys = ['status', 'date']
 
-        # Grabs all of the html for table data and status history
+        table_data = []
         for listing in listing_details_tables:
-            table_data_html.append(
-                listing.find("table", class_="table table-striped"))
-            status_history_html.append(
-                listing.find("table", class_="table table-striped "))
+            listing_html = listing['html'].find("table", class_="table table-striped")
+            status_history_html = listing['html'].find("table", id="longTable")
+            maps_url = listing_html.find("a", href=True)
 
-        # Parses html to grab the table data as well as the google maps url
-        for table in table_data_html:
-            table_data.append([x.text for x in table.find_all("td")[1::2]])
-            for link in table.find_all("a", href=True):
-                maps_url.append(link["href"])
+            listing_table_data = [x.text.strip().title() for x in listing_html.find_all("td")[1::3]]
 
-        # Converts the sale_date data from '1/1/2019' to '1-1-2019'
-        regex_sale_date = re.compile(r"(?![0-9]+)(\/)")
-        for listing in table_data:
-            listing[2] = re.sub(regex_sale_date, "-", listing[2])
+            address_br = listing['html'].find("br")
+            address = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
 
-        # Grabs the status history for each address
-        for status in status_history_html:
+            status_history = []
+            for row in status_history_html.find_all("tr")[1:]:
+                td = row.find_all("td")
+                listing_status = {
+                    'status': td[0].text.strip(),
+                    'date': td[1].text.strip(),
+                }
+                status_history.append(listing_status)
+
+            listing_table_dict = dict(zip(listing_keys, listing_table_data))
+            listing_table_dict['address'] = address
+            listing_table_dict['addressSanitized'] = self.sanitize_address(listing_table_dict['address'])
+            listing_table_dict['propertyId'] = listing['propertyId']
+            listing_table_dict['statusHistory'] = status_history
+
             try:
-                status_history.append([x.text for x in status.find_all("td")])
-            except AttributeError:
-                status_history.append([])
+                listing_table_dict['maps'] = maps_url["href"]
+            except TypeError as error:
+                listing_table_dict['maps'] = None
 
-        table_dict = {
-            "table_data": table_data,
-            "maps_url": maps_url,
-            "status_history": status_history,
-        }
+            table_data.append(listing_table_dict)
 
-        return table_dict
+        return table_data
 
-    def sanitize_address_data(self):
+    def sanitize_address(self, address):
         """
         Returns lists of sanitized address data in the format of (Address, Unit, City, Zip Code)
         """
-        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) +
-                                  r")\s")
+        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
         regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
         regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
-        regex_secondary_unit = re.compile(
-            r"(Building|Estate) #?([0-9a-zA-Z]+)")
-        # TODO: Search from the end of the string for the zip code
+        regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
         regex_zip_code = re.compile(r"\d{5}")
 
-        address_data = self.get_address_data()
+        results = []
 
-        street_match, city_match = [], []
+        street_match = self.match_parser(regex_street, address)
+        city_match = self.match_parser(regex_city, address, regexGroup=1)
+        unit_match = self.match_parser(regex_unit, address, log=False)
+        secondary_unit_match = self.match_parser(regex_secondary_unit, address, log=False)
+        zip_code_match = self.match_parser(regex_zip_code, address, log=False)
 
-        for row in address_data:
-            if row != " ":
-                try:
-                    street_match.append(
-                        re.search(regex_street,
-                                  row.title()).group(0).rstrip().title())
-                    city_match.append(
-                        re.search(regex_city, row.title()).group(1))
+        try:
+            for key, value in SUFFIX_ABBREVATIONS.items():
+                re.sub(key, value, street_match)
+        except TypeError:
+            pass
 
-                except AttributeError as e:
-                    logging.error(e)
-                    # import sys, traceback
+        return {
+            'street': street_match,
+            'city': city_match,
+            'zipCode': zip_code_match,
+            'unit': unit_match,
+            'unitSecondary': secondary_unit_match
+        }
 
-                    # tb = traceback.format_exc()
-                    # logger.info(tb)
-                    # logger.info(e)
-                    # logger.error(row)
-
-        unit_match = self.match_parser(address_data, regex_unit)
-        secondary_unit_match = self.match_parser(address_data,
-                                                 regex_secondary_unit)
-        zip_match = self.match_parser(address_data, regex_zip_code)
-
-        # TODO: Do it only on the last word to avoid instances such as (1614 W Ave)
-        # Abbreviates all street suffixes (e.g. Street, Avenue to St and Ave)
-        for key, value in SUFFIX_ABBREVATIONS.items():
-            street_match = [
-                re.sub(fr"({key})", value, row) for row in street_match
-            ]
-
-        result = list(
-            zip(street_match, unit_match, secondary_unit_match, city_match,
-                zip_match))
-
-        return result
-
-    def match_parser(self, address_data, regex):
-        match_results = []
-        for row in address_data:
-            match = re.search(regex, row)
-            if match is None:
-                match_results.append("")
-            else:
-                match_results.append(match.group(0))
-        return match_results
-
-    def main(self):
-        """
-        Structures all sheriff sale data in a list of dictionaries
-        """
-
-        property_id = self.get_property_ids()
-        table_data = self.get_table_data()
-        sanitized_table_data = self.sanitize_address_data()
-
-        zipped = list(
-            zip(
-                property_id,
-                [x for x in table_data["table_data"]],
-                sanitized_table_data,
-                table_data["maps_url"],
-                table_data["status_history"],
-            ))
-
-        data_list = []
-        for d in zipped:
-            data = {
-                "property_id": d[0],
-                "listing_details": {
-                    "sheriff": d[1][0],
-                    "court_case": d[1][1],
-                    # "sale_date": datetime.strptime(d[1][2], "%m-%d-%Y").strftime(
-                    #     "%m-%d-%Y"
-                    # ),
-                    "plaintiff": d[1][3],
-                    "defendant": d[1][4],
-                    "address": d[1][5],
-                    "priors": d[1][6],
-                    "attorney": d[1][7],
-                    "judgment": d[1][8],
-                    "deed": d[1][9],
-                    "deed_address": d[1][10],
-                },
-                "sanitized": {
-                    "address": d[2][0],
-                    "unit": d[2][1],
-                    "secondary_unit": d[2][2],
-                    "city": d[2][3],
-                    "zip_code": d[2][4],
-                },
-                "maps_url": d[3],
-                "status_history": d[4],
-            }
-            data_list.append(data)
-
-        return data_list
-
-
-if __name__ == "__main__":
-    SHERIFF = SheriffSale("15")
-    main = SHERIFF.main()
-    # print(main)
+    def match_parser(self, regex, target, regexGroup=0, log=True):
+        try:
+            match = re.search(regex, target).group(regexGroup).rstrip().title()
+            return match
+        except AttributeError as err:
+            if log:
+                logging.error(f'{err} - {target}')
+            return None
