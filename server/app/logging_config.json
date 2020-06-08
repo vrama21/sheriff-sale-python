@@ -2,7 +2,10 @@
     "version": 1,
     "formatters": {
         "default": {
-            "format": "[%(asctime)s] %(levelname)s in %(module)s: %(message)s"
+            "format": "[%(asctime)s] %(levelname)s: %(message)s"
+        },
+        "error": {
+            "format": "[%(asctime)s] %(levelname)s in %(pathname)s:\n  module:%(module)s\n  line:%(lineno)s\n  message:%(message)s\n"
         }
     },
     "handlers": {
@@ -13,13 +16,13 @@
         },
         "file": {
             "class": "logging.FileHandler",
-            "level": "DEBUG",
-            "formatter": "default",
+            "level": "ERROR",
+            "formatter": "error",
             "filename": "server/app/logs/errors.log"
         }
     },
     "root": {
-        "level": "DEBUG",
+        "level": "INFO",
         "handlers": [
             "wsgi",
             "file"
