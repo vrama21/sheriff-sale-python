@@ -13,12 +13,15 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def requests_content(url, session=None):
     """ Creates an html request session and returns the BeautifulSoup parse"""
-    s = session
-    while session:
-        response = s.get(url)
-        content = response.content
-        soup = BeautifulSoup(content, 'html.parser')
-        return soup
+    response = None
+    if session:
+        response = session.get(url)
+    else:
+        response = requests.get(url)
+
+    content = response.content
+    soup = BeautifulSoup(content, 'html.parser')
+    return soup
 
 
 # TODO: May be deprecated
