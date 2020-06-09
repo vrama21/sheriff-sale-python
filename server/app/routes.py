@@ -12,6 +12,7 @@ from .models import SheriffSaleDB
 from .constants import CITY_LIST, COUNTY_LIST, NJ_DATA
 from .settings import BASE_DIR
 from .scrapers.sheriff_sale import SheriffSale
+from .scrapers.nj_parcels import NJParcels
 
 
 @app.route("/api/home", methods=["GET"])
@@ -43,6 +44,20 @@ def run_sheriff_sale(methods=["GET"]):
     sheriff_sale = SheriffSale(atlantic)
     response = sheriff_sale.get_table_data()
     return jsonify(response), 200
+
+
+@app.route("/api/nj_parcels")
+def run_nj_parcels(methods=["GET"]):
+    nj_parcels = NJParcels()
+
+    atlantic = {"Atlantic": "25"}
+    sheriff_sale = SheriffSale(atlantic)
+    sheriff_sale_response = sheriff_sale.get_table_data()[2]
+    address = sheriff_sale_response['addressSanitized']['street']
+
+    test = nj_parcels.search_address(address)
+
+    return jsonify(test), 200
 
 
 @app.route("/api/check_for_update")
