@@ -48,8 +48,6 @@ class SheriffSale:
         for select in self.soup.find_all(name="select", attrs={"id": "PropertyStatusDate"}):
             sale_dates = [option["value"] for option in select.find_all(name="option")[1:]]
 
-        sale_dates = [x.replace("/", "-") for x in sale_dates]
-
         return sale_dates
 
     def get_sale_links(self):
@@ -135,7 +133,7 @@ class SheriffSale:
 
         try:
             for key, value in SUFFIX_ABBREVATIONS.items():
-                re.sub(key, value, street_match)
+                street_match = re.sub(key, value, street_match)
         except TypeError:
             pass
 
