@@ -52,12 +52,17 @@ def run_nj_parcels(methods=["GET"]):
 
     atlantic = {"Atlantic": "25"}
     sheriff_sale = SheriffSale(atlantic)
-    sheriff_sale_response = sheriff_sale.get_table_data()[2]
-    address = sheriff_sale_response['addressSanitized']['street']
 
-    test = nj_parcels.search_address(address)
+    data = sheriff_sale.get_table_data()[2]
 
-    return jsonify(test), 200
+    address = data['address']['street']
+    property_links = nj_parcels.get_property_parameters(address)
+    taxes = nj_parcels.get_property_taxes(property_links['cityBlockLot'])
+
+    data['njParcels'] = property_links
+    data.update(taxes)
+
+    return jsonify(data), 200
 
 
 @app.route("/api/check_for_update")
