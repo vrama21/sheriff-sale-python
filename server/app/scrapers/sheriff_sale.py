@@ -176,10 +176,11 @@ class SheriffSale:
                 status_history.append(listing_status)
 
             listing_table_dict = dict(zip(listing_keys, listing_table_data))
-            listing_table_dict['address'] = address
-            listing_table_dict['addressSanitized'] = self.sanitize_address(listing_table_dict['address'])
+            listing_table_dict['address'] = {'full': address}
+            listing_table_dict['address'].update(self.sanitize_address(address))
             listing_table_dict['propertyId'] = listing['propertyId']
             listing_table_dict['statusHistory'] = status_history
+            listing_table_dict['sheriffSaleCountyId'] = self.county_id
 
             try:
                 listing_table_dict['maps'] = maps_url["href"]
