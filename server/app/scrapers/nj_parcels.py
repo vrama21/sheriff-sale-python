@@ -1,9 +1,10 @@
 from collections import defaultdict
 import json
+import logging
 import re
 import requests
-from .constants import NJ_PARCELS_URL, NJ_PARCELS_API
-from .utils import requests_content
+from ..constants import NJ_PARCELS_URL, NJ_PARCELS_API
+from ..utils import requests_content, load_json_data
 
 
 class NJParcels:
@@ -11,7 +12,7 @@ class NJParcels:
     Web scraper for www.njparcels.com
     """
     def __init__(self, county=None, city=None):
-        self.session = requests.session()
+        self.session = requests.Session()
         self.soup = requests_content(NJ_PARCELS_URL, self.session)
 
         self.county = county
@@ -37,74 +38,40 @@ class NJParcels:
         city_num_list = [x[0] for x in find_all_nums[3:]]
         return city_num_list
 
-    # def write_city_nums_json(self):
-    #     """ Writes a json file with each city and their respective city number
-    #     (E.g. Atlantic City: 0102) """
+    def get_property_parameters(self, address):
+        """
+        Gets links to the specified address info, comparables, and previous sales.
+        Also gets the city, block, and lot numbers of the specified address.
+        """
+        format_address = "+".join(address.split())
+        NJ_PARCELS_SEARCH_URL = f"http://njparcels.com/search/address/?s={format_address}&s_co=%23%23"
+        request = requests_content(NJ_PARCELS_SEARCH_URL)
 
-    #     with open('city_nums.json', 'w') as file_path:
-    #         city_num_dict = {self.county: {self.city: num} for (county_names, city_names, city_nums) in zip(county_names, city_names, city_nums)}
-    #         json.dump(city_num_dict, file_path)
+        try:
+            results_html = request.find('div', class_="btn-group-vertical")
+            property_links_html = results_html.find_all('a', href=True)
+            property_links = [link['href'] for link in property_links_html]
 
-    def build_block_list(self):
-        soup = requests_content(f'{NJ_PARCELS_URL}{self.city_num_dict[str(self.city)]}')
+            city_block_lot = property_links[1].split('/')[-1]
+            return {
+                'links': {
+                    'info': property_links[0],
+                    'sales': property_links[1],
+                    'comparables': property_links[2]
+                },
+                'cityBlockLot': city_block_lot
+            }
+        except AttributeError as error:
+            logging.error(f'{error}. There were no NJ Parcels Search Results for {address}')
 
-        table_data = soup.find('table', class_='table')
-        block_num_data = table_data.find_all('a', href=True)
-        block_num_text = [x.get_text() for x in block_num_data]
+    def get_property_taxes(self, city_block_lot):
+        """
+        Gets the taxes for the specified property
+        """
+        url = f"{NJ_PARCELS_API}/{city_block_lot}.json"
+        request = requests.get(url).json()
+        property_values = request['features'][0]['properties']
 
-        regex = re.compile(r'(\d+(\.\d*)?)')
-        a = re.findall(regex, str(block_num_text))
-        block_nums = [x[0] for x in a]
-
-        self.main_dict[self.county][self.city] = block_nums
-        # self.main_dict[self.county][city].update({block_nums: {}})
-
-    def build_address_list(self):
-        block_num = self.main_dict[self.county][self.city]
-
-        for i, block in enumerate(block_num):
-            _url = NJ_PARCELS_URL + self.city_num_dict[str(self.city)] + '/' + block
-            _soup = requests_content(_url)
-            print(_url)
-
-            addr_data = _soup.find_all('td')[1::4]
-            addr_text = [x.get_text() for x in addr_data]
-
-            lot_num_data = _soup.find_all('a', href=True)
-            lot_num_data = lot_num_data[6:]
-            lot_num_text = [x.get_text() for x in lot_num_data]
-
-            addr_lot_zip = [x for x in zip(addr_text, lot_num_text)]
-
-            self.main_dict[self.county][self.city][i] = addr_lot_zip
-
-    def parse_json_url(self, parsed_data):
-        with open('city_nums.json') as json_file:
-            json_full = []
-            json_prop = []
-
-            print(parsed_data)
-            if len(parsed_data) > 1:
-                for i in parsed_data:
-                    city_num = json_file[i[0]]
-
-                    url = f'{NJ_PARCELS_API}{city_num}_{i[1]}_{i[3]}.json'
-                    resp = requests.get(url).json()
-                    json_full.append(resp)
-            else:
-                try:
-                    city_num = json_file[parsed_data[0][0]]
-                    url = f'{NJ_PARCELS_API}{city_num}_{parsed_data[0][1]}_{parsed_data[0][3]}.json'
-                    resp = requests.get(url).json()
-                    json_full.append(resp)
-                except IndexError:
-                    print('Error: Address could not be located in the database')
-
-            for j in json_full:
-                index = json_full.index(j)
-                json_prop.append(json_full[index]['features'][0]['properties'])
-
-            return json_prop
-
-if __name__ == '__main__':
-    main = NJParcels(county='Atlantic County')
+        return {
+            'taxes': property_values['taxes']
+        }
