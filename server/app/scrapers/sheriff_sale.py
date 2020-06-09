@@ -24,17 +24,14 @@ class SheriffSale:
     Web scraper for sheriff sale website
     """
     def __init__(self, county=None):
-        try:
-            self.data = requests.get(SHERIFF_SALES_URL)
-        except ConnectionError as err:
-            raise ConnectionError("Cannot Access URL: ", err)
-
         self.county_name = list(county.keys())[0]
         self.county_id = county.get(self.county_name)
 
-        self.session = requests.Session()
-
-        self.soup = requests_content(f"{SHERIFF_SALES_URL}{self.county_id}", self.session)
+        try:
+            self.session = requests.Session()
+            self.soup = requests_content(f"{SHERIFF_SALES_URL}{self.county_id}", self.session)
+        except ConnectionError as err:
+            raise ConnectionError("Cannot Access URL: ", err)
 
         self.table_div = self.soup.find("table", class_="table table-striped")
         if not self.table_div:
@@ -140,6 +137,7 @@ class SheriffSale:
         return {
             'street': street_match,
             'city': city_match,
+            'county': self.county_name,
             'zipCode': zip_code_match,
             'unit': unit_match,
             'unitSecondary': secondary_unit_match
