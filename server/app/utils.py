@@ -6,9 +6,8 @@ from bs4 import BeautifulSoup
 import re
 import logging
 
-from .settings import BASE_DIR
-
 pp = pprint.PrettyPrinter(indent=4)
+BASE_DIR = Path(__file__).resolve().parent
 
 
 def requests_content(url, session=None):

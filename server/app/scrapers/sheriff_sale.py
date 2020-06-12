@@ -15,8 +15,7 @@ from ..constants import (
     SHERIFF_SALES_URL,
     SUFFIX_ABBREVATIONS,
 )
-from ..utils import load_json_data, requests_content, match_parser
-from ..settings import BASE_DIR
+from ..utils import BASE_DIR, load_json_data, requests_content, match_parser
 
 
 class SheriffSale:

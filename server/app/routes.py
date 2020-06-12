@@ -10,9 +10,10 @@ from flask import (jsonify, make_response, redirect, render_template, request,
 from . import app, db
 from .models import SheriffSaleDB
 from .constants import CITY_LIST, COUNTY_LIST, NJ_DATA
-from .settings import BASE_DIR
+from .utils import BASE_DIR
 from .scrapers.sheriff_sale import SheriffSale
 from .scrapers.nj_parcels import NJParcels
+from .scrapers.zillow import test
 
 
 @app.route("/api/home", methods=["GET"])
@@ -65,21 +66,11 @@ def run_nj_parcels(methods=["GET"]):
     return jsonify(data), 200
 
 
-@app.route("/api/check_for_update")
-def check_for_update(methods=["POST"]):
-    sheriff_sale = SheriffSale("15")
+@app.route("/api/zillow")
+def run_zillow(methods=["GET"]):
+    t = test()
 
-    # 1) Get the sheriff id's currently on the website
-    sheriff_sale_ids_current = sheriff_sale.get_sheriff_ids()
-
-    # 2) Query the db to get all the sheriff id's in the db
-    sheriff_sale_ids_db = SheriffSaleDB.query.with_entities(
-        SheriffSaleDB.sheriff).all()
-
-    # 3) Check for any differences in between
-    difference = list(set(sheriff_sale_ids_current) - set(sheriff_sale_ids_db))
-
-    return jsonify(difference)
+    return jsonify(t), 200
 
 
 @app.route("/api/update_database")
