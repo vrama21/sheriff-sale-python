@@ -15,7 +15,7 @@ flask-cors = "*"
 pylint = "*"
 pycodestyle = "*"
 black = "*"
-python-zillow = "*"
+pyzillow = "*"
 
 [requires]
 python_version = "3.8"
