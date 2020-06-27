@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import SearchFilters from 'components/SearchFilters';
-import useFetch from 'hooks/useFetch';
-import Listing from 'components/Listing/Listing';
+import React, { useState } from 'react';
+import SearchFilters from './SearchFilters';
+import useFetch from '../hooks/useFetch';
+import Listing from './Listing/Listing';
 import ReactLoading from 'react-loading';
-
-const initialFilterState = {
-  judgement: true,
-};
 
 const Home = () => {
   const data = useFetch('/api/table_data', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
-  const [filters, setFilters] = useState(initialFilterState);
+  const [filters, setFilters] = useState({ county: undefined, city: undefined, saleDate: undefined });
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState(undefined);
+  const [search, setSearch] = useState('');
   const listings = useFetch('/api/home', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -32,9 +28,9 @@ const Home = () => {
     });
   };
 
-  const onFilterChange = (event, valueOverride) => {
-    const { name } = event.target;
-    setFilters({ ...filters, [name]: valueOverride });
+  const onFilterChange = (event) => {
+    const { name, value } = event.target;
+    setFilters({ ...filters, [name]: value });
   };
 
   const updateDatabase = async (event) => {
@@ -92,6 +88,7 @@ const Home = () => {
         <span>Database Last Updated On: {listings.response?.dbModDate}</span>
       </div>
       <SearchFilters
+        filters={filters}
         onChange={onChange}
         onFilterChange={onFilterChange}
         // onSubmit={onSubmit}
