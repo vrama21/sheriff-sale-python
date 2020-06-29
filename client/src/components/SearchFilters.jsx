@@ -1,47 +1,18 @@
-import React from "react";
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import React, { useEffect } from "react";
+import { makeStyles, withStyles, StylesProvider } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import InputBase from '@material-ui/core/InputBase';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
-
-const BootstrapInput = withStyles((theme) => ({
+const FilterInput = withStyles({
   root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-  },
-  input: {
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}))(InputBase);
+    border: 1,
+    borderRadius: 3,
+    padding: 15,
+    width: 100,
+  }
+})(Select);
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -51,64 +22,65 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchFilters({
   filters,
+  listings,
   onChange,
-  onFilterChange,
   onSubmit,
-  response
 }) {
   const classes = useStyles();
+  const countyCities = listings && filters.county ? Object.keys(listings?.njData[filters?.county].cities) : undefined;
 
   return (
     <div className="filter-container">
       <div className="flex justify-center mt-5">
         <form method="POST" onSubmit={onSubmit}>
           <FormControl className={classes.margin}>
-            <InputLabel>County</InputLabel>
-            <Select
+            <InputLabel id="county-select-label">County</InputLabel>
+            <FilterInput
               id="county-select"
+              labelId="county-select-label"
               name="county"
-              onChange={onFilterChange}
+              onChange={onChange}
             >
-              <MenuItem value="">
+              <MenuItem value=''>
                 <em>None</em>
               </MenuItem>
-              {response?.counties.map((county, i) => (
+              {listings?.counties.map((county, i) => (
                 <MenuItem
                   key={`county-${i}`}
-                  value={county}
+                  value={county || ''}
                 >
                   {county}
                 </MenuItem>
               ))}
-            </Select>
+            </FilterInput>
           </FormControl>
           <FormControl className={classes.margin}>
             <InputLabel>City</InputLabel>
             <Select
               id="city-select"
               name="city"
-              onChange={onFilterChange}
+              onChange={onChange}
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
               {filters?.county
-              ? Object.keys(response?.njData[filters.county].cities).map((city, i) => (
-                <MenuItem
-                  key={`city-${i}`}
-                  value={city}
-                >
-                  {city}
-                </MenuItem>
-              ))
-              : response?.cities.map((city, i) => (
-                <MenuItem
-                  key={`city-${i}`}
-                  value={city}
-                >
-                  {city}
-                </MenuItem>
-              ))}
+                ? countyCities.map((city, i) => (
+                  <MenuItem
+                    key={`city-${i}`}
+                    value={city}
+                  >
+                    {city}
+                  </MenuItem>
+                ))
+                : listings?.cities.map((city, i) => (
+                  <MenuItem
+                    key={`city-${i}`}
+                    value={city}
+                  >
+                    {city}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
           <FormControl className={classes.margin}>
@@ -116,12 +88,12 @@ export default function SearchFilters({
             <Select
               id="saleDate-select"
               name="saleDate"
-              onChange={onFilterChange}
+              onChange={onChange}
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              {response?.saleDates.map((saleDate, i) => (
+              {listings?.saleDates.map((saleDate, i) => (
                 <MenuItem
                   key={`saleDate-${i}`}
                   value={saleDate}

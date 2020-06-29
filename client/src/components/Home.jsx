@@ -9,10 +9,10 @@ const Home = () => {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
-  const [filters, setFilters] = useState({ county: undefined, city: undefined, saleDate: undefined });
+  const [filters, setFilters] = useState({ county: '', city: '', saleDate: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(undefined);
   const listings = useFetch('/api/home', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -85,17 +85,21 @@ const Home = () => {
             Filters
           </button>
         </div>
-        <span>Database Last Updated On: {listings.response?.dbModDate}</span>
+        {listings && <span>Database Last Updated On: {listings.response?.dbModDate}</span>}
       </div>
-      <SearchFilters
-        filters={filters}
-        onChange={onChange}
-        onFilterChange={onFilterChange}
-        // onSubmit={onSubmit}
-        response={listings.response}
-        search={search}
-      />
-      <Listing data={data.response} />
+      {listings &&
+        <div>
+          <SearchFilters
+            filters={filters}
+            onChange={onFilterChange}
+            onFilterChange={onFilterChange}
+            // onSubmit={onSubmit}
+            listings={listings.response}
+            search={search}
+          />
+          <Listing data={data.response} />
+        </div>
+      }
     </div>
   );
 };
