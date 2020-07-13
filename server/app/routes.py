@@ -16,9 +16,9 @@ from .scrapers.nj_parcels import NJParcels
 from .scrapers.zillow import test
 
 
-@app.route("/api/home", methods=["GET"])
+@app.route('/api/home', methods=['GET'])
 def home():
-    sheriff_sale = SheriffSale({"Atlantic": "15"})
+    sheriff_sale = SheriffSale({'Atlantic': '15'})
 
     db_path = Path(BASE_DIR, 'main.db')
     db_mod_date = time.ctime(os.path.getmtime(db_path))
@@ -29,7 +29,7 @@ def home():
     sale_dates = sheriff_sale.get_sale_dates()
     table_data = [data.serialize for data in SheriffSaleDB.query.all()]
 
-    if request.method == "GET":
+    if request.method == 'GET':
         return jsonify(dbModDate=db_mod_date,
                        counties=counties,
                        cities=cities,
@@ -38,20 +38,26 @@ def home():
                        tableData=table_data)
 
 
-@app.route("/api/sheriff_sale")
-def run_sheriff_sale(methods=["GET"]):
-    atlantic = {"Atlantic": "25"}
-    camden = {"Camden": "1"}
+@app.route('/api/search')
+def search(methods=['GET', 'POST']):
+    print(request)
+    return jsonify(request), 200
+
+
+@app.route('/api/sheriff_sale')
+def run_sheriff_sale(methods=['GET']):
+    atlantic = {'Atlantic': '25'}
+    camden = {'Camden': '1'}
     sheriff_sale = SheriffSale(atlantic)
     response = sheriff_sale.get_table_data()
     return jsonify(response), 200
 
 
-@app.route("/api/nj_parcels")
-def run_nj_parcels(methods=["GET"]):
+@app.route('/api/nj_parcels')
+def run_nj_parcels(methods=['GET']):
     nj_parcels = NJParcels()
 
-    atlantic = {"Atlantic": "25"}
+    atlantic = {'Atlantic': '25'}
     sheriff_sale = SheriffSale(atlantic)
 
     data = sheriff_sale.get_table_data()[2]
@@ -66,17 +72,17 @@ def run_nj_parcels(methods=["GET"]):
     return jsonify(data), 200
 
 
-@app.route("/api/zillow")
-def run_zillow(methods=["GET"]):
+@app.route('/api/zillow')
+def run_zillow(methods=['GET']):
     t = test()
 
     return jsonify(t), 200
 
 
-@app.route("/api/update_database")
-def update_database(methods=["GET", "POST"]):
-    sheriff_sale = SheriffSale("15")
-    if request.method == "GET":
+@app.route('/api/update_database')
+def update_database(methods=['GET', 'POST']):
+    sheriff_sale = SheriffSale('15')
+    if request.method == 'GET':
         sheriff_sale_data = sheriff_sale.main()
 
         for row in sheriff_sale_data:
@@ -103,8 +109,8 @@ def update_database(methods=["GET", "POST"]):
             db.session.commit()
 
         return (jsonify({
-            "message": "Sheriff Sale Database Successfully Updated",
-            "data": sheriff_sale_data,
+            'message': 'Sheriff Sale Database Successfully Updated',
+            'data': sheriff_sale_data,
         }), 200)
 
     else:

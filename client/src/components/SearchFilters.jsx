@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { makeStyles, withStyles, StylesProvider } from '@material-ui/core/styles';
+import React from "react";
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -27,7 +27,12 @@ export default function SearchFilters({
   onSubmit,
 }) {
   const classes = useStyles();
-  const countyCities = listings && filters.county ? Object.keys(listings?.njData[filters?.county].cities) : undefined;
+
+  const counties = listings ? listings.counties : [];
+  const cities = listings ? listings.cities : [];
+  const saleDates = listings ? listings.saleDates : [];
+
+  const citiesOfSelectedCounty = listings && filters.county ? Object.keys(listings?.njData[filters?.county].cities) : [];
 
   return (
     <div className="filter-container">
@@ -40,14 +45,15 @@ export default function SearchFilters({
               labelId="county-select-label"
               name="county"
               onChange={onChange}
+              value={filters.county || ''}
             >
               <MenuItem value=''>
                 <em>None</em>
               </MenuItem>
-              {listings?.counties.map((county, i) => (
+              {counties.map((county, i) => (
                 <MenuItem
                   key={`county-${i}`}
-                  value={county || ''}
+                  value={county}
                 >
                   {county}
                 </MenuItem>
@@ -56,16 +62,17 @@ export default function SearchFilters({
           </FormControl>
           <FormControl className={classes.margin}>
             <InputLabel>City</InputLabel>
-            <Select
+            <FilterInput
               id="city-select"
               name="city"
               onChange={onChange}
+              value={filters.city || ''}
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              {filters?.county
-                ? countyCities.map((city, i) => (
+              {citiesOfSelectedCounty
+                ? citiesOfSelectedCounty.map((city, i) => (
                   <MenuItem
                     key={`city-${i}`}
                     value={city}
@@ -73,7 +80,7 @@ export default function SearchFilters({
                     {city}
                   </MenuItem>
                 ))
-                : listings?.cities.map((city, i) => (
+                : cities.map((city, i) => (
                   <MenuItem
                     key={`city-${i}`}
                     value={city}
@@ -81,19 +88,20 @@ export default function SearchFilters({
                     {city}
                   </MenuItem>
                 ))}
-            </Select>
+            </FilterInput>
           </FormControl>
           <FormControl className={classes.margin}>
             <InputLabel>Sale Date</InputLabel>
-            <Select
+            <FilterInput
               id="saleDate-select"
               name="saleDate"
               onChange={onChange}
+              value={filters.saleDate || ''}
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              {listings?.saleDates.map((saleDate, i) => (
+              {saleDates.map((saleDate, i) => (
                 <MenuItem
                   key={`saleDate-${i}`}
                   value={saleDate}
@@ -101,7 +109,7 @@ export default function SearchFilters({
                   {saleDate}
                 </MenuItem>
               ))}
-            </Select>
+            </FilterInput>
           </FormControl>
           <input
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
