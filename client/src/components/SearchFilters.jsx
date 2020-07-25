@@ -7,12 +7,20 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 const FilterInput = withStyles({
   root: {
+    // background: 'white',
     border: 1,
     borderRadius: 3,
-    padding: 15,
+    padding: 10,
     width: 100,
-  }
+  },
 })(Select);
+
+const FilterInputLabel = withStyles({
+  label: {
+    color: 'black',
+    zIndex: 10,
+  }
+})(InputLabel);
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -23,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchFilters({
   filters,
   listings,
-  onChange,
-  onSubmit,
+  onFilterChange,
+  onFilterReset,
+  onFilterSubmit,
 }) {
   const classes = useStyles();
 
@@ -37,14 +46,14 @@ export default function SearchFilters({
   return (
     <div className="filter-container">
       <div className="flex justify-center mt-5">
-        <form method="POST" onSubmit={onSubmit}>
+        <form onSubmit={onFilterSubmit}>
           <FormControl className={classes.margin}>
             <InputLabel id="county-select-label">County</InputLabel>
             <FilterInput
               id="county-select"
               labelId="county-select-label"
               name="county"
-              onChange={onChange}
+              onChange={onFilterChange}
               value={filters.county || ''}
             >
               <MenuItem value=''>
@@ -65,7 +74,7 @@ export default function SearchFilters({
             <FilterInput
               id="city-select"
               name="city"
-              onChange={onChange}
+              onChange={onFilterChange}
               value={filters.city || ''}
             >
               <MenuItem value="">
@@ -95,7 +104,7 @@ export default function SearchFilters({
             <FilterInput
               id="saleDate-select"
               name="saleDate"
-              onChange={onChange}
+              onChange={onFilterChange}
               value={filters.saleDate || ''}
             >
               <MenuItem value="">
@@ -119,6 +128,7 @@ export default function SearchFilters({
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
             id="filter-reset"
+            onClick={onFilterReset}
           >
             Reset
             </button>

@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import SearchFilters from './SearchFilters';
 import useFetch from '../hooks/useFetch';
 import Listing from './Listing/Listing';
 import ReactLoading from 'react-loading';
 
 const Home = () => {
-  // const data = useFetch('/api/table_data', {
-  //   method: 'GET',
-  //   headers: { 'Content-Type': 'application/json' },
-  // });
   const [filters, setFilters] = useState({ county: '', city: '', saleDate: '' });
   const [filteredListings, setFilteredListings] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  // const data = useFetch('/api/table_data', {
+  //   method: 'GET',
+  //   headers: { 'Content-Type': 'application/json' },
+  // });
   const listings = useFetch('/api/home', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -31,17 +33,26 @@ const Home = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  const onSubmit = async () => {
+  const onFilterReset = () => {
+    setFilters({ county: '', city: '', saleDate: '' });
+  };
+
+  const onFilterSubmit = async (event) => {
+    event.preventDefault();
+
     const url = '/api/search';
     const options = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify(search),
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      data: 'test',
     };
 
     const response = await fetch(url, options);
-    const json = await response.json();
+    console.log(response);
+    const json = await response;
     console.log(json);
+
+    // fetch(url, options).then(response => console.log(response))
   };
 
   const updateDatabase = async (event) => {
@@ -103,8 +114,9 @@ const Home = () => {
       <div>
         <SearchFilters
           filters={filters}
-          onChange={onFilterChange}
-          onSubmit={onSubmit}
+          onFilterChange={onFilterChange}
+          onFilterReset={onFilterReset}
+          onFilterSubmit={onFilterSubmit}
           listings={listings.response}
         />
         <Listing listings={listings.response} />

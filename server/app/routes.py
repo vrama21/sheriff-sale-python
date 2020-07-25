@@ -40,8 +40,14 @@ def home():
 
 @app.route('/api/search')
 def search(methods=['GET', 'POST']):
-    print(request)
-    return jsonify(request), 200
+    if request.method == 'GET':
+        print('GET')
+        return request.data, 200
+    elif request.method == 'POST':
+        print('Test')
+        print(request)
+        print(request.data)
+        return request.data, 200
 
 
 @app.route('/api/sheriff_sale')

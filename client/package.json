@@ -32,7 +32,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:5000",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -60,5 +59,6 @@
     "react-app-rewired": "^2.1.6",
     "sass-loader": "^8.0.2",
     "tailwindcss": "^1.4.4"
-  }
+  },
+  "proxy": "http://localhost:5000/"
 }
