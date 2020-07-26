@@ -174,17 +174,20 @@ class SheriffSale:
                 }
                 status_history.append(listing_status)
 
-            listing_table_dict = dict(zip(listing_keys, listing_table_data))
-            listing_table_dict['address'] = {'full': address}
-            listing_table_dict['address'].update(self.sanitize_address(address))
-            listing_table_dict['propertyId'] = listing['propertyId']
-            listing_table_dict['statusHistory'] = status_history
-            listing_table_dict['sheriffSaleCountyId'] = self.county_id
-
-            try:
-                listing_table_dict['maps'] = maps_url["href"]
-            except TypeError as error:
-                listing_table_dict['maps'] = None
+            listing_table_dict = {
+                "address": address,
+                "addressSanitized": self.sanitize_address(address),
+                "attorney": listing_table_data[8],
+                "attorneyPhone": listing_table_data[9],
+                "courtCase": listing_table_data[2],
+                "defendant": listing_table_data[5],
+                "judgement": listing_table_data[1],
+                "maps": maps_url and maps_url['href'],
+                "parcel": listing_table_data[6],
+                "plaintiff": listing_table_data[4],
+                "saleDate": listing_table_data[3],
+                "sheriff": listing_table_data[0],
+            }
 
             table_data.append(listing_table_dict)
 
