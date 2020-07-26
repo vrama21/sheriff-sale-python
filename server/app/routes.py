@@ -18,21 +18,17 @@ from .scrapers.zillow import test
 @app.route('/api/home', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        sheriff_sale = SheriffSale({'Atlantic': '15'})
-
         db_path = Path(BASE_DIR, 'main.db')
         db_mod_date = time.ctime(os.path.getmtime(db_path))
 
         counties = COUNTY_LIST
         cities = CITY_LIST
         nj_data = NJ_DATA
-        sale_dates = sheriff_sale.get_sale_dates()
         table_data = [data.serialize for data in SheriffSaleDB.query.all()]
 
         return jsonify(dbModDate=db_mod_date,
                        counties=counties,
                        cities=cities,
-                       saleDates=sale_dates,
                        njData=nj_data,
                        tableData=table_data)
 
@@ -47,19 +43,13 @@ def search():
         return body, 200
 
 
-@app.route('/api/sheriff_sale', methods=['GET'])
+@app.route('/api/sheriff_sale', methods=['GET', 'POST'])
 def run_sheriff_sale():
-    nj_json_data = load_json_data('json/NJ_Data.json')
-
-    def get_sheriff_sale_id_map(county):
-        sheriff_sale_id = nj_json_data[county]['sheriffSaleId']
-        return {county: sheriff_sale_id}
-
-    county = get_sheriff_sale_id_map('Hunterdon')
-    print(county)
-    sheriff_sale = SheriffSale(county)
-    response = sheriff_sale.get_table_data()
-    return jsonify(response), 200
+    if request.method == 'POST':
+        county = request.get_json()['body']
+        sheriff_sale = SheriffSale(county)
+        response = sheriff_sale.get_table_data()
+        return jsonify(response), 200
 
 
 @app.route('/api/nj_parcels', methods=['GET'])

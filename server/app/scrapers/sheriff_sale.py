@@ -23,8 +23,9 @@ class SheriffSale:
     Web scraper for sheriff sale website
     """
     def __init__(self, county=None):
-        self.county_name = list(county.keys())[0]
-        self.county_id = county.get(self.county_name)
+
+        self.county_name = county
+        self.county_id = self.get_sheriff_sale_county_id(self.county_name)
 
         try:
             self.session = requests.Session()
@@ -33,8 +34,18 @@ class SheriffSale:
             raise ConnectionError("Cannot Access URL: ", err)
 
         self.table_div = self.soup.find("table", class_="table table-striped")
-        if not self.table_div:
-            logging.error('The Sheriff Sale Table Div was not captured')
+
+        self.error_handler(self.table_div, 'The Sheriff Sale Table Div was not captured')
+
+    def error_handler(self, obj, message):
+        if not obj:
+            logging.error(message)
+            return []
+
+    def get_sheriff_sale_county_id(self, county):
+        nj_json_data = load_json_data('json/NJ_Data.json')
+        sheriff_sale_county_id = nj_json_data[county]['sheriffSaleId']
+        return sheriff_sale_county_id
 
     def get_sale_dates(self):
         """
