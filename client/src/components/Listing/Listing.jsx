@@ -9,21 +9,9 @@ const useStyles = makeStyles({
     padding: '.5rem',
     width: '50%',
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
 });
 
 const Listing = ({ listings }) => {
-  console.log(listings);
   const classes = useStyles();
 
   return (
