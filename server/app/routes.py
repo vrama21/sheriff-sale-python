@@ -4,8 +4,7 @@ import time
 from pathlib import Path
 from urllib.parse import urlencode
 
-from flask import (jsonify, make_response, redirect, render_template, request,
-                   session, url_for)
+from flask import (jsonify, make_response, redirect, render_template, request, session, url_for)
 
 from . import app, db
 from .models import SheriffSaleDB
@@ -16,42 +15,43 @@ from .scrapers.nj_parcels import NJParcels
 from .scrapers.zillow import test
 
 
-@app.route('/api/home', methods=['GET'])
+@app.route('/api/home', methods=['GET', 'POST'])
 def home():
-    sheriff_sale = SheriffSale({'Atlantic': '15'})
-
-    db_path = Path(BASE_DIR, 'main.db')
-    db_mod_date = time.ctime(os.path.getmtime(db_path))
-
-    counties = COUNTY_LIST
-    cities = CITY_LIST
-    nj_data = NJ_DATA
-    sale_dates = sheriff_sale.get_sale_dates()
-    table_data = [data.serialize for data in SheriffSaleDB.query.all()]
-
     if request.method == 'GET':
+        sheriff_sale = SheriffSale({'Atlantic': '15'})
+
+        db_path = Path(BASE_DIR, 'main.db')
+        db_mod_date = time.ctime(os.path.getmtime(db_path))
+
+        counties = COUNTY_LIST
+        cities = CITY_LIST
+        nj_data = NJ_DATA
+        sale_dates = sheriff_sale.get_sale_dates()
+        table_data = [data.serialize for data in SheriffSaleDB.query.all()]
+
         return jsonify(dbModDate=db_mod_date,
                        counties=counties,
                        cities=cities,
                        saleDates=sale_dates,
                        njData=nj_data,
                        tableData=table_data)
+    elif request.method == 'POST':
+        return jsonify('Test'), 200
 
 
-@app.route('/api/search')
-def search(methods=['GET', 'POST']):
+@app.route('/api/search', methods=['GET', 'POST'])
+def search():
     if request.method == 'GET':
         print('GET')
         return request.data, 200
     elif request.method == 'POST':
-        print('Test')
-        print(request)
-        print(request.data)
+        data = request.get_json()
+        print(data)
         return request.data, 200
 
 
-@app.route('/api/sheriff_sale')
-def run_sheriff_sale(methods=['GET']):
+@app.route('/api/sheriff_sale', methods=['GET'])
+def run_sheriff_sale():
     atlantic = {'Atlantic': '25'}
     camden = {'Camden': '1'}
     sheriff_sale = SheriffSale(atlantic)
@@ -59,8 +59,8 @@ def run_sheriff_sale(methods=['GET']):
     return jsonify(response), 200
 
 
-@app.route('/api/nj_parcels')
-def run_nj_parcels(methods=['GET']):
+@app.route('/api/nj_parcels', methods=['GET'])
+def run_nj_parcels():
     nj_parcels = NJParcels()
 
     atlantic = {'Atlantic': '25'}
@@ -78,15 +78,15 @@ def run_nj_parcels(methods=['GET']):
     return jsonify(data), 200
 
 
-@app.route('/api/zillow')
-def run_zillow(methods=['GET']):
+@app.route('/api/zillow', methods=['GET'])
+def run_zillow():
     t = test()
 
     return jsonify(t), 200
 
 
-@app.route('/api/update_database')
-def update_database(methods=['GET', 'POST']):
+@app.route('/api/update_database', methods=['GET', 'POST'])
+def update_database():
     sheriff_sale = SheriffSale('15')
     if request.method == 'GET':
         sheriff_sale_data = sheriff_sale.main()
@@ -120,5 +120,4 @@ def update_database(methods=['GET', 'POST']):
         }), 200)
 
     else:
-        return jsonify(
-            {'message': 'Updating the Sheriff Sale Database Failed'}), 401
+        return jsonify({'message': 'Updating the Sheriff Sale Database Failed'}), 401

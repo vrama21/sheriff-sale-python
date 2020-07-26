@@ -42,17 +42,17 @@ const Home = () => {
 
     const url = '/api/search';
     const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      data: 'test',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'text/plain'
+      },
+      body: filters,
     };
 
-    const response = await fetch(url, options);
+    const response = await axios.post(url, options);
     console.log(response);
     const json = await response;
     console.log(json);
-
-    // fetch(url, options).then(response => console.log(response))
   };
 
   const updateDatabase = async (event) => {
