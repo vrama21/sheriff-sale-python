@@ -5,17 +5,17 @@ import useFetch from '../hooks/useFetch';
 import Listing from './Listing/Listing';
 import ReactLoading from 'react-loading';
 
+const initialFilterState = { county: '', city: '', saleDate: '' };
+
 const Home = () => {
-  const [filters, setFilters] = useState({ county: '', city: '', saleDate: '' });
-  const [filteredListings, setFilteredListings] = useState([]);
+  const [filters, setFilters] = useState(initialFilterState);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  // const data = useFetch('/api/table_data', {
-  //   method: 'GET',
-  //   headers: { 'Content-Type': 'application/json' },
-  // });
-  const listings = useFetch('/api/home', {
+  const [listings, setListings] = useState([]);
+  const [filteredListings, setFilteredListings] = useState([]);
+
+  const initialData = useFetch('/api/home', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -40,19 +40,13 @@ const Home = () => {
   const onFilterSubmit = async (event) => {
     event.preventDefault();
 
-    const url = '/api/search';
+    const url = '/api/sheriff_sale';
     const options = {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'text/plain'
-      },
       body: filters,
     };
 
-    const response = await axios.post(url, options);
-    console.log(response);
-    const json = await response;
-    console.log(json);
+    const response = await axios.get(url, options);
+    setListings(response.data)
   };
 
   const updateDatabase = async (event) => {
@@ -81,11 +75,12 @@ const Home = () => {
 
   return (
     <div className="container mx-auto">
-      {listings && (
+      {initialData && (
         <div className="database-container">
           {isLoading && <ReactLoading type={"spin"} height={500} width={500} />}
           <div className="database-buttons">
             <button
+
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               id="check-for-update"
@@ -108,7 +103,7 @@ const Home = () => {
               Filters
           </button>
           </div>
-          <span>Database Last Updated On: {listings.response?.dbModDate}</span>
+          <span>Database Last Updated On: {initialData.response?.dbModDate}</span>
         </div>
       )}
       <div>
@@ -117,9 +112,9 @@ const Home = () => {
           onFilterChange={onFilterChange}
           onFilterReset={onFilterReset}
           onFilterSubmit={onFilterSubmit}
-          listings={listings.response}
+          initialData={initialData.response}
         />
-        <Listing listings={listings.response} />
+        {listings && <Listing listings={listings} />}
       </div>
     </div>
   );

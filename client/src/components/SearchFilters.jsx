@@ -30,18 +30,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchFilters({
   filters,
-  listings,
+  initalData,
   onFilterChange,
   onFilterReset,
   onFilterSubmit,
 }) {
   const classes = useStyles();
 
-  const counties = listings ? listings.counties : [];
-  const cities = listings ? listings.cities : [];
-  const saleDates = listings ? listings.saleDates : [];
+  const counties = initalData ? initalData.counties : [];
+  const cities = initalData ? initalData.cities : [];
+  const saleDates = initalData ? initalData.saleDates : [];
 
-  const citiesOfSelectedCounty = listings && filters.county ? Object.keys(listings?.njData[filters?.county].cities) : [];
+  const citiesOfSelectedCounty = initalData && filters.county ? Object.keys(initalData?.njData[filters?.county].cities) : [];
 
   return (
     <div className="filter-container">

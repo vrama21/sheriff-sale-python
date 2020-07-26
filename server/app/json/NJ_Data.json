@@ -1065,7 +1065,7 @@
         }
     },
     "Hunterdon": {
-        "sheriffSaleId": "",
+        "sheriffSaleId": "32",
         "cities": {
             "Alexandria Twp": {
                 "njParcelId": "1001",

@@ -9,7 +9,7 @@ from flask import (jsonify, make_response, redirect, render_template, request, s
 from . import app, db
 from .models import SheriffSaleDB
 from .constants import CITY_LIST, COUNTY_LIST, NJ_DATA
-from .utils import BASE_DIR
+from .utils import BASE_DIR, load_json_data
 from .scrapers.sheriff_sale import SheriffSale
 from .scrapers.nj_parcels import NJParcels
 from .scrapers.zillow import test
@@ -35,26 +35,29 @@ def home():
                        saleDates=sale_dates,
                        njData=nj_data,
                        tableData=table_data)
-    elif request.method == 'POST':
-        return jsonify('Test'), 200
 
 
 @app.route('/api/search', methods=['GET', 'POST'])
 def search():
-    if request.method == 'GET':
-        print('GET')
-        return request.data, 200
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.get_json()
-        print(data)
-        return request.data, 200
+        body = data['body']
+        data1 = data['body']
+        print(data1)
+        return body, 200
 
 
 @app.route('/api/sheriff_sale', methods=['GET'])
 def run_sheriff_sale():
-    atlantic = {'Atlantic': '25'}
-    camden = {'Camden': '1'}
-    sheriff_sale = SheriffSale(atlantic)
+    nj_json_data = load_json_data('json/NJ_Data.json')
+
+    def get_sheriff_sale_id_map(county):
+        sheriff_sale_id = nj_json_data[county]['sheriffSaleId']
+        return {county: sheriff_sale_id}
+
+    county = get_sheriff_sale_id_map('Hunterdon')
+    print(county)
+    sheriff_sale = SheriffSale(county)
     response = sheriff_sale.get_table_data()
     return jsonify(response), 200
 
