@@ -12,13 +12,15 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const [listings, setListings] = useState([]);
-  const [filteredListings, setFilteredListings] = useState([]);
+  // const [listings, setListings] = useState(undefined);
+  const [filteredListings, setFilteredListings] = useState(undefined);
 
-  const initialData = useFetch('/api/home', {
+  const getOptions = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-  });
+  };
+  const initialData = useFetch('/api/home', getOptions);
+  const listings = useFetch('/api/listings', getOptions)
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -42,11 +44,14 @@ const Home = () => {
 
     const url = '/api/sheriff_sale';
     const options = {
-      body: filters,
+      body: filters.county,
     };
 
-    const response = await axios.get(url, options);
-    setListings(response.data)
+    setIsLoading(true);
+    const response = await axios.post(url, options);
+    setIsLoading(false);
+
+    setFilteredListings(response.data)
   };
 
   const updateDatabase = async (event) => {
@@ -75,9 +80,11 @@ const Home = () => {
 
   return (
     <div className="container mx-auto">
+      {isLoading && (
+        <ReactLoading type={"spin"} height={500} width={500} />
+      )}
       {initialData && (
         <div className="database-container">
-          {isLoading && <ReactLoading type={"spin"} height={500} width={500} />}
           <div className="database-buttons">
             <button
 
@@ -86,7 +93,7 @@ const Home = () => {
               id="check-for-update"
             >
               Check for Updates
-          </button>
+        </button>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               id="update-database"
@@ -94,14 +101,14 @@ const Home = () => {
               type="submit"
             >
               Update Database
-          </button>
+              </button>
             <button
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               id="filters"
               onClick={toggle}
             >
               Filters
-          </button>
+            </button>
           </div>
           <span>Database Last Updated On: {initialData.response?.dbModDate}</span>
         </div>
@@ -114,7 +121,7 @@ const Home = () => {
           onFilterSubmit={onFilterSubmit}
           initialData={initialData.response}
         />
-        {listings && <Listing listings={listings} />}
+        {filteredListings && <Listing listings={filteredListings} />}
       </div>
     </div>
   );

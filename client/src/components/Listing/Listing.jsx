@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles({
@@ -16,15 +15,18 @@ const Listing = ({ listings }) => {
 
   return (
     <div className="flex flex-wrap">
-      {listings &&
+      {listings && listings.length > 0
+        ?
         listings.map((listing, i) => (
           <Card className={classes.root} key={`listing-${i}`}>
             <CardContent>
-              {listing.address.street}
-              {listing.address.city}
+              {listing.addressSanitized.street}
+              {listing.addressSanitized.city}
             </CardContent>
           </Card>
-        ))}
+        ))
+        : 'There are no results for this county'
+      }
     </div>
   );
 }

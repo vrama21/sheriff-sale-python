@@ -24,14 +24,14 @@ def home():
         counties = COUNTY_LIST
         cities = CITY_LIST
         nj_data = NJ_DATA
-        table_data = [data.serialize for data in SheriffSaleDB.query.all()]
 
-        return jsonify(dbModDate=db_mod_date,
-                       counties=counties,
-                       cities=cities,
-                       njData=nj_data,
-                       tableData=table_data)
+        return jsonify(dbModDate=db_mod_date, counties=counties, cities=cities, njData=nj_data)
 
+
+@app.route('/api/listings', methods=['GET'])
+def getAllListings():
+    table_data = [data.serialize for data in SheriffSaleDB.query.all()]
+    return jsonify(listings=table_data), 200
 
 @app.route('/api/search', methods=['GET', 'POST'])
 def search():

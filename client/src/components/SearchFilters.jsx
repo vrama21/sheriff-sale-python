@@ -30,18 +30,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchFilters({
   filters,
-  initalData,
+  initialData,
   onFilterChange,
   onFilterReset,
   onFilterSubmit,
 }) {
   const classes = useStyles();
 
-  const counties = initalData ? initalData.counties : [];
-  const cities = initalData ? initalData.cities : [];
-  const saleDates = initalData ? initalData.saleDates : [];
+  const counties = initialData ? initialData.counties : [];
+  const cities = initialData ? initialData.cities : [];
+  const saleDates = initialData ? initialData.saleDates : [];
 
-  const citiesOfSelectedCounty = initalData && filters.county ? Object.keys(initalData?.njData[filters?.county].cities) : [];
+  const citiesOfSelectedCounty = initialData && filters.county ? Object.keys(initialData?.njData[filters?.county].cities) : [];
 
   return (
     <div className="filter-container">
@@ -110,14 +110,14 @@ export default function SearchFilters({
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              {saleDates.map((saleDate, i) => (
+              {/* {saleDates.map((saleDate, i) => (
                 <MenuItem
                   key={`saleDate-${i}`}
                   value={saleDate}
                 >
                   {saleDate}
                 </MenuItem>
-              ))}
+              ))} */}
             </FilterInput>
           </FormControl>
           <input
