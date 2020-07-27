@@ -31,7 +31,8 @@ def home():
 @app.route('/api/listings', methods=['GET'])
 def getAllListings():
     table_data = [data.serialize for data in SheriffSaleDB.query.all()]
-    return jsonify(listings=table_data), 200
+    return jsonify(listings=table_data, code=200)
+
 
 @app.route('/api/search', methods=['GET', 'POST'])
 def search():
@@ -40,16 +41,19 @@ def search():
         body = data['body']
         data1 = data['body']
         print(data1)
-        return body, 200
+        return jsonify(data=body, code=200)
 
 
 @app.route('/api/sheriff_sale', methods=['GET', 'POST'])
 def run_sheriff_sale():
     if request.method == 'POST':
-        county = request.get_json()['body']
-        sheriff_sale = SheriffSale(county)
-        response = sheriff_sale.get_table_data()
-        return jsonify(response), 200
+        try:
+            county = request.get_json()['county']
+            sheriff_sale = SheriffSale(county)
+            response = sheriff_sale.get_table_data()
+            return jsonify(data=response, code=200)
+        except TypeError as error:
+            return jsonify(message=error, code=401)
 
 
 @app.route('/api/nj_parcels', methods=['GET'])
@@ -68,14 +72,14 @@ def run_nj_parcels():
     data['njParcels'] = property_links
     data.update(taxes)
 
-    return jsonify(data), 200
+    return jsonify(data=data, code=200)
 
 
 @app.route('/api/zillow', methods=['GET'])
 def run_zillow():
     t = test()
 
-    return jsonify(t), 200
+    return jsonify(data=t, code=200)
 
 
 @app.route('/api/update_database', methods=['GET', 'POST'])
@@ -107,10 +111,11 @@ def update_database():
             db.session.add(_sheriff_sale_data)
             db.session.commit()
 
-        return (jsonify({
-            'message': 'Sheriff Sale Database Successfully Updated',
-            'data': sheriff_sale_data,
-        }), 200)
+        return jsonify(
+            message='Sheriff Sale Database Successfully Updated',
+            data=sheriff_sale_data,
+            code=200,
+        )
 
     else:
-        return jsonify({'message': 'Updating the Sheriff Sale Database Failed'}), 401
+        return jsonify(message='Updating the Sheriff Sale Database Failed', code=401)
