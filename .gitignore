@@ -30,3 +30,5 @@ __pycache__/
 # application
 errors.log
 **/zillow_key.conf
+
+**/*.db
