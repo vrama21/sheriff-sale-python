@@ -7,12 +7,13 @@ from urllib.parse import urlencode
 from flask import (jsonify, make_response, redirect, render_template, request, session, url_for)
 
 from . import app, db
-from .models import SheriffSaleDB
+from .models import SheriffSaleDB, CountyClerkDB
 from .constants import CITY_LIST, COUNTY_LIST, NJ_DATA
 from .utils import BASE_DIR, load_json_data
-from .scrapers.sheriff_sale import SheriffSale
-from .scrapers.nj_parcels import NJParcels
-from .scrapers.zillow import test
+from .services.sheriff_sale import SheriffSale
+from .services.nj_parcels import NJParcels
+from .services.county_clerk import *
+from .services.zillow import test
 
 
 @app.route('/api/home', methods=['GET', 'POST'])
@@ -25,12 +26,7 @@ def home():
         cities = CITY_LIST
         nj_data = NJ_DATA
 
-        data = {
-            'dbModDate': db_mod_date,
-            'counties': counties,
-            'cities': cities,
-            'njData': nj_data
-        }
+        data = {'dbModDate': db_mod_date, 'counties': counties, 'cities': cities, 'njData': nj_data}
         print(data)
 
         return jsonify(data=data, code=200)
@@ -97,7 +93,7 @@ def update_database():
         sheriff_sale_data = sheriff_sale.main()
 
         for row in sheriff_sale_data:
-            # _sheriff_sale_data = db(
+            # _sheriff_sale_data = SheriffSaleDB(
             #     sheriff=row.listing_details.sheriff,
             #     court_case=row.listing_details.court_case,
             #     sale_date=row.listing_details.sale_date,
@@ -127,3 +123,24 @@ def update_database():
 
     else:
         return jsonify(message='Updating the Sheriff Sale Database Failed', code=401)
+
+
+@app.route('/api/county_clerk', methods=['GET', 'POST'])
+def county_clerk():
+    search_results = county_clerk_search('Rama Avzi')
+
+    # doc_ids = [x['doc_id'] for x in search]
+    # documents = [county_clerk_document(result) for result in doc_ids]
+
+    # data = {'search': search, 'documents': documents}
+
+    for result in search_results:
+        exists = db.session.query(CountyClerkDB.doc_id).filter(CountyClerkDB.doc_id == result).first()
+        # if not exists:
+        data = CountyClerkDB(doc_id=str(result['doc_id']))
+        db.session.add(data)
+        db.session.commit()
+
+    # add_search_results_to_db(search)
+
+    return jsonify(data=data, code=200)
