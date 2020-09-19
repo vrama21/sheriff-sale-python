@@ -15,13 +15,6 @@ const FilterInput = withStyles({
   },
 })(Select);
 
-const FilterInputLabel = withStyles({
-  label: {
-    color: 'black',
-    zIndex: 10,
-  }
-})(InputLabel);
-
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -39,100 +32,78 @@ export default function SearchFilters({
 
   const counties = initialData ? initialData.counties : [];
   const cities = initialData ? initialData.cities : [];
-  const saleDates = initialData ? initialData.saleDates : [];
 
   const citiesOfSelectedCounty = initialData && filters.county ? Object.keys(initialData?.njData[filters?.county].cities) : [];
 
   return (
     <div className="filter-container">
       <div className="flex justify-center mt-5">
-        <form onSubmit={onFilterSubmit}>
-          <FormControl className={classes.margin}>
-            <InputLabel id="county-select-label">County</InputLabel>
-            <FilterInput
-              id="county-select"
-              labelId="county-select-label"
-              name="county"
-              onChange={onFilterChange}
-              value={filters.county || ''}
-            >
-              <MenuItem value=''>
-                <em>None</em>
+        <FormControl className={classes.margin}>
+          <InputLabel id="county-select-label">County</InputLabel>
+          <FilterInput
+            id="county-select"
+            labelId="county-select-label"
+            name="county"
+            onChange={onFilterChange}
+            value={filters.county || ''}
+          >
+            <MenuItem value=''>
+              <em>None</em>
+            </MenuItem>
+            {counties.map((county, i) => (
+              <MenuItem
+                key={`county-${i}`}
+                value={county}
+              >
+                {county}
               </MenuItem>
-              {counties.map((county, i) => (
+            ))}
+          </FilterInput>
+        </FormControl>
+        <FormControl className={classes.margin}>
+          <InputLabel>City</InputLabel>
+          <FilterInput
+            id="city-select"
+            name="city"
+            onChange={onFilterChange}
+            value={filters.city || ''}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {citiesOfSelectedCounty
+              ? citiesOfSelectedCounty.map((city, i) => (
                 <MenuItem
-                  key={`county-${i}`}
-                  value={county}
+                  key={`city-${i}`}
+                  value={city}
                 >
-                  {county}
+                  {city}
+                </MenuItem>
+              ))
+              : cities.map((city, i) => (
+                <MenuItem
+                  key={`city-${i}`}
+                  value={city}
+                >
+                  {city}
                 </MenuItem>
               ))}
-            </FilterInput>
-          </FormControl>
-          <FormControl className={classes.margin}>
-            <InputLabel>City</InputLabel>
-            <FilterInput
-              id="city-select"
-              name="city"
-              onChange={onFilterChange}
-              value={filters.city || ''}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {citiesOfSelectedCounty
-                ? citiesOfSelectedCounty.map((city, i) => (
-                  <MenuItem
-                    key={`city-${i}`}
-                    value={city}
-                  >
-                    {city}
-                  </MenuItem>
-                ))
-                : cities.map((city, i) => (
-                  <MenuItem
-                    key={`city-${i}`}
-                    value={city}
-                  >
-                    {city}
-                  </MenuItem>
-                ))}
-            </FilterInput>
-          </FormControl>
-          <FormControl className={classes.margin}>
-            <InputLabel>Sale Date</InputLabel>
-            <FilterInput
-              id="saleDate-select"
-              name="saleDate"
-              onChange={onFilterChange}
-              value={filters.saleDate || ''}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {/* {saleDates.map((saleDate, i) => (
-                <MenuItem
-                  key={`saleDate-${i}`}
-                  value={saleDate}
-                >
-                  {saleDate}
-                </MenuItem>
-              ))} */}
-            </FilterInput>
-          </FormControl>
-          <input
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            type="submit"
-            value="Submit"
-          />
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            id="filter-reset"
-            onClick={onFilterReset}
-          >
-            Reset
-            </button>
-        </form>
+          </FilterInput>
+        </FormControl>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={onFilterSubmit}
+          type="submit"
+        >
+          Submit
+        </button>
+        <button
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          id="filter-reset"
+          onClick={onFilterReset}
+        >
+          Reset
+        </button>
       </div>
     </div >
   );

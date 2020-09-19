@@ -1,13 +1,16 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles({
   root: {
-    padding: '.5rem',
+    border: '1px solid black',
+    background: 'white',
     width: '50%',
   },
+  subtext: {
+    color: 'red',
+    'font-weight': 'bold',
+  }
 });
 
 const Listing = ({ listings }) => {
@@ -18,12 +21,19 @@ const Listing = ({ listings }) => {
       {listings && listings.length > 0
         ?
         listings.map((listing, i) => (
-          <Card className={classes.root} key={`listing-${i}`}>
-            <CardContent>
-              {listing.addressSanitized.street}
-              {listing.addressSanitized.city}
-            </CardContent>
-          </Card>
+          <div className={classes.root} key={`listing-${i}`}>
+            <div>
+              <span className={classes.subtext}>Address: </span>
+              {listing.address_sanitized}
+            </div>
+            <div>
+              <span className={classes.subtext}>City: </span>
+              {listing.city}
+            </div>
+            <div><span className={classes.subtext}>County: </span>
+              {listing.county}
+            </div>
+          </div>
         ))
         : 'There are no results for this county'
       }

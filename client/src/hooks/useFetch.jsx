@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 const useFetch = (url, method, options) => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
+  const [response, setResponse] = useState(undefined);
+  const [error, setError] = useState(undefined);
 
   useEffect(() => {
     const defaultOption = {
