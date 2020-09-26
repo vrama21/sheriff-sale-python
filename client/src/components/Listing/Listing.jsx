@@ -13,14 +13,13 @@ const useStyles = makeStyles({
   }
 });
 
-const Listing = ({ listings }) => {
+export default function Listing ({ listings }) {
   const classes = useStyles();
 
   return (
     <div className="flex flex-wrap">
       {listings && listings.length > 0
-        ?
-        listings.map((listing, i) => (
+        ? listings.map((listing, i) => (
           <div className={classes.root} key={`listing-${i}`}>
             <div>
               <span className={classes.subtext}>Address: </span>
@@ -35,9 +34,8 @@ const Listing = ({ listings }) => {
             </div>
           </div>
         ))
-        : 'There are no results for this county'
+        : 'There are no results'
       }
     </div>
   );
 }
-export default Listing;

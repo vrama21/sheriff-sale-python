@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableData = ({ data }) => {
+export default function TableData ({ data }) {
   return (
     <div>
       <table
@@ -58,5 +58,3 @@ const TableData = ({ data }) => {
     </div>
   );
 };
-
-export default TableData;

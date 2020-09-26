@@ -73,18 +73,12 @@ export default function SearchFilters({
             </MenuItem>
             {citiesOfSelectedCounty
               ? citiesOfSelectedCounty.map((city, i) => (
-                <MenuItem
-                  key={`city-${i}`}
-                  value={city}
-                >
+                <MenuItem key={`city-${i}`} value={city}>
                   {city}
                 </MenuItem>
               ))
               : cities.map((city, i) => (
-                <MenuItem
-                  key={`city-${i}`}
-                  value={city}
-                >
+                <MenuItem key={`city-${i}`} value={city}>
                   {city}
                 </MenuItem>
               ))}

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import SearchFilters from './SearchFilters';
+import SearchFilters from '../components/SearchFilters';
 import useFetch from '../hooks/useFetch';
-import Listing from './Listing/Listing';
+import Listing from '../components/Listing/Listing';
 import ReactLoading from 'react-loading';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
 
-const Home = () => {
+export default function Home () {
   const listings = useFetch('/api/listings').response?.listings;
   const initialData = useFetch('/api/home').response?.data;
 
@@ -19,6 +19,15 @@ const Home = () => {
   console.log(listings);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const filterByCounty = (listing) => listing.county === filters.county;
+  const filterByCity = (listing) => {
+    if (!filters.city) {
+      return true;
+    }
+
+    return listing.city === filters.city
+  }
 
   const onFilterChange = (event) => {
     const { name, value } = event.target;
@@ -36,9 +45,20 @@ const Home = () => {
   };
 
   const onFilterSubmit = () => {
-    const countyFilter = listings.filter((listing) => listing.county === filters.county);
-    const cityFilter = listings.filter((listing) => listing.city === filters.city);
-    setFilteredListings(countyFilter);
+    if (!listings) {
+      return;
+    }
+
+    const filtersToApply = Object.keys(filters).filter((key) => filters[key]);
+    if (filtersToApply.length === 0) {
+      return
+    }
+
+    const listingsWithFilterApplied = listings
+      .filter(filterByCounty)
+      .filter(filterByCity)
+
+    setFilteredListings(listingsWithFilterApplied);
   };
 
   useEffect(() => {
@@ -54,7 +74,6 @@ const Home = () => {
         <div className="database-container">
           <div className="database-buttons">
             <button
-
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               id="check-for-update"
@@ -69,15 +88,8 @@ const Home = () => {
             >
               Update Database
               </button>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              id="filters"
-              onClick={toggle}
-            >
-              Filters
-            </button>
           </div>
-          <span>Database Last Updated On: {initialData.response?.dbModDate}</span>
+          <span>Database Last Updated On: {initialData.dbModDate}</span>
         </div>
       )}
       <div>
@@ -95,5 +107,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

@@ -7,7 +7,6 @@
 @import "../components/Listing/listing";
 
 body {
-  // background: #030303;
   background: lightgrey;
   margin: 0 auto;
   font-family: "Arial", "Helvetica Neue", "Helvetica", "sans-serif", "Ubuntu";
@@ -49,63 +48,6 @@ header ul.navbar li a {
 }
 // ========================================
 
-.select-group {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  font-size: 16px;
-  padding: 8px 15px;
-  border-radius: 1rem;
-
-  // &:hover {
-  //   background-color: darken($light-grey, 8);
-  // }
-
-  .select-hidden {
-    display: none;
-    visibility: hidden;
-    padding-right: 10px;
-  }
-
-  .select-styled {
-    background-color: inherit;
-    // padding: 8px 15px;
-    // @include transition(all 0.2s ease-in);
-    &:after {
-      content: "";
-      width: 0;
-      height: 0;
-      border: 7px solid transparent;
-      border-color: $select-color transparent transparent transparent;
-      position: absolute;
-      top: 16px;
-      right: 10px;
-    }
-    &:active,
-    &.active {
-      // background-color: darken($select-background, 5);
-      &:after {
-        top: 9px;
-        // border-color: transparent transparent $select-color transparent;
-      }
-    }
-  }
-}
-
-.select-options {
-  margin: 0;
-  padding: 12px 0;
-  text-indent: 15px;
-  border-top: 1px solid darken($select-background, 10);
-  // @include transition(all 0.15s ease-in);
-  // &:hover {
-  //   color: $select-background;
-  //   background: $select-color;
-  // }
-  // &[rel="hide"] {
-  //   display: none;
-  // }
-}
 // ========================================
 
 .container {
@@ -120,11 +62,11 @@ header ul.navbar li a {
   border: 1px gray solid;
   color: white;
   padding: 20px;
-}
 
-.database-container .database-buttons {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  .database-buttons {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 }
 
 /* FILTER */
@@ -177,42 +119,31 @@ header ul.navbar li a {
   border-bottom: 1px solid #343536;
   text-align: center;
   color: white;
+
+  .grid-header {
+    padding: 10px;
+    font-family: "Arial Black";
+    font-size: 20px;
+    justify-self: center;
+    width: 100%;
+    height: 100%;
+    border-top: 1px solid #343536;
+    border-right: 1px solid #343536;
+    background-color: #302f30;
+  }
+
+  .grid-item {
+    padding: 0 10px 0 10px;
+    width: 100%;
+    height: 100%;
+    border-top: 1px solid #343536;
+    border-right: 1px solid #343536;
+    line-height: 20px;
+  }
+
+  .grid-item-truncate {
+    word-wrap: break-word;
+    overflow: hidden;
+  }
 }
 
-.grid-container .grid-header {
-  padding: 10px;
-  font-family: "Arial Black";
-  font-size: 20px;
-  justify-self: center;
-  width: 100%;
-  height: 100%;
-  border-top: 1px solid #343536;
-  border-right: 1px solid #343536;
-  background-color: #302f30;
-}
-
-.grid-container .grid-item {
-  padding: 0 10px 0 10px;
-  width: 100%;
-  height: 100%;
-  border-top: 1px solid #343536;
-  border-right: 1px solid #343536;
-  line-height: 20px;
-}
-
-.grid-container .grid-item-truncate {
-  word-wrap: break-word;
-  overflow: hidden;
-}
-
-#data-table th {
-  width: 250px;
-}
-
-#data-table-body tr {
-  height: 100px;
-}
-
-#data-table-body a {
-  color: #66a1ff;
-}

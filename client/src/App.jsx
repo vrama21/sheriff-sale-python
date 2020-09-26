@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/Home';
+import Home from './pages/Home';
 import TableData from './components/TableData';
 
-const App = () => {
+export default function App () {
   return (
     <div>
       <Router>
@@ -19,5 +19,3 @@ const App = () => {
     </div>
   );
 };
-
-export default App;
