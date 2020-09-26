@@ -11,7 +11,6 @@
     "axios": "^0.19.2",
     "materialize-css": "^1.0.0-rc.2",
     "node-sass": "^4.13.1",
-    "nodesass": "0.0.2-security",
     "postcss": "^7.0.27",
     "postcss-import": "^12.0.1",
     "react": "^16.12.0",
