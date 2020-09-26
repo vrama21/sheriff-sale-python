@@ -5,6 +5,7 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 from flask import (jsonify, make_response, redirect, render_template, request, session, url_for)
+from flask_sqlalchemy import SQLAlchemy
 
 from . import app, db
 from .models import SheriffSaleDB, CountyClerkDB
@@ -27,7 +28,6 @@ def home():
         nj_data = NJ_DATA
 
         data = {'dbModDate': db_mod_date, 'counties': counties, 'cities': cities, 'njData': nj_data}
-        print(data)
 
         return jsonify(data=data, code=200)
 
@@ -55,6 +55,7 @@ def run_sheriff_sale():
             county = request.get_json()['county']
             sheriff_sale = SheriffSale(county)
             response = sheriff_sale.get_table_data()
+
             return jsonify(data=response, code=200)
         except TypeError as error:
             return jsonify(message=error, code=401)
@@ -93,27 +94,10 @@ def update_database():
         sheriff_sale_data = sheriff_sale.main()
 
         for row in sheriff_sale_data:
-            # _sheriff_sale_data = SheriffSaleDB(
-            #     sheriff=row.listing_details.sheriff,
-            #     court_case=row.listing_details.court_case,
-            #     sale_date=row.listing_details.sale_date,
-            #     plaintiff=row.listing_details.plaintiff,
-            #     defendant=row.listing_details.defendant,
-            #     address=row.listing_details.address,
-            #     priors=row.listing_details.priors,
-            #     attorney=row.listing_details.attorney,
-            #     judgment=row.listing_details.judgment,
-            #     deed=row.listing_details.deed,
-            #     deed_address=row.listing_details.deed_address,
-            #     maps_url=row.maps_url,
-            #     address_sanitized=row.sanitized.address,
-            #     unit=row.sanitized.unit,
-            #     secondary_unit=row.sanitized.secondary_unit,
-            #     city=row.sanitized.city,
-            #     zip_code=row.sanitized.zip_code,
-            # )
+            _sheriff_sale_data = SheriffSaleDB(**row)
             db.session.add(_sheriff_sale_data)
-            db.session.commit()
+
+        db.session.commit()
 
         return jsonify(
             message='Sheriff Sale Database Successfully Updated',
@@ -127,20 +111,24 @@ def update_database():
 
 @app.route('/api/county_clerk', methods=['GET', 'POST'])
 def county_clerk():
+    db.create_all()
+    db.session.commit()
+
+    mapping = doc_type_mapper()
+
     search_results = county_clerk_search('Rama Avzi')
 
-    # doc_ids = [x['doc_id'] for x in search]
-    # documents = [county_clerk_document(result) for result in doc_ids]
-
-    # data = {'search': search, 'documents': documents}
-
     for result in search_results:
-        exists = db.session.query(CountyClerkDB.doc_id).filter(CountyClerkDB.doc_id == result).first()
-        # if not exists:
-        data = CountyClerkDB(doc_id=str(result['doc_id']))
-        db.session.add(data)
-        db.session.commit()
+        exists = db.session.query(CountyClerkDB.doc_id).filter(CountyClerkDB.doc_id == result['doc_id']).first()
+        if not exists:
+            data = CountyClerkDB(**result)
+            db.session.add(data)
 
-    # add_search_results_to_db(search)
+    db.session.commit()
+
+    doc_ids = [x['doc_id'] for x in search_results]
+    documents = [county_clerk_document(result) for result in doc_ids]
+
+    data = {'search': search_results, 'documents': documents}
 
     return jsonify(data=data, code=200)

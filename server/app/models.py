@@ -60,4 +60,6 @@ class CountyClerkDB(db.Model):
     rowid = db.Column('rowid', db.String)
     town = db.Column('town', db.String)
 
-
+    @property
+    def serialize(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
