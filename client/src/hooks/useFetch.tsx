@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function useFetch (url, method, options) {
+export default function useFetch (url: string, method: string, options?: object) {
   const [response, setResponse] = useState(undefined);
   const [error, setError] = useState(undefined);
 

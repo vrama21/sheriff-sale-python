@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 const FilterInput = withStyles({
   root: {
-    // background: 'white',
+    background: 'white',
     border: 1,
     borderRadius: 3,
     padding: 10,
@@ -15,7 +15,32 @@ const FilterInput = withStyles({
   },
 })(Select);
 
+const FilterLabel = withStyles({
+  root: {
+    color: 'black',
+    marginLeft: '0.5rem',
+    zIndex: 1,
+  },
+})(InputLabel);
+
 const useStyles = makeStyles((theme) => ({
+  button: {
+    background: '#4299e1',
+    borderRadius: '0.25rem',
+    color: 'white',
+    fontWeight: 700,
+    padding: '0.5rem 1rem',
+
+    '&:hover': {
+      background: '#2b6cb0'
+    },
+  },
+  container: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: '1rem 3rem',
+  },
   margin: {
     margin: theme.spacing(1),
   },
@@ -33,13 +58,13 @@ export default function SearchFilters({
   const counties = initialData ? initialData.counties : [];
   const cities = initialData ? initialData.cities : [];
 
-  const citiesOfSelectedCounty = initialData && filters.county ? Object.keys(initialData?.njData[filters?.county].cities) : [];
+  const citiesOfSelectedCounty = initialData && filters.county ? Object.keys(initialData.njData[filters.county].cities) : [];
 
   return (
-    <div className="filter-container">
-      <div className="flex justify-center mt-5">
+    <div className={classes.container}>
+      <div>
         <FormControl className={classes.margin}>
-          <InputLabel id="county-select-label">County</InputLabel>
+          <FilterLabel id="county-select-label">County</FilterLabel>
           <FilterInput
             id="county-select"
             labelId="county-select-label"
@@ -61,7 +86,7 @@ export default function SearchFilters({
           </FilterInput>
         </FormControl>
         <FormControl className={classes.margin}>
-          <InputLabel>City</InputLabel>
+          <FilterLabel>City</FilterLabel>
           <FilterInput
             id="city-select"
             name="city"
@@ -84,21 +109,24 @@ export default function SearchFilters({
               ))}
           </FilterInput>
         </FormControl>
+      </div>
+
+      <div>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className={classes.button}
           onClick={onFilterSubmit}
           type="submit"
         >
           Submit
-        </button>
+          </button>
         <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           id="filter-reset"
           onClick={onFilterReset}
         >
           Reset
-        </button>
+          </button>
       </div>
-    </div >
+    </div>
   );
 };

@@ -2,6 +2,10 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   root: {
     border: '1px solid black',
     background: 'white',
@@ -17,8 +21,8 @@ export default function Listing ({ listings }) {
   const classes = useStyles();
 
   return (
-    <div className="flex flex-wrap">
-      {listings && listings.length > 0
+    <div className={classes.container}>
+      {listings.length > 0
         ? listings.map((listing, i) => (
           <div className={classes.root} key={`listing-${i}`}>
             <div>

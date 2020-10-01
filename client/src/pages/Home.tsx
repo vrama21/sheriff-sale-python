@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import SearchFilters from '../components/SearchFilters';
 import useFetch from '../hooks/useFetch';
-import Listing from '../components/Listing/Listing';
+import Listing from '../components/Listing';
 import ReactLoading from 'react-loading';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
 
 export default function Home () {
-  const listings = useFetch('/api/listings').response?.listings;
-  const initialData = useFetch('/api/home').response?.data;
+  const listings = useFetch('/api/listings', 'GET').response?.listings;
+  const initialData = useFetch('/api/home', 'GET').response?.data;
 
   const [filters, setFilters] = useState(initialFilterState);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [filteredListings, setFilteredListings] = useState(undefined);
-
-  console.log(initialData);
-  console.log(listings);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -50,8 +47,9 @@ export default function Home () {
     }
 
     const filtersToApply = Object.keys(filters).filter((key) => filters[key]);
+    console.log(filtersToApply)
     if (filtersToApply.length === 0) {
-      return
+      setFilteredListings(listings);
     }
 
     const listingsWithFilterApplied = listings
