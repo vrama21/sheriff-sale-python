@@ -1,8 +1,9 @@
+//@ts-nocheck
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 
-export default function App() {
+const App = () => {
   return (
     <div>
       <Router>
@@ -15,3 +16,5 @@ export default function App() {
     </div>
   );
 };
+
+export default App;

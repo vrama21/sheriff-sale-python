@@ -1,9 +1,12 @@
-import React from "react";
+//@ts-nocheck
+import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Button from '../components/Button';
+import useStyles from '../styles/styles';
 
 const FilterInput = withStyles({
   root: {
@@ -23,29 +26,6 @@ const FilterLabel = withStyles({
   },
 })(InputLabel);
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    background: '#4299e1',
-    borderRadius: '0.25rem',
-    color: 'white',
-    fontWeight: 700,
-    padding: '0.5rem 1rem',
-
-    '&:hover': {
-      background: '#2b6cb0'
-    },
-  },
-  container: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: '1rem 3rem',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
-
 export default function SearchFilters({
   filters,
   initialData,
@@ -57,8 +37,10 @@ export default function SearchFilters({
 
   const counties = initialData ? initialData.counties : [];
   const cities = initialData ? initialData.cities : [];
-
-  const citiesOfSelectedCounty = initialData && filters.county ? Object.keys(initialData.njData[filters.county].cities) : [];
+  const citiesOfSelectedCounty =
+    initialData && filters.county
+      ? Object.keys(initialData.njData[filters.county].cities)
+      : [];
 
   return (
     <div className={classes.container}>
@@ -72,14 +54,11 @@ export default function SearchFilters({
             onChange={onFilterChange}
             value={filters.county || ''}
           >
-            <MenuItem value=''>
+            <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            {counties.map((county, i) => (
-              <MenuItem
-                key={`county-${i}`}
-                value={county}
-              >
+            {counties.map((county: string, countyIndex: number) => (
+              <MenuItem key={`county-${countyIndex}`} value={county}>
                 {county}
               </MenuItem>
             ))}
@@ -97,13 +76,13 @@ export default function SearchFilters({
               <em>None</em>
             </MenuItem>
             {citiesOfSelectedCounty
-              ? citiesOfSelectedCounty.map((city, i) => (
-                <MenuItem key={`city-${i}`} value={city}>
+              ? citiesOfSelectedCounty.map((city: string, cityIndex: number) => (
+                <MenuItem key={`city-${cityIndex}`} value={city}>
                   {city}
                 </MenuItem>
               ))
-              : cities.map((city, i) => (
-                <MenuItem key={`city-${i}`} value={city}>
+              : cities.map((city: string, cityIndex: number) => (
+                <MenuItem key={`city-${cityIndex}`} value={city}>
                   {city}
                 </MenuItem>
               ))}
@@ -112,21 +91,9 @@ export default function SearchFilters({
       </div>
 
       <div>
-        <button
-          className={classes.button}
-          onClick={onFilterSubmit}
-          type="submit"
-        >
-          Submit
-          </button>
-        <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          id="filter-reset"
-          onClick={onFilterReset}
-        >
-          Reset
-          </button>
+        <Button onClick={onFilterSubmit} text="Submit" />
+        <Button onClick={onFilterReset} text="Reset" />
       </div>
     </div>
   );
-};
+}

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import * as types from '../types/types';
 
-export default function useFetch (url: string, method: string, options?: object) {
-  const [response, setResponse] = useState(undefined);
-  const [error, setError] = useState(undefined);
+const useFetch = (url: string, method: string, options?: object) => {
+  const [response, setResponse] = useState<types.useFetchInterface | undefined>(undefined);
+  const [error, setError] = useState<types.useFetchInterface | undefined>(undefined);
 
   useEffect(() => {
     const defaultOption = {
@@ -25,3 +26,5 @@ export default function useFetch (url: string, method: string, options?: object)
 
   return { response, error };
 };
+
+export default useFetch;

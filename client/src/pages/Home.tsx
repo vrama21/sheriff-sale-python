@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import SearchFilters from '../components/SearchFilters';
 import useFetch from '../hooks/useFetch';
 import Listing from '../components/Listing';
-import ReactLoading from 'react-loading';
+import * as types from '../types/types'
+import useGlobalStyles from '../styles/styles';
+import Button from '../components/Button';
+import { Paper } from '@material-ui/core';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
 
-export default function Home () {
+const Home = () => {
   const listings = useFetch('/api/listings', 'GET').response?.listings;
   const initialData = useFetch('/api/home', 'GET').response?.data;
 
-  const [filters, setFilters] = useState(initialFilterState);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [filteredListings, setFilteredListings] = useState(undefined);
-
-  const toggle = () => setIsOpen(!isOpen);
+  const [filters, setFilters] = useState<types.Filter>(initialFilterState);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filteredListings, setFilteredListings] = useState<types.EnumeratedArrayOfObjects>([]);
 
   const filterByCounty = (listing) => listing.county === filters.county;
   const filterByCity = (listing) => {
@@ -26,8 +26,8 @@ export default function Home () {
     return listing.city === filters.city
   }
 
-  const onFilterChange = (event) => {
-    const { name, value } = event.target;
+  const onFilterChange = (event: types.ButtonEvent): void => {
+    const { name, value }: { name: string, value: string } = event.target;
 
     if (name === 'county') {
       setFilters({ county: value, city: '', saleDate: '' })
@@ -49,45 +49,36 @@ export default function Home () {
     const filtersToApply = Object.keys(filters).filter((key) => filters[key]);
     console.log(filtersToApply)
     if (filtersToApply.length === 0) {
+      // @ts-ignore
       setFilteredListings(listings);
     }
-
     const listingsWithFilterApplied = listings
+      // @ts-ignore
       .filter(filterByCounty)
       .filter(filterByCity)
 
+    // @ts-ignore
     setFilteredListings(listingsWithFilterApplied);
   };
 
   useEffect(() => {
+    // @ts-ignore
     setFilteredListings(listings);
   }, [listings])
 
+  const globalClasses = useGlobalStyles();
+
+
   return (
-    <div className="container mx-auto">
-      {isLoading && (
-        <ReactLoading type={"spin"} height={500} width={500} />
-      )}
+    // @ts-ignore
+    <Paper>
       {initialData && (
-        <div className="database-container">
-          <div className="database-buttons">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="check-for-update"
-            >
-              Check for Updates
-        </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="update-database"
-              // onClick={updateDatabase}
-              type="submit"
-            >
-              Update Database
-              </button>
+        <div>
+          <div>
+            <Button text="Check for Updates" />
+            <Button text="Update Database" />
           </div>
-          <span>Database Last Updated On: {initialData.dbModDate}</span>
+          {/* <span>Database Last Updated On: {initialData.dbModDate}</span> */}
         </div>
       )}
       <div>
@@ -100,8 +91,17 @@ export default function Home () {
             initialData={initialData}
           />
         )}
-        {filteredListings && <Listing listings={filteredListings} />}
+        <div className={globalClasses.container}>
+          {filteredListings && (
+            // @ts-ignore
+            filteredListings.map((listing) => (
+              <Listing listing={listing} />
+            ))
+          )}
+        </div>
       </div>
-    </div>
+    </Paper>
   );
 };
+
+export default Home;
