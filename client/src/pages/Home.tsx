@@ -54,6 +54,11 @@ const Home = () => {
       return;
     }
 
+    if (filters === initialFilterState) {
+      setFilteredListings(listings);
+      return;
+    }
+
     const filtersToApply = Object.keys(filters).filter((key) => filters[key]);
     if (filtersToApply.length === 0) {
       setFilteredListings(listings);
