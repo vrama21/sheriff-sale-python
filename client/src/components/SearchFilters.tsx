@@ -2,7 +2,6 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
-  Box,
   Button,
   FormControl,
   InputLabel,
@@ -20,23 +19,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterInput = withStyles((theme) => ({
+const FilterFormControl = withStyles((theme) => ({
   root: {
-    background: theme.palette.grey[500],
+    marginTop: '-10px',
+  }
+}))(FormControl);
+
+const FilterSelect = withStyles((theme) => ({
+  root: {
+    background: theme.palette.grey[700],
     border: '1px solid grey',
     width: 100,
   },
+  selectMenu: {
+    top: '150px',
+  }
 }))(Select);
 
 const FilterLabel = withStyles((theme) => ({
   root: {
+    fontWeight: 'bold',
+    paddingLeft: '0.5rem',
     zIndex: 1,
-    paddingLeft: '0.5rem'
   },
 }))(InputLabel);
 
 const SearchFilters = ({
   filters,
+  filterErrors,
   initialData,
   onFilterChange,
   onFilterReset,
@@ -51,61 +61,53 @@ const SearchFilters = ({
       ? Object.keys(initialData.njData[filters.county].cities)
       : [];
 
+  const countyMenuItems = counties.map((county: string, countyIndex: number) => (
+    <MenuItem key={`county-${countyIndex}`} value={county}>
+      {county}
+    </MenuItem>
+  ));
+
+  const cityMenuItems = citiesOfSelectedCounty
+    ? citiesOfSelectedCounty.map((city: string, cityIndex: number) => (
+      <MenuItem key={`city-${cityIndex}`} value={city}>
+        {city}
+      </MenuItem>
+    ))
+    : cities.map((city: string, cityIndex: number) => (
+      <MenuItem key={`city-${cityIndex}`} value={city}>
+        {city}
+      </MenuItem>
+    ))
+
   return (
     <div className={classes.container}>
       <div className={classes.container}>
-        <Box mt='-10px'>
-          <FormControl>
-            <FilterLabel id="county-select-label">County</FilterLabel>
-            <FilterInput
-              id="county-select"
-              labelId="county-select-label"
-              name="county"
-              onChange={onFilterChange}
-              value={filters.county || ''}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {counties.map((county: string, countyIndex: number) => (
-                <MenuItem key={`county-${countyIndex}`} value={county}>
-                  {county}
-                </MenuItem>
-              ))}
-            </FilterInput>
-          </FormControl>
-        </Box>
-        <Box mt='-10px'>
-          <FormControl>
-            <FilterLabel>City</FilterLabel>
-            <FilterInput
-              id="city-select"
-              name="city"
-              onChange={onFilterChange}
-              value={filters.city || ''}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {citiesOfSelectedCounty
-                ? citiesOfSelectedCounty.map((city: string, cityIndex: number) => (
-                  <MenuItem key={`city-${cityIndex}`} value={city}>
-                    {city}
-                  </MenuItem>
-                ))
-                : cities.map((city: string, cityIndex: number) => (
-                  <MenuItem key={`city-${cityIndex}`} value={city}>
-                    {city}
-                  </MenuItem>
-                ))}
-            </FilterInput>
-          </FormControl>
-        </Box>
+        <FilterFormControl>
+          <FilterLabel id="county-select-label">County</FilterLabel>
+          <FilterSelect
+            children={countyMenuItems}
+            id="county-select"
+            labelId="county-select-label"
+            name="county"
+            onChange={onFilterChange}
+            value={filters.county || ''}
+          />
+        </FilterFormControl>
+        <FilterFormControl>
+          <FilterLabel>City</FilterLabel>
+          <FilterSelect
+            children={cityMenuItems}
+            id="city-select"
+            name="city"
+            onChange={onFilterChange}
+            value={filters.city || ''}
+          />
+        </FilterFormControl>
       </div>
 
       <div className={classes.container}>
         <Button color="primary" onClick={onFilterSubmit} variant="contained">Submit</Button>
-        <Button color="primary" onClick={onFilterReset} variant="contained">Reset</Button>
+        <Button color="secondary" onClick={onFilterReset} variant="contained">Reset</Button>
       </div>
     </div>
   );
