@@ -18,13 +18,12 @@ const Home = () => {
   const listings = useFetch('/api/listings', 'GET').response?.listings;
   const initialData = useFetch('/api/home', 'GET').response?.data;
 
-  console.log(listings);
   const [filters, setFilters] = useState<types.Filter>(initialFilterState);
   // const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filteredListings, setFilteredListings] = useState<types.Listing[]>([]);
 
-  const filterByCounty = (listing) => listing.county === filters.county;
-  const filterByCity = (listing) => {
+  const filterByCounty = (listing: types.Listing) => listing.county === filters.county;
+  const filterByCity = (listing: types.Listing) => {
     if (!filters.city) {
       return true;
     }
@@ -55,20 +54,16 @@ const Home = () => {
     const filtersToApply = Object.keys(filters).filter((key) => filters[key]);
     console.log(filtersToApply)
     if (filtersToApply.length === 0) {
-      // @ts-ignore
       setFilteredListings(listings);
     }
     const listingsWithFilterApplied = listings
-      // @ts-ignore
       .filter(filterByCounty)
       .filter(filterByCity)
 
-    // @ts-ignore
     setFilteredListings(listingsWithFilterApplied);
   };
 
   useEffect(() => {
-    // @ts-ignore
     setFilteredListings(listings);
   }, [listings])
 
@@ -97,8 +92,8 @@ const Home = () => {
         <div className={globalClasses.container}>
           {filteredListings && (
             <Grid className={classes.listingContainerStyle} container>
-              {filteredListings.map((listing, listingIndex: number) => (
-                <Grid item xs={12} key={`${listing}-${listingIndex}`}>
+              {filteredListings.map((listing: types.Listing, listingIndex: number) => (
+                <Grid item xs={12} key={`${listing.address_sanitized}-${listingIndex}`}>
                   <Listing listing={listing} />
                 </Grid>
               ))}

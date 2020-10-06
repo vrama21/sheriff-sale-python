@@ -4,10 +4,10 @@ export interface EnumeratedArrayOfObjects {
 }
 
 export interface useFetchInterface {
-  [key: string]: Object[]
+  [key: string]: any
 }
 
-export interface Filter {
+export type Filter = {
   county: string,
   city: string,
   saleDate: string,

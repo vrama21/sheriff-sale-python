@@ -42,7 +42,6 @@ export default function SearchFilters({
   onFilterReset,
   onFilterSubmit,
 }) {
-  const globalClasses = useGlobalStyles();
   const classes = useStyles();
 
   const counties = initialData ? initialData.counties : [];
