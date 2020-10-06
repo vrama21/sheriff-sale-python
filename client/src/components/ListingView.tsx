@@ -6,14 +6,14 @@ import { Grid } from '@material-ui/core';
 import * as types from '../types'
 import useGlobalStyles from '../styles/styles';
 
-const ListingView = ({ listings }) => {
+const ListingView = ({ listings, pageCount }: { listings: any, pageCount: any }) => {
   const listingsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastBorrower = currentPage * listingsPerPage;
   const indexOfFirstBorrower = indexOfLastBorrower - listingsPerPage;
 
+
   const handlePageClick = (data) => {
-    console.log(data);
     setCurrentPage(data.selected + 1);
   };
 
@@ -29,9 +29,9 @@ const ListingView = ({ listings }) => {
 
   return (
     <div>
-      <Paginate onClick={handlePageClick} pageCount={10} />
+      <Paginate onClick={handlePageClick} pageCount={pageCount} />
       <div className={globalClasses.container}>
-        {filteredListingsView}
+        {filteredListingsView?.length ? filteredListingsView : 'There are no results with the selected filters'}
       </div>
     </div >
   );

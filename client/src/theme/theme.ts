@@ -3,9 +3,14 @@ import { colors, createMuiTheme } from "@material-ui/core";
 export default createMuiTheme({
   palette: {
     primary: {
-      light: colors.deepOrange[300],
-      main: colors.deepOrange[500],
-      dark: colors.deepOrange[700],
+      light: colors.green[300],
+      main: colors.green[500],
+      dark: colors.green[700],
+    },
+    secondary: {
+      light: colors.red[400],
+      main: colors.red[600],
+      dark: colors.red[900],
     },
     type: 'dark',
   }

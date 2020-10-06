@@ -45,11 +45,11 @@ const Paginate = ({ onClick, pageCount }) => {
       containerClassName={classes.containerStyle}
       initialPage={0}
       pageCount={pageCount}
-      marginPagesDisplayed={5}
+      marginPagesDisplayed={3}
       nextClassName={classes.basicStyle}
       pageClassName={classes.basicStyle}
       pageLinkClassName={classes.linkStyle}
-      pageRangeDisplayed={5}
+      pageRangeDisplayed={3}
       previousClassName={classes.basicStyle}
       onPageChange={onClick}
       activeLinkClassName={classes.activeLinkStyle}
