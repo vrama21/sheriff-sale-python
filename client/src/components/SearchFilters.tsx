@@ -12,24 +12,23 @@ import useGlobalStyles from '../styles/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
     margin: '1rem 6rem',
   },
 }));
 
 const FilterFormControl = withStyles((theme) => ({
   root: {
-    marginTop: '-10px',
+    backgroundColor: theme.palette.grey[700],
+    margin: '0 0.5rem',
+    width: 225,
   }
 }))(FormControl);
 
 const FilterSelect = withStyles((theme) => ({
   root: {
-    background: theme.palette.grey[700],
     border: '1px solid grey',
-    width: 100,
+    fontWeight: 'bold',
+    paddingBottom: '1rem',
   },
 }))(Select);
 
@@ -37,9 +36,26 @@ const FilterLabel = withStyles((theme) => ({
   root: {
     fontWeight: 'bold',
     paddingLeft: '0.5rem',
+    position: 'absolute',
+    // top: '-10px',
     zIndex: 1,
   },
+  focused: {
+    top: 0,
+  }
 }))(InputLabel);
+
+const MenuProps = {
+  anchorOrigin: {
+    vertical: "bottom",
+    horizontal: "left",
+  },
+  transformOrigin: {
+    vertical: 'top',
+    horizontal: 'left',
+  },
+  getContentAnchorEl: null,
+}
 
 const SearchFilters = ({
   filters,
@@ -51,30 +67,36 @@ const SearchFilters = ({
 }) => {
   const classes = useStyles();
 
-  const counties = initialData ? initialData.counties : [];
-  const cities = initialData ? initialData.cities : [];
-  const citiesOfSelectedCounty =
-    initialData && filters.county
+  const counties = initialData?.counties || [];
+  const cities = initialData?.cities || [];
+  const citiesOfSelectedCounty = filters.county
       ? Object.keys(initialData.njData[filters.county].cities)
       : [];
+  const saleDates = initialData?.saleDates || [];
 
-  const countyMenuItems = counties.map((county: string, countyIndex: number) => (
-    <MenuItem key={`county-${countyIndex}`} value={county}>
+  const countyMenuItems = counties.map((county: string) => (
+    <MenuItem key={`county-${county}`} value={county}>
       {county}
     </MenuItem>
   ));
 
   const cityMenuItems = citiesOfSelectedCounty
-    ? citiesOfSelectedCounty.map((city: string, cityIndex: number) => (
-      <MenuItem key={`city-${cityIndex}`} value={city}>
+    ? citiesOfSelectedCounty.map((city: string) => (
+      <MenuItem key={`city-${city}`} value={city}>
         {city}
       </MenuItem>
     ))
-    : cities.map((city: string, cityIndex: number) => (
-      <MenuItem key={`city-${cityIndex}`} value={city}>
+    : cities.map((city: string) => (
+      <MenuItem key={`city-${city}`} value={city}>
         {city}
       </MenuItem>
     ))
+
+  const saleDateMenuItems = saleDates.map((saleDate: string) => (
+    <MenuItem key={`saleDate-${saleDate}`} value={saleDate}>
+      {saleDate}
+    </MenuItem>
+  ))
 
   return (
     <div className={classes.container}>
@@ -85,20 +107,11 @@ const SearchFilters = ({
             children={countyMenuItems}
             id="county-select"
             labelId="county-select-label"
-            MenuProps={{
-              anchorOrigin: {
-                vertical: "bottom",
-                horizontal: "left",
-              },
-              transformOrigin: {
-                vertical: 'top',
-                horizontal: 'left',
-              },
-              getContentAnchorEl: null,
-            }}
+            MenuProps={MenuProps}
             name="county"
             onChange={onFilterChange}
             value={filters.county || ''}
+            variant="outlined"
           />
         </FilterFormControl>
         <FilterFormControl>
@@ -106,29 +119,48 @@ const SearchFilters = ({
           <FilterSelect
             children={cityMenuItems}
             id="city-select"
-            MenuProps={{
-              anchorOrigin: {
-                vertical: "bottom",
-                horizontal: "left",
-              },
-              transformOrigin: {
-                vertical: 'top',
-                horizontal: 'left',
-              },
-              getContentAnchorEl: null,
-            }}
+            MenuProps={MenuProps}
             name="city"
             onChange={onFilterChange}
             value={filters.city || ''}
+            variant="outlined"
+          />
+        </FilterFormControl>
+        <FilterFormControl>
+          <FilterLabel>Sale Date</FilterLabel>
+          <FilterSelect
+            children={saleDateMenuItems}
+            id="city-select"
+            MenuProps={MenuProps}
+            name="saleDate"
+            onChange={onFilterChange}
+            value={filters.saleDate || ''}
+            variant="outlined"
           />
         </FilterFormControl>
       </div>
 
       <div className={classes.container}>
-        <Button color="primary" onClick={onFilterSubmit} variant="contained">Submit</Button>
-        <Button color="secondary" onClick={onFilterReset} variant="contained">Reset</Button>
+        <Button
+          color="primary"
+          onClick={onFilterSubmit}
+          size='large'
+          style={{ fontWeight: 'bold', margin: '0 0.5rem' }}
+          variant="contained"
+        >
+          Submit
+        </Button>
+        <Button
+          color="secondary"
+          onClick={onFilterReset}
+          size='large'
+          style={{ fontWeight: 'bold', margin: '0 0.5rem' }}
+          variant="contained"
+        >
+          Reset
+        </Button>
       </div>
-    </div>
+    </div >
   );
 }
 

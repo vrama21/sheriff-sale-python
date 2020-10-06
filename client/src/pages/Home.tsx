@@ -59,6 +59,12 @@ const Home = () => {
       return;
     }
 
+    if (!filters.county && filters.county) {
+      // @ts-ignore
+      setFilterErrors({ county: true })
+      return;
+    }
+
     const filtersToApply = Object.keys(filters).filter((key) => filters[key]);
     if (filtersToApply.length === 0) {
       setFilteredListings(listings);
@@ -92,22 +98,22 @@ const Home = () => {
           <Button
             color="primary"
             variant="contained"
-            style={{ margin: '0 1rem' }}
+            size='large'
+            style={{ fontWeight: 'bold', margin: '0 1rem' }}
           >
-            {' '}
-            Check for Updates{' '}
+            Check for Updates
           </Button>
           <Button
             color="secondary"
             variant="contained"
-            style={{ margin: '0 1rem' }}
+            size='large'
+            style={{ fontWeight: 'bold', margin: '0 1rem' }}
           >
-            {' '}
-            Update Database{' '}
+            Update Database
           </Button>
-          {/* <span>Database Last Updated On: {initialData.dbModDate}</span> */}
         </div>
       )}
+      <span>Database Last Updated On: {initialData?.dbModDate}</span>
       <div>
         {initialData && (
           <SearchFilters

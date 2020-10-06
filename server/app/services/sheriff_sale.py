@@ -25,7 +25,7 @@ class SheriffSale:
     def __init__(self, county=None):
 
         self.county_name = county
-        self.county_id = self.get_sheriff_sale_county_id(self.county_name)
+        self.county_id = self.county_name and self.get_sheriff_sale_county_id(self.county_name)
 
         try:
             self.session = requests.Session()

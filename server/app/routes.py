@@ -27,7 +27,16 @@ def home():
         cities = CITY_LIST
         nj_data = NJ_DATA
 
-        data = {'dbModDate': db_mod_date, 'counties': counties, 'cities': cities, 'njData': nj_data}
+        sheriff_sale = SheriffSale('Atlantic')
+        sale_dates = sheriff_sale.get_sale_dates()
+
+        data = {
+            'counties': counties,
+            'cities': cities,
+            'dbModDate': db_mod_date,
+            'njData': nj_data,
+            'saleDates': sale_dates
+        }
 
         return jsonify(data=data, code=200)
 
