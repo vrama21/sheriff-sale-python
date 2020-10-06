@@ -31,9 +31,6 @@ const FilterSelect = withStyles((theme) => ({
     border: '1px solid grey',
     width: 100,
   },
-  selectMenu: {
-    top: '150px',
-  }
 }))(Select);
 
 const FilterLabel = withStyles((theme) => ({
@@ -88,6 +85,17 @@ const SearchFilters = ({
             children={countyMenuItems}
             id="county-select"
             labelId="county-select-label"
+            MenuProps={{
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left",
+              },
+              transformOrigin: {
+                vertical: 'top',
+                horizontal: 'left',
+              },
+              getContentAnchorEl: null,
+            }}
             name="county"
             onChange={onFilterChange}
             value={filters.county || ''}
@@ -98,6 +106,17 @@ const SearchFilters = ({
           <FilterSelect
             children={cityMenuItems}
             id="city-select"
+            MenuProps={{
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left",
+              },
+              transformOrigin: {
+                vertical: 'top',
+                horizontal: 'left',
+              },
+              getContentAnchorEl: null,
+            }}
             name="city"
             onChange={onFilterChange}
             value={filters.city || ''}
