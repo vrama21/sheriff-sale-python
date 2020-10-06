@@ -4,18 +4,24 @@ import useFetch from '../hooks/useFetch';
 import Listing from '../components/Listing';
 import * as types from '../types/types'
 import useGlobalStyles from '../styles/styles';
-import Button from '../components/Button';
-import { Paper } from '@material-ui/core';
+import { Button, Grid, makeStyles, Paper } from '@material-ui/core';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
+
+const useStyles = makeStyles(() => ({
+  listingContainerStyle: {
+    borderRadius: '1rem',
+  }
+}))
 
 const Home = () => {
   const listings = useFetch('/api/listings', 'GET').response?.listings;
   const initialData = useFetch('/api/home', 'GET').response?.data;
 
+  console.log(listings);
   const [filters, setFilters] = useState<types.Filter>(initialFilterState);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [filteredListings, setFilteredListings] = useState<types.EnumeratedArrayOfObjects>([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filteredListings, setFilteredListings] = useState<types.Listing[]>([]);
 
   const filterByCounty = (listing) => listing.county === filters.county;
   const filterByCity = (listing) => {
@@ -67,17 +73,14 @@ const Home = () => {
   }, [listings])
 
   const globalClasses = useGlobalStyles();
-
+  const classes = useStyles();
 
   return (
-    // @ts-ignore
-    <Paper>
+    <Paper style={{ height: '100vh', textAlign: "center" }}>
       {initialData && (
-        <div>
-          <div>
-            <Button text="Check for Updates" />
-            <Button text="Update Database" />
-          </div>
+        <div style={{ padding: '0.5rem 0' }}>
+          <Button color='primary' variant='contained' style={{ margin: '0 1rem' }}> Check for Updates </Button>
+          <Button color='secondary' variant='contained' style={{ margin: '0 1rem' }}> Update Database </Button>
           {/* <span>Database Last Updated On: {initialData.dbModDate}</span> */}
         </div>
       )}
@@ -93,10 +96,13 @@ const Home = () => {
         )}
         <div className={globalClasses.container}>
           {filteredListings && (
-            // @ts-ignore
-            filteredListings.map((listing) => (
-              <Listing listing={listing} />
-            ))
+            <Grid className={classes.listingContainerStyle} container>
+              {filteredListings.map((listing, listingIndex: number) => (
+                <Grid item xs={12} key={`${listing}-${listingIndex}`}>
+                  <Listing listing={listing} />
+                </Grid>
+              ))}
+            </Grid>
           )}
         </div>
       </div>
