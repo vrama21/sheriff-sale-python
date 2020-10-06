@@ -35,13 +35,13 @@ const FilterLabel = withStyles((theme) => ({
   },
 }))(InputLabel);
 
-export default function SearchFilters({
+const SearchFilters = ({
   filters,
   initialData,
   onFilterChange,
   onFilterReset,
   onFilterSubmit,
-}) {
+}) => {
   const classes = useStyles();
 
   const counties = initialData ? initialData.counties : [];
@@ -110,3 +110,5 @@ export default function SearchFilters({
     </div>
   );
 }
+
+export default SearchFilters;

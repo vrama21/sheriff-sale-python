@@ -2,6 +2,7 @@ import React from "react";
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import * as types from '../types/types';
+import ListingImage from './ListingImage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Listing({ listing }: { listing: types.Listing }) {
+const Listing = ({ listing }: { listing: types.Listing }) => {
   const classes = useStyles();
 
   return (
     <Grid className={classes.root} container>
+      {/* <ListingImage /> */}
       <Grid item xs={4}>
         <span className={classes.subtext}>Address: </span>
       </Grid>
@@ -45,3 +47,5 @@ export default function Listing({ listing }: { listing: types.Listing }) {
     </Grid >
   );
 };
+
+export default Listing;

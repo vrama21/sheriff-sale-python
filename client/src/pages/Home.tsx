@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import SearchFilters from '../components/SearchFilters';
 import useFetch from '../hooks/useFetch';
 import Listing from '../components/Listing';
-import * as types from '../types/types'
+import ListingView from '../components/ListingView';
+import * as types from '../types/types';
 import useGlobalStyles from '../styles/styles';
 import { Button, Grid, makeStyles, Paper } from '@material-ui/core';
 
@@ -71,7 +72,12 @@ const Home = () => {
   const classes = useStyles();
 
   return (
-    <Paper style={{ height: '100vh', textAlign: "center" }}>
+    <Paper elevation={0} style={
+      {
+        height: '115vh',
+        padding: '1rem 0',
+        textAlign: "center"
+      }}>
       {initialData && (
         <div style={{ padding: '0.5rem 0' }}>
           <Button color='primary' variant='contained' style={{ margin: '0 1rem' }}> Check for Updates </Button>
@@ -89,17 +95,7 @@ const Home = () => {
             initialData={initialData}
           />
         )}
-        <div className={globalClasses.container}>
-          {filteredListings && (
-            <Grid className={classes.listingContainerStyle} container>
-              {filteredListings.map((listing: types.Listing, listingIndex: number) => (
-                <Grid item xs={12} key={`${listing.address_sanitized}-${listingIndex}`}>
-                  <Listing listing={listing} />
-                </Grid>
-              ))}
-            </Grid>
-          )}
-        </div>
+        <ListingView listings={filteredListings} />
       </div>
     </Paper>
   );
