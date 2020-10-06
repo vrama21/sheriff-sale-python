@@ -3,16 +3,9 @@ import SearchFilters from '../components/SearchFilters';
 import useFetch from '../hooks/useFetch';
 import ListingView from '../components/ListingView';
 import * as types from '../types/types';
-import useGlobalStyles from '../styles/styles';
-import { Button, makeStyles, Paper } from '@material-ui/core';
+import { Button, Paper } from '@material-ui/core';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
-
-const useStyles = makeStyles(() => ({
-  listingContainerStyle: {
-    borderRadius: '1rem',
-  },
-}));
 
 const Home = () => {
   const listings = useFetch('/api/listings', 'GET').response?.listings;
@@ -81,9 +74,6 @@ const Home = () => {
     setFilteredListings(listings);
   }, [listings]);
 
-  const globalClasses = useGlobalStyles();
-  const classes = useStyles();
-
   return (
     <Paper
       elevation={0}
@@ -93,38 +83,34 @@ const Home = () => {
         textAlign: 'center',
       }}
     >
-      {initialData && (
-        <div style={{ padding: '0.5rem 0' }}>
-          <Button
-            color="primary"
-            variant="contained"
-            size='large'
-            style={{ fontWeight: 'bold', margin: '0 1rem' }}
-          >
-            Check for Updates
+      <div style={{ padding: '0.5rem 0' }}>
+        <Button
+          color="primary"
+          variant="contained"
+          size='large'
+          style={{ fontWeight: 'bold', margin: '0 1rem' }}
+        >
+          Check for Updates
           </Button>
-          <Button
-            color="secondary"
-            variant="contained"
-            size='large'
-            style={{ fontWeight: 'bold', margin: '0 1rem' }}
-          >
-            Update Database
+        <Button
+          color="secondary"
+          variant="contained"
+          size='large'
+          style={{ fontWeight: 'bold', margin: '0 1rem' }}
+        >
+          Update Database
           </Button>
-        </div>
-      )}
+      </div>
       <span>Database Last Updated On: {initialData?.dbModDate}</span>
       <div>
-        {initialData && (
-          <SearchFilters
-            filters={filters}
-            filterErrors={filterErrors}
-            onFilterChange={onFilterChange}
-            onFilterReset={onFilterReset}
-            onFilterSubmit={onFilterSubmit}
-            initialData={initialData}
-          />
-        )}
+        <SearchFilters
+          filters={filters}
+          filterErrors={filterErrors}
+          onFilterChange={onFilterChange}
+          onFilterReset={onFilterReset}
+          onFilterSubmit={onFilterSubmit}
+          initialData={initialData}
+        />
         <ListingView listings={filteredListings} pageCount={pageCount} />
       </div>
     </Paper>

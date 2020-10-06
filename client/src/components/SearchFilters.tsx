@@ -8,7 +8,6 @@ import {
   MenuItem,
   Select,
 } from '@material-ui/core';
-import useGlobalStyles from '../styles/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -70,7 +69,7 @@ const SearchFilters = ({
   const counties = initialData?.counties || [];
   const cities = initialData?.cities || [];
   const citiesOfSelectedCounty = filters.county
-      ? Object.keys(initialData.njData[filters.county].cities)
+      ? Object.keys(initialData?.njData[filters.county].cities)
       : [];
   const saleDates = initialData?.saleDates || [];
 
@@ -81,13 +80,13 @@ const SearchFilters = ({
   ));
 
   const cityMenuItems = citiesOfSelectedCounty
-    ? citiesOfSelectedCounty.map((city: string) => (
-      <MenuItem key={`city-${city}`} value={city}>
+    ? citiesOfSelectedCounty.map((city: string, cityIndex: number) => (
+      <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
         {city}
       </MenuItem>
     ))
-    : cities.map((city: string) => (
-      <MenuItem key={`city-${city}`} value={city}>
+    : cities.map((city: string, cityIndex: number) => (
+      <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
         {city}
       </MenuItem>
     ))
