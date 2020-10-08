@@ -4,6 +4,7 @@ import useFetch from '../hooks/useFetch';
 import ListingView from '../components/ListingView';
 import * as types from '../types/types';
 import { Button, Paper } from '@material-ui/core';
+import ListingImage from '../components/ListingImage';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
 
@@ -11,11 +12,17 @@ const Home = () => {
   const listings = useFetch('/api/listings', 'GET').response?.listings;
   const initialData = useFetch('/api/home', 'GET').response?.data;
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [filters, setFilters] = useState<types.Filter>(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
   // const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filteredListings, setFilteredListings] = useState<types.Listing[]>([]);
+
   const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
+
+  const handlePageClick = (data: { selected: number }) => {
+    setCurrentPage(data.selected + 1);
+  };
 
   const filterByCounty = (listing: types.Listing) => listing.county === filters.county;
 
@@ -67,7 +74,9 @@ const Home = () => {
       .filter(filterByCounty)
       .filter(filterByCity);
 
+    setCurrentPage(1)
     setFilteredListings(listingsWithFilterApplied);
+
   };
 
   useEffect(() => {
@@ -111,7 +120,22 @@ const Home = () => {
           onFilterSubmit={onFilterSubmit}
           initialData={initialData}
         />
-        <ListingView listings={filteredListings} pageCount={pageCount} />
+        <ListingImage
+          // @ts-ignore
+          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+          // @ts-ignore
+          loadingElement={<div style={{ height: `100%` }} />}
+          // @ts-ignore
+          containerElement={<div style={{ height: `400px` }} />}
+          // @ts-ignore
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+        <ListingView
+          currentPage={currentPage}
+          listings={filteredListings}
+          pageClick={handlePageClick}
+          pageCount={pageCount}
+        />
       </div>
     </Paper>
   );

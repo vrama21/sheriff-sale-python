@@ -33,14 +33,14 @@ const FilterSelect = withStyles((theme) => ({
 
 const FilterLabel = withStyles((theme) => ({
   root: {
+    color: 'white',
     fontWeight: 'bold',
     paddingLeft: '0.5rem',
     position: 'absolute',
-    // top: '-10px',
     zIndex: 1,
   },
   focused: {
-    top: 0,
+    color: theme.palette.primary.light,
   }
 }))(InputLabel);
 
@@ -69,8 +69,8 @@ const SearchFilters = ({
   const counties = initialData?.counties || [];
   const cities = initialData?.cities || [];
   const citiesOfSelectedCounty = filters.county
-      ? Object.keys(initialData?.njData[filters.county].cities)
-      : [];
+    ? Object.keys(initialData?.njData[filters.county].cities)
+    : [];
   const saleDates = initialData?.saleDates || [];
 
   const countyMenuItems = counties.map((county: string) => (
