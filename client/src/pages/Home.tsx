@@ -1,10 +1,10 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import SearchFilters from '../components/SearchFilters';
 import useFetch from '../hooks/useFetch';
 import ListingView from '../components/ListingView';
 import * as types from '../types/types';
 import { Button, Paper } from '@material-ui/core';
-import ListingImage from '../components/ListingImage';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
 
@@ -119,16 +119,6 @@ const Home = () => {
           onFilterReset={onFilterReset}
           onFilterSubmit={onFilterSubmit}
           initialData={initialData}
-        />
-        <ListingImage
-          // @ts-ignore
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-          // @ts-ignore
-          loadingElement={<div style={{ height: `100%` }} />}
-          // @ts-ignore
-          containerElement={<div style={{ height: `400px` }} />}
-          // @ts-ignore
-          mapElement={<div style={{ height: `100%` }} />}
         />
         <ListingView
           currentPage={currentPage}

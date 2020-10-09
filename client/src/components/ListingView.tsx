@@ -1,9 +1,8 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import Paginate from './Paginate'
 import Listing from './Listing'
 import { Grid } from '@material-ui/core';
-import * as types from '../types'
+import * as types from '../types/types';
 import useGlobalStyles from '../styles/styles';
 
 interface ListingViewInterface {

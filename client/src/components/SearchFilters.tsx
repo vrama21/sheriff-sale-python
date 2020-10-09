@@ -56,7 +56,16 @@ const MenuProps = {
   getContentAnchorEl: null,
 }
 
-const SearchFilters = ({
+interface SearchFilterProps {
+  filters : object,
+  filterErrors : object,
+  initialData : object,
+  onFilterChange : void,
+  onFilterReset : void,
+  onFilterSubmit : void,
+}
+
+const SearchFilters: React.FC<SearchFilterProps> = ({
   filters,
   filterErrors,
   initialData,
