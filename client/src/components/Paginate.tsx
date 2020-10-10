@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: `3px 4px ${theme.palette.grey[900]}`,
     display: 'flex',
     justifyContent: 'center',
-    margin: '1rem auto',
+    margin: '2rem auto',
     padding: '0 1rem',
     width: 'fit-content',
   },

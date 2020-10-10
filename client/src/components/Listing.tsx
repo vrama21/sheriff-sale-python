@@ -9,7 +9,7 @@ import { startCase } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: '4rem 0',
+    margin: '2rem 0 0 0',
     position: 'relative',
   },
   listingContainer: {
@@ -50,19 +50,23 @@ const useStyles = makeStyles((theme) => ({
 const Listing = ({ listing }: { listing: types.Listing }) => {
   const classes = useStyles();
 
-  const keysToRender = ['sheriff', 'court_case', 'judgment', 'address',];
+  const keysToRender = ['sale_date', 'sheriff', 'court_case', 'judgment'];
 
   const updatedListing = {}
   keysToRender.forEach((key) => updatedListing[key] = listing[key])
   const listingEntries = Object.entries(updatedListing);
+  // listingEntries[0] = Category
+  // listingEntries[1] = Value
 
   return (
-    <div className={classes.root}>
-      <Grid container>
-        <Grid className={classes.address} item xs={12} sm={8} md={6} lg={4}>
+    <Grid item xs={12} lg={6}>
+
+      <Grid container className={classes.root}>
+        <Grid className={classes.address} item xs={12} sm={6}>
           {`${listing.address_sanitized} ${listing.city} ${listing.zip_code}`}
         </Grid>
       </Grid>
+
       <Grid className={classes.listingContainer} container>
         <Grid item xs={4}>
           <ListingMap />
@@ -75,8 +79,9 @@ const Listing = ({ listing }: { listing: types.Listing }) => {
             </Grid>
           ))}
         </div>
-      </Grid >
-    </div>
+      </Grid>
+
+    </Grid >
   );
 };
 

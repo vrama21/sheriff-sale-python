@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Paginate from './Paginate'
 import Listing from './Listing'
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import * as types from '../types/types';
-import useGlobalStyles from '../styles/styles';
+
 
 interface ListingViewInterface {
   currentPage: number,
@@ -14,26 +14,28 @@ interface ListingViewInterface {
 
 const ListingView = ({ currentPage, listings, pageClick, pageCount }: ListingViewInterface) => {
   const listingsPerPage = 10;
-  // const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastBorrower = currentPage * listingsPerPage;
   const indexOfFirstBorrower = indexOfLastBorrower - listingsPerPage;
 
   const filteredListingsView = listings && listings
     .slice(indexOfFirstBorrower, indexOfLastBorrower)
     .map((listing: types.Listing, listingIndex: number) => (
-      <Grid item xs={12} key={`${listing.address_sanitized}-${listingIndex}`}>
-        <Listing listing={listing} />
-      </Grid>
+      <Listing listing={listing} key={`${listing.address_sanitized}-${listingIndex}`} />
     ))
 
-  const globalClasses = useGlobalStyles();
-
   return (
-    <div>
+    <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>
       <Paginate onClick={pageClick} pageCount={pageCount} />
-      <div className={globalClasses.container}>
-        {filteredListingsView?.length ? filteredListingsView : 'There are no results with the selected filters'}
-      </div>
+      {filteredListingsView?.length
+        ? <Grid
+          container
+          direction="row"
+          spacing={4}
+        >
+          {filteredListingsView}
+        </Grid>
+        : <span>There are no results with the selected filters.</span>
+      }
     </div >
   );
 };
