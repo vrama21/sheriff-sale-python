@@ -57,7 +57,7 @@ class SheriffSale:
 
         return sale_dates
 
-    def get_sale_links(self):
+    def get_listings_details_links(self):
         """
         Gathers all of the href links for each listing and builds a list of all the links to each listing's details
         in the form of "https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=563667001"
@@ -74,7 +74,7 @@ class SheriffSale:
         Gathers all the property id's from all of the href links for each listing under details
         E.g. '563663246' from "/Sales/SaleDetails?PropertyId=563663246"
         """
-        sale_links = self.get_sale_links()
+        sale_links = self.get_listings_details_links()
         property_ids = [re.findall(r"\d{9}", x)[0] for x in sale_links]
 
         return property_ids
@@ -107,7 +107,7 @@ class SheriffSale:
         """
         Retrieves all table html data from each listings details.
         """
-        sale_links = self.get_sale_links()
+        sale_links = self.get_listings_details_links()
 
         listings_table_data = []
 
@@ -125,7 +125,9 @@ class SheriffSale:
         Returns lists of sanitized address data in the format of { address, city, unit, secondary_unit, zip_code }
         """
         regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
-        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
+        # regex_street = re.compile(fr".*?(?:{{'|'.join(ADDRESS_REGEX_SPLIT)}})\s")
+        # regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
+        regex_city = re.compile(fr"(\s{{'|'.join(CITY_LIST)}})\s(NJ|Nj)")
         regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
         regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
         regex_zip_code = re.compile(r"\d{5}")

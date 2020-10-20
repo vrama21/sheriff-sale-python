@@ -2,10 +2,12 @@ from datetime import datetime
 from . import db
 
 
-class SheriffSaleDB(db.Model):
+class SheriffSaleModel(db.Model):
     __tablename__ = 'SheriffSale'
+    __table_args__ = {'extend_existing': True}
 
     id = db.Column('id', db.Integer, primary_key=True)
+
     address = db.Column('address', db.String)
     address_sanitized = db.Column('address_sanitized', db.String)
     attorney = db.Column('attorney', db.String)
@@ -20,28 +22,51 @@ class SheriffSaleDB(db.Model):
     sale_date = db.Column('sale_date', db.String)
     secondary_unit = db.Column('secondary_unit', db.String)
     sheriff = db.Column('sheriff', db.String)
-    # status_history = db.Column('status_history', db.String)
     unit = db.Column('unit', db.String)
     zip_code = db.Column('zip_code', db.String)
+
+    # nj_parcels_id = db.Column(db.Integer, db.ForeignKey('NJParcels.id'))
+    # nj_parcels = db.relationship('NJParcelsModel', uselist=False, backref='SheriffSale', foreign_keys=[nj_parcels_id])
+    # status_history = db.relationship('StatusHistoryModel', uselist=False, backref='SheriffSale')
 
     @property
     def serialize(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
-class NJParcelsDB(db.Model):
-    __tablename__ = 'NJParcels'
+class StatusHistoryModel(db.Model):
+    __tablename__ = 'StatusHistory'
+    __table_args__ = {'extend_existing': True}
+
 
     id = db.Column('id', db.Integer, primary_key=True)
+    # sheriff_sale_id = db.Column(db.Integer, db.ForeignKey('SheriffSale.id'))
+
+    status = db.Column('status', db.String)
+    date = db.Column('date', db.String)
+
+
+class NJParcelsModel(db.Model):
+    __tablename__ = 'NJParcels'
+    __table_args__ = {'extend_existing': True}
+
+    id = db.Column('id', db.Integer, primary_key=True)
+    sheriff_sale_id = db.Column(db.Integer, db.ForeignKey('SheriffSale.id'))
+
     address = db.Column('address', db.String)
     block = db.Column('block', db.Integer)
     city = db.Column('city', db.String)
     county = db.Column('county', db.String)
     lot = db.Column('lot', db.String)
 
+    @property
+    def serialize(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-class CountyClerkDB(db.Model):
+
+class CountyClerkModel(db.Model):
     __tablename__ = 'CountyClerk'
+    __table_args__ = {'extend_existing': True}
 
     id = db.Column('id', db.Integer, primary_key=True)
     block = db.Column('block', db.String)
@@ -63,3 +88,4 @@ class CountyClerkDB(db.Model):
     @property
     def serialize(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+

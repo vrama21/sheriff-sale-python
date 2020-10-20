@@ -1,0 +1,10 @@
+type NJParcels {
+    id: ID!
+    sheriff_sale_id: string,
+
+    address: string,
+    block: string,
+    city: string,
+    county: string,
+    lot: string,
+}

@@ -8,7 +8,7 @@ from flask import (jsonify, make_response, redirect, render_template, request, s
 from flask_sqlalchemy import SQLAlchemy
 
 from . import app, db
-from .models import SheriffSaleDB, CountyClerkDB
+from .models import SheriffSaleModel, CountyClerkModel, NJParcelsModel
 from .constants import CITY_LIST, COUNTY_LIST, NJ_DATA
 from .utils import BASE_DIR, load_json_data
 from .services.sheriff_sale import SheriffSale
@@ -43,7 +43,14 @@ def home():
 
 @app.route('/api/listings', methods=['GET'])
 def getAllListings():
-    table_data = [data.serialize for data in SheriffSaleDB.query.all()]
+    query = db.session\
+        .query(SheriffSaleModel)\
+        .join(NJParcelsModel)\
+        .order_by(SheriffSaleModel.sale_date.desc())\
+        .all()
+    # query = db.session.query(SheriffSaleModel).join(SheriffSaleModel, NJParcelsModel).all()
+    # print(query)
+    table_data = [data.serialize for data in query]
     return jsonify(listings=table_data, code=200)
 
 
@@ -103,7 +110,7 @@ def update_database():
         sheriff_sale_data = sheriff_sale.main()
 
         for row in sheriff_sale_data:
-            _sheriff_sale_data = SheriffSaleDB(**row)
+            _sheriff_sale_data = SheriffSaleModel(**row)
             db.session.add(_sheriff_sale_data)
 
         db.session.commit()
@@ -128,9 +135,9 @@ def county_clerk():
     search_results = county_clerk_search('Rama Avzi')
 
     for result in search_results:
-        exists = db.session.query(CountyClerkDB.doc_id).filter(CountyClerkDB.doc_id == result['doc_id']).first()
+        exists = db.session.query(CountyClerkModel.doc_id).filter(CountyClerkModel.doc_id == result['doc_id']).first()
         if not exists:
-            data = CountyClerkDB(**result)
+            data = CountyClerkModel(**result)
             db.session.add(data)
 
     db.session.commit()

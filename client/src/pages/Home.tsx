@@ -11,7 +11,7 @@ const initialFilterState = { county: '', city: '', saleDate: '' };
 const Home = () => {
   const listings = useFetch('/api/listings', 'GET').response?.listings;
   const initialData = useFetch('/api/home', 'GET').response?.data;
-
+  console.log(listings)[0]
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filters, setFilters] = useState<types.Filter>(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
