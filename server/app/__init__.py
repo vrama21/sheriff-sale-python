@@ -4,9 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_graphql import GraphQLView
 from logging.config import dictConfig
 from .utils import load_json_data
+from pathlib import Path
 
+log_path = Path(__file__).parent / 'logs'
+if not log_path.exists():
+    log_path.mkdir()
 logging_config = load_json_data('logging_config.json')
 dictConfig(logging_config)
+
 
 app = Flask(__name__)
 CORS(app)
