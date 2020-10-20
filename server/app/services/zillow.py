@@ -1,10 +1,9 @@
 from pyzillow.pyzillow import ZillowWrapper, GetDeepSearchResults
 from pathlib import Path
-from ..utils import BASE_DIR
 
 
 def test():
-    path = Path(BASE_DIR, 'config/zillow_key.conf')
+    path = Path(__file__).parent.parent / 'config/zillow_key.conf'
     with open(path, 'r') as f:
         key = f.readline().rstrip().replace("\n", "")
 

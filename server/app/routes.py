@@ -10,8 +10,8 @@ from flask_sqlalchemy import SQLAlchemy
 from . import app, db
 from .models import SheriffSaleModel, CountyClerkModel, NJParcelsModel
 from .constants import CITY_LIST, COUNTY_LIST, NJ_DATA
-from .utils import BASE_DIR, load_json_data
-from .services.sheriff_sale import SheriffSale
+from .utils import load_json_data
+from .services.sheriff_sale.sheriff_sale import SheriffSale
 from .services.nj_parcels import NJParcels
 from .services.county_clerk import *
 from .services.zillow import test
@@ -20,7 +20,7 @@ from .services.zillow import test
 @app.route('/api/home', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
-        db_path = Path(BASE_DIR, 'main.db')
+        db_path = Path(__file__).parent / 'main.db'
         db_mod_date = time.ctime(os.path.getmtime(db_path))
 
         counties = COUNTY_LIST

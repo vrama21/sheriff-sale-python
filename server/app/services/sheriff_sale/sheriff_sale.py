@@ -1,12 +1,13 @@
 import json
 import logging
 import re
+import requests
 from datetime import date, datetime
 from pathlib import Path
 from urllib.parse import quote
 
-import requests
-from ..constants import (
+from .match_parser import match_parser
+from ...constants import (
     ADDRESS_REGEX_SPLIT,
     CITY_LIST,
     COUNTY_MAP,
@@ -15,7 +16,7 @@ from ..constants import (
     SHERIFF_SALES_URL,
     SUFFIX_ABBREVATIONS,
 )
-from ..utils import BASE_DIR, load_json_data, requests_content, match_parser
+from ...utils import load_json_data, requests_content
 
 
 class SheriffSale:
@@ -132,11 +133,11 @@ class SheriffSale:
 
         results = []
 
-        street_match = match_parser(regex_street, address, type='street')
-        city_match = match_parser(regex_city, address, type='city', regexGroup=1)
-        unit_match = match_parser(regex_unit, address, type='unit', log=False)
-        secondary_unit_match = match_parser(regex_secondary_unit, address, type='secondary_unit', log=False)
-        zip_code_match = match_parser(regex_zip_code, address, type='zip_code', log=False)
+        street_match = match_parser(regex_street, address, match_type='street')
+        city_match = match_parser(regex_city, address, match_type='city', regexGroup=1)
+        unit_match = match_parser(regex_unit, address, match_type='unit', log=False)
+        secondary_unit_match = match_parser(regex_secondary_unit, address, match_type='secondary_unit', log=False)
+        zip_code_match = match_parser(regex_zip_code, address, match_type='zip_code', log=False)
 
         try:
             for key, value in SUFFIX_ABBREVATIONS.items():
