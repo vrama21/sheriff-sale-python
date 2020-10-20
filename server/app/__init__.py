@@ -9,18 +9,12 @@ from pathlib import Path
 log_path = Path(__file__).parent / 'logs'
 if not log_path.exists():
     log_path.mkdir()
+
 logging_config = load_json_data('logging_config.json')
 dictConfig(logging_config)
 
-
 app = Flask(__name__)
 CORS(app)
-
-# app.add_url_rule('/graphql', view_func=GraphQLView.as_view(
-#     'graphql',
-#     schema=schema,
-#     graphql=True,
-# ))
 
 app.config["SECRET_KEY"] = "17a202d87bb99ee84fd5ebbec5130e0f"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///main.db"

@@ -1,6 +1,6 @@
 {
   "http.proxyAuthorization": null,
-  "python.pythonPath": "C:\\Users\\vrama\\.virtualenvs\\Sheriff_Sale-iMCP4Mdo\\Scripts\\python.exe",
+  "python.pythonPath": "/home/vrama21/.virtualenvs/Sheriff_Sale-Oh9Z0Vnr/bin/python",
   "python.linting.enabled": true,
   "python.lintOnSave": true,
   "python.linting.pycodestyleEnabled": true,
