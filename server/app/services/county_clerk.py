@@ -15,7 +15,13 @@ def county_clerk_search(name, headers=False, doctypes=None):
     if doctypes:
         doctypes = doctypes
 
-    body = {'DocTypes': doctypes, 'Party': name, 'MaxRows': 0, 'RowsPerPage': 0, 'StartRow': 0}
+    body = {
+        'DocTypes': doctypes,
+        'Party': name,
+        'MaxRows': 0,
+        'RowsPerPage': 0,
+        'StartRow': 0,
+    }
 
     response = requests.post(county_clerk_search_url, data=body)
     json_response = response.json()
@@ -31,9 +37,7 @@ def county_clerk_search(name, headers=False, doctypes=None):
 def county_clerk_document(doc_id):
     county_clerk_document_url = 'http://24.246.110.8/or_web1/api/document'
 
-    body = {
-        'ID': doc_id,
-    }
+    body = {'ID': doc_id}
 
     response = requests.post(county_clerk_document_url, data=body)
     json_response = response.json()

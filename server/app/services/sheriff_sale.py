@@ -125,20 +125,18 @@ class SheriffSale:
         Returns lists of sanitized address data in the format of { address, city, unit, secondary_unit, zip_code }
         """
         regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
-        # regex_street = re.compile(fr".*?(?:{{'|'.join(ADDRESS_REGEX_SPLIT)}})\s")
-        # regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
-        regex_city = re.compile(fr"(\s{{'|'.join(CITY_LIST)}})\s(NJ|Nj)")
+        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
         regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
         regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
         regex_zip_code = re.compile(r"\d{5}")
 
         results = []
 
-        street_match = match_parser(regex_street, address)
-        city_match = match_parser(regex_city, address, regexGroup=1)
-        unit_match = match_parser(regex_unit, address, log=False)
-        secondary_unit_match = match_parser(regex_secondary_unit, address, log=False)
-        zip_code_match = match_parser(regex_zip_code, address, log=False)
+        street_match = match_parser(regex_street, address, type='street')
+        city_match = match_parser(regex_city, address, type='city', regexGroup=1)
+        unit_match = match_parser(regex_unit, address, type='unit', log=False)
+        secondary_unit_match = match_parser(regex_secondary_unit, address, type='secondary_unit', log=False)
+        zip_code_match = match_parser(regex_zip_code, address, type='zip_code', log=False)
 
         try:
             for key, value in SUFFIX_ABBREVATIONS.items():
@@ -162,8 +160,17 @@ class SheriffSale:
         listing_details_tables = self.get_all_listing_details_tables()
 
         listing_keys = [
-            'sheriff', 'courtCase', 'saleDate', 'plaintiff', 'defendant', 'address', 'priors', 'attorney', 'judgement',
-            'deed', 'deedAddress'
+            'sheriff',
+            'courtCase',
+            'saleDate',
+            'plaintiff',
+            'defendant',
+            'address',
+            'priors',
+            'attorney',
+            'judgement',
+            'deed',
+            'deedAddress',
         ]
         status_history_keys = ['status', 'date']
 

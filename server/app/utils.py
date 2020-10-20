@@ -40,13 +40,14 @@ def load_json_data(json_path):
         return json_data
 
 
-def match_parser(regex, target, regexGroup=0, log=True):
-    try:
-        match = re.search(regex, target).group(regexGroup).rstrip().title()
+def match_parser(regex, target, type, regexGroup=0, log=True):
+    search = re.search(regex, target)
+    if search:
+        match = search.group(regexGroup).rstrip().title()
 
         return match
-    except AttributeError as err:
+    else:
         if log:
-            logging.error(f'{err} - {target}')
+            logging.error(f'{type} regex did not capture {target}')
 
         return None
