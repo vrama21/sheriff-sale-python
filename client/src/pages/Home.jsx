@@ -1,9 +1,7 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import SearchFilters from '../components/SearchFilters';
 import useFetch from '../hooks/useFetch';
 import ListingView from '../components/ListingView';
-import * as types from '../types/types';
 import { Button, Paper } from '@material-ui/core';
 
 const initialFilterState = { county: '', city: '', saleDate: '' };
@@ -11,22 +9,21 @@ const initialFilterState = { county: '', city: '', saleDate: '' };
 const Home = () => {
   const listings = useFetch('/api/listings', 'GET').response?.listings;
   const initialData = useFetch('/api/home', 'GET').response?.data;
-  console.log(listings)[0]
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [filters, setFilters] = useState<types.Filter>(initialFilterState);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
   // const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [filteredListings, setFilteredListings] = useState<types.Listing[]>([]);
+  const [filteredListings, setFilteredListings] = useState([]);
 
   const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
 
-  const handlePageClick = (data: { selected: number }) => {
+  const handlePageClick = (data) => {
     setCurrentPage(data.selected + 1);
   };
 
-  const filterByCounty = (listing: types.Listing) => listing.county === filters.county;
+  const filterByCounty = (listing) => listing.county === filters.county;
 
-  const filterByCity = (listing: types.Listing) => {
+  const filterByCity = (listing) => {
     if (!filters.city) {
       return true;
     }
@@ -34,8 +31,8 @@ const Home = () => {
     return listing.city === filters.city;
   };
 
-  const onFilterChange = (event: types.ButtonEvent): void => {
-    const { name, value }: { name: string; value: string } = event.target;
+  const onFilterChange = (event) => {
+    const { name, value } = event.target;
 
     if (name === 'county') {
       setFilters({ county: value, city: '', saleDate: '' });
@@ -45,11 +42,11 @@ const Home = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  const onFilterReset = (): void => {
+  const onFilterReset = () => {
     setFilters(initialFilterState);
   };
 
-  const onFilterSubmit = (): void => {
+  const onFilterSubmit = () => {
     if (!listings) {
       return;
     }
@@ -60,7 +57,6 @@ const Home = () => {
     }
 
     if (!filters.county && filters.county) {
-      // @ts-ignore
       setFilterErrors({ county: true })
       return;
     }

@@ -4,25 +4,27 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
+    "@types/jest": "^24.9.1",
     "@types/material-ui": "^0.21.8",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
+    "@types/node": "^12.19.9",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
     "axios": "^0.20.0",
     "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-google-maps": "^9.4.5",
+    "react-google-maps": "^7.3.0",
     "react-google-streetview": "0.0.9",
     "react-loading": "^2.0.3",
+    "react-map-gl": "^5.2.11",
     "react-paginate": "^6.5.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "typescript": "~3.7.2"
+    "react-scripts": "^3.4.4",
+    "typescript": "^3.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "https://localhost:5000"
 }

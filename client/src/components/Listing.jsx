@@ -2,8 +2,6 @@
 import React from "react";
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import * as types from '../types/types';
-import ListingImage from './ListingImage';
 import ListingMap from "./ListingMap";
 import { startCase } from 'lodash';
 
@@ -47,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Listing = ({ listing }: { listing: types.Listing }) => {
+const Listing = ({ listing }) => {
   const classes = useStyles();
 
   const keysToRender = ['sale_date', 'sheriff', 'court_case', 'judgment'];

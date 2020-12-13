@@ -7,4 +7,4 @@ const useGlobalStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default useGlobalStyles;
+export default useGlobalStyles; 

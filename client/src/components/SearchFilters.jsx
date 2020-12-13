@@ -56,16 +56,7 @@ const MenuProps = {
   getContentAnchorEl: null,
 }
 
-interface SearchFilterProps {
-  filters : object,
-  filterErrors : object,
-  initialData : object,
-  onFilterChange : void,
-  onFilterReset : void,
-  onFilterSubmit : void,
-}
-
-const SearchFilters: React.FC<SearchFilterProps> = ({
+const SearchFilters = ({
   filters,
   filterErrors,
   initialData,
@@ -82,25 +73,25 @@ const SearchFilters: React.FC<SearchFilterProps> = ({
     : [];
   const saleDates = initialData?.saleDates || [];
 
-  const countyMenuItems = counties.map((county: string) => (
+  const countyMenuItems = counties.map((county) => (
     <MenuItem key={`county-${county}`} value={county}>
       {county}
     </MenuItem>
   ));
 
   const cityMenuItems = citiesOfSelectedCounty
-    ? citiesOfSelectedCounty.map((city: string, cityIndex: number) => (
+    ? citiesOfSelectedCounty.map((city, cityIndex) => (
       <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
         {city}
       </MenuItem>
     ))
-    : cities.map((city: string, cityIndex: number) => (
+    : cities.map((city, cityIndex) => (
       <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
         {city}
       </MenuItem>
     ))
 
-  const saleDateMenuItems = saleDates.map((saleDate: string) => (
+  const saleDateMenuItems = saleDates.map((saleDate) => (
     <MenuItem key={`saleDate-${saleDate}`} value={saleDate}>
       {saleDate}
     </MenuItem>
