@@ -18,7 +18,7 @@
             "class": "logging.FileHandler",
             "level": "ERROR",
             "formatter": "error",
-            "filename": "server/app/logs/errors.log"
+            "filename": "app/logs/errors.log"
         }
     },
     "root": {
