@@ -20,6 +20,7 @@ pyzillow = "*"
 flask-graphql = "*"
 flask-migrate = "*"
 flask-script = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.8"
