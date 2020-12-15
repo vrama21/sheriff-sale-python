@@ -16,7 +16,7 @@ const ListingView = ({ currentPage, listings, pageClick, pageCount }) => {
 
   return (
     <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>
-      <Paginate onClick={pageClick} pageCount={pageCount} />
+      {pageCount && <Paginate onClick={pageClick} pageCount={pageCount} />}
       {filteredListingsView?.length
         ? <Grid
           container
