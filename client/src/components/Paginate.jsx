@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
 const Paginate = ({ onClick, pageCount }) => {
   const classes = useStyles();
 
+  if (pageCount === 0) {
+    return null;
+  }
+
   return (
     <ReactPaginate
       previousLabel="<"

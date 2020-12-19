@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL from 'react-map-gl';
 import ListingMapMarker from './ListingMapMarker';
 import { makeStyles } from '@material-ui/core';
 

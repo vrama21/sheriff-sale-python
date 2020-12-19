@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Paginate from './Paginate'
 import Listing from './Listing'
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 const ListingView = ({ currentPage, listings, pageClick, pageCount }) => {
   const listingsPerPage = 10;
