@@ -105,7 +105,8 @@ def run_zillow():
 
 @app.route('/api/update_database', methods=['GET', 'POST'])
 def update_database():
-    sheriff_sale = SheriffSale('15')
+    print('Running Sheriff_Sale parser and updating database...')
+    sheriff_sale = SheriffSale('Atlantic')
     if request.method == 'GET':
         sheriff_sale_data = sheriff_sale.main()
 

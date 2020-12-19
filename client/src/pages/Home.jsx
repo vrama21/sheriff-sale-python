@@ -72,7 +72,10 @@ const Home = () => {
 
     setCurrentPage(1)
     setFilteredListings(listingsWithFilterApplied);
+  };
 
+  const updateListings = () => {
+    fetch('/api/update_database', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
   };
 
   useEffect(() => {
@@ -99,6 +102,7 @@ const Home = () => {
           </Button>
         <Button
           color="secondary"
+          onClick={updateListings}
           variant="contained"
           size='large'
           style={{ fontWeight: 'bold', margin: '0 1rem' }}

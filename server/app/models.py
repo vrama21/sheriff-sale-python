@@ -11,12 +11,14 @@ class SheriffSaleModel(db.Model):
     address = db.Column('address', db.String)
     address_sanitized = db.Column('address_sanitized', db.String)
     attorney = db.Column('attorney', db.String)
+    attorney_phone = db.Column('attorney_phone', db.String)
     city = db.Column('city', db.String)
     county = db.Column('county', db.String)
     court_case = db.Column('court_case', db.String)
     defendant = db.Column('defendant', db.String)
     judgment = db.Column('judgment', db.String)
     maps_url = db.Column('maps_url', db.String)
+    parcel = db.Column('parcel', db.String)
     plaintiff = db.Column('plaintiff', db.String)
     priors = db.Column('priors', db.String)
     sale_date = db.Column('sale_date', db.String)
@@ -24,10 +26,6 @@ class SheriffSaleModel(db.Model):
     sheriff = db.Column('sheriff', db.String)
     unit = db.Column('unit', db.String)
     zip_code = db.Column('zip_code', db.String)
-
-    # nj_parcels_id = db.Column(db.Integer, db.ForeignKey('NJParcels.id'))
-    # nj_parcels = db.relationship('NJParcelsModel', uselist=False, backref='SheriffSale', foreign_keys=[nj_parcels_id])
-    # status_history = db.relationship('StatusHistoryModel', uselist=False, backref='SheriffSale')
 
     @property
     def serialize(self):

@@ -44,7 +44,7 @@ class SheriffSale:
             return []
 
     def get_sheriff_sale_county_id(self, county):
-        nj_json_data = load_json_data('json/NJ_Data.json')
+        nj_json_data = load_json_data('data/NJ_Data.json')
         sheriff_sale_county_id = nj_json_data[county]['sheriffSaleId']
         return sheriff_sale_county_id
 
@@ -154,7 +154,7 @@ class SheriffSale:
             'unitSecondary': secondary_unit_match
         }
 
-    def get_table_data(self):
+    def main(self):
         """
         Gathers all of the listings for a specified county and returns it in a dictionary
         """
@@ -197,16 +197,16 @@ class SheriffSale:
 
             listing_table_dict = {
                 "address": address,
-                "addressSanitized": self.sanitize_address(address),
+                "address_sanitized": self.sanitize_address(address),
                 "attorney": listing_table_data[8],
-                "attorneyPhone": listing_table_data[9],
-                "courtCase": listing_table_data[2],
+                "attorney_phone": listing_table_data[9],
+                "court_case": listing_table_data[2],
                 "defendant": listing_table_data[5],
-                "judgement": listing_table_data[1],
-                "maps": maps_url and maps_url['href'],
+                "judgment": listing_table_data[1],
+                "maps_url": maps_url and maps_url['href'],
                 "parcel": listing_table_data[6],
                 "plaintiff": listing_table_data[4],
-                "saleDate": listing_table_data[3],
+                "sale_date": listing_table_data[3],
                 "sheriff": listing_table_data[0],
             }
 
