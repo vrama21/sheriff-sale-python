@@ -64,6 +64,14 @@ def search():
         return jsonify(data=body, code=200)
 
 
+@app.route('/api/test', methods=['GET'])
+def test():
+    if request.method == 'GET':
+        print('Testing...')
+        query = db.session.query(SheriffSaleModel).all()
+        print(query)
+        return jsonify(data=query, code=200)
+
 @app.route('/api/sheriff_sale', methods=['GET', 'POST'])
 def run_sheriff_sale():
     if request.method == 'POST':
@@ -106,6 +114,7 @@ def run_zillow():
 @app.route('/api/update_database', methods=['GET', 'POST'])
 def update_database():
     print('Running Sheriff_Sale parser and updating database...')
+    
     sheriff_sale = SheriffSale('Atlantic')
     if request.method == 'GET':
         sheriff_sale_data = sheriff_sale.main()
@@ -115,6 +124,8 @@ def update_database():
             db.session.add(_sheriff_sale_data)
 
         db.session.commit()
+
+        print('Sheriff Sale parser has completed...')
 
         return jsonify(
             message='Sheriff Sale Database Successfully Updated',

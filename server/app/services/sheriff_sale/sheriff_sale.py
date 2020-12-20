@@ -149,9 +149,9 @@ class SheriffSale:
             'street': street_match,
             'city': city_match,
             'county': self.county_name,
-            'zipCode': zip_code_match,
+            'zip_code': zip_code_match,
             'unit': unit_match,
-            'unitSecondary': secondary_unit_match
+            'unit_secondary': secondary_unit_match
         }
 
     def main(self):
@@ -186,6 +186,8 @@ class SheriffSale:
             address_br = listing['html'].find("br")
             address = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
 
+            address_sanitized = self.sanitize_address(address)
+
             status_history = []
             for row in status_history_html.find_all("tr")[1:]:
                 td = row.find_all("td")
@@ -197,9 +199,10 @@ class SheriffSale:
 
             listing_table_dict = {
                 "address": address,
-                "address_sanitized": self.sanitize_address(address),
                 "attorney": listing_table_data[8],
                 "attorney_phone": listing_table_data[9],
+                "city": address_sanitized['city'],
+                "county": address_sanitized['county'],
                 "court_case": listing_table_data[2],
                 "defendant": listing_table_data[5],
                 "judgment": listing_table_data[1],
@@ -208,6 +211,7 @@ class SheriffSale:
                 "plaintiff": listing_table_data[4],
                 "sale_date": listing_table_data[3],
                 "sheriff": listing_table_data[0],
+                "zip_code": address_sanitized['zip_code'],
             }
 
             table_data.append(listing_table_dict)

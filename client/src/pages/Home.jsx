@@ -12,7 +12,6 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filteredListings, setFilteredListings] = useState([]);
 
   const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
@@ -99,7 +98,7 @@ const Home = () => {
           style={{ fontWeight: 'bold', margin: '0 1rem' }}
         >
           Check for Updates
-          </Button>
+        </Button>
         <Button
           color="secondary"
           onClick={updateListings}
@@ -108,9 +107,9 @@ const Home = () => {
           style={{ fontWeight: 'bold', margin: '0 1rem' }}
         >
           Update Database
-          </Button>
+        </Button>
       </div>
-      <span>Database Last Updated On: {initialData?.dbModDate}</span>
+      {initialData?.dbModDate && (<span>Database Last Updated On: {initialData?.dbModDate}</span>)}
       <div>
         <SearchFilters
           filters={filters}
@@ -127,7 +126,7 @@ const Home = () => {
           pageCount={pageCount}
         />
       </div>
-    </Paper>
+    </Paper >
   );
 };
 

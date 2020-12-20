@@ -1,4 +1,4 @@
-import { colors, createMuiTheme } from "@material-ui/core";
+import { colors, unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core";
 
 export default createMuiTheme({
   palette: {
