@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { makeStyles } from '@material-ui/core';

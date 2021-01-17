@@ -8,15 +8,14 @@ const ListingView = ({ currentPage, listings, pageClick, pageCount }) => {
   const indexOfLastBorrower = currentPage * listingsPerPage;
   const indexOfFirstBorrower = indexOfLastBorrower - listingsPerPage;
 
-  const filteredListingsView = listings && listings
-    .slice(indexOfFirstBorrower, indexOfLastBorrower)
+  const filteredListingsView = listings?.slice(indexOfFirstBorrower, indexOfLastBorrower)
     .map((listing, listingIndex) => (
       <Listing listing={listing} key={`${listing.address_sanitized}-${listingIndex}`} />
     ))
 
   return (
     <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>
-      {pageCount && <Paginate onClick={pageClick} pageCount={pageCount} />}
+      {(pageCount || pageCount > 0) && <Paginate onClick={pageClick} pageCount={pageCount} />}
       {filteredListingsView?.length
         ? <Grid
           container
@@ -25,7 +24,9 @@ const ListingView = ({ currentPage, listings, pageClick, pageCount }) => {
         >
           {filteredListingsView}
         </Grid>
-        : <span>There are no results with the selected filters.</span>
+        : <span>
+          There are no results with the selected filters.
+        </span>
       }
     </div >
   );

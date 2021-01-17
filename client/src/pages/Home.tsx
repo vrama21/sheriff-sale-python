@@ -16,6 +16,8 @@ const Home = () => {
 
   const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
 
+  console.log(listings);
+
   const handlePageClick = (data) => {
     setCurrentPage(data.selected + 1);
   };
