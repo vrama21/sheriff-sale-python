@@ -1,4 +1,3 @@
-from datetime import datetime
 from . import db
 
 
@@ -35,7 +34,6 @@ class SheriffSaleModel(db.Model):
 class StatusHistoryModel(db.Model):
     __tablename__ = 'StatusHistory'
     __table_args__ = {'extend_existing': True}
-
 
     id = db.Column('id', db.Integer, primary_key=True)
     # sheriff_sale_id = db.Column(db.Integer, db.ForeignKey('SheriffSale.id'))
@@ -86,4 +84,3 @@ class CountyClerkModel(db.Model):
     @property
     def serialize(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-

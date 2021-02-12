@@ -1,12 +1,12 @@
 import json
-import logging
+
 import re
 import requests
 from datetime import date, datetime
 from pathlib import Path
 from urllib.parse import quote
 
-from .match_parser import match_parser
+from . import match_parser, error_handler
 from ...constants import (
     ADDRESS_REGEX_SPLIT,
     CITY_LIST,
@@ -23,6 +23,7 @@ class SheriffSale:
     """
     Web scraper for sheriff sale website
     """
+
     def __init__(self, county=None):
 
         self.county_name = county
@@ -36,16 +37,12 @@ class SheriffSale:
 
         self.table_div = self.soup.find("table", class_="table table-striped")
 
-        self.error_handler(self.table_div, 'The Sheriff Sale Table Div was not captured')
-
-    def error_handler(self, obj, message):
-        if not obj:
-            logging.error(message)
-            return []
+        error_handler(self.table_div, 'The Sheriff Sale Table Div was not captured')
 
     def get_sheriff_sale_county_id(self, county):
         nj_json_data = load_json_data('data/NJ_Data.json')
         sheriff_sale_county_id = nj_json_data[county]['sheriffSaleId']
+
         return sheriff_sale_county_id
 
     def get_sale_dates(self):
@@ -121,59 +118,11 @@ class SheriffSale:
 
         return listings_table_data
 
-    def sanitize_address(self, address):
-        """
-        Returns lists of sanitized address data in the format of { address, city, unit, secondary_unit, zip_code }
-        """
-        regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
-        regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
-        regex_unit = re.compile(r"(Unit|Apt).([0-9A-Za-z-]+)")
-        regex_secondary_unit = re.compile(r"(Building|Estate) #?([0-9a-zA-Z]+)")
-        regex_zip_code = re.compile(r"\d{5}")
-
-        results = []
-
-        street_match = match_parser(regex_street, address, match_type='street')
-        city_match = match_parser(regex_city, address, match_type='city', regexGroup=1)
-        unit_match = match_parser(regex_unit, address, match_type='unit', log=False)
-        secondary_unit_match = match_parser(regex_secondary_unit, address, match_type='secondary_unit', log=False)
-        zip_code_match = match_parser(regex_zip_code, address, match_type='zip_code', log=False)
-
-        try:
-            for key, value in SUFFIX_ABBREVATIONS.items():
-                street_match = re.sub(key, value, street_match)
-        except TypeError:
-            pass
-
-        return {
-            'street': street_match,
-            'city': city_match,
-            'county': self.county_name,
-            'zip_code': zip_code_match,
-            'unit': unit_match,
-            'unit_secondary': secondary_unit_match
-        }
-
     def main(self):
         """
         Gathers all of the listings for a specified county and returns it in a dictionary
         """
         listing_details_tables = self.get_all_listing_details_tables()
-
-        listing_keys = [
-            'sheriff',
-            'courtCase',
-            'saleDate',
-            'plaintiff',
-            'defendant',
-            'address',
-            'priors',
-            'attorney',
-            'judgement',
-            'deed',
-            'deedAddress',
-        ]
-        status_history_keys = ['status', 'date']
 
         table_data = []
         for listing in listing_details_tables:
