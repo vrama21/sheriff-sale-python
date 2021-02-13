@@ -29,7 +29,8 @@ __pycache__/
 **/__pycache__/
 
 # application
+.env
 errors.log
 **/zillow_key.conf
-
 **/*.db
+/.vscode/**

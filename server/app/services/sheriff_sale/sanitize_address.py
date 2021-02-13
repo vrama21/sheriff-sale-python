@@ -7,10 +7,14 @@ from ...constants import (
 )
 
 
-def sanitize_address(self, address):
+def sanitize_address(address, county):
     """
     Returns lists of sanitized address data in the format of
-        { address, city, unit, secondary_unit, zip_code }
+        address,
+        city,
+        unit,
+        secondary_unit,
+        zip_code
     """
     regex_street = re.compile(r".*?(?:" + r"|".join(ADDRESS_REGEX_SPLIT) + r")\s")
     regex_city = re.compile(r"(" + "|".join(CITY_LIST) + ") (NJ|Nj)")
@@ -21,10 +25,7 @@ def sanitize_address(self, address):
     street_match = match_parser(regex_street, address, match_type='street')
     city_match = match_parser(regex_city, address, match_type='city', regexGroup=1)
     unit_match = match_parser(regex_unit, address, match_type='unit', log=False)
-    secondary_unit_match = match_parser(regex_secondary_unit,
-                                        address,
-                                        match_type='secondary_unit',
-                                        log=False)
+    secondary_unit_match = match_parser(regex_secondary_unit, address, match_type='secondary_unit', log=False)
     zip_code_match = match_parser(regex_zip_code, address, match_type='zip_code', log=False)
 
     try:
@@ -36,7 +37,7 @@ def sanitize_address(self, address):
     return {
         'street': street_match,
         'city': city_match,
-        'county': self.county_name,
+        'county': county,
         'zip_code': zip_code_match,
         'unit': unit_match,
         'unit_secondary': secondary_unit_match

@@ -1,20 +1,11 @@
-import json
-
+import logging
 import re
 import requests
-from datetime import date, datetime
-from pathlib import Path
-from urllib.parse import quote
 
-from . import match_parser, error_handler
+from . import error_handler, sanitize_address
 from ...constants import (
-    ADDRESS_REGEX_SPLIT,
-    CITY_LIST,
-    COUNTY_MAP,
-    NJ_DATA,
     SHERIFF_SALES_BASE_URL,
     SHERIFF_SALES_URL,
-    SUFFIX_ABBREVATIONS,
 )
 from ...utils import load_json_data, requests_content
 
@@ -23,7 +14,6 @@ class SheriffSale:
     """
     Web scraper for sheriff sale website
     """
-
     def __init__(self, county=None):
 
         self.county_name = county
@@ -124,19 +114,49 @@ class SheriffSale:
         """
         listing_details_tables = self.get_all_listing_details_tables()
 
+        listing_kv_mapping = {
+            'Sheriff #': 'sheriff',
+            'Court Case #': 'court_case',
+            'Sales Date': 'sale_date',
+            'Plaintiff': 'plaintiff',
+            'Defendant': 'defendant',
+            'Priors': 'priors',
+            'Attorney': 'attorney',
+            'Approx. Judgment*': 'judgment',
+            'Upset Amount': 'upset_amount',
+            'Deed': 'deed',
+            'Deed Address': 'deed_address'
+        }
+
         table_data = []
         for listing in listing_details_tables:
+            address_br = listing['html'].find("br")
             listing_html = listing['html'].find("table", class_="table table-striped")
-            status_history_html = listing['html'].find("table", id="longTable")
             maps_url = listing_html.find("a", href=True)
 
-            listing_table_data = [x.text.strip().title() for x in listing_html.find_all("td")[1::3]]
+            td_labels = []
+            for td_label in listing_html.find_all('td')[::3]:
+                td_label = td_label.text.replace('&colon', '')
+                try:
+                    key = listing_kv_mapping[td_label]
+                    td_labels.append(key)
+                except KeyError:
+                    # Log missing keys that are not Address as the Address value has its own logic
+                    if td_label != 'Address':
+                        logging.error(f'Missing Key: {td_label} in listing_kv_mapping')
 
-            address_br = listing['html'].find("br")
-            address = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
+            td_values = [x.text.strip().title() for x in listing_html.find_all('td')[1::3]]
 
-            address_sanitized = self.sanitize_address(address)
+            listing_details = dict(zip(td_labels, td_values))
 
+            listing_details['address'] = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
+            listing_details['maps_url'] = maps_url and maps_url['href']
+
+            address_sanitized = sanitize_address(listing_details['address'], self.county_name)
+
+            listing_details = {**listing_details, **address_sanitized}
+
+            status_history_html = listing['html'].find("table", id="longTable")
             status_history = []
             for row in status_history_html.find_all("tr")[1:]:
                 td = row.find_all("td")
@@ -146,23 +166,6 @@ class SheriffSale:
                 }
                 status_history.append(listing_status)
 
-            listing_table_dict = {
-                "address": address,
-                "attorney": listing_table_data[8],
-                "attorney_phone": listing_table_data[9],
-                "city": address_sanitized['city'],
-                "county": address_sanitized['county'],
-                "court_case": listing_table_data[2],
-                "defendant": listing_table_data[5],
-                "judgment": listing_table_data[1],
-                "maps_url": maps_url and maps_url['href'],
-                "parcel": listing_table_data[6],
-                "plaintiff": listing_table_data[4],
-                "sale_date": listing_table_data[3],
-                "sheriff": listing_table_data[0],
-                "zip_code": address_sanitized['zip_code'],
-            }
-
-            table_data.append(listing_table_dict)
+            table_data.append(listing_details)
 
         return table_data

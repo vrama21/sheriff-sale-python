@@ -1,10 +1,7 @@
 import json
 from pathlib import Path
-import pprint
 import requests
 from bs4 import BeautifulSoup
-import re
-import logging
 
 
 def requests_content(url, session=None):

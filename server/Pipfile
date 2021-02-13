@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 autopep8 = "*"
+pylint = "*"
 yapf = "*"
 
 [packages]
@@ -14,16 +15,14 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
 flask-cors = "*"
-pylint = "*"
 pycodestyle = "*"
 pyzillow = "*"
-flask-graphql = "*"
 flask-migrate = "*"
 flask-script = "*"
 psycopg2 = "*"
-yapf = "*"
 pylint-flask-sqlalchemy = "*"
 pylint-flask = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"

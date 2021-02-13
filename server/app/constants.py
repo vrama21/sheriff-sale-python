@@ -7,7 +7,10 @@ SHERIFF_SALES_URL = "https://salesweb.civilview.com/Sales/SalesSearch?countyId="
 
 NJ_DATA = load_json_data("data/NJ_Data.json")
 COUNTY_LIST = sorted(list(NJ_DATA.keys()))
-COUNTY_MAP = [NJ_DATA[county]['sheriffSaleId'] for county in COUNTY_LIST if NJ_DATA[county]['sheriffSaleId'] != '']
+COUNTY_MAP = [
+    NJ_DATA[county]['sheriffSaleId'] for county in COUNTY_LIST
+    if NJ_DATA[county]['sheriffSaleId'] != ''
+]
 
 SUFFIX_ABBREVATIONS = {
     "Avenue": "Ave",
