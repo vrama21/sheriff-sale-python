@@ -29,7 +29,7 @@ __pycache__/
 **/__pycache__/
 
 # application
-/config.py
+**/configs/*
 **/logs
 **/zillow_key.conf
 **/*.db

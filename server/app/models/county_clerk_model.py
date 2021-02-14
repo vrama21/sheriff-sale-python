@@ -1,4 +1,4 @@
-from . import db
+from server import db
 
 
 class CountyClerkModel(db.Model):

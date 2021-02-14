@@ -1,5 +1,5 @@
 import re
-from . import match_parser
+from .match_parser import match_parser
 from ...constants import (
     ADDRESS_REGEX_SPLIT,
     CITY_LIST,

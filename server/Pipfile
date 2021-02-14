@@ -4,9 +4,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-autopep8 = "*"
-pylint = "*"
-yapf = "*"
 black = "*"
 
 [packages]
@@ -16,7 +13,6 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
 flask-cors = "*"
-pycodestyle = "*"
 pyzillow = "*"
 flask-migrate = "*"
 flask-script = "*"

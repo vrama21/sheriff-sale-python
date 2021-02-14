@@ -10,6 +10,8 @@ from ...constants import (
 )
 from ...utils import load_json_data, requests_content
 
+logging = logging.getLogger(__name__)
+
 
 class SheriffSale:
     """
@@ -125,45 +127,51 @@ class SheriffSale:
         listing_details_tables = self.get_all_listing_details_tables()
 
         listing_kv_mapping = {
-            "Sheriff #": "sheriff",
-            "Court Case #": "court_case",
-            "Sales Date": "sale_date",
-            "Plaintiff": "plaintiff",
-            "Defendant": "defendant",
-            "Priors": "priors",
-            "Attorney": "attorney",
+            "Address": "address",
+            "Approx Judgment": "judgment",
+            "Approx. Judgment": "judgment",
             "Approx. Judgment*": "judgment",
-            "Upset Amount": "upset_amount",
+            "Approx. Upset*": "upset_amount",
+            "Attorney": "attorney",
+            "Attorney Phone": "attorney_phone",
+            "Court Case #": "court_case",
             "Deed": "deed",
             "Deed Address": "deed_address",
+            "Defendant": "defendant",
+            "Description": "description",
+            "Judgment Amount*": "judgment",
+            "Parcel #": "parcel",
+            "Plaintiff": "plaintiff",
+            "Priors": "priors",
+            "Sales Date": "sale_date",
+            "Sheriff #": "sheriff",
+            "Upset Amount": "upset_amount",
         }
 
         table_data = []
         for listing in listing_details_tables:
-            address_br = listing["html"].find("br")
+            # address_br = listing["html"].find("br")
             listing_html = listing["html"].find("table", class_="table table-striped")
             maps_url = listing_html.find("a", href=True)
 
-            td_labels = []
-            for td_label in listing_html.find_all("td")[::3]:
-                td_label = td_label.text.replace("&colon", "")
+            listing_details = {}
+            for tr in listing_html.find_all("tr"):
+                td = tr.find_all("td")
+                label = td[0].text.replace("&colon", "")
+
                 try:
-                    key = listing_kv_mapping[td_label]
-                    td_labels.append(key)
+                    key = listing_kv_mapping[label]
+                    value = None
+                    if key == "address":
+                        address_br = td[1].find("br")
+                        value = f"{address_br.previous_element} {address_br.next_element}".strip().title()
+                    else:
+                        value = td[1].text.strip().title()
+
+                    listing_details[key] = value
                 except KeyError:
-                    # Log missing keys that are not Address as the Address value has its own logic
-                    if td_label != "Address":
-                        logging.error(f"Missing Key: {td_label} in listing_kv_mapping")
+                    logging.error(f"Missing Key: {label} in listing_kv_mapping")
 
-            td_values = [
-                x.text.strip().title() for x in listing_html.find_all("td")[1::3]
-            ]
-
-            listing_details = dict(zip(td_labels, td_values))
-
-            listing_details[
-                "address"
-            ] = f"{address_br.previous_element} {address_br.next_element}".strip().title()
             listing_details["maps_url"] = maps_url and maps_url["href"]
 
             address_sanitized = sanitize_address(
