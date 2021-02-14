@@ -2,58 +2,58 @@
 import os
 import time
 from pathlib import Path
-from flask import (jsonify, request)
+from flask import jsonify, request
 
-from . import app, db
-from ..models import SheriffSaleModel
+from server import app, db
+from ..models.sheriff_sale_model import SheriffSaleModel
 from ..constants import CITY_LIST, COUNTY_LIST, NJ_DATA
 from ..services.sheriff_sale.sheriff_sale import SheriffSale
 from ..services.nj_parcels.nj_parcels import NJParcels
+
 # from ..services.county_clerk import *
 # from ..services.zillow import test
 
 
-@app.route('/api/home', methods=['GET', 'POST'])
+@app.route("/api/home", methods=["GET", "POST"])
 def home():
-    db_path = Path(__file__).parent / 'main.db'
+    db_path = Path(__file__).parent / "main.db"
     db_mod_date = time.ctime(os.path.getmtime(db_path))
 
     counties = COUNTY_LIST
     cities = CITY_LIST
     nj_data = NJ_DATA
 
-    sheriff_sale = SheriffSale('Atlantic')
+    sheriff_sale = SheriffSale("Atlantic")
     sale_dates = sheriff_sale.get_sale_dates()
 
     data = {
-        'counties': counties,
-        'cities': cities,
-        'dbModDate': db_mod_date,
-        'njData': nj_data,
-        'saleDates': sale_dates
+        "counties": counties,
+        "cities": cities,
+        "dbModDate": db_mod_date,
+        "njData": nj_data,
+        "saleDates": sale_dates,
     }
 
     return jsonify(data=data)
 
 
-@app.route('/api/sheriff_sale', methods=['POST'])
+@app.route("/api/sheriff_sale", methods=["POST"])
 def get_sheriff_sale_data():
     """
-    Returns:
-         Up to date values from the Sheriff Sale Scraper
+    Returns: Up to date values from the Sheriff Sale Scraper
     """
-    county = request.get_json()['county']
+    county = request.get_json()["county"]
     sheriff_sale = SheriffSale(county)
 
     sale_dates = sheriff_sale.get_sale_dates()
     property_ids = sheriff_sale.get_property_ids()
 
-    data = {'propertyIds': property_ids, 'saleDates': sale_dates}
+    data = {"propertyIds": property_ids, "saleDates": sale_dates}
 
     return jsonify(data=data)
 
 
-@app.route('/api/sheriff_sale/update_database', methods=['POST'])
+@app.route("/api/sheriff_sale/update_database", methods=["POST"])
 def update_sheriff_sale_data():
     # TODO: Implement variations in parsing for different counties
     # county_list = COUNTY_LIST
@@ -63,7 +63,7 @@ def update_sheriff_sale_data():
 
     #     data = sheriff_sale.main()
 
-    county = 'Atlantic'
+    county = "Atlantic"
     sheriff_sale = SheriffSale(county)
     data = sheriff_sale.main()
 
@@ -73,41 +73,42 @@ def update_sheriff_sale_data():
 
     db.session.commit()
 
-    print(f'Finished Sheriff Sale Parser for {county} County ')
+    print(f"Finished Sheriff Sale Parser for {county} County ")
 
     return jsonify(data=data)
 
 
-@app.route('/api/get_all_listings', methods=['GET'])
+@app.route("/api/get_all_listings", methods=["GET"])
 def get_all_listings():
-    query = db.session\
-        .query(SheriffSaleModel)\
-        .order_by(SheriffSaleModel.sale_date.desc())\
+    query = (
+        db.session.query(SheriffSaleModel)
+        .order_by(SheriffSaleModel.sale_date.desc())
         .all()
+    )
 
     table_data = [data.serialize for data in query]
 
     return jsonify(listings=table_data)
 
 
-@app.route('/api/nj_parcels/get_static_data', methods=['GET'])
+@app.route("/api/nj_parcels/get_static_data", methods=["GET"])
 def nj_parcels_get_static_data():
     nj_parcels = NJParcels()
 
     counties = nj_parcels.get_county_list()
     cities = nj_parcels.get_city_list()
 
-    data = {'cities': cities, 'counties': counties}
+    data = {"cities": cities, "counties": counties}
 
     return jsonify(data=data)
 
 
-@app.route('/api/nj_parcels/search', methods=['POST'])
+@app.route("/api/nj_parcels/search", methods=["POST"])
 def nj_parcels_search():
     nj_parcels = NJParcels()
     body = request.get_json()
 
-    search = nj_parcels.search(address=body['address'], county=body['county'])
+    search = nj_parcels.search(address=body["address"], county=body["county"])
 
     return jsonify(data=search)
 
