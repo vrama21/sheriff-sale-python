@@ -34,3 +34,4 @@ __pycache__/
 **/zillow_key.conf
 **/*.db
 **/.vscode
+/migrations/*

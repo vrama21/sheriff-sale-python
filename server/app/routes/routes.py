@@ -55,25 +55,23 @@ def get_sheriff_sale_data():
 
 @app.route("/api/sheriff_sale/update_database", methods=["POST"])
 def update_sheriff_sale_data():
-    # TODO: Implement variations in parsing for different counties
-    # county_list = COUNTY_LIST
+    sheriff_sale = SheriffSale()
+    county_list = sheriff_sale.get_counties()
 
-    # for county in county_list:
-    #     sheriff_sale = SheriffSale(county)
+    for county in county_list:
+        print(f"Parsing Sheriff Sale Data for {county} County")
+        sheriff_sale = SheriffSale(county=county)
 
-    #     data = sheriff_sale.main()
+        data = sheriff_sale.main()
 
-    county = "Atlantic"
-    sheriff_sale = SheriffSale(county)
-    data = sheriff_sale.main()
+        for listing in data:
+            rows_to_insert = SheriffSaleModel(**listing)
+            db.session.add(rows_to_insert)
 
-    for row in data:
-        rows_to_insert = SheriffSaleModel(**row)
-        db.session.add(rows_to_insert)
+        db.session.commit()
+        print("Parsing has completed")
 
-    db.session.commit()
-
-    print(f"Finished Sheriff Sale Parser for {county} County ")
+    
 
     return jsonify(data=data)
 

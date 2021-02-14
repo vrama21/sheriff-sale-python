@@ -4,10 +4,6 @@ import requests
 
 from .sanitize_address import sanitize_address
 from .error_hander import error_handler
-from ...constants import (
-    SHERIFF_SALES_BASE_URL,
-    SHERIFF_SALES_URL,
-)
 from ...utils import load_json_data, requests_content
 
 logging = logging.getLogger(__name__)
@@ -24,18 +20,23 @@ class SheriffSale:
         self.county_id = self.county_name and self.get_sheriff_sale_county_id(
             self.county_name
         )
+        self.soup = None
 
-        try:
-            self.session = requests.Session()
-            self.soup = requests_content(
-                f"{SHERIFF_SALES_URL}{self.county_id}", self.session
-            )
-        except ConnectionError as err:
-            raise ConnectionError("Cannot Access URL: ", err)
+        if county != None:
+            try:
+                sheriff_sale_county_url = (
+                    "https://salesweb.civilview.com/Sales/SalesSearch?countyId="
+                    + self.county_id
+                )
 
-        self.table_div = self.soup.find("table", class_="table table-striped")
+                self.session = requests.Session()
+                self.soup = requests_content(sheriff_sale_county_url, self.session)
+            except ConnectionError as err:
+                raise ConnectionError("Cannot Access URL: ", err)
 
-        error_handler(self.table_div, "The Sheriff Sale Table Div was not captured")
+            self.table_div = self.soup.find("table", class_="table table-striped")
+
+            error_handler(self.table_div, "The Sheriff Sale Table Div was not captured")
 
     def get_sheriff_sale_county_id(self, county):
         nj_json_data = load_json_data("data/NJ_Data.json")
@@ -43,14 +44,25 @@ class SheriffSale:
 
         return sheriff_sale_county_id
 
+    def get_counties(self):
+        """
+        Gathers all counties that are listed on the sheriff sale website
+        """
+        sheriff_sales_url = "https://salesweb.civilview.com/"
+        request = requests_content(sheriff_sales_url)
+
+        trs = [x.text.strip().split() for x in request.find_all("tr")]
+        counties = [tr[0] for tr in trs if tr[-1] == "NJ"]
+
+        return counties
+
     def get_sale_dates(self):
         """
         Gathers all of sale dates available in the drop-down form
         """
         sale_dates = []
-        for select in self.soup.find_all(
-            name="select", attrs={"id": "PropertyStatusDate"}
-        ):
+        selects = self.soup.find_all(name="select", attrs={"id": "PropertyStatusDate"})
+        for select in selects:
             sale_dates = [
                 option["value"] for option in select.find_all(name="option")[1:]
             ]
@@ -65,7 +77,7 @@ class SheriffSale:
         sale_links = []
         for row in self.soup.find_all("td", attrs={"class": "hidden-print"}):
             for link in row.find_all("a", href=True):
-                sale_links.append(SHERIFF_SALES_BASE_URL + link["href"])
+                sale_links.append("https://salesweb.civilview.com" + link["href"])
 
         return sale_links
 

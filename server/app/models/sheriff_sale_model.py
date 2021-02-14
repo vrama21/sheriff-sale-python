@@ -17,6 +17,7 @@ class SheriffSaleModel(db.Model):
     deed = db.Column("deed", db.String)
     deed_address = db.Column("deed_address", db.String)
     defendant = db.Column("defendant", db.String)
+    description = db.Column("description", db.String)
     judgment = db.Column("judgment", db.String)
     maps_url = db.Column("maps_url", db.String)
     parcel = db.Column("parcel", db.String)
