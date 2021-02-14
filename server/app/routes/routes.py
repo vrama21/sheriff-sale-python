@@ -42,7 +42,6 @@ def get_sheriff_sale_data():
     Returns:
          Up to date values from the Sheriff Sale Scraper
     """
-    print('here')
     county = request.get_json()['county']
     sheriff_sale = SheriffSale(county)
 

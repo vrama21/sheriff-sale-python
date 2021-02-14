@@ -6,8 +6,8 @@ class Config():
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = os.environ.get('DATABASE_SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SECRET_KEY = '17a202d87bb99ee84fd5ebbec5130e0f'
+    SQLALCHEMY_DATABASE_URI = 'postgresql:///main'
 
 
 class ProductionConfig(Config):
@@ -26,4 +26,3 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    
