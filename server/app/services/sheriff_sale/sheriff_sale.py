@@ -2,9 +2,7 @@ import logging
 import re
 import requests
 
-from .sanitize_address import sanitize_address
-from .error_hander import error_handler
-from ...utils import load_json_data, requests_content
+from ...utils import requests_content, load_json_data
 
 logging = logging.getLogger(__name__)
 
@@ -36,7 +34,10 @@ class SheriffSale:
 
             self.table_div = self.soup.find("table", class_="table table-striped")
 
-            error_handler(self.table_div, "The Sheriff Sale Table Div was not captured")
+            if not self.table_div:
+                logging.error("The Sheriff Sale Table Div was not captured")
+
+                return
 
     def get_sheriff_sale_county_id(self, county):
         nj_json_data = load_json_data("data/NJ_Data.json")
@@ -109,8 +110,8 @@ class SheriffSale:
         """
 
         address_data = []
-        for row in self.soup.find_all("tr")[1:]:
-            for td in row.find_all("td")[5::5]:
+        for tr in self.soup.find_all("tr")[1:]:
+            for td in tr.find_all("td")[5::5]:
                 address_data.append(td.text)
 
         return address_data
@@ -125,83 +126,8 @@ class SheriffSale:
 
         for links in sale_links:
             request = requests_content(links, self.session)
-            property_id = re.search(r"\d{9}", links).group(0)
             html = request.find("div", class_="table-responsive")
 
-            listings_table_data.append({"propertyId": property_id, "html": html})
+            listings_table_data.append(html)
 
         return listings_table_data
-
-    def main(self):
-        """
-        Gathers all of the listings for a specified county and returns it in a dictionary
-        """
-        listing_details_tables = self.get_all_listing_details_tables()
-
-        listing_kv_mapping = {
-            "Address": "address",
-            "Approx Judgment": "judgment",
-            "Approx. Judgment": "judgment",
-            "Approx. Judgment*": "judgment",
-            "Approx. Upset*": "upset_amount",
-            "Attorney": "attorney",
-            "Attorney Phone": "attorney_phone",
-            "Court Case #": "court_case",
-            "Deed": "deed",
-            "Deed Address": "deed_address",
-            "Defendant": "defendant",
-            "Description": "description",
-            "Judgment Amount*": "judgment",
-            "Parcel #": "parcel",
-            "Plaintiff": "plaintiff",
-            "Priors": "priors",
-            "Sales Date": "sale_date",
-            "Sheriff #": "sheriff",
-            "Upset Amount": "upset_amount",
-        }
-
-        table_data = []
-        for listing in listing_details_tables:
-            # address_br = listing["html"].find("br")
-            listing_html = listing["html"].find("table", class_="table table-striped")
-            maps_url = listing_html.find("a", href=True)
-
-            listing_details = {}
-            for tr in listing_html.find_all("tr"):
-                td = tr.find_all("td")
-                label = td[0].text.replace("&colon", "")
-
-                try:
-                    key = listing_kv_mapping[label]
-                    value = None
-                    if key == "address":
-                        address_br = td[1].find("br")
-                        value = f"{address_br.previous_element} {address_br.next_element}".strip().title()
-                    else:
-                        value = td[1].text.strip().title()
-
-                    listing_details[key] = value
-                except KeyError:
-                    logging.error(f"Missing Key: {label} in listing_kv_mapping")
-
-            listing_details["maps_url"] = maps_url and maps_url["href"]
-
-            address_sanitized = sanitize_address(
-                listing_details["address"], self.county_name
-            )
-
-            listing_details = {**listing_details, **address_sanitized}
-
-            status_history_html = listing["html"].find("table", id="longTable")
-            status_history = []
-            for row in status_history_html.find_all("tr")[1:]:
-                td = row.find_all("td")
-                listing_status = {
-                    "status": td[0].text.strip(),
-                    "date": td[1].text.strip(),
-                }
-                status_history.append(listing_status)
-
-            table_data.append(listing_details)
-
-        return table_data

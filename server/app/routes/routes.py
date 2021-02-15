@@ -1,13 +1,11 @@
-# pylint: disable=redefined-outer-name
-import os
-import time
-from pathlib import Path
 from flask import jsonify, request
+from sqlalchemy.exc import IntegrityError
 
 from server import app, db
-from ..models.sheriff_sale_model import SheriffSaleModel
+from ..models.sheriff_sale_model import SheriffSaleModel, StatusHistoryModel
 from ..constants import CITY_LIST, COUNTY_LIST, NJ_DATA
 from ..services.sheriff_sale.sheriff_sale import SheriffSale
+from ..services.sheriff_sale.parse import parse
 from ..services.nj_parcels.nj_parcels import NJParcels
 
 # from ..services.county_clerk import *
@@ -16,9 +14,6 @@ from ..services.nj_parcels.nj_parcels import NJParcels
 
 @app.route("/api/home", methods=["GET", "POST"])
 def home():
-    db_path = Path(__file__).parent / "main.db"
-    db_mod_date = time.ctime(os.path.getmtime(db_path))
-
     counties = COUNTY_LIST
     cities = CITY_LIST
     nj_data = NJ_DATA
@@ -29,7 +24,6 @@ def home():
     data = {
         "counties": counties,
         "cities": cities,
-        "dbModDate": db_mod_date,
         "njData": nj_data,
         "saleDates": sale_dates,
     }
@@ -59,19 +53,43 @@ def update_sheriff_sale_data():
     county_list = sheriff_sale.get_counties()
 
     for county in county_list:
-        print(f"Parsing Sheriff Sale Data for {county} County")
+        print(f"Parsing Sheriff Sale Data for {county} County...")
         sheriff_sale = SheriffSale(county=county)
-
-        data = sheriff_sale.main()
+        sheriff_sale_listings_html = sheriff_sale.get_all_listing_details_tables()
+        data = [
+            parse(listing_html=listing_html, county=county)
+            for listing_html in sheriff_sale_listings_html
+        ]
 
         for listing in data:
-            rows_to_insert = SheriffSaleModel(**listing)
-            db.session.add(rows_to_insert)
+            listing_details = listing["listing_details"]
+            status_history = listing["status_history"]
+
+            listing_exists = (
+                db.session.query(SheriffSaleModel)
+                .filter_by(address=listing_details["address"])
+                .scalar()
+                is not None
+            )
+
+            if not listing_exists:
+                listing_to_insert = SheriffSaleModel(**listing_details)
+
+                db.session.add(listing_to_insert)
+                db.session.flush()
+                db.session.refresh(listing_to_insert)
+
+                for status in status_history:
+                    status_history_to_insert = StatusHistoryModel(
+                        sheriff_sale_id=listing_to_insert.id,
+                        status=status["status"],
+                        date=status["date"],
+                    )
+
+                    db.session.add(status_history_to_insert)
 
         db.session.commit()
-        print("Parsing has completed")
-
-    
+        print(f"Parsing for {county} County has completed. ", '\n')
 
     return jsonify(data=data)
 
@@ -81,12 +99,13 @@ def get_all_listings():
     query = (
         db.session.query(SheriffSaleModel)
         .order_by(SheriffSaleModel.sale_date.desc())
+        .filter_by(address="163 Tiffany Lane Willingboro Nj 08046")
         .all()
     )
 
     table_data = [data.serialize for data in query]
 
-    return jsonify(listings=table_data)
+    return jsonify(data=table_data)
 
 
 @app.route("/api/nj_parcels/get_static_data", methods=["GET"])
