@@ -17,8 +17,6 @@ pyzillow = "*"
 flask-migrate = "*"
 flask-script = "*"
 psycopg2 = "*"
-pylint-flask-sqlalchemy = "*"
-pylint-flask = "*"
 python-dotenv = "*"
 
 [requires]
