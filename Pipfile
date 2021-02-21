@@ -18,6 +18,7 @@ flask-migrate = "*"
 flask-script = "*"
 psycopg2 = "*"
 python-dotenv = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
