@@ -1,13 +1,10 @@
 from .utils import load_json_data
 
-NJ_PARCELS_URL = "http://njparcels.com/property"
-NJ_PARCELS_API = "http://njparcels.com/api/v1.0/property"
-
-
 NJ_DATA = load_json_data("data/NJ_Data.json")
 COUNTY_LIST = sorted(list(NJ_DATA.keys()))
 COUNTY_MAP = [
-    NJ_DATA[county]['sheriffSaleId'] for county in COUNTY_LIST
+    NJ_DATA[county]['sheriffSaleId']
+    for county in COUNTY_LIST
     if NJ_DATA[county]['sheriffSaleId'] != ''
 ]
 

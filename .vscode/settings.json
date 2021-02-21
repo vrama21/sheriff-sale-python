@@ -1,16 +1,6 @@
 {
-  "http.proxyAuthorization": null,
-  "python.pythonPath": "/home/vrama21/.local/share/virtualenvs/server-yGb-3pxQ/bin/python3.8",
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
+  "python.pythonPath": "/home/vrama21/.local/share/virtualenvs/server-yGb-3pxQ/bin/python",
   "python.linting.flake8Enabled": true,
-  "python.linting.pycodestyleEnabled": true,
-  "python.linting.pylintArgs": [
-    "--load-plugins",
-    "pylint_flask_sqlalchemy",
-    "pylint_flask"
-  ],
-
-  "python.formatting.provider": "yapf",
-  "python.formatting.yapfArgs": ["--style={ based_on_style: pep8, column_limit: 120 }"],
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--skip-string-normalization"]
 }
