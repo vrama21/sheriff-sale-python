@@ -19,9 +19,6 @@ yarn-debug.log*
 yarn-error.log*
 node_modules/
 
-# pycache
-__pycache__/
-**/__pycache__/
 
 # application
 **/configs/*
@@ -31,3 +28,4 @@ __pycache__/
 **/.vscode
 **/migrations/*
 **/.env
+**/__pycache__/
