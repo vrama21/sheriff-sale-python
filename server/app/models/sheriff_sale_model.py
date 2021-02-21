@@ -1,13 +1,15 @@
-from server import db
+from .. import db
+from sqlalchemy.orm import backref
+from sqlalchemy.dialects.postgresql import JSON
 
 
 class SheriffSaleModel(db.Model):
     __tablename__ = "SheriffSale"
     __table_args__ = {"extend_existing": True}
 
-    id = db.Column("id", db.Integer, primary_key=True)
+    id = db.Column("id", db.Integer, primary_key=True, nullable=False)
 
-    address = db.Column("address", db.String)
+    address = db.Column("address", db.String, unique=True)
     address_sanitized = db.Column("address_sanitized", db.String)
     attorney = db.Column("attorney", db.String)
     attorney_phone = db.Column("attorney_phone", db.String)
@@ -26,6 +28,9 @@ class SheriffSaleModel(db.Model):
     sale_date = db.Column("sale_date", db.String)
     secondary_unit = db.Column("secondary_unit", db.String)
     sheriff = db.Column("sheriff", db.String)
+    # status_history = db.relationship(
+    #     "StatusHistoryModel", backref="sheriff_sale", lazy=True
+    # )  
     street = db.Column("street", db.String)
     unit = db.Column("unit", db.String)
     unit_secondary = db.Column("unit_secondary", db.String)
@@ -41,8 +46,12 @@ class StatusHistoryModel(db.Model):
     __tablename__ = "StatusHistory"
     __table_args__ = {"extend_existing": True}
 
-    id = db.Column("id", db.Integer, primary_key=True)
-    # sheriff_sale_id = db.Column(db.Integer, db.ForeignKey('SheriffSale.id'))
+    id = db.Column("id", db.Integer, primary_key=True, nullable=False)
+    sheriff_sale_id = db.Column(db.Integer, db.ForeignKey("sheriff_sale.id"))
 
     status = db.Column("status", db.String)
     date = db.Column("date", db.String)
+
+    @property
+    def serialize(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}

@@ -1,9 +1,7 @@
-from collections import defaultdict
 import logging
 import re
 import urllib
 import requests
-from ...constants import NJ_PARCELS_API
 from ...utils import requests_content, load_json_data
 
 
