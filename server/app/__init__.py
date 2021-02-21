@@ -1,12 +1,9 @@
-import os
 from pathlib import Path
-import sys
 
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from .commands import create_tables, drop_tables
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -27,6 +24,7 @@ def create_app():
     migrate.init_app(app)
 
     with app.app_context():
+        from .commands import create_tables, drop_tables
         from .routes import routes
 
         app.cli.add_command(create_tables)
