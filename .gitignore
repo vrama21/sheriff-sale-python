@@ -21,8 +21,7 @@ node_modules/
 
 
 # application
-**/configs/*
-**/logs
+**/logs/errors.log
 **/zillow_key.conf
 **/*.db
 **/.vscode

@@ -1,36 +1,37 @@
-from pathlib import Path
-
+import os
 from flask import Flask
 from flask_cors import CORS
-from flask_migrate import Migrate
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 
+cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
 
 
 def create_app():
-    app = Flask(__name__)
-    app.config.from_object('app.config.DevelopmentConfig')
-    CORS(app)
+    app = Flask(__name__, static_folder='../build', static_url_path='/')
 
-    # Create log directory if it doesn't exist
-    log_path = Path(__file__).parent.parent / 'logs'
-    if not log_path.exists():
-        log_path.mkdir()
+    flask_env = os.environ.get('FLASK_ENV')
+    if flask_env == 'development':
+        app.config.from_object('app.config.DevelopmentConfig')
+    elif flask_env == 'production':
+        app.config.from_object('app.config.ProductionConfig')
 
     # Initialize Plugins
+    cors.init_app(app)
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
 
     with app.app_context():
+        db.create_all()
+
         from .commands import create_tables, drop_tables
         from .routes import routes
 
         app.cli.add_command(create_tables)
         app.cli.add_command(drop_tables)
-
-        db.create_all()
 
         app.register_blueprint(routes.main_bp)
 

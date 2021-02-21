@@ -3,14 +3,12 @@ from pathlib import Path
 
 
 class DefaultConfig:
-    basedir = Path(__file__).resolve().parent.parent
-
-    DEBUG = False
+    DEBUG = True
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL_DEVELOPMENT")
+    SECRET_KEY = os.environ.get("SECRET_KEY")
 
     LOGGING_CONFIG = {
         "version": 1,
@@ -31,7 +29,7 @@ class DefaultConfig:
                 "class": "logging.FileHandler",
                 "level": "ERROR",
                 "formatter": "error",
-                "filename": Path(basedir / "logs" / "errors.log"),
+                "filename": "logs/errors.log",
             },
         },
         "root": {"level": "INFO", "handlers": ["wsgi", "file"]},
@@ -39,7 +37,8 @@ class DefaultConfig:
 
 
 class ProductionConfig(DefaultConfig):
-    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
+    DEBUG = True
 
 
 class StagingConfig(DefaultConfig):

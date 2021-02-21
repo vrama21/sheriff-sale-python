@@ -7,10 +7,12 @@ from ..services.sheriff_sale.sheriff_sale import SheriffSale
 from ..services.sheriff_sale.parse import parse
 from ..services.nj_parcels.nj_parcels import NJParcels
 
-# from ..services.county_clerk import *
-# from ..services.zillow import test
-
 main_bp = Blueprint('main_bp', __name__)
+
+
+@main_bp.route('/')
+def index():
+    return main_bp.send_static_file('index.html')
 
 
 @main_bp.route('/api/home', methods=['GET', 'POST'])
@@ -23,7 +25,7 @@ def home():
     sale_dates = sheriff_sale.get_sale_dates()
 
     data = {
-        'counties': counties,   
+        'counties': counties,
         'cities': cities,
         'njData': nj_data,
         'saleDates': sale_dates,
@@ -51,8 +53,21 @@ def get_sheriff_sale_data():
 
 @main_bp.route('/api/sheriff_sale/update_database', methods=['POST'])
 def update_sheriff_sale_data():
-    sheriff_sale = SheriffSale()
-    county_list = sheriff_sale.get_counties()
+    county_list = [
+        'Atlantic',
+        'Bergen',
+        'Burlington',
+        'Camden',
+        'Cumberland',
+        'Essex',
+        'Hudson',
+        'Hunterdon',
+        'Monmouth',
+        'Morris',
+        'Passaic',
+        'Salem',
+        'Union',
+    ]
 
     for county in county_list:
         print(f'Parsing Sheriff Sale Data for {county} County...')
@@ -101,18 +116,17 @@ def get_all_listings():
     sheriff_sale_query = (
         db.session.query(SheriffSaleModel)
         .order_by(SheriffSaleModel.sale_date.desc())
-        .filter_by(address='210 Cordova Avenue Egg Harbor Township Nj 08232')
         .all()
     )
 
     status_history_query = (
-        db.session.query(StatusHistoryModel).filter_by(sheriff_sale_id=1).all()
+        db.session.query(StatusHistoryModel).all()
     )
 
     sheriff_sale_query = [data.serialize for data in sheriff_sale_query]
     status_history_query = [data.serialize for data in status_history_query]
 
-    return jsonify(sheriff_sale_query, status_history_query)
+    return jsonify(sheriff_sale_query)
 
 
 @main_bp.route('/api/nj_parcels/get_static_data', methods=['GET'])

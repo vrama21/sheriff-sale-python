@@ -7,13 +7,12 @@
       "es6",
       "esnext",
       "ES2016",
-      "ES2017",
+      "ES2017"
     ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    // "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -23,12 +22,13 @@
     "noEmit": true,
     "jsx": "react",
     "sourceMap": true,
+    "strict": false
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "build",
+    "build"
   ]
 }
