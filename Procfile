@@ -1,2 +1,2 @@
 web: gunicorn wsgi:app
-web: npm build
+web: npm react-scripts start
