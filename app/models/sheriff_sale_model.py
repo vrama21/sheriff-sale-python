@@ -47,7 +47,7 @@ class StatusHistoryModel(db.Model):
     __table_args__ = {"extend_existing": True}
 
     id = db.Column("id", db.Integer, primary_key=True, nullable=False)
-    sheriff_sale_id = db.Column(db.Integer, db.ForeignKey("sheriff_sale.id"))
+    # sheriff_sale_id = db.Column(db.Integer, db.ForeignKey("sheriff_sale.id"))
 
     status = db.Column("status", db.String)
     date = db.Column("date", db.String)
