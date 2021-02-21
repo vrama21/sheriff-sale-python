@@ -11,7 +11,7 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('app.configs.config.DevelopmentConfig')
+    app.config.from_object('app.config.DevelopmentConfig')
     CORS(app)
 
     # Create log directory if it doesn't exist
@@ -29,6 +29,8 @@ def create_app():
 
         app.cli.add_command(create_tables)
         app.cli.add_command(drop_tables)
+
+        db.create_all()
 
         app.register_blueprint(routes.main_bp)
 
