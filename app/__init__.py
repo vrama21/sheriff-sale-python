@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
+import click
 
 cors = CORS()
 db = SQLAlchemy()
@@ -27,11 +28,10 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-        from .commands import create_tables, drop_tables
+        from .commands import cli
         from .routes import routes
 
-        app.cli.add_command(create_tables)
-        app.cli.add_command(drop_tables)
+        app.cli.add_command(cli)
 
         app.register_blueprint(routes.main_bp)
 

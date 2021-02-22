@@ -25,6 +25,5 @@ node_modules/
 **/zillow_key.conf
 **/*.db
 **/.vscode
-**/migrations/*
 **/.env
 **/__pycache__/

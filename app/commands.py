@@ -1,16 +1,15 @@
 import click
-from flask.cli import with_appcontext
+from click.decorators import command
+from flask.cli import AppGroup, with_appcontext
 
 from . import db
-# from .models import *
 
+cli = AppGroup('cli')
 
-@click.command(name="create_tables")
-@with_appcontext
+@cli.command(name="create_tables")
 def create_tables():
     db.create_all()
 
-@click.command(name="drop_tables")
-@with_appcontext
+@cli.command(name="drop_tables")
 def drop_tables():
     db.drop_all()
