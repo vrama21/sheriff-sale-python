@@ -11,3 +11,6 @@
 
     `gunicorn wsgi:app`
 
+- Run bash command on deployed node
+
+    `heroku run <bash command> -a sheriff-sale`
