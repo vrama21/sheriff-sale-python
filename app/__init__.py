@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate, MigrateCommand
@@ -7,7 +6,7 @@ from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 
 ROOT_DIR = os.path.abspath(os.curdir)
-BUILD_DIR = Path(ROOT_DIR / 'build')
+BUILD_DIR = ROOT_DIR + '/build'
 
 cors = CORS()
 db = SQLAlchemy()
@@ -17,6 +16,7 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__, static_folder=BUILD_DIR, static_url_path='/')
 
+    print(BUILD_DIR)
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
         app.config.from_object('app.config.DevelopmentConfig')
