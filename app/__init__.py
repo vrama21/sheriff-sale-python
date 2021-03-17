@@ -35,6 +35,10 @@ def create_app():
 
         app.cli.add_command(cli)
 
-        app.register_blueprint(routes.main_bp)
+        app.register_blueprint(
+            blueprint=routes.main_bp,
+            static_folder='static',
+            static_url_path='/home-static',
+        )
 
         return app
