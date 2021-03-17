@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 ROOT_DIR = Path(__file__).parent.parent.absolute()
 BUILD_DIR = str(ROOT_DIR / 'build')
+STATIC_DIR = BUILD_DIR + '/static'
 
 cors = CORS()
 db = SQLAlchemy()
@@ -37,7 +38,7 @@ def create_app():
 
         app.register_blueprint(
             blueprint=routes.main_bp,
-            static_folder=BUILD_DIR / 'static',
+            static_folder=STATIC_DIR,
             static_url_path='/home-static',
         )
 
