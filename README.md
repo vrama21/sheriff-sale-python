@@ -14,3 +14,7 @@
 - Run bash command on deployed node
 
     `heroku run <bash command> -a sheriff-sale`
+
+- Run heroku deployment locally
+
+    `heroku local web -f Procfile.windows`
