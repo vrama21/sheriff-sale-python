@@ -15,7 +15,7 @@ migrate = Migrate()
 
 
 def create_app():
-    app = Flask(__name__, static_folder='/build/', static_url_path='/')
+    app = Flask(__name__, static_folder='build/', static_url_path='/')
 
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
@@ -37,7 +37,7 @@ def create_app():
 
         app.register_blueprint(
             blueprint=routes.main_bp,
-            static_folder='static',
+            static_folder='build/static',
             static_url_path='/home-static',
         )
 
