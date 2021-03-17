@@ -13,12 +13,9 @@ cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
 
-print({'1': ROOT_DIR})
-print({'2': BUILD_DIR})
-
 
 def create_app():
-    app = Flask(__name__, static_folder='../build/', static_url_path='')
+    app = Flask(__name__, static_folder='/build/', static_url_path='/')
 
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
