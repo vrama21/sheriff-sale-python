@@ -19,6 +19,7 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__, static_folder=str(BUILD_DIR), static_url_path='/')
 
+    print(app.config['DATABASE_URL'])
     for k, v in app.config.items():
         print(k, v)
     flask_env = os.environ.get('FLASK_ENV')
@@ -33,10 +34,10 @@ def create_app():
     migrate.init_app(app, db)
 
     with app.app_context():
+        db.create_all()
+
         from .commands import cli
         from .routes import routes
-
-        db.create_all()
 
         app.cli.add_command(cli)
 
