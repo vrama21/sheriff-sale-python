@@ -44,6 +44,6 @@ def create_app():
             static_url_path='/home-static',
         )
 
-        app.wsgi_app = WhiteNoise(app.wsgi_app, root='/build')
+        app.wsgi_app = WhiteNoise(app.wsgi_app, root=BUILD_DIR)
 
         return app
