@@ -19,6 +19,8 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__, static_folder=str(BUILD_DIR), static_url_path='/')
 
+    for k, v in app.config.items():
+        print(k, v)
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
         app.config.from_object('app.config.DevelopmentConfig')
