@@ -37,13 +37,13 @@ class DefaultConfig:
 
 
 class ProductionConfig(DefaultConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
-    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get["DATABASE_URL"]
+    DEBUG = False
 
 
 class StagingConfig(DefaultConfig):
     DEVELOPMENT = True
-    DEBUG = True
+    DEBUG = False
 
 
 class DevelopmentConfig(DefaultConfig):

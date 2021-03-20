@@ -19,7 +19,7 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__, static_folder=str(BUILD_DIR), static_url_path='/')
 
-    print(app.config['DATABASE_URL'])
+    print(app.config.get['DATABASE_URL'])
     for k, v in app.config.items():
         print(k, v)
     flask_env = os.environ.get('FLASK_ENV')
