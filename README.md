@@ -22,3 +22,11 @@
 
 - Run heroku deployment locally
     - `heroku local web -f Procfile.windows`
+
+
+## Custom Commands
+- Create Database Tables
+    - `flask create_tables`
+
+- Drop Database Tables
+    - `flask drop_tables`
