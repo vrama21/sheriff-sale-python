@@ -1,6 +1,5 @@
 from .. import db
 from sqlalchemy.orm import backref
-from sqlalchemy.dialects.postgresql import JSON
 
 
 class SheriffSaleModel(db.Model):

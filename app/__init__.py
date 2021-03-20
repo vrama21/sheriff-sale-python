@@ -9,7 +9,7 @@ from whitenoise import WhiteNoise
 
 ROOT_DIR = Path(__file__).parent
 BUILD_DIR = ROOT_DIR / 'build'
-STATIC_DIR = BUILD_DIR / '/static'
+STATIC_DIR = ROOT_DIR / 'build' / '/static'
 
 cors = CORS()
 db = SQLAlchemy()
@@ -42,8 +42,8 @@ def create_app():
 
         app.register_blueprint(
             blueprint=routes.main_bp,
-            static_folder=STATIC_DIR,
-            static_url_path='/home-static',
+            static_folder=str(STATIC_DIR),
+            static_url_path='/static',
         )
 
         # app.wsgi_app = WhiteNoise(app.wsgi_app, root=BUILD_DIR)
