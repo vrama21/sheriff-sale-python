@@ -7,9 +7,9 @@ from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 from whitenoise import WhiteNoise
 
-ROOT_DIR = Path(__file__).parent.absolute()
-BUILD_DIR = str(ROOT_DIR / 'build')
-STATIC_DIR = BUILD_DIR + '/static'
+ROOT_DIR = Path(__file__).parent
+BUILD_DIR = ROOT_DIR / 'build'
+STATIC_DIR = BUILD_DIR / '/static'
 
 cors = CORS()
 db = SQLAlchemy()
@@ -17,11 +17,8 @@ migrate = Migrate()
 
 
 def create_app():
-    app = Flask(__name__, static_folder=BUILD_DIR, static_url_path='/')
+    app = Flask(__name__, static_folder=str(BUILD_DIR), static_url_path='/')
 
-    print(app.static_folder)
-    for k, v in app.items():
-        print(k, v)
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
         app.config.from_object('app.config.DevelopmentConfig')
