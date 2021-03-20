@@ -1,6 +1,0 @@
-{
-  "python.pythonPath": "/home/vrama21/.local/share/virtualenvs/server-yGb-3pxQ/bin/python",
-  "python.linting.flake8Enabled": true,
-  "python.formatting.provider": "black",
-  "python.formatting.blackArgs": ["--skip-string-normalization"]
-}

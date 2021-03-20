@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 black = "*"
+flake8 = "*"
 
 [packages]
 requests = "*"
@@ -16,9 +17,10 @@ flask-cors = "*"
 pyzillow = "*"
 flask-migrate = "*"
 flask-script = "*"
-psycopg2 = "*"
 python-dotenv = "*"
 gunicorn = "*"
+whitenoise = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.8"

@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
+from whitenoise import WhiteNoise
 
 ROOT_DIR = Path(__file__).parent.parent.absolute()
 BUILD_DIR = str(ROOT_DIR / 'build')
@@ -16,7 +17,7 @@ migrate = Migrate()
 
 
 def create_app():
-    app = Flask(__name__, static_folder=BUILD_DIR, static_url_path='/')
+    app = Flask(__name__)
 
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
@@ -30,9 +31,10 @@ def create_app():
     migrate.init_app(app, db)
 
     with app.app_context():
-        db.create_all()
         from .commands import cli
         from .routes import routes
+
+        db.create_all()
 
         app.cli.add_command(cli)
 
@@ -42,6 +44,6 @@ def create_app():
             static_url_path='/home-static',
         )
 
-        print(app.static_folder)
+        app.wsgi_app = WhiteNoise(app.wsgi_app, root='/build')
 
         return app
