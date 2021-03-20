@@ -7,8 +7,8 @@ import { Button, Paper } from '@material-ui/core';
 const initialFilterState = { county: '', city: '', saleDate: '' };
 
 const Home = () => {
-  const listings = useFetch('/api/listings', 'GET').response?.listings;
-  const initialData = useFetch('/api/home', 'GET').response?.data;
+  const listings = useFetch('/api/get_all_listings', 'GET').response?.data;
+  const initialData = useFetch('/api/constants', 'GET').response?.data;
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
@@ -16,11 +16,7 @@ const Home = () => {
 
   const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
 
-  console.log(listings);
-
-  const handlePageClick = (data) => {
-    setCurrentPage(data.selected + 1);
-  };
+  const handlePageClick = (data) => setCurrentPage(data.selected + 1);
 
   const filterByCounty = (listing) => listing.county === filters.county;
 
@@ -43,9 +39,7 @@ const Home = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  const onFilterReset = () => {
-    setFilters(initialFilterState);
-  };
+  const onFilterReset = () => setFilters(initialFilterState);
 
   const onFilterSubmit = () => {
     if (!listings) {
@@ -58,7 +52,7 @@ const Home = () => {
     }
 
     if (!filters.county && filters.county) {
-      setFilterErrors({ county: true })
+      setFilterErrors({ county: true });
       return;
     }
 
@@ -71,12 +65,15 @@ const Home = () => {
       .filter(filterByCounty)
       .filter(filterByCity);
 
-    setCurrentPage(1)
+    setCurrentPage(1);
     setFilteredListings(listingsWithFilterApplied);
   };
 
   const updateListings = () => {
-    fetch('/api/update_database', { method: 'GET', headers: { 'Content-Type': 'application/json' } })
+    fetch('/api/sheriff_sale/update_database', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
   };
 
   useEffect(() => {
@@ -94,24 +91,15 @@ const Home = () => {
     >
       <div style={{ padding: '0.5rem 0' }}>
         <Button
-          color="primary"
-          variant="contained"
-          size='large'
-          style={{ fontWeight: 'bold', margin: '0 1rem' }}
-        >
-          Check for Updates
-        </Button>
-        <Button
           color="secondary"
           onClick={updateListings}
           variant="contained"
-          size='large'
+          size="large"
           style={{ fontWeight: 'bold', margin: '0 1rem' }}
         >
-          Update Database
+          Update Sheriff Sale Database
         </Button>
       </div>
-      {initialData?.dbModDate && (<span>Database Last Updated On: {initialData?.dbModDate}</span>)}
       <div>
         <SearchFilters
           filters={filters}
@@ -128,7 +116,7 @@ const Home = () => {
           pageCount={pageCount}
         />
       </div>
-    </Paper >
+    </Paper>
   );
 };
 

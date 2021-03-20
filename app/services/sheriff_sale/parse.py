@@ -35,7 +35,6 @@ def parse(listing_html: str, county: str):
     Returns:
         A dictionary of parsed data points
     """
-    print(type(listing_html))
     listing_table = listing_html.find('table', class_='table table-striped')
     maps_url = listing_table.find('a', href=True)
 

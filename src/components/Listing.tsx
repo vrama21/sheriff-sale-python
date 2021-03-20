@@ -53,15 +53,13 @@ const Listing = ({ listing }) => {
   const updatedListing = {}
   keysToRender.forEach((key) => updatedListing[key] = listing[key])
   const listingEntries = Object.entries(updatedListing);
-  // listingEntries[0] = Category
-  // listingEntries[1] = Value
 
   return (
     <Grid item xs={12} lg={6}>
 
       <Grid container className={classes.root}>
         <Grid className={classes.address} item xs={12} sm={6}>
-          {`${listing.address_sanitized} ${listing.city} ${listing.zip_code}`}
+          {listing.address}
         </Grid>
       </Grid>
 

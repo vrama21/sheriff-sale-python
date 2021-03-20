@@ -17,20 +17,16 @@ def index():
     return main_bp.send_static_file('index.html')
 
 
-@main_bp.route('/api/home', methods=['GET', 'POST'])
+@main_bp.route('/api/constants', methods=['GET', 'POST'])
 def home():
     counties = COUNTY_LIST
     cities = CITY_LIST
     nj_data = NJ_DATA
 
-    sheriff_sale = SheriffSale('Atlantic')
-    sale_dates = sheriff_sale.get_sale_dates()
-
     data = {
         'counties': counties,
         'cities': cities,
         'njData': nj_data,
-        'saleDates': sale_dates,
     }
 
     return jsonify(data=data)
@@ -126,7 +122,7 @@ def get_all_listings():
     sheriff_sale_query = [data.serialize for data in sheriff_sale_query]
     status_history_query = [data.serialize for data in status_history_query]
 
-    return jsonify(sheriff_sale_query)
+    return jsonify(data=sheriff_sale_query)
 
 
 @main_bp.route('/api/nj_parcels/get_static_data', methods=['GET'])
