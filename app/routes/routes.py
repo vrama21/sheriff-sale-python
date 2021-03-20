@@ -2,12 +2,14 @@ from flask import jsonify, request, Blueprint
 
 from .. import db
 from ..models.sheriff_sale_model import SheriffSaleModel, StatusHistoryModel
-from ..constants import CITY_LIST, COUNTY_LIST, NJ_DATA
+from ..constants import CITY_LIST, COUNTY_LIST, NJ_DATA, BUILD_DIR
 from ..services.sheriff_sale.sheriff_sale import SheriffSale
 from ..services.sheriff_sale.parse import parse
 from ..services.nj_parcels.nj_parcels import NJParcels
 
-main_bp = Blueprint('main_bp', __name__)
+main_bp = Blueprint(
+    'main_bp', __name__, static_folder=str(BUILD_DIR), static_url_path='/home-static'
+)
 
 
 @main_bp.route('/')
@@ -119,9 +121,7 @@ def get_all_listings():
         .all()
     )
 
-    status_history_query = (
-        db.session.query(StatusHistoryModel).all()
-    )
+    status_history_query = db.session.query(StatusHistoryModel).all()
 
     sheriff_sale_query = [data.serialize for data in sheriff_sale_query]
     status_history_query = [data.serialize for data in status_history_query]

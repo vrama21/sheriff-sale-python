@@ -1,7 +1,7 @@
 from .utils import load_json_data
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).parent
+ROOT_DIR = Path(__file__).parent.parent
 BUILD_DIR = ROOT_DIR / 'build'
 STATIC_DIR = ROOT_DIR / 'build' / 'static'
 
