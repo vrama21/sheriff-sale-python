@@ -1,15 +1,11 @@
 import os
-from pathlib import Path
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
-from whitenoise import WhiteNoise
 
-ROOT_DIR = Path(__file__).parent
-BUILD_DIR = ROOT_DIR / 'build'
-STATIC_DIR = ROOT_DIR / 'build' / '/static'
+from .constants import ROOT_DIR, BUILD_DIR, STATIC_DIR
 
 cors = CORS()
 db = SQLAlchemy()
@@ -19,9 +15,9 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__, static_folder=str(BUILD_DIR), static_url_path='/')
 
-    print(app.config.get['DATABASE_URL'])
-    for k, v in app.config.items():
-        print(k, v)
+    # for k, v in app.config.items():
+    #     print(k, v)
+
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
         app.config.from_object('app.config.DevelopmentConfig')
@@ -46,7 +42,5 @@ def create_app():
             static_folder=str(STATIC_DIR),
             static_url_path='/static',
         )
-
-        # app.wsgi_app = WhiteNoise(app.wsgi_app, root=BUILD_DIR)
 
         return app

@@ -1,4 +1,9 @@
 from .utils import load_json_data
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).parent
+BUILD_DIR = ROOT_DIR / 'build'
+STATIC_DIR = ROOT_DIR / 'build' / 'static'
 
 NJ_DATA = load_json_data("data/NJ_Data.json")
 COUNTY_LIST = sorted(list(NJ_DATA.keys()))

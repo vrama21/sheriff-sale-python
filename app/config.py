@@ -3,11 +3,9 @@ from pathlib import Path
 
 
 class DefaultConfig:
-    DEBUG = True
     TESTING = False
     CSRF_ENABLED = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL_DEVELOPMENT")
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
     LOGGING_CONFIG = {
@@ -37,7 +35,7 @@ class DefaultConfig:
 
 
 class ProductionConfig(DefaultConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get["DATABASE_URL"]
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL_PRODUCTION")
     DEBUG = False
 
 
@@ -47,6 +45,7 @@ class StagingConfig(DefaultConfig):
 
 
 class DevelopmentConfig(DefaultConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL_DEVELOPMENT")
     DEVELOPMENT = True
     DEBUG = True
 
