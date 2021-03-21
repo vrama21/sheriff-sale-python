@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "Sheriff-Sale",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,10 +22,12 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.9.1",
+    "@types/lodash": "^4.14.168",
     "@types/material-ui": "^0.21.8",
     "@types/node": "^12.19.9",
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
+    "@types/react-map-gl": "^5.2.9",
     "@types/react-router-dom": "^5.1.7",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",

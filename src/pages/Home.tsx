@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import SearchFilters from '../components/SearchFilters';
+import SearchFilters from '../components/SearchFilters/SearchFilters';
 import useFetch from '../hooks/useFetch';
-import ListingView from '../components/ListingView';
+import ListingView from '../components/ListingView/ListingView';
 import { Button, Paper } from '@material-ui/core';
-
-const initialFilterState = { county: '', city: '', saleDate: '' };
+import { ListingInterface } from '../types/types';
 
 const Home = () => {
-  const listings = useFetch('/api/get_all_listings', 'GET').response?.data;
+  const listings: ListingInterface[] = useFetch('/api/get_all_listings', 'GET').response?.data;
   const initialData = useFetch('/api/constants', 'GET').response?.data;
+
+  const initialFilterState = { county: '', city: '', saleDate: '' };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
@@ -18,9 +20,9 @@ const Home = () => {
 
   const handlePageClick = (data) => setCurrentPage(data.selected + 1);
 
-  const filterByCounty = (listing) => listing.county === filters.county;
+  const filterByCounty = (listing: ListingInterface) => listing.county === filters.county;
 
-  const filterByCity = (listing) => {
+  const filterByCity = (listing: ListingInterface) => {
     if (!filters.city) {
       return true;
     }
@@ -61,9 +63,7 @@ const Home = () => {
       setFilteredListings(listings);
     }
 
-    const listingsWithFilterApplied = listings
-      .filter(filterByCounty)
-      .filter(filterByCity);
+    const listingsWithFilterApplied = listings.filter(filterByCounty).filter(filterByCity);
 
     setCurrentPage(1);
     setFilteredListings(listingsWithFilterApplied);
@@ -90,13 +90,7 @@ const Home = () => {
       }}
     >
       <div style={{ padding: '0.5rem 0' }}>
-        <Button
-          color="secondary"
-          onClick={updateListings}
-          variant="contained"
-          size="large"
-          style={{ fontWeight: 'bold', margin: '0 1rem' }}
-        >
+        <Button color="secondary" onClick={updateListings} variant="contained" size="large" style={{ fontWeight: 'bold', margin: '0 1rem' }}>
           Update Sheriff Sale Database
         </Button>
       </div>
@@ -109,12 +103,7 @@ const Home = () => {
           onFilterSubmit={onFilterSubmit}
           initialData={initialData}
         />
-        <ListingView
-          currentPage={currentPage}
-          listings={filteredListings}
-          pageClick={handlePageClick}
-          pageCount={pageCount}
-        />
+        <ListingView currentPage={currentPage} listings={filteredListings} pageClick={handlePageClick} pageCount={pageCount} />
       </div>
     </Paper>
   );

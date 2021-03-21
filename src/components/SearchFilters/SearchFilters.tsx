@@ -11,7 +11,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: '1rem 6rem',
+    margin: '1rem',
   },
 }));
 

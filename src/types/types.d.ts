@@ -1,36 +1,36 @@
 
-export interface EnumeratedArrayOfObjects {
-  [index: number]: { [key: string]: Object[] }
-}
-
-export interface useFetchInterface {
-  [key: string]: any
-}
-
 export type Filter = {
-  county: string,
-  city: string,
-  saleDate: string,
+  county: String,
+  city: String,
+  saleDate: String,
 }
 
 export type ButtonEvent = React.ChangeEvent<HTMLButtonElement>
 
-export type Listing = {
-  address: string,
-  address_sanitized: string,
-  attorney: string,
-  city: string,
-  county: string,
-  court_case: string,
-  defendant: string,
-  id: number,
-  judgment: string,
-  maps_url?: string,
-  plaintiff: string,
-  priors: string,
-  sale_date: string,
-  secondary_unit?: string,
-  sheriff: string,
-  unit?: string,
-  zip_code: string,
+export type ListingInterface = {
+  id: Number,
+  address?: String,
+  address_sanitized?: String,
+  attorney?: String,
+  attorney_phone?: String,
+  city?: String,
+  county?: String,
+  court_case?: String,
+  deed?: String,
+  deed_address?: String,
+  defendant?: String,
+  description?: String,
+  judgment?: String,
+  maps_url?: String,
+  parcel?: String,
+  plaintiff?: String,
+  priors?: String,
+  sale_date?: String,
+  secondary_unit?: String,
+  sheriff?: String,
+  status_history?: Object[] | null,
+  unit?: String,
+  unit_secondary?: String,
+  upset_amount?: Number,
+  zip_code?: String,
 };
