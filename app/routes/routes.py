@@ -116,10 +116,7 @@ def get_all_listings():
         .all()
     )
 
-    status_history_query = db.session.query(StatusHistoryModel).all()
-
     sheriff_sale_query = [data.serialize for data in sheriff_sale_query]
-    status_history_query = [data.serialize for data in status_history_query]
 
     return jsonify(data=sheriff_sale_query)
 

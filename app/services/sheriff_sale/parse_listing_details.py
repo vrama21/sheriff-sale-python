@@ -38,30 +38,30 @@ def parse_listing_details(listing_html: str, county: str):
         A dictionary of parsed data points
     """
     listing_table = listing_html.find('table', class_='table table-striped')
+    listing_table_rows = listing_table.find_all('tr')
     maps_url = listing_table.find('a', href=True)
 
     listing_details = {}
-    for tr in listing_table.find_all('tr'):
-        td = tr.find_all('td')
+    for rows in listing_table_rows:
+        td = rows.find_all('td')
         label = td[0].text.replace('&colon', '')
+        value = td[1].text.strip().title()
 
         key = LISTING_KV_MAP.get(label)
-        value = None
 
         if not key:
             logging.error(f'Missing Key: "{label}" listing_kv_mapping')
+            return
 
         if key == 'address':
             address_br = td[1].find('br')
             value = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
-        elif key == 'attorney_phone' and td[1] is not None or not '':
-            phone_regex = re.compile(r'(?:\d|\d{3,4})+')
-            matches = re.findall(phone_regex, td[1].text.strip())
-            value = '-'.join(matches[0:3])
-        else:
-            value = td[1].text.strip().title()
-            if value == '':
-                value = None
+        elif key == 'attorney_phone' and (td[1] is not None or not ''):
+            clean_phone_number = re.sub('[^0-9]', '', value)
+            formatted_phone_number = f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
+            value = formatted_phone_number
+        elif value == '':
+            value = None
 
         listing_details[key] = value
 
