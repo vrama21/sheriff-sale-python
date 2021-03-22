@@ -5,8 +5,8 @@
     "es6": true
   },
   "extends": [
-    // "plugin:react/recommended",
-    "airbnb"
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-typescriipt"
   ],
   "globals": {
     "Atomics": "readonly",

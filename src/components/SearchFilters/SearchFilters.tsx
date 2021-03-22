@@ -129,7 +129,7 @@ const SearchFilters = ({
           <FilterLabel>Sale Date</FilterLabel>
           <FilterSelect
             children={saleDateMenuItems}
-            id="city-select"
+            id="sale-date-select"
             MenuProps={MenuProps}
             name="saleDate"
             onChange={onFilterChange}
