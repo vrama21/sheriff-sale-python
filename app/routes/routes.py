@@ -3,8 +3,11 @@ from flask import jsonify, request, Blueprint
 from .. import db
 from ..models.sheriff_sale_model import SheriffSaleModel, StatusHistoryModel
 from ..constants import CITY_LIST, COUNTY_LIST, NJ_DATA, BUILD_DIR
-from ..services.sheriff_sale.sheriff_sale import SheriffSale
-from ..services.sheriff_sale.parse import parse
+from ..services.sheriff_sale import (
+    SheriffSale,
+    parse_listing_details,
+    parse_status_history,
+)
 from ..services.nj_parcels.nj_parcels import NJParcels
 
 main_bp = Blueprint(
@@ -71,14 +74,10 @@ def update_sheriff_sale_data():
         print(f'Parsing Sheriff Sale Data for {county} County...')
         sheriff_sale = SheriffSale(county=county)
         sheriff_sale_listings_html = sheriff_sale.get_all_listing_details_tables()
-        data = [
-            parse(listing_html=listing_html, county=county)
-            for listing_html in sheriff_sale_listings_html
-        ]
 
-        for listing in data:
-            listing_details = listing['listing_details']
-            status_history = listing['status_history']
+        for listing_html in sheriff_sale_listings_html:
+            listing_details = parse_listing_details(listing_html, county)
+            status_history = parse_status_history(listing_html, county)
 
             listing_exists = (
                 db.session.query(SheriffSaleModel)
@@ -106,7 +105,7 @@ def update_sheriff_sale_data():
         db.session.commit()
         print(f'Parsing for {county} County has completed. ', '\n')
 
-    return jsonify(data=data)
+    return jsonify(data=listing_details)
 
 
 @main_bp.route('/api/get_all_listings', methods=['GET'])

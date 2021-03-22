@@ -1,7 +1,9 @@
 import logging
+import re
 from .sanitize_address import sanitize_address
 
 logging = logging.getLogger(__name__)
+print(logging)
 
 LISTING_KV_MAP = {
     'Address': 'address',
@@ -26,7 +28,7 @@ LISTING_KV_MAP = {
 }
 
 
-def parse(listing_html: str, county: str):
+def parse_listing_details(listing_html: str, county: str):
     """
     Parameters:
         listing_html (soup): A beautiful soup object to parse through
@@ -43,20 +45,25 @@ def parse(listing_html: str, county: str):
         td = tr.find_all('td')
         label = td[0].text.replace('&colon', '')
 
-        try:
-            key = LISTING_KV_MAP[label]
-            value = None
-            if key == 'address':
-                address_br = td[1].find('br')
-                value = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
-            else:
-                value = td[1].text.strip().title()
-                if value == '':
-                    value = None
+        key = LISTING_KV_MAP.get(label)
+        value = None
 
-            listing_details[key] = value
-        except KeyError:
+        if not key:
             logging.error(f'Missing Key: "{label}" listing_kv_mapping')
+
+        if key == 'address':
+            address_br = td[1].find('br')
+            value = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
+        elif key == 'attorney_phone' and td[1] is not None or not '':
+            phone_regex = re.compile(r'(?:\d|\d{3,4})+')
+            matches = re.findall(phone_regex, td[1].text.strip())
+            value = '-'.join(matches[0:3])
+        else:
+            value = td[1].text.strip().title()
+            if value == '':
+                value = None
+
+        listing_details[key] = value
 
     listing_details['maps_url'] = maps_url and maps_url['href']
 
@@ -66,16 +73,4 @@ def parse(listing_html: str, county: str):
 
     listing_details = {**listing_details, **address_sanitized}
 
-    status_history_html = listing_html.find('table', id='longTable')
-
-    status_history = []
-    if status_history_html is not None:
-        for tr in status_history_html.find_all('tr')[1:]:
-            td = tr.find_all('td')
-            listing_status = {
-                'status': td[0].text.strip(),
-                'date': td[1].text.strip(),
-            }
-            status_history.append(listing_status)
-
-    return {'listing_details': listing_details, 'status_history': status_history}
+    return listing_details

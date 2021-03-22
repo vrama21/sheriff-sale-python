@@ -19,8 +19,8 @@ flask-migrate = "*"
 flask-script = "*"
 python-dotenv = "*"
 gunicorn = "*"
-whitenoise = "*"
 psycopg2 = "*"
+flake8-quotes = "*"
 
 [requires]
 python_version = "3.8"
