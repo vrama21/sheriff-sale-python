@@ -1,9 +1,6 @@
-import logging
 import re
 from .sanitize_address import sanitize_address
-
-logging = logging.getLogger(__name__)
-print(logging)
+from ... import logger
 
 LISTING_KV_MAP = {
     'Address': 'address',
@@ -50,7 +47,7 @@ def parse_listing_details(listing_html: str, county: str):
         key = LISTING_KV_MAP.get(label)
 
         if not key:
-            logging.error(f'Missing Key: "{label}" listing_kv_mapping')
+            logger.error(f'Missing Key: "{label}" listing_kv_mapping')
             return
 
         if key == 'address':
@@ -60,6 +57,7 @@ def parse_listing_details(listing_html: str, county: str):
             clean_phone_number = re.sub('[^0-9]', '', value)
             formatted_phone_number = f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
             value = formatted_phone_number
+
         elif value == '':
             value = None
 

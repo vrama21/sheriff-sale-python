@@ -1,7 +1,8 @@
-import logging
 import re
 import urllib
 import requests
+
+from ... import logger
 from ...utils import requests_content, load_json_data
 
 
@@ -74,7 +75,7 @@ class NJParcels:
                 'cityBlockLot': city_block_lot,
             }
         except AttributeError as error:
-            logging.error(
+            logger.error(
                 f'{error}. There were no NJ Parcels Search Results for {address}'
             )
 

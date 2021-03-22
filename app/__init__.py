@@ -1,16 +1,17 @@
+import logging
 import os
 from pathlib import Path
 from flask import Flask
 from flask_cors import CORS
-from flask_migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects import registry
-from .constants import BUILD_DIR
+from .constants import BUILD_DIR, LOG_DIR
 
 cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
+logger = logging.getLogger(__name__)
 
 
 def create_app():
@@ -18,10 +19,9 @@ def create_app():
 
     flask_env = os.environ.get('FLASK_ENV')
     if flask_env == 'development':
-        app.config.from_object('app.config.DevelopmentConfig')
-        cors.init_app(app)
+        load_dev_environment(app)
     elif flask_env == 'production':
-        app.config.from_object('app.config.ProductionConfig')
+        load_prod_environment(app)
 
     # Initialize Plugins
     db.init_app(app)
@@ -36,6 +36,25 @@ def create_app():
 
         app.cli.add_command(cli)
 
+        app.logger.error('TEST')
+
         app.register_blueprint(blueprint=routes.main_bp)
 
         return app
+
+
+def load_dev_environment(app):
+    cors.init_app(app)
+    app.config.from_object('app.config.DevelopmentConfig')
+
+    if not LOG_DIR.exists():
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+    if not (LOG_DIR / 'errors.log').exists():
+        (LOG_DIR / 'errors.log').touch()
+
+    app.logger.setLevel(logging.INFO)
+
+
+def load_prod_environment(app):
+    app.config.from_object('app.config.ProductionConfig')

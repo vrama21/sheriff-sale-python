@@ -1,5 +1,5 @@
 import re
-import logging
+from ... import logger
 
 
 def match_parser(
@@ -27,6 +27,6 @@ def match_parser(
         return match
     else:
         if log:
-            logging.error(f'{regex_name} regex did not capture {target}')
+            logger.error(f'{regex_name} regex did not capture {target}')
 
         return None
