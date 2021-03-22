@@ -2,11 +2,11 @@ from .. import db
 
 
 class NJParcelsModel(db.Model):
-    __tablename__ = "NJParcels"
+    __tablename__ = "nj_parcels"
     __table_args__ = {"extend_existing": True}
 
     id = db.Column("id", db.Integer, primary_key=True)
-    sheriff_sale_id = db.Column(db.Integer, db.ForeignKey("SheriffSale.id"))
+    sheriff_sale_id = db.Column(db.Integer, db.ForeignKey("sheriff_sale.id"))
 
     address = db.Column("address", db.String)
     block = db.Column("block", db.Integer)

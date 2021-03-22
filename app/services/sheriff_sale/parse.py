@@ -21,7 +21,7 @@ LISTING_KV_MAP = {
     'Plaintiff': 'plaintiff',
     'Priors': 'priors',
     'Sales Date': 'sale_date',
-    'Sheriff #': 'sheriff',
+    'Sheriff #': 'sheriff_id',
     'Upset Amount': 'upset_amount',
 }
 

@@ -2,7 +2,7 @@ from .. import db
 
 
 class CountyClerkModel(db.Model):
-    __tablename__ = "CountyClerk"
+    __tablename__ = "county_clerk"
     __table_args__ = {"extend_existing": True}
 
     id = db.Column("id", db.Integer, primary_key=True)
