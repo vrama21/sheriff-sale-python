@@ -36,8 +36,6 @@ def create_app():
 
         app.cli.add_command(cli)
 
-        app.logger.error('TEST')
-
         app.register_blueprint(blueprint=routes.main_bp)
 
         return app

@@ -8,6 +8,21 @@ class DefaultConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
+
+class ProductionConfig(DefaultConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_PRODUCTION')
+    DEBUG = False
+
+
+class StagingConfig(DefaultConfig):
+    DEVELOPMENT = True
+    DEBUG = False
+
+
+class DevelopmentConfig(DefaultConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_DEVELOPMENT')
+    DEVELOPMENT = True
+    DEBUG = True
     LOGGING_CONFIG = {
         'version': 1,
         'formatters': {
@@ -32,22 +47,6 @@ class DefaultConfig:
         },
         'root': {'level': 'INFO', 'handlers': ['wsgi', 'file']},
     }
-
-
-class ProductionConfig(DefaultConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_PRODUCTION')
-    DEBUG = False
-
-
-class StagingConfig(DefaultConfig):
-    DEVELOPMENT = True
-    DEBUG = False
-
-
-class DevelopmentConfig(DefaultConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_DEVELOPMENT')
-    DEVELOPMENT = True
-    DEBUG = True
 
 
 class TestingConfig(DefaultConfig):
