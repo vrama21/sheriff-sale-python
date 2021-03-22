@@ -1,0 +1,9 @@
+node_modules
+build
+migrations
+public
+
+src/serviceWorker.ts
+
+__pycache__
+.vscode
