@@ -51,6 +51,8 @@ def parse(listing_html: str, county: str):
                 value = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
             else:
                 value = td[1].text.strip().title()
+                if value == '':
+                    value = None
 
             listing_details[key] = value
         except KeyError:

@@ -26,7 +26,7 @@
 
 ## Custom Commands
 - Create Database Tables
-    - `flask create_tables`
+    - `flask cli create_tables`
 
 - Drop Database Tables
-    - `flask drop_tables`
+    - `flask cli drop_tables`
