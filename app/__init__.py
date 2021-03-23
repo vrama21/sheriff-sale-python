@@ -1,17 +1,17 @@
 import logging
 import os
-from pathlib import Path
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 from .constants import BUILD_DIR, LOG_DIR
+from flask_apscheduler import APScheduler
+
 
 cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
-logger = logging.getLogger(__name__)
+scheduler = APScheduler()
 
 
 def create_app():
@@ -26,10 +26,13 @@ def create_app():
     # Initialize Plugins
     db.init_app(app)
     migrate.init_app(app, db)
+    scheduler.init_app(app)
+    scheduler.start()
 
     with app.app_context():
         from .commands import cli
         from .routes import routes
+        from .tasks import daily_scrape
 
         if app.config['SQLALCHEMY_DATABASE_URI']:
             db.create_all()

@@ -22,7 +22,7 @@ class StagingConfig(DefaultConfig):
 class DevelopmentConfig(DefaultConfig):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_DEVELOPMENT')
     DEVELOPMENT = True
-    DEBUG = True
+    DEBUG = False
     LOGGING_CONFIG = {
         'version': 1,
         'formatters': {

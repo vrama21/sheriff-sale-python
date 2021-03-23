@@ -1,7 +1,7 @@
+import logging
 import re
 import requests
 
-from ... import logger
 from ...utils import requests_content, load_json_data
 
 
@@ -30,7 +30,7 @@ class SheriffSale:
         self.table_div = self.soup.find('table', class_='table table-striped')
 
         if not self.table_div:
-            logger.error('The Sheriff Sale Table Div was not captured')
+            logging.error('The Sheriff Sale Table Div was not captured')
 
             return
 

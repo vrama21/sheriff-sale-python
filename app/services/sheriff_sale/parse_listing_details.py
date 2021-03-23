@@ -1,6 +1,6 @@
+import logging
 import re
 from .sanitize_address import sanitize_address
-from ... import logger
 
 LISTING_KV_MAP = {
     'Address': 'address',
@@ -47,7 +47,7 @@ def parse_listing_details(listing_html: str, county: str):
         key = LISTING_KV_MAP.get(label)
 
         if not key:
-            logger.error(f'Missing Key: "{label}" listing_kv_mapping')
+            logging.error(f'Missing Key: "{label}" listing_kv_mapping')
             return
 
         if key == 'address':
