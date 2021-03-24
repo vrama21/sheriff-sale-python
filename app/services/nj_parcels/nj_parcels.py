@@ -83,7 +83,7 @@ class NJParcels:
         """
         Gets the taxes for the specified property
         """
-        nj_parcels_api_url = "http://njparcels.com/api/v1.0/property"
+        nj_parcels_api_url = 'http://njparcels.com/api/v1.0/property'
         url = f'{nj_parcels_api_url}/{city_block_lot}.json'
         request = requests.get(url).json()
         property_values = request['features'][0]['properties']

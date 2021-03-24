@@ -1,10 +1,12 @@
 from flask import jsonify, request, Blueprint
 
 from .. import db
-from ..models.sheriff_sale_model import SheriffSaleModel, StatusHistoryModel
+from ..models import SheriffSaleModel, CountyClerkModel
 from ..constants import CITY_LIST, COUNTY_LIST, NJ_DATA, BUILD_DIR
 from ..services.sheriff_sale import SheriffSale
 from ..services.nj_parcels.nj_parcels import NJParcels
+from ..services.county_clerk import county_clerk_document, county_clerk_search
+
 
 main_bp = Blueprint(
     'main_bp', __name__, static_folder=str(BUILD_DIR), static_url_path='/home-static'
@@ -90,27 +92,30 @@ def nj_parcels_search():
 #     return jsonify(data=t)
 
 
-# @main.route('/api/county_clerk', methods=['GET', 'POST'])
-# def county_clerk():
-#     db.create_all()
-#     db.session.commit()
+@main_bp.route('/api/county_clerk', methods=['GET', 'POST'])
+def county_clerk():
+    search_results = county_clerk_search('Rama Avzi')
+    # for result in search_results:
+    #     # print('\n')
+    #     for k, v in result.items():
+    #         print(k, v, type(v))
+    #     print('\n')
 
-#     mmaining = doc_type_mmainer()
+    # for result in search_results:
+    #     exists = (
+    #         db.session.query(CountyClerkModel.doc_id)
+    #         .filter(CountyClerkModel.doc_id == result['doc_id'])
+    #         .first()
+    #     )
+    #     # if not exists:
+    #     #     data = CountyClerkModel(**result)
+    #     #     db.session.add(data)
 
-#     search_results = county_clerk_search('Rama Avzi')
+    # db.session.commit()
 
-#     for result in search_results:
-#         exists = db.session.query(
-#             CountyClerkModel.doc_id).filter(CountyClerkModel.doc_id == result['doc_id']).first()
-#         if not exists:
-#             data = CountyClerkModel(**result)
-#             db.session.add(data)
+    doc_ids = [x['doc_id'] for x in search_results]
+    documents = [county_clerk_document(result) for result in doc_ids]
 
-#     db.session.commit()
+    data = {'search': search_results, 'documents': documents}
 
-#     doc_ids = [x['doc_id'] for x in search_results]
-#     documents = [county_clerk_document(result) for result in doc_ids]
-
-#     data = {'search': search_results, 'documents': documents}
-
-#     return jsonify(data=data)
+    return jsonify(data=data)

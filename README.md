@@ -9,7 +9,7 @@
     - `sudo -u postgres createuser <username> `
 
 - Start local database
-    - `sudo pg_ctlcluster 13 <database_name> start`
+    - `sudo pg_ctlcluster 13 main start`
 
 - Check local databases
     - `psql -l`
