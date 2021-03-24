@@ -1,6 +1,4 @@
-import click
-from click.decorators import command
-from flask.cli import AppGroup, with_appcontext
+from flask.cli import AppGroup
 
 from . import db
 

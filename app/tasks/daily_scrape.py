@@ -7,7 +7,7 @@ from ..services.sheriff_sale import (
 )
 
 
-@scheduler.task('cron', id='daily_scrape_job', day=1)
+@scheduler.task('cron', id='daily_scrape_job', hour=0)
 def daily_scrape():
     county_list = [
         'Atlantic',
