@@ -3,22 +3,22 @@ import { Button, withStyles } from '@material-ui/core';
 
 const defaultStyle = { fontWeight: 'bold', margin: '0 0.5rem' };
 
-const ButtonSubmitComponent = withStyles((theme) => ({
+const ResetSubmitComponent = withStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.secondary.light,
   },
 }))(Button);
 
-const ButtonSubmit = ({ color, onClick, size, styleOverride, variant }) => (
-  <ButtonSubmitComponent
-    color={color || 'primary'}
+const ResetSubmit = ({ color, onClick, size, styleOverride, variant }) => (
+  <ResetSubmitComponent
+    color={color || 'secondary'}
     onClick={onClick}
     size={size || 'large'}
     style={styleOverride || defaultStyle}
     variant={variant || 'contained'}
   >
-    Submit
-  </ButtonSubmitComponent>
+    Reset
+  </ResetSubmitComponent>
 );
 
-export default ButtonSubmit;
+export default ResetSubmit;

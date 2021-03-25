@@ -1,13 +1,9 @@
 //@ts-nocheck
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@material-ui/core';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import ButtonSubmit from '../ButtonSumbit/ButtonSubmit';
+import ResetSubmit from '../ResetSubmit/ResetSubmit';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,7 +16,7 @@ const FilterFormControl = withStyles((theme) => ({
     backgroundColor: theme.palette.grey[700],
     margin: '0 0.5rem',
     width: 225,
-  }
+  },
 }))(FormControl);
 
 const FilterSelect = withStyles((theme) => ({
@@ -41,36 +37,27 @@ const FilterLabel = withStyles((theme) => ({
   },
   focused: {
     color: theme.palette.primary.light,
-  }
+  },
 }))(InputLabel);
 
 const MenuProps = {
   anchorOrigin: {
-    vertical: "bottom",
-    horizontal: "left",
+    vertical: 'bottom',
+    horizontal: 'left',
   },
   transformOrigin: {
     vertical: 'top',
     horizontal: 'left',
   },
   getContentAnchorEl: null,
-}
+};
 
-const SearchFilters = ({
-  filters,
-  filterErrors,
-  initialData,
-  onFilterChange,
-  onFilterReset,
-  onFilterSubmit,
-}) => {
+const SearchFilters = ({ filters, filterErrors, initialData, onFilterChange, onFilterReset, onFilterSubmit }) => {
   const classes = useStyles();
 
   const counties = initialData?.counties || [];
   const cities = initialData?.cities || [];
-  const citiesOfSelectedCounty = filters.county
-    ? Object.keys(initialData?.njData[filters.county].cities)
-    : [];
+  const citiesOfSelectedCounty = filters.county ? Object.keys(initialData?.njData[filters.county].cities) : [];
   const saleDates = initialData?.saleDates || [];
 
   const countyMenuItems = counties.map((county) => (
@@ -81,21 +68,21 @@ const SearchFilters = ({
 
   const cityMenuItems = citiesOfSelectedCounty
     ? citiesOfSelectedCounty.map((city, cityIndex) => (
-      <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
-        {city}
-      </MenuItem>
-    ))
+        <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
+          {city}
+        </MenuItem>
+      ))
     : cities.map((city, cityIndex) => (
-      <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
-        {city}
-      </MenuItem>
-    ))
+        <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
+          {city}
+        </MenuItem>
+      ));
 
   const saleDateMenuItems = saleDates.map((saleDate) => (
     <MenuItem key={`saleDate-${saleDate}`} value={saleDate}>
       {saleDate}
     </MenuItem>
-  ))
+  ));
 
   return (
     <div className={classes.container}>
@@ -140,27 +127,11 @@ const SearchFilters = ({
       </div>
 
       <div className={classes.container}>
-        <Button
-          color="primary"
-          onClick={onFilterSubmit}
-          size='large'
-          style={{ fontWeight: 'bold', margin: '0 0.5rem' }}
-          variant="contained"
-        >
-          Submit
-        </Button>
-        <Button
-          color="secondary"
-          onClick={onFilterReset}
-          size='large'
-          style={{ fontWeight: 'bold', margin: '0 0.5rem' }}
-          variant="contained"
-        >
-          Reset
-        </Button>
+        <ButtonSubmit onClick={onFilterSubmit} />
+        <ResetSubmit onClick={onFilterReset} />
       </div>
-    </div >
+    </div>
   );
-}
+};
 
 export default SearchFilters;

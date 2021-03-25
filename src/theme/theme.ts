@@ -3,7 +3,7 @@ import { colors, unstable_createMuiStrictModeTheme as createMuiTheme } from "@ma
 export default createMuiTheme({
   palette: {
     primary: {
-      light: colors.green[300],
+      light: colors.green[400],
       main: colors.green[500],
       dark: colors.green[700],
       contrastText: colors.common.white,
