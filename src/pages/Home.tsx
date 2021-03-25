@@ -90,9 +90,7 @@ const Home = () => {
       }}
     >
       <div style={{ padding: '0.5rem 0' }}>
-        <Button color="secondary" onClick={updateListings} variant="contained" size="large" style={{ fontWeight: 'bold', margin: '0 1rem' }}>
-          Update Sheriff Sale Database
-        </Button>
+        <h1>Sheriff Sale Scraper</h1>
       </div>
       <div>
         <SearchFilters
