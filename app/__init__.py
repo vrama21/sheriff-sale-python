@@ -27,12 +27,12 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     scheduler.init_app(app)
-    scheduler.start()
 
     with app.app_context():
         from .commands import cli
         from .routes import routes
         from .tasks import daily_scrape
+        scheduler.start()
 
         if app.config['SQLALCHEMY_DATABASE_URI']:
             db.create_all()
