@@ -3,18 +3,21 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import ListingMap from '../ListingMap/ListingMap';
 import { listingStyles } from './Listing.style';
-import { startCase } from 'lodash'
+import { startCase } from 'lodash';
 
 const Listing = ({ listing }) => {
   const classes = listingStyles();
 
   const listingPropertiesToDisplay = ['judgment', 'sale_date'];
+  console.log(listing);
 
   return (
     <Grid item xs={12} lg={6}>
       <Grid container className={classes.root}>
-        <Grid className={classes.address} item xs={12}>
-          {listing.address}
+        <Grid item className={classes.address} xs={12}>
+          <a href={listing.maps_url} target="_blank">
+            {listing.address}
+          </a>
         </Grid>
       </Grid>
 
