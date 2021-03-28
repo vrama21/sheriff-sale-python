@@ -14,8 +14,8 @@ def sanitize_address(address: str, county: str) -> dict:
         county (str): County to sanitize
 
     Returns:
-        A list of dictionaries containing the separated parts of the address with the properties of address, city,
-        unit, secondary_unit, zip_code
+        A list of dictionaries containing the separated parts of the address with the properties of street, city,
+        county, unit, secondary_unit, zip_code
     """
     regex_street = re.compile(r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
     regex_city = re.compile(r'(' + '|'.join(CITY_LIST) + ') (NJ|Nj)')
@@ -40,10 +40,10 @@ def sanitize_address(address: str, county: str) -> dict:
         pass
 
     return {
-        'street': street_match,
         'city': city_match,
         'county': county,
-        'zip_code': zip_code_match,
+        'street': street_match,
         'unit': unit_match,
         'unit_secondary': secondary_unit_match,
+        'zip_code': zip_code_match,
     }

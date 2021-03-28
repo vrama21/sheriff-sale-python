@@ -4,12 +4,12 @@ import { Grid } from '@material-ui/core';
 import ListingMap from '../ListingMap/ListingMap';
 import { listingStyles } from './Listing.style';
 import { startCase } from 'lodash';
+import { Listing } from '../../types';
 
-const Listing = ({ listing }) => {
+const Listing: React.FC<Listing> = ({ listing }: Listing) => {
   const classes = listingStyles();
 
   const listingPropertiesToDisplay = ['judgment', 'sale_date'];
-  console.log(listing);
 
   return (
     <Grid item xs={12} lg={6}>

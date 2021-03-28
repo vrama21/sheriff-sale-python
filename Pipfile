@@ -21,6 +21,7 @@ gunicorn = "*"
 psycopg2 = "*"
 flake8-quotes = "*"
 flask-apscheduler = "*"
+isort = "*"
 
 [requires]
 python_version = "3.8"

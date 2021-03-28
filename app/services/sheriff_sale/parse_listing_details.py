@@ -1,5 +1,6 @@
 import logging
 import re
+
 from .sanitize_address import sanitize_address
 
 LISTING_KV_MAP = {
@@ -26,14 +27,14 @@ LISTING_KV_MAP = {
 
 
 def parse_listing_details(listing_html: str, county: str):
-    """
+    '''
     Parameters:
         listing_html (soup): A beautiful soup object to parse through
         county (str): The county that is being parsed
 
     Returns:
         A dictionary of parsed data points
-    """
+    '''
     listing_table = listing_html.find('table', class_='table table-striped')
     listing_table_rows = listing_table.find_all('tr')
     maps_url = listing_table.find('a', href=True)
@@ -47,7 +48,7 @@ def parse_listing_details(listing_html: str, county: str):
         key = LISTING_KV_MAP.get(label)
 
         if not key:
-            logging.error(f'Missing Key: "{label}" listing_kv_mapping')
+            logging.error(f'Missing Key: '{label}' listing_kv_mapping')
             return
 
         if key == 'address':
@@ -65,9 +66,7 @@ def parse_listing_details(listing_html: str, county: str):
 
     listing_details['maps_url'] = maps_url and maps_url['href']
 
-    address_sanitized = sanitize_address(
-        address=listing_details['address'], county=county
-    )
+    address_sanitized = sanitize_address(address=listing_details['address'], county=county)
 
     listing_details = {**listing_details, **address_sanitized}
 

@@ -1,5 +1,5 @@
 {
-  "name": "Sheriff-Sale",
+  "name": "sheriff_sale",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -40,7 +40,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint ./src --ext .ts"
   },
   "eslintConfig": {
     "extends": "react-app"
