@@ -1,6 +1,4 @@
-from pprint import PrettyPrinter
 from .. import db
-from sqlalchemy.orm import backref
 from decimal import Decimal
 
 

@@ -2,9 +2,10 @@ import re
 from . import match_parser
 from ...constants import (
     ADDRESS_REGEX_SPLIT,
-    CITY_LIST,
+    # CITY_LIST,
     SUFFIX_ABBREVATIONS,
 )
+from ...utils import load_json_data
 
 
 def sanitize_address(address: str, county: str) -> dict:
@@ -20,8 +21,11 @@ def sanitize_address(address: str, county: str) -> dict:
     if not address:
         return {}
 
+    cities_by_county_mapping = load_json_data('data/cities_by_county_mapping.json')
+    cities = cities_by_county_mapping[county]['cities']
+
     regex_street = re.compile(r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
-    regex_city = re.compile(r'(' + '|'.join(CITY_LIST) + ') (NJ|Nj)')
+    regex_city = re.compile(r'(' + '|'.join(cities) + ')(?:[.,\s]+)(NJ|Nj)')
     regex_unit = re.compile(r'(Unit|Apt).([0-9A-Za-z-]+)')
     regex_secondary_unit = re.compile(r'(Building|Estate) #?([0-9a-zA-Z]+)')
     regex_zip_code = re.compile(r'\d{5}')
