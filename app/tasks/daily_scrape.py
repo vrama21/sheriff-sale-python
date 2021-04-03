@@ -33,7 +33,7 @@ def daily_scrape():
 
             for listing_html in sheriff_sale_listings_html:
                 listing_details = parse_listing_details(listing_html, county)
-                status_history = parse_status_history(listing_html, county)
+                status_history = parse_status_history(listing_html)
 
                 listing_exists = (
                     db.session.query(SheriffSaleModel)

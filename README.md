@@ -9,6 +9,8 @@
     - `sudo -u postgres createuser <username> `
 
 - Start local database
+    - `sudo service postgresql start`
+    or
     - `sudo pg_ctlcluster 13 main start`
 
 - Check local databases
@@ -30,3 +32,6 @@
 
 - Drop Database Tables
     - `flask cli drop_tables`
+
+- Create a database migration
+    - `flask db migrate -m "<message>"`

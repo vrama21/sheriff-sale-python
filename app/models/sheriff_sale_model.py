@@ -10,7 +10,6 @@ class SheriffSaleModel(db.Model):
     sheriff_id = db.Column('sheriff_id', db.String)
 
     address = db.Column('address', db.String, unique=True)
-    address_sanitized = db.Column('address_sanitized', db.String)
     attorney = db.Column('attorney', db.String)
     attorney_phone = db.Column('attorney_phone', db.String)
     city = db.Column('city', db.String)
@@ -20,20 +19,18 @@ class SheriffSaleModel(db.Model):
     deed_address = db.Column('deed_address', db.String)
     defendant = db.Column('defendant', db.String)
     description = db.Column('description', db.String)
-    judgment = db.Column('judgment', db.String)
+    judgment = db.Column('judgment', db.Float)
     maps_url = db.Column('maps_url', db.String)
     parcel = db.Column('parcel', db.String)
     plaintiff = db.Column('plaintiff', db.String)
     priors = db.Column('priors', db.String)
     sale_date = db.Column('sale_date', db.String)
     secondary_unit = db.Column('secondary_unit', db.String)
-    status_history = db.relationship(
-        'StatusHistoryModel', backref='StatusHistory', lazy=True
-    )
+    status_history = db.relationship('StatusHistoryModel', backref='StatusHistory', lazy=True)
     street = db.Column('street', db.String)
     unit = db.Column('unit', db.String)
     unit_secondary = db.Column('unit_secondary', db.String)
-    upset_amount = db.Column('upset_amount', db.String)
+    upset_amount = db.Column('upset_amount', db.Float)
     zip_code = db.Column('zip_code', db.String)
 
     @property

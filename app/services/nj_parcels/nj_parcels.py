@@ -10,16 +10,15 @@ class NJParcels:
     """
     Web scraper for www.njparcels.com
 
-    Parameters:
-        county (str): The county to parse
-        city (str): The city to parse
+    :param county: The county to parse
+    :param city: The city to parse
     """
 
     def __init__(self, county=None, city=None):
         self.county = county
         self.city = city
         self.session = requests.Session()
-        self.request = requests_content("http://njparcels.com/property", self.session)
+        self.request = requests_content('http://njparcels.com/property', self.session)
 
     def get_county_list(self):
         """ Returns a list of all the available counties"""
