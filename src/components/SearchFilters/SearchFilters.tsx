@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';

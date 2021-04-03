@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Paginate from '../Paginate/Paginate';
 import Listing from '../Listing/Listing';

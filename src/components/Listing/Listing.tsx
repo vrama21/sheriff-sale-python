@@ -6,7 +6,7 @@ import { listingStyles } from './Listing.style';
 import { startCase } from 'lodash';
 import { ListingInterface } from '../../types';
 
-const Listing: React.FC<ListingInterface> = ({ listing }: Listing) => {
+const Listing: React.FC<ListingInterface> = ({ listing }: ListingInterface) => {
   const classes = listingStyles();
 
   const listingPropertiesToDisplay = ['judgment', 'sale_date'];

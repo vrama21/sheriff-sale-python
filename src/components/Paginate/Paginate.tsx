@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { paginateStyles } from './Paginate.style';
