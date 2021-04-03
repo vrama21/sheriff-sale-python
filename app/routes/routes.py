@@ -2,7 +2,7 @@ from flask import jsonify, request, Blueprint
 
 from .. import db, scheduler
 from ..models import SheriffSaleModel, StatusHistoryModel, CountyClerkModel
-from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR, PRETTIFY
+from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR
 from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history
 from ..services.nj_parcels.nj_parcels import NJParcels
 from ..services.county_clerk import county_clerk_document, county_clerk_search
@@ -74,7 +74,6 @@ def daily_scrape():
             sheriff_sale_listings_html = sheriff_sale.get_all_listing_details_tables()
 
             listings_to_update = []
-            # listings_to_insert = []
 
             for listing_html in sheriff_sale_listings_html:
                 listing_details = parse_listing_details(listing_html, county)
@@ -92,7 +91,6 @@ def daily_scrape():
                         listings_to_update.append({'id': listing['id'], **listing_details})
 
                 if not listing_exists:
-                    # listings_to_insert.append(listing_details)
                     listing_to_insert = SheriffSaleModel(**listing_details)
                     db.session.add(listing_to_insert)
                     db.session.flush()
