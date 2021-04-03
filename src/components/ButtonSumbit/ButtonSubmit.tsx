@@ -11,7 +11,7 @@ const ButtonSubmitComponent = withStyles((theme) => ({
 
 const ButtonSubmit = ({ color, onClick, size, styleOverride, variant }) => (
   <ButtonSubmitComponent
-    color={color || 'primary'}
+    color='primary'
     onClick={onClick}
     size={size || 'large'}
     style={styleOverride || defaultStyle}

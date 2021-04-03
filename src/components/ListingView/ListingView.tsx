@@ -11,7 +11,7 @@ const ListingView = ({ currentPage, listings, pageClick, pageCount }) => {
 
   const filteredListingsView = listings
     ?.slice(indexOfFirstBorrower, indexOfLastBorrower)
-    .map((listing: ListingInterface, listingIndex: Number) => <Listing listing={listing} key={`${listing.address_sanitized}-${listingIndex}`} />);
+    .map((listing: ListingInterface, listingIndex: number) => <Listing listing={listing} key={`${listing.address_sanitized}-${listingIndex}`} />);
 
   return (
     <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>

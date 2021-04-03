@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import SearchFilters from '../components/SearchFilters/SearchFilters';
 import useFetch from '../hooks/useFetch';
 import ListingView from '../components/ListingView/ListingView';
-import { Button, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import { ListingInterface } from '../types/types';
 
-const Home = () => {
+const Home = (): React.FC => {
   const listings: ListingInterface[] = useFetch('/api/get_all_listings', 'GET').response?.data;
   const initialData = useFetch('/api/constants', 'GET').response?.data;
 
@@ -69,13 +69,6 @@ const Home = () => {
     setFilteredListings(listingsWithFilterApplied);
   };
 
-  const updateListings = () => {
-    fetch('/api/sheriff_sale/update_database', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    });
-  };
-
   useEffect(() => {
     setFilteredListings(listings);
   }, [listings]);
@@ -94,12 +87,15 @@ const Home = () => {
       </div>
       <div>
         <SearchFilters
+          cities={initialData?.cities}
+          counties={initialData?.counties}
           filters={filters}
           filterErrors={filterErrors}
+          njData={initialData?.njData}
           onFilterChange={onFilterChange}
           onFilterReset={onFilterReset}
           onFilterSubmit={onFilterSubmit}
-          initialData={initialData}
+          saleDates={initialData?.saleDates}
         />
         <ListingView currentPage={currentPage} listings={filteredListings} pageClick={handlePageClick} pageCount={pageCount} />
       </div>

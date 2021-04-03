@@ -1,3 +1,4 @@
+import * as React from "react";
 
 export type Filter = {
   county: string,
@@ -33,4 +34,16 @@ export type ListingInterface = {
   unit_secondary?: string,
   upset_amount?: number,
   zip_code?: string,
+};
+
+export type SearchFiltersInterface = {
+  cities: string[],
+  counties: string[],
+  filters: Record<string, null>,
+  filterErrors: Record<string, null>,
+  njData: Record<string, null>
+  onFilterChange: React.FormEvent<Element>,
+  onFilterReset: React.FormEvent<Element>,
+  onFilterSubmit: React.FormEvent<Element>,
+  saleDates: string[],
 };

@@ -1,11 +1,11 @@
-//@ts-nocheck
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import ButtonSubmit from '../ButtonSumbit/ButtonSubmit';
 import ResetSubmit from '../ResetSubmit/ResetSubmit';
+import { SearchFiltersInterface } from '../../types';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     margin: '1rem',
   },
@@ -19,7 +19,7 @@ const FilterFormControl = withStyles((theme) => ({
   },
 }))(FormControl);
 
-const FilterSelect = withStyles((theme) => ({
+const FilterSelect = withStyles(() => ({
   root: {
     border: '1px solid grey',
     fontWeight: 'bold',
@@ -52,15 +52,22 @@ const MenuProps = {
   getContentAnchorEl: null,
 };
 
-const SearchFilters = ({ filters, filterErrors, initialData, onFilterChange, onFilterReset, onFilterSubmit }) => {
+const SearchFilters: React.FC<SearchFiltersInterface> = ({
+  cities,
+  counties,
+  filters,
+  filterErrors,
+  onFilterChange,
+  onFilterReset,
+  onFilterSubmit,
+  njData,
+  saleDates,
+}: SearchFiltersInterface) => {
   const classes = useStyles();
 
-  const counties = initialData?.counties || [];
-  const cities = initialData?.cities || [];
-  const citiesOfSelectedCounty = filters.county ? Object.keys(initialData?.njData[filters.county].cities) : [];
-  const saleDates = initialData?.saleDates || [];
+  const citiesOfSelectedCounty: string[] = filters.county ? Object.keys(njData[filters.county].cities) : [];
 
-  const countyMenuItems = counties.map((county) => (
+  const countyMenuItems = counties?.map((county) => (
     <MenuItem key={`county-${county}`} value={county}>
       {county}
     </MenuItem>
@@ -78,7 +85,7 @@ const SearchFilters = ({ filters, filterErrors, initialData, onFilterChange, onF
         </MenuItem>
       ));
 
-  const saleDateMenuItems = saleDates.map((saleDate) => (
+  const saleDateMenuItems = saleDates?.map((saleDate) => (
     <MenuItem key={`saleDate-${saleDate}`} value={saleDate}>
       {saleDate}
     </MenuItem>
