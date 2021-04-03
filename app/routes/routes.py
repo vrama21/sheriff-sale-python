@@ -52,19 +52,19 @@ def get_sheriff_sale_data():
 @scheduler.task('cron', id='daily_scrape_job', minute=30)
 def daily_scrape():
     county_list = [
-        # 'Atlantic',
-        # 'Bergen',
+        'Atlantic',
+        'Bergen',
         'Burlington',
-        # 'Camden',
-        # 'Cumberland',
-        # 'Essex',
-        # 'Hudson',
-        # 'Hunterdon',
-        # 'Monmouth',
-        # 'Morris',
-        # 'Passaic',
-        # 'Salem',
-        # 'Union',
+        'Camden',
+        'Cumberland',
+        'Essex',
+        'Hudson',
+        'Hunterdon',
+        'Monmouth',
+        'Morris',
+        'Passaic',
+        'Salem',
+        'Union',
     ]
 
     with scheduler.app.app_context():
@@ -80,13 +80,15 @@ def daily_scrape():
                 listing_details = parse_listing_details(listing_html, county)
                 status_history = parse_status_history(listing_html)
 
-                listing = db.session.query(SheriffSaleModel).filter_by(address=listing_details['address']).scalar()
-                listing = listing.serialize if listing else None
-                listing_exists = listing is not None
+                listing = db.session.query(SheriffSaleModel).filter_by(address=listing_details.get('address')).scalar()
+                listing: dict = listing.serialize if listing else None
+                listing_exists: bool = listing is not None
 
                 if listing_exists:
-                    if not listing['city'] or not listing['street']:
-                        print(f'Updating { listing["address"] }...')
+                    if (not listing.get('city') and listing_details.get('city')) or (
+                        not listing.get('street') and listing_details.get('street')
+                    ):
+                        print(f'Updating {listing.get("address")}...')
                         listings_to_update.append({'id': listing['id'], **listing_details})
 
                 if not listing_exists:
@@ -99,8 +101,8 @@ def daily_scrape():
                     for status in status_history:
                         status_history_to_insert = StatusHistoryModel(
                             sheriff_sale_id=listing_to_insert.id,
-                            status=status['status'],
-                            date=status['date'],
+                            status=status.get('status'),
+                            date=status.get('date'),
                         )
 
                         db.session.add(status_history_to_insert)
