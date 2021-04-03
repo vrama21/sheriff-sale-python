@@ -19,7 +19,7 @@ class SheriffSaleModel(db.Model):
     deed_address = db.Column('deed_address', db.String)
     defendant = db.Column('defendant', db.String)
     description = db.Column('description', db.String)
-    judgment = db.Column('judgment', db.Float)
+    judgment = db.Column('judgment', db.Numeric(10, 2))
     maps_url = db.Column('maps_url', db.String)
     parcel = db.Column('parcel', db.String)
     plaintiff = db.Column('plaintiff', db.String)
@@ -30,7 +30,7 @@ class SheriffSaleModel(db.Model):
     street = db.Column('street', db.String)
     unit = db.Column('unit', db.String)
     unit_secondary = db.Column('unit_secondary', db.String)
-    upset_amount = db.Column('upset_amount', db.Float)
+    upset_amount = db.Column('upset_amount', db.Numeric(10, 2))
     zip_code = db.Column('zip_code', db.String)
 
     @property

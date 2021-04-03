@@ -35,3 +35,6 @@
 
 - Create a database migration
     - `flask db migrate -m "<message>"`
+
+- Upgrade database for migration
+    - `flask db upgrade`
