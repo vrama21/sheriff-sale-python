@@ -31,8 +31,6 @@ def create_app():
     with app.app_context():
         from .commands import cli
         from .routes import routes
-        from .tasks import daily_scrape
-        scheduler.start()
 
         if app.config['SQLALCHEMY_DATABASE_URI']:
             db.create_all()
@@ -40,6 +38,8 @@ def create_app():
         app.cli.add_command(cli)
 
         app.register_blueprint(blueprint=routes.main_bp)
+        
+        scheduler.start()
 
         return app
 

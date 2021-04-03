@@ -3,24 +3,24 @@ from .constants import LOG_DIR
 
 
 class DefaultConfig:
-    TESTING = False
     CSRF_ENABLED = True
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SCHEDULER_API_ENABLED = True
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    TESTING = False
 
 
 class ProductionConfig(DefaultConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_PRODUCTION')
     DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_PRODUCTION')
 
 
 class StagingConfig(DefaultConfig):
-    DEVELOPMENT = True
     DEBUG = False
+    DEVELOPMENT = True
 
 
 class DevelopmentConfig(DefaultConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_DEVELOPMENT')
     DEVELOPMENT = True
     DEBUG = False
     LOGGING_CONFIG = {
@@ -47,6 +47,7 @@ class DevelopmentConfig(DefaultConfig):
         },
         'root': {'level': 'INFO', 'handlers': ['wsgi', 'file']},
     }
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_DEVELOPMENT')
 
 
 class TestingConfig(DefaultConfig):

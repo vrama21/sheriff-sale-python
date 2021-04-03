@@ -49,7 +49,7 @@ def get_sheriff_sale_data():
 
 
 @main_bp.route('/api/daily_scrape', methods=['POST'])
-@scheduler.task('cron', id='daily_scrape_job', minute=30)
+@scheduler.task('cron', id='daily_scrape_job', day='*')
 def daily_scrape():
     county_list = [
         'Atlantic',
