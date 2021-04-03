@@ -9,13 +9,13 @@ from ...constants import (
 
 def sanitize_address(address: str, county: str) -> dict:
     """
-    Parameters:
-        address (str): Address to sanitize
-        county (str): County to sanitize
+    Sanitizes an address into separated properties of
+    (street, city, county, unit, secondary_unit, zip_code)
 
-    Returns:
-        A list of dictionaries containing the separated parts of the address with the properties of street, city,
-        county, unit, secondary_unit, zip_code
+    :param address: Address to sanitize
+    :param county: County to sanitize
+
+    :return: A sanitized address
     """
     regex_street = re.compile(r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
     regex_city = re.compile(r'(' + '|'.join(CITY_LIST) + ') (NJ|Nj)')
@@ -26,18 +26,12 @@ def sanitize_address(address: str, county: str) -> dict:
     street_match = match_parser(regex_street, address, regex_name='street')
     city_match = match_parser(regex_city, address, regex_name='city', regex_group=1)
     unit_match = match_parser(regex_unit, address, regex_name='unit', log=False)
-    secondary_unit_match = match_parser(
-        regex_secondary_unit, address, regex_name='secondary_unit', log=False
-    )
-    zip_code_match = match_parser(
-        regex_zip_code, address, regex_name='zip_code', log=False
-    )
+    secondary_unit_match = match_parser(regex_secondary_unit, address, regex_name='secondary_unit', log=False)
+    zip_code_match = match_parser(regex_zip_code, address, regex_name='zip_code', log=False)
 
-    try:
+    if street_match:
         for key, value in SUFFIX_ABBREVATIONS.items():
             street_match = re.sub(key, value, street_match)
-    except TypeError:
-        pass
 
     return {
         'city': city_match,

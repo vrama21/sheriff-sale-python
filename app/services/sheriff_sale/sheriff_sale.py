@@ -9,12 +9,11 @@ class SheriffSale:
     """
     Web scraper for sheriff sale website
 
-    Parameters:
-        county (str):
+    :param county:
 
     """
 
-    def __init__(self, county):
+    def __init__(self, county: str):
 
         self.county_name = county
         self.county_id = self.get_sheriff_sale_county_id(self.county_name)

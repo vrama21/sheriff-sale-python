@@ -8,17 +8,17 @@ def match_parser(
     regex_name: str,
     regex_group: int = 0,
     log: bool = True,
-):
+) -> str | None:
     """
-    Parameters:
-        regex_pattern (re.Pattern): The regex pattern
-        target (str): The string to perform the regex pattern on
-        regex_name (str): The name of the regex
-        regex_group (int): The regex group to return
-        log (bool): Whether to log errors for this parse
+    Searches a regex matc
 
-    Returns:
-        Returns a successful regex match or logs it if was unsuccessful
+    :param regex_pattern: The regex pattern
+    :param target: The string to perform the regex pattern on
+    :param regex_name: The name of the regex
+    :param regex_group: The regex group to return
+    :param log: Whether to log errors for this parse
+
+    :return: Returns a successful regex match or logs it if was unsuccessful
     """
     search = re.search(regex_pattern, target)
     if search:

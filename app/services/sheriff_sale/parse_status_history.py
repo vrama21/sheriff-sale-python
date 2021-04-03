@@ -1,11 +1,13 @@
-def parse_status_history(listing_html: str, county: str):
-    """
-    Parameters:
-        listing_html (soup): A beautiful soup object to parse through
-        county (str): The county that is being parsed
+import bs4
 
-    Returns:
-        A dictionary of parsed data points
+
+def parse_status_history(listing_html: bs4.element.Tag) -> list:
+    """
+    Parses the status history table of a listings detail page
+
+    :param listing_html: A beautiful soup object to parse through
+
+    :return: A list of status history data points
     """
     status_history_html = listing_html.find('table', id='longTable')
 

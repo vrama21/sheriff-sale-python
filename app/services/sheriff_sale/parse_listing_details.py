@@ -1,5 +1,7 @@
+import bs4
 import logging
 import re
+from decimal import Decimal
 
 from .sanitize_address import sanitize_address
 
@@ -26,15 +28,15 @@ LISTING_KV_MAP = {
 }
 
 
-def parse_listing_details(listing_html: str, county: str):
-    '''
-    Parameters:
-        listing_html (soup): A beautiful soup object to parse through
-        county (str): The county that is being parsed
+def parse_listing_details(listing_html: bs4.element.Tag, county: str) -> dict:
+    """
+    Parses the details table of a listings detail page
 
-    Returns:
-        A dictionary of parsed data points
-    '''
+    :param listing_html: A beautiful soup object to parse through
+    :param county: The county that is being parsed
+
+    :return: A dictionary of parsed data points
+    """
     listing_table = listing_html.find('table', class_='table table-striped')
     listing_table_rows = listing_table.find_all('tr')
     maps_url = listing_table.find('a', href=True)
@@ -48,7 +50,7 @@ def parse_listing_details(listing_html: str, county: str):
         key = LISTING_KV_MAP.get(label)
 
         if not key:
-            logging.error(f'Missing Key: '{label}' listing_kv_mapping')
+            logging.error(f'Missing Key: "{label}" listing_kv_mapping')
             return
 
         if key == 'address':
@@ -58,6 +60,9 @@ def parse_listing_details(listing_html: str, county: str):
             clean_phone_number = re.sub('[^0-9]', '', value)
             formatted_phone_number = f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
             value = formatted_phone_number
+        elif key == 'judgment' or key == 'upset_amount':
+            clean_value = Decimal(re.sub(r'[^\d.]', ''), value)
+            value = clean_value
 
         elif value == '':
             value = None
