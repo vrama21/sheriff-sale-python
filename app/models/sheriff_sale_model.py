@@ -1,5 +1,7 @@
+from pprint import PrettyPrinter
 from .. import db
 from sqlalchemy.orm import backref
+from decimal import Decimal
 
 
 class SheriffSaleModel(db.Model):
@@ -35,7 +37,17 @@ class SheriffSaleModel(db.Model):
 
     @property
     def serialize(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        serialized_dict = {}
+
+        for column in self.__table__.columns:
+            value = getattr(self, column.name)
+
+            if isinstance(value, Decimal):
+                value = float(value)
+
+            serialized_dict[column.name] = value
+
+        return serialized_dict
 
 
 class StatusHistoryModel(db.Model):
