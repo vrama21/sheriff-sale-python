@@ -23,7 +23,7 @@ def sanitize_address(address: str, county: str) -> dict:
     cities_by_county_mapping = load_json_data('data/cities_by_county_mapping.json')
     cities = cities_by_county_mapping[county]['cities']
 
-    regex_street = re.compile(r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
+    regex_street = re.compile(r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')')
     regex_city = re.compile(r'(' + '|'.join(cities) + r')(?:[.,`\s]+)?(?:[\(\w\s\)]+)?(NJ|Nj)')
     regex_unit = re.compile(r'(Unit|Apt).([0-9A-Za-z-]+)')
     regex_secondary_unit = re.compile(r'(Building|Estate) #?([0-9a-zA-Z]+)')

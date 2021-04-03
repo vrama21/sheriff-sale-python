@@ -44,6 +44,7 @@ ADDRESS_REGEX_SPLIT = [
     'Bay',
     'Boardwalk',
     'Boulevard',
+    'Broadway',
     'Circle',
     'Condo',  # (Edge Case)
     'Cove',
@@ -54,6 +55,8 @@ ADDRESS_REGEX_SPLIT = [
     'Highway',
     'Hollow',  # (Edge Case)
     'Mews',  # (Edge Case)
+    'Pkwy',
+    'Parkway',
     'Pike',
     'Place',
     'Road',
