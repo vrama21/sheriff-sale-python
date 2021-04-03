@@ -29,7 +29,7 @@ class SheriffSale:
         self.table_div = self.soup.find('table', class_='table table-striped')
 
         if not self.table_div:
-            logging.error('The Sheriff Sale Table Div was not captured')
+            logging.error(f'The Sheriff Sale Table Div for ${county} County was not captured')
 
             return
 

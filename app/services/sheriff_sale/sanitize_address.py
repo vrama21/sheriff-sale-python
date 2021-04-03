@@ -17,6 +17,9 @@ def sanitize_address(address: str, county: str) -> dict:
 
     :return: A sanitized address
     """
+    if not address:
+        return {}
+
     regex_street = re.compile(r'.*?(?:' + r'|'.join(ADDRESS_REGEX_SPLIT) + r')\s')
     regex_city = re.compile(r'(' + '|'.join(CITY_LIST) + ') (NJ|Nj)')
     regex_unit = re.compile(r'(Unit|Apt).([0-9A-Za-z-]+)')

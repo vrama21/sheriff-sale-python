@@ -8,9 +8,9 @@ def match_parser(
     regex_name: str,
     regex_group: int = 0,
     log: bool = True,
-) -> str | None:
+):
     """
-    Searches a regex matc
+    Searches a regex match
 
     :param regex_pattern: The regex pattern
     :param target: The string to perform the regex pattern on
@@ -20,13 +20,17 @@ def match_parser(
 
     :return: Returns a successful regex match or logs it if was unsuccessful
     """
+    if not target:
+        logging.error(f'{target} is null')
+        return None
+
     search = re.search(regex_pattern, target)
     if search:
         match = search.group(regex_group).rstrip().title()
 
         return match
-    else:
-        if log:
-            logging.error(f'{regex_name} regex did not capture {target}')
 
-        return None
+    if log:
+        logging.error(f'{regex_name} regex did not capture {target}')
+
+    return None

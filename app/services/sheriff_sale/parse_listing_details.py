@@ -1,7 +1,6 @@
 import bs4
 import logging
 import re
-from decimal import Decimal
 
 from .sanitize_address import sanitize_address
 
@@ -51,20 +50,21 @@ def parse_listing_details(listing_html: bs4.element.Tag, county: str) -> dict:
 
         if not key:
             logging.error(f'Missing Key: "{label}" listing_kv_mapping')
-            return
+            return {}
 
         if key == 'address':
             address_br = td[1].find('br')
             value = f'{address_br.previous_element} {address_br.next_element}'.strip().title()
-        elif key == 'attorney_phone' and (td[1] is not None or not ''):
-            clean_phone_number = re.sub('[^0-9]', '', value)
-            formatted_phone_number = f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
-            value = formatted_phone_number
+        elif key == 'attorney_phone':
+            if value:
+                clean_phone_number = re.sub('[^0-9]', '', value)
+                formatted_phone_number = f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
+                value = formatted_phone_number
         elif key == 'judgment' or key == 'upset_amount':
-            clean_value = Decimal(re.sub(r'[^\d.]', ''), value)
+            clean_value = float(re.sub(r'[^\d.]', '', value)) if value else None
             value = clean_value
 
-        elif value == '':
+        if value == '':
             value = None
 
         listing_details[key] = value
