@@ -7,8 +7,8 @@ interface useFetchProps {
 }
 
 interface useFetchType {
-  response: Record<string, unknown>[],
-  error: string | null | undefined,
+  response: Record<string, unknown>[];
+  error: string | null | undefined;
 }
 
 const useFetch = ({ url, method, options }: useFetchProps): useFetchType => {
@@ -25,7 +25,7 @@ const useFetch = ({ url, method, options }: useFetchProps): useFetchType => {
       try {
         const resp = await fetch(url, options || defaultOption);
         const json = await resp.json();
-        
+
         setResponse(json);
       } catch (error) {
         setError(error);

@@ -16,15 +16,15 @@ def index():
     return main_bp.send_static_file('index.html')
 
 
-@main_bp.route('/api/constants', methods=['GET', 'POST'])
+@main_bp.route('/api/constants', methods=['GET'])
 def home():
     counties = COUNTY_LIST
-    cities = CITY_LIST
+    # cities = CITY_LIST
     nj_data = NJ_DATA
 
     data = {
         'counties': counties,
-        'cities': cities,
+        # 'cities': cities,
         'njData': nj_data,
     }
 

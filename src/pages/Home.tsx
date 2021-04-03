@@ -7,8 +7,8 @@ import { Paper } from '@material-ui/core';
 import { ListingInterface } from '../types/types';
 
 const Home = (): React.FC => {
-  const listings: ListingInterface[] = useFetch('/api/get_all_listings', 'GET').response?.data;
-  const initialData = useFetch('/api/constants', 'GET').response?.data;
+  const listings: ListingInterface[] = useFetch({ url: '/api/get_all_listings', method: 'GET' }).response?.data;
+  const initialData = useFetch({ url: '/api/constants', method: 'GET' }).response?.data;
 
   const initialFilterState = { county: '', city: '', saleDate: '' };
 
