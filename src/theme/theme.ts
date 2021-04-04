@@ -4,19 +4,20 @@ export default createMuiTheme({
   palette: {
     primary: {
       light: '#81B29A',
-      main: colors.green[500],
-      dark: colors.green[700],
+      main: '#3D5A80',
+      dark: '#2C405B',
       contrastText: colors.common.white,
     },
     secondary: {
       light: colors.red[400],
-      main: colors.red[600],
+      main: '#98C1D9',
       dark: colors.red[900],
       contrastText: colors.common.white,
     },
     success: {
       main: "#81B29A"
     },
+    
     type: 'dark',
   }
 });
