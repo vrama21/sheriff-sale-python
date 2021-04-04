@@ -5,7 +5,8 @@ import { makeStyles, withStyles } from '@material-ui/core';
 import { Place } from '@material-ui/icons';
 
 const initialViewport = {
-  width: '100%',
+  display: 'block',
+  width: 350,
   height: 200,
   latitude: 39.483807,
   longitude: -74.510981,

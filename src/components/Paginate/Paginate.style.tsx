@@ -8,8 +8,9 @@ export const paginateStyles = makeStyles((theme) => ({
   basicStyle: { display: 'block', padding: '0.5rem' },
   containerStyle: {
     backgroundColor: theme.palette.secondary.main,
-    border: `2px solid ${theme.palette.grey[500]}`,
-    borderRadius: '0.5rem',
+    border: '2px solid',
+    borderColor: theme.palette.primary.main,
+    borderRadius: '5px',
     boxShadow: `3px 4px ${theme.palette.grey[900]}`,
     display: 'flex',
     justifyContent: 'center',
