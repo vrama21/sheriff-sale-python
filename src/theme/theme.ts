@@ -1,9 +1,8 @@
-import { colors, unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core";
+import { colors, unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
 
 export default createMuiTheme({
   palette: {
     primary: {
-      light: '#81B29A',
       main: '#3D5A80',
       dark: '#2C405B',
       contrastText: colors.common.white,
@@ -15,8 +14,10 @@ export default createMuiTheme({
       contrastText: colors.common.white,
     },
     success: {
-      main: "#81B29A"
+      light: '#A5C8B7',
+      main: '#81B29A',
+      dark: '#53886E'
     },
-    type: 'dark',
+    // type: 'dark',
   }
 });

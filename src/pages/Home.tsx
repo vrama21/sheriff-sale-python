@@ -5,10 +5,12 @@ import useFetch from '../hooks/useFetch';
 import ListingView from '../components/ListingView/ListingView';
 import { Paper } from '@material-ui/core';
 import { ListingInterface } from '../types/types';
+import { homePageStyles } from './Home.style';
 
 const Home = (): React.FC => {
   const listings: ListingInterface[] = useFetch({ url: '/api/get_all_listings', method: 'GET' }).response?.data;
   const initialData = useFetch({ url: '/api/constants', method: 'GET' }).response?.data;
+  const classes = homePageStyles();
 
   const initialFilterState = { county: '', city: '', saleDate: '' };
 
@@ -75,15 +77,8 @@ const Home = (): React.FC => {
   }, [listings]);
 
   return (
-    <Paper
-      elevation={0}
-      style={{
-        height: '115vh',
-        padding: '1rem 0',
-        textAlign: 'center',
-      }}
-    >
-      <div style={{ padding: '0.5rem 0' }}>
+    <Paper className={classes.root} elevation={0} style={{}}>
+      <div className={classes.title}>
         <h1>Sheriff Sale Scraper</h1>
       </div>
       <div>
