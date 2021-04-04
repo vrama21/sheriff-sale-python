@@ -6,16 +6,27 @@ import { ListingInterface } from '../../types';
 import { formatToCurrency } from '../../helpers/formatToCurrency';
 import googleMapsIcon from '../../assets/google-maps-icon.png';
 
-const Listing: React.FC<ListingInterface> = ({ listing }: ListingInterface = {}) => {
+const Listing: React.FC<ListingInterface> = ({ 
+  address,
+  attorney,
+  attorney_phone,
+  defendant,
+  judgment,
+  maps_url,
+  plaintiff,
+  priors,
+  sale_date,
+  upset_amount,
+ }: ListingInterface) => {
   const classes = listingStyles();
 
   return (
     <Grid item xs={12} lg={6}>
       <Grid container className={classes.root}>
         <Grid item className={classes.addressHeader} xs={12}>
-          {listing.address}
-          {listing.maps_url && (
-            <a href={listing.maps_url} target="_blank">
+          {address}
+          {maps_url && (
+            <a href={maps_url} target="_blank">
               <img className={classes.googleMapsLogo} src={googleMapsIcon} />
             </a>
           )}
@@ -28,32 +39,32 @@ const Listing: React.FC<ListingInterface> = ({ listing }: ListingInterface = {})
         </Grid>
         <Grid item xs={2}>
           <span className={classes.listingLabel}>Sale Date: </span>
-          {listing.judgment && <span className={classes.listingLabel}>Judgment: </span>}
-          {listing.upset_amount && <span className={classes.listingLabel}>Upset Amount: </span>}
-          {listing.priors && <span className={classes.listingLabel}>Priors: </span>}
+          {judgment && <span className={classes.listingLabel}>Judgment: </span>}
+          {upset_amount && <span className={classes.listingLabel}>Upset Amount: </span>}
+          {priors && <span className={classes.listingLabel}>Priors: </span>}
         </Grid>
         <Grid item xs={2}>
-          <span className={classes.listingValue}>{listing.sale_date}</span>
-          {listing.judgment && <span className={classes.listingValue}>{formatToCurrency(listing.judgment)}</span>}
-          {listing.upset_amount && <span className={classes.listingValue}>{formatToCurrency(listing.upset_amount)}</span>}
-          <span className={classes.listingValue}>{listing.priors}</span>
+          <span className={classes.listingValue}>{sale_date}</span>
+          {judgment && <span className={classes.listingValue}>{formatToCurrency(judgment)}</span>}
+          {upset_amount && <span className={classes.listingValue}>{formatToCurrency(upset_amount)}</span>}
+          <span className={classes.listingValue}>{priors}</span>
         </Grid>
         <Grid item xs={2}>
           <span className={classes.listingLabel}>Attorney: </span>
-          {listing.attorney_phone && <span className={classes.listingLabel}>Attorney Phone: </span>}
+          {attorney_phone && <span className={classes.listingLabel}>Attorney Phone: </span>}
           <span className={classes.listingLabel}>Plaintiff: </span>
           <span className={classes.listingLabel}>Defendant: </span>
         </Grid>
         <Grid item xs={2}>
           <Typography noWrap className={classes.listingValue}>
-            {listing.attorney}
+            {attorney}
           </Typography>
-          {listing.attorney_phone && <span className={classes.listingValue}>{listing.attorney_phone}</span>}
+          {attorney_phone && <span className={classes.listingValue}>{attorney_phone}</span>}
           <Typography noWrap className={classes.listingValue}>
-            {listing.plaintiff}
+            {plaintiff}
           </Typography>
           <Typography noWrap className={classes.listingValue}>
-            {listing.defendant}
+            {defendant}
           </Typography>
         </Grid>
       </Grid>

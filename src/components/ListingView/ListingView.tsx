@@ -1,18 +1,37 @@
-// @ts-nocheck
 import React from 'react';
 import Paginate from '../Paginate/Paginate';
 import Listing from '../Listing/Listing';
 import { Grid } from '@material-ui/core';
 import { ListingInterface } from '../../types';
 
-const ListingView = ({ currentPage, listings, pageClick, pageCount }) => {
+interface ListingViewProps {
+  currentPage: number;
+  listings: Record<string, undefined>[];
+  pageClick: (event: React.MouseEvent<HTMLElement>) => void;
+  pageCount: number;
+}
+
+const ListingView: React.FC<ListingViewProps> = ({ currentPage, listings, pageClick, pageCount }: ListingViewProps) => {
   const listingsPerPage = 10;
   const indexOfLastBorrower = currentPage * listingsPerPage;
   const indexOfFirstBorrower = indexOfLastBorrower - listingsPerPage;
 
   const filteredListingsView = listings
     ?.slice(indexOfFirstBorrower, indexOfLastBorrower)
-    .map((listing: ListingInterface, listingIndex: number) => <Listing listing={listing} key={`${listing.address_sanitized}-${listingIndex}`} />);
+    .map((listing: ListingInterface, listingIndex: number) => (
+      <Listing
+        address={listing.address}
+        attorney={listing.attorney}
+        attorney_phone={listing.attorney_phone}
+        defendant={listing.defendant}
+        judgment={listing.judgment}
+        maps_url={listing.maps_url}
+        plaintiff={listing.plaintiff}
+        priors={listing.priors}
+        sale_date={listing.sale_date}
+        key={`${listing.address_sanitized}-${listingIndex}`}
+      />
+    ));
 
   return (
     <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>

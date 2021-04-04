@@ -21,7 +21,7 @@ export interface ListingInterface {
   deed_address?: string;
   defendant?: string;
   description?: string;
-  judgment?: string;
+  judgment?: number;
   maps_url?: string;
   parcel?: string;
   plaintiff?: string;

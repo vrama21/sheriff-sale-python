@@ -7,7 +7,7 @@ interface useFetchProps {
 }
 
 interface useFetchType {
-  response: Record<string, unknown>[];
+  response: Record<string, unknown>[] | undefined;
   error: string | null | undefined;
 }
 
