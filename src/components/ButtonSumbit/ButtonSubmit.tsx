@@ -13,7 +13,7 @@ const ButtonSubmitComponent = withStyles((theme) => ({
   },
 }))(Button);
 
-const ButtonSubmit = ({ color, onClick, size, styleOverride, variant }) => (
+const ButtonSubmit = ({ onClick, size, styleOverride, variant }) => (
   <ButtonSubmitComponent
     color="primary"
     onClick={onClick}

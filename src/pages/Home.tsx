@@ -77,7 +77,7 @@ const Home = (): React.FC => {
   }, [listings]);
 
   return (
-    <Paper className={classes.root} elevation={0} style={{}}>
+    <Paper className={classes.root} elevation={0}>
       <div className={classes.title}>
         <h1>Sheriff Sale Scraper</h1>
       </div>

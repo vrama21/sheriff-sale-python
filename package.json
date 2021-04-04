@@ -43,8 +43,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext ts,tsx --ignore-path .eslintignore",
-    "tsc": "tsc",
-    "test2": "tsc --listFiles"
+    "tsc": "tsc"
   },
   "eslintConfig": {
     "extends": "react-app"
