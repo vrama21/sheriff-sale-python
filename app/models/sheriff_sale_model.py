@@ -15,6 +15,7 @@ class SheriffSaleModel(db.Model):
     city = db.Column('city', db.String)
     county = db.Column('county', db.String)
     court_case = db.Column('court_case', db.String)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
     deed = db.Column('deed', db.String)
     deed_address = db.Column('deed_address', db.String)
     defendant = db.Column('defendant', db.String)
@@ -30,6 +31,7 @@ class SheriffSaleModel(db.Model):
     street = db.Column('street', db.String)
     unit = db.Column('unit', db.String)
     unit_secondary = db.Column('unit_secondary', db.String)
+    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     upset_amount = db.Column('upset_amount', db.Numeric(10, 2))
     zip_code = db.Column('zip_code', db.String)
 
