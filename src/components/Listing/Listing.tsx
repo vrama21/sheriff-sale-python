@@ -6,7 +6,7 @@ import { ListingInterface } from '../../types';
 import { formatToCurrency } from '../../helpers/formatToCurrency';
 import googleMapsIcon from '../../assets/google-maps-icon.png';
 
-const Listing: React.FC<ListingInterface> = ({ 
+const Listing: React.FC<ListingInterface> = ({
   address,
   attorney,
   attorney_phone,
@@ -17,21 +17,19 @@ const Listing: React.FC<ListingInterface> = ({
   priors,
   sale_date,
   upset_amount,
- }: ListingInterface) => {
+}: ListingInterface) => {
   const classes = listingStyles();
 
   return (
-    <Grid item xs={12} lg={6}>
-      <Grid container className={classes.root}>
-        <Grid item className={classes.addressHeader} xs={12}>
-          {address}
-          {maps_url && (
-            <a href={maps_url} target="_blank">
-              <img className={classes.googleMapsLogo} src={googleMapsIcon} />
-            </a>
-          )}
-        </Grid>
-      </Grid>
+    <div className={classes.root}>
+      <div className={classes.addressHeader}>
+        {address}
+        {maps_url && (
+          <a href={maps_url} target="_blank">
+            <img className={classes.googleMapsLogo} src={googleMapsIcon} />
+          </a>
+        )}
+      </div>
 
       <Grid container className={classes.listingContainer}>
         <Grid item xs={4}>
@@ -68,7 +66,7 @@ const Listing: React.FC<ListingInterface> = ({
           </Typography>
         </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 

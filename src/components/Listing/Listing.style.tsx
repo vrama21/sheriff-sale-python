@@ -2,8 +2,31 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const listingStyles = makeStyles((theme) => ({
   root: {
-    margin: '2rem 0 0 0',
+    margin: '2rem auto',
     position: 'relative',
+    width: '65%',
+  },
+  addressHeader: {
+    background: theme.palette.secondary.main,
+    borderLeft: '5px',
+    borderTop: '5px',
+    borderRight: '5px',
+    borderStyle: 'solid',
+    borderColor: theme.palette.primary.main,
+    borderRadius: '0.5rem 0.5rem 0 0',
+    color: theme.palette.primary.main,
+    fontSize: '22px',
+    fontWeight: 'bold',
+    padding: '0.5rem 1rem',
+  },
+  googleMapsLogo: {
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: '5px',
+    bottom: '5px',
+    margin: '0 0 0 15px',
+    maxHeight: '60%',
+    padding: '0.25rem',
+    position: 'absolute',
   },
   listingContainer: {
     background: '#3D405B',
@@ -12,25 +35,6 @@ export const listingStyles = makeStyles((theme) => ({
     borderRadius: '0 0 0.5rem 0.5rem',
     display: 'flex',
     padding: '1rem',
-    margin: '0.5rem 0',
-  },
-  addressHeader: {
-    background: theme.palette.secondary.main,
-    border: '5px solid',
-    borderColor: theme.palette.primary.main,
-    borderRadius: '0.5rem 0.5rem 0 0',
-    color: theme.palette.primary.main,
-    fontSize: '22px',
-    fontWeight: 'bold',
-    padding: '0.5rem 1rem',
-    position: 'absolute',
-    top: '-40px',
-    width: '100%',
-  },
-  googleMapsLogo: {
-    margin: '0 0 0 15px',
-    maxHeight: '3%',
-    maxWidth: '2%',
   },
   listingLabel: {
     color: theme.palette.secondary.main,

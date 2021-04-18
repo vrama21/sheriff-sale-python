@@ -38,7 +38,7 @@ const ListingView: React.FC<ListingViewProps> = ({ currentPage, listings, pageCl
       {(pageCount || pageCount > 0) && <Paginate onClick={pageClick} pageCount={pageCount} />}
       {filteredListingsView?.length ? (
         <Grid container direction="row" spacing={4}>
-          {filteredListingsView}
+          <Grid item>{filteredListingsView}</Grid>
         </Grid>
       ) : (
         <span>There are no results with the selected filters.</span>
