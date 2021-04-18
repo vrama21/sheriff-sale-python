@@ -2,8 +2,8 @@ from .. import db
 from decimal import Decimal
 
 
-class SheriffSaleModel(db.Model):
-    __tablename__ = 'sheriff_sale'
+class Listing(db.Model):
+    __tablename__ = 'listing'
     __table_args__ = {'extend_existing': True}
 
     id = db.Column('id', db.Integer, primary_key=True, nullable=False)
@@ -21,13 +21,16 @@ class SheriffSaleModel(db.Model):
     defendant = db.Column('defendant', db.String)
     description = db.Column('description', db.String)
     judgment = db.Column('judgment', db.Numeric(10, 2))
+    latitude = db.Column('latitude', db.String)
+    longitude = db.Column('longitude', db.String)
     maps_url = db.Column('maps_url', db.String)
     parcel = db.Column('parcel', db.String)
     plaintiff = db.Column('plaintiff', db.String)
     priors = db.Column('priors', db.String)
     sale_date = db.Column('sale_date', db.String)
     secondary_unit = db.Column('secondary_unit', db.String)
-    status_history = db.relationship('StatusHistoryModel', backref='StatusHistory', lazy=True)
+    state = db.Column('state', db.String)
+    status_history = db.relationship('StatusHistory', backref='StatusHistory', lazy=True)
     street = db.Column('street', db.String)
     unit = db.Column('unit', db.String)
     unit_secondary = db.Column('unit_secondary', db.String)
@@ -50,12 +53,12 @@ class SheriffSaleModel(db.Model):
         return serialized_dict
 
 
-class StatusHistoryModel(db.Model):
+class StatusHistory(db.Model):
     __tablename__ = 'status_history'
     __table_args__ = {'extend_existing': True}
 
     id = db.Column('id', db.Integer, primary_key=True, nullable=False)
-    sheriff_sale_id = db.Column(db.Integer, db.ForeignKey('sheriff_sale.id'))
+    listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'))
 
     status = db.Column('status', db.String)
     date = db.Column('date', db.String)

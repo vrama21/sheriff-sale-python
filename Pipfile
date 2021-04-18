@@ -22,6 +22,7 @@ psycopg2 = "*"
 flake8-quotes = "*"
 flask-apscheduler = "*"
 isort = "*"
+flask-googlemaps = "*"
 
 [requires]
 python_version = "3.8"

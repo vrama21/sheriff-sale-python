@@ -1,5 +1,6 @@
 import re
-from . import match_parser
+from .match_parser import match_parser
+from .parse_google_maps import get_coordinates_from_address
 from ...constants import (
     ADDRESS_REGEX_SPLIT,
     SUFFIX_ABBREVATIONS,
@@ -35,6 +36,8 @@ def sanitize_address(address: str, county: str) -> dict:
     secondary_unit_match = match_parser(regex_secondary_unit, address, regex_name='secondary_unit', log=False)
     zip_code_match = match_parser(regex_zip_code, address, regex_name='zip_code', log=False)
 
+    coordinates = get_coordinates_from_address(address)
+
     if street_match:
         for key, value in SUFFIX_ABBREVATIONS.items():
             street_match = re.sub(key, value, street_match)
@@ -42,6 +45,8 @@ def sanitize_address(address: str, county: str) -> dict:
     return {
         'city': city_match,
         'county': county,
+        'latitude': coordinates and coordinates['lat'],
+        'longitude': coordinates and coordinates['lng'],
         'street': street_match,
         'unit': unit_match,
         'unit_secondary': secondary_unit_match,

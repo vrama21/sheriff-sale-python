@@ -1,3 +1,2 @@
-from .county_clerk_model import CountyClerkModel
-from .nj_parcels_model import NJParcelsModel
-from .sheriff_sale_model import SheriffSaleModel, StatusHistoryModel
+from .county_clerk_model import CountyClerk
+from .listing_model import Listing, StatusHistory

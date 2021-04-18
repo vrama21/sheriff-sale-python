@@ -1,7 +1,8 @@
+import base64
 from flask import jsonify, request, Blueprint
 
 from .. import db, scheduler
-from ..models import SheriffSaleModel, StatusHistoryModel, CountyClerkModel
+from ..models import Listing, StatusHistory, CountyClerk
 from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR
 from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history
 from ..services.nj_parcels.nj_parcels import NJParcels
@@ -79,26 +80,28 @@ def daily_scrape():
                 listing_details = parse_listing_details(listing_html, county)
                 status_history = parse_status_history(listing_html)
 
-                listing = db.session.query(SheriffSaleModel).filter_by(address=listing_details.get('address')).scalar()
+                listing = db.session.query(Listing).filter_by(address=listing_details.get('address')).scalar()
                 listing: dict = listing.serialize if listing else None
                 listing_exists: bool = listing is not None
 
-                if listing_exists:
-                    if (not listing.get('city') and listing_details.get('city')) or (
-                        not listing.get('street') and listing_details.get('street')
-                    ):
-                        print(f'Updating {listing.get("address")}...')
-                        listings_to_update.append({'id': listing['id'], **listing_details})
+                # TODO: Move this to a separate update streets/cities route
+                # if listing_exists:
+                #     if (not listing.get('city') and listing_details.get('city')) or (
+                #         not listing.get('street') and listing_details.get('street')
+                #     ):
+                #         print(f'Updating {listing.get("address")}...')
+                #         listings_to_update.append({'id': listing['id'], **listing_details})
 
                 if not listing_exists:
-                    listing_to_insert = SheriffSaleModel(**listing_details)
+                    print(f'Inserting a new listing: {listing_details["address"]}')
+                    listing_to_insert = Listing(**listing_details)
                     db.session.add(listing_to_insert)
                     db.session.flush()
                     db.session.refresh(listing_to_insert)
 
                     for status in status_history:
-                        status_history_to_insert = StatusHistoryModel(
-                            sheriff_sale_id=listing_to_insert.id,
+                        status_history_to_insert = StatusHistory(
+                            listing_id=listing_to_insert.id,
                             status=status.get('status'),
                             date=status.get('date'),
                         )
@@ -106,7 +109,7 @@ def daily_scrape():
                         db.session.add(status_history_to_insert)
 
             if len(listings_to_update):
-                db.session.bulk_update_mappings(SheriffSaleModel, listings_to_update)
+                db.session.bulk_update_mappings(Listing, listings_to_update)
 
             db.session.commit()
             print(f'Parsing for {county} County has completed. ', '\n')
@@ -116,7 +119,7 @@ def daily_scrape():
 
 @main_bp.route('/api/get_all_listings', methods=['GET'])
 def get_all_listings():
-    sheriff_sale_query = db.session.query(SheriffSaleModel).order_by(SheriffSaleModel.sale_date.desc()).all()
+    sheriff_sale_query = db.session.query(Listing).order_by(Listing.sale_date.desc()).all()
 
     sheriff_sale_query = [data.serialize for data in sheriff_sale_query]
 
@@ -179,3 +182,26 @@ def county_clerk():
     data = {'search': search_results, 'documents': documents}
 
     return jsonify(data=data)
+
+
+@main_bp.route('/api/county_clerk_doc_to_pdf', methods=['GET', 'POST'])
+def county_clerk_doc_to_pdf():
+    from base64 import b64decode
+    import requests
+    import codecs
+
+    test_doc = {'ID': 5705275, 'convert': True, 'page': 1}
+    response = requests.post(url='http://24.246.110.8/or_web1/api/document', data=test_doc)
+    content = response.json()
+
+    pdf_base64 = content['hi_res'].encode('utf-8')
+
+    print(pdf_base64[0:10])
+    bytes = base64.decodebytes(pdf_base64)
+    # if bytes[0:4] != b'%PDF':
+    #     raise ValueError('Missing the PDF file signature')
+
+    with open('test.pdf', 'wb') as pdf:
+        pdf.write(bytes)
+
+    return jsonify(data=content)

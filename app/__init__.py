@@ -2,9 +2,10 @@ import logging
 import os
 from flask import Flask
 from flask_cors import CORS
+from flask_googlemaps import GoogleMaps
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from .constants import BUILD_DIR, LOG_DIR
+from .constants import BUILD_DIR, LOG_DIR, MIGRATIONS_DIR
 from flask_apscheduler import APScheduler
 
 
@@ -12,6 +13,7 @@ cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
 scheduler = APScheduler()
+google_maps = GoogleMaps()
 
 
 def create_app():
@@ -25,20 +27,20 @@ def create_app():
 
     # Initialize Plugins
     db.init_app(app)
-    migrate.init_app(app, db)
+    google_maps.init_app(app)
+    migrate.init_app(app, db, directory=str(MIGRATIONS_DIR))
     scheduler.init_app(app)
 
     with app.app_context():
         from .commands import cli
         from .routes import routes
 
-        if app.config['SQLALCHEMY_DATABASE_URI']:
-            db.create_all()
+        db.create_all()
 
         app.cli.add_command(cli)
 
         app.register_blueprint(blueprint=routes.main_bp)
-        
+
         scheduler.start()
 
         return app

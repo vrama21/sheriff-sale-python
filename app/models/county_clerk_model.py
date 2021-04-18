@@ -1,7 +1,7 @@
 from .. import db
 
 
-class CountyClerkModel(db.Model):
+class CountyClerk(db.Model):
     __tablename__ = 'county_clerk'
     __table_args__ = {'extend_existing': True}
 
