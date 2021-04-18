@@ -4,7 +4,7 @@ from flask import jsonify, request, Blueprint
 from .. import db, scheduler
 from ..models import Listing, StatusHistory, CountyClerk
 from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR
-from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history
+from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history, parse_google_maps
 from ..services.nj_parcels.nj_parcels import NJParcels
 from ..services.county_clerk import county_clerk_document, county_clerk_search
 
@@ -94,6 +94,14 @@ def daily_scrape():
 
                 if not listing_exists:
                     print(f'Inserting a new listing: {listing_details["address"]}')
+
+                    formatted_address = f'{listing_details["street"]}, {listing_details["city"]}, NJ'
+                    coordinates = parse_google_maps.get_coordinates_from_address(formatted_address)
+
+                    if coordinates:
+                        listing_details['latitude'] = coordinates['lat']
+                        listing_details['longitude'] = coordinates['lng']
+
                     listing_to_insert = Listing(**listing_details)
                     db.session.add(listing_to_insert)
                     db.session.flush()
