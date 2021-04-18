@@ -47,6 +47,7 @@ def sanitize_address(address: str, county: str) -> dict:
         'county': county,
         'latitude': coordinates and coordinates['lat'],
         'longitude': coordinates and coordinates['lng'],
+        'state': 'NJ',
         'street': street_match,
         'unit': unit_match,
         'unit_secondary': secondary_unit_match,
