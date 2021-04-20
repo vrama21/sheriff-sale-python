@@ -1,14 +1,17 @@
-interface fetchApiProps {
+interface requestProps {
   url: string;
-  method: string;
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   options?: Record<string, unknown>;
 }
 
-interface fetchApiType {
+interface requestType {
   data: Record<string, unknown>[] | undefined;
 }
 
-const fetchApi = async ({ url, method, options }: fetchApiProps): Promise<fetchApiType> => {
+/**
+ * Creates an http request to an url
+ */
+const request = async ({ url, method, options }: requestProps): Promise<requestType> => {
   const defaultOption = {
     method,
     headers: { 'Content-Type': 'application/json' },
@@ -23,4 +26,4 @@ const fetchApi = async ({ url, method, options }: fetchApiProps): Promise<fetchA
   }
 };
 
-export default fetchApi;
+export default request;
