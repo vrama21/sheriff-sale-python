@@ -6,6 +6,7 @@ import { ListingInterface } from '../types/types';
 import { homePageStyles } from './Home.style';
 import { getConstants, getAllListings } from '../actions/actions';
 import { AppContext } from '../App';
+import { isEqual } from 'lodash';
 
 const Home: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -20,10 +21,9 @@ const Home: React.FC = () => {
 
   const listings = state.data.listings;
 
-  const initialFilterState = { county: '', city: '', saleDate: '' };
+  const initialFilterState = { county: undefined, city: undefined, saleDate: undefined };
 
   const [filters, setFilters] = useState(initialFilterState);
-  const [filterErrors, setFilterErrors] = useState(undefined);
   const [filteredListings, setFilteredListings] = useState(undefined);
 
   const filterByCounty = (listing: ListingInterface) => listing.county === filters.county;
@@ -54,13 +54,9 @@ const Home: React.FC = () => {
       return;
     }
 
-    if (filters === initialFilterState) {
+    if (isEqual(filters, initialFilterState)) {
       setFilteredListings(listings);
-      return;
-    }
 
-    if (!filters.county && filters.county) {
-      setFilterErrors({ county: true });
       return;
     }
 
@@ -97,7 +93,6 @@ const Home: React.FC = () => {
               counties={counties}
               citiesByCounty={citiesByCounty}
               filters={filters}
-              filterErrors={filterErrors}
               onFilterChange={onFilterChange}
               onFilterReset={onFilterReset}
               onFilterSubmit={onFilterSubmit}

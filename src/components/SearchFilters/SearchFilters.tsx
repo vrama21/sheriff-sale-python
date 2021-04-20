@@ -2,7 +2,7 @@ import React from 'react';
 import { FormControl, MenuItem } from '@material-ui/core';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import ResetSubmit from '../ResetSubmit/ResetSubmit';
-import { SearchFiltersProps } from '../../types';
+import { SearchFiltersProps } from './SearchFilters.types';
 import { FilterSelect, MenuProps } from '../FilterSelect/FilterSelect';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
 import { searchFiltersStyles } from './SearchFilters.style';
@@ -11,7 +11,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   counties,
   citiesByCounty,
   filters,
-  // filterErrors,
   onFilterChange,
   onFilterReset,
   onFilterSubmit,
