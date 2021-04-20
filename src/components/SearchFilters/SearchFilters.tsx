@@ -1,34 +1,11 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, MenuItem } from '@material-ui/core';
+import { FormControl, MenuItem } from '@material-ui/core';
 import ButtonSubmit from '../ButtonSumbit/ButtonSubmit';
 import ResetSubmit from '../ResetSubmit/ResetSubmit';
 import { SearchFiltersProps } from '../../types';
 import { FilterSelect, MenuProps } from '../FilterSelect/FilterSelect';
-
-const useStyles = makeStyles((theme) => ({
-  filterContainer: {
-    margin: '1rem',
-  },
-  filterSelect: {
-    backgroundColor: theme.palette.grey[700],
-    margin: '0 0.5rem',
-    width: 225,
-  },
-}));
-
-const FilterLabel = withStyles((theme) => ({
-  root: {
-    color: 'white',
-    fontWeight: 'bold',
-    paddingLeft: '0.5rem',
-    position: 'absolute',
-    zIndex: 1,
-  },
-  focused: {
-    color: theme.palette.primary.light,
-  },
-}))(InputLabel);
+import { FilterLabel } from '../FilterLabel/FilterLabel';
+import { searchFiltersStyles } from './SearchFilters.style';
 
 const SearchFilters: React.FC<SearchFiltersProps> = ({
   counties,
@@ -40,10 +17,13 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   onFilterSubmit,
   saleDates,
 }: SearchFiltersProps) => {
-  const classes = useStyles();
+  const classes = searchFiltersStyles();
 
-  console.log(counties, filters.county)
-  const citiesOfSelectedCounty: string[] = filters.county ? citiesByCounty[filters.county]['cities'] : [];
+  const selectedCounty = filters.county;
+  const selectedCity = filters.city;
+  const selectedSaleDate = filters.saleDate;
+
+  const citiesOfSelectedCounty: string[] | [] = citiesByCounty && selectedCounty ? citiesByCounty.selectedCounty.cities : [];
 
   const countyMenuItems = counties?.map((county) => (
     <MenuItem key={`county-${county}`} value={county}>
@@ -75,7 +55,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             MenuProps={MenuProps}
             name="county"
             onChange={onFilterChange}
-            value={filters.county || ''}
+            value={selectedCounty || ''}
             variant="outlined"
           />
         </FormControl>
@@ -87,7 +67,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             MenuProps={MenuProps}
             name="city"
             onChange={onFilterChange}
-            value={filters.city || ''}
+            value={selectedCity || ''}
             variant="outlined"
           />
         </FormControl>
@@ -99,7 +79,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             MenuProps={MenuProps}
             name="saleDate"
             onChange={onFilterChange}
-            value={filters.saleDate || ''}
+            value={selectedSaleDate || ''}
             variant="outlined"
           />
         </FormControl>

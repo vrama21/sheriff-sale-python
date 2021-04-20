@@ -45,7 +45,7 @@ export interface ListingInterface {
 
 export interface SearchFiltersProps {
   counties: string[];
-  citiesByCounty: Record<string, null>;
+  citiesByCounty: Record<string, Record<'cities', string[]>>;
   filters: Filter;
   filterErrors: Record<string, null>;
   onFilterChange: (
