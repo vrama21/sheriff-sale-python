@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormControl, MenuItem } from '@material-ui/core';
-import ButtonSubmit from '../ButtonSumbit/ButtonSubmit';
+import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import ResetSubmit from '../ResetSubmit/ResetSubmit';
 import { SearchFiltersProps } from '../../types';
 import { FilterSelect, MenuProps } from '../FilterSelect/FilterSelect';

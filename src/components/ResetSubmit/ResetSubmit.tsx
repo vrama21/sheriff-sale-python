@@ -1,25 +1,21 @@
-// @ts-nocheck
 import React from 'react';
-import { Button, withStyles } from '@material-ui/core';
+import { Button, ButtonProps } from '@material-ui/core';
+import { resetSubmitStyles } from './ResetSubmit.styles';
 
-const defaultStyle = { fontWeight: 'bold', margin: '0 0.5rem' };
+const ResetSubmit: React.FC<ButtonProps> = ({ className, color, onClick, size, variant }: ButtonProps) => {
+  const classes = resetSubmitStyles();
 
-const ResetSubmitComponent = withStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.secondary.light,
-  },
-}))(Button);
-
-const ResetSubmit = ({ color, onClick, size, styleOverride, variant }) => (
-  <ResetSubmitComponent
-    color={color || 'secondary'}
-    onClick={onClick}
-    size={size || 'large'}
-    style={styleOverride || defaultStyle}
-    variant={variant || 'contained'}
-  >
-    Reset
-  </ResetSubmitComponent>
-);
+  return (
+    <Button
+      className={classes.root || className}
+      color={color || 'secondary'}
+      onClick={onClick}
+      size={size || 'large'}
+      variant={variant || 'contained'}
+    >
+      Reset
+    </Button>
+  );
+};
 
 export default ResetSubmit;
