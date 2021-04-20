@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import { reducer, reducerInitialState } from './reducers/reducer';
 import { Dispatch } from './types/types';
 import { Reducer } from './reducers/reducer.types';
+import { LoadScript } from '@react-google-maps/api';
 
 export const AppContext = React.createContext<{
   state: Reducer;
@@ -20,15 +21,17 @@ export const AppProvider: React.FC = ({ children }) => {
 };
 
 const App: React.FC = () => (
-  <AppProvider>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
-  </AppProvider>
+  <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+    <AppProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </AppProvider>
+  </LoadScript>
 );
 
 export default App;

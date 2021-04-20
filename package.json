@@ -8,13 +8,12 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
+    "@react-google-maps/api": "^2.1.1",
     "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-google-maps": "^7.3.0",
     "react-google-streetview": "0.0.9",
     "react-loading": "^2.0.3",
-    "react-map-gl": "^5.2.11",
     "react-paginate": "^6.5.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
@@ -24,18 +23,21 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/googlemaps": "^3.43.3",
     "@types/jest": "^24.9.1",
     "@types/lodash": "^4.14.168",
     "@types/material-ui": "^0.21.8",
     "@types/node": "^12.19.9",
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
-    "@types/react-map-gl": "^5.2.9",
     "@types/react-paginate": "^6.2.1",
     "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "eslint-plugin-react": "^7.23.1"
+  },
+  "resolutions": {
+    "react-scripts/eslint-webpack-plugin": "2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

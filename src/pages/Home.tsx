@@ -54,6 +54,8 @@ const Home: React.FC = () => {
       return;
     }
 
+    dispatch({ type: 'SET_PAGE', currentPage: 1 });
+
     if (isEqual(filters, initialFilterState)) {
       setFilteredListings(listings);
 
@@ -67,7 +69,6 @@ const Home: React.FC = () => {
 
     const listingsWithFilterApplied = listings.filter(filterByCounty).filter(filterByCity);
 
-    dispatch({ type: 'SET_PAGE', currentPage: 1 });
     setFilteredListings(listingsWithFilterApplied);
   };
 

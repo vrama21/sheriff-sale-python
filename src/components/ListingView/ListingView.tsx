@@ -27,14 +27,16 @@ const ListingView: React.FC<ListingViewProps> = ({ listings }: ListingViewProps)
 
   return (
     <div className={classes.root}>
-      {(currentPage || currentPage > 0) && <Paginate pageCount={pageCount} />}
       {!filteredListingsView && <Loading />}
       {filteredListingsView?.length > 0 && (
-        <Grid container direction="row" spacing={4}>
-          <Grid item xs={12}>
-            {filteredListingsView}
+        <div>
+          <Paginate pageCount={pageCount} />
+          <Grid container direction="row" spacing={4}>
+            <Grid item xs={12}>
+              {filteredListingsView}
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       )}
       {filteredListingsView?.length === 0 && <span>There are no results with the selected filters.</span>}
     </div>
