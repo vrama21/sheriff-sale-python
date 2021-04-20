@@ -22,6 +22,8 @@ export interface ListingInterface {
   defendant?: string;
   description?: string;
   judgment?: number;
+  latitude?: string | float;
+  longitude?: string | float;
   maps_url?: string;
   parcel?: string;
   plaintiff?: string;
@@ -29,6 +31,7 @@ export interface ListingInterface {
   sale_date?: string;
   secondary_unit?: string;
   sheriff?: string;
+  state?: string;
   status_history?: Record<string, unknown>;
   unit?: string;
   unit_secondary?: string;

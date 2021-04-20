@@ -13,6 +13,8 @@ const Listing: React.FC<ListingInterface> = ({
   defendant,
   judgment,
   maps_url,
+  latitude,
+  longitude,
   plaintiff,
   priors,
   sale_date,
@@ -33,7 +35,12 @@ const Listing: React.FC<ListingInterface> = ({
 
       <Grid container className={classes.listingContainer}>
         <Grid item xs={4}>
-          <ListingMap />
+          {latitude && longitude && (
+            <ListingMap 
+              latitude={latitude}
+              longitude={longitude}
+            />
+          )}
         </Grid>
         <Grid item xs={2}>
           <span className={classes.listingLabel}>Sale Date: </span>
