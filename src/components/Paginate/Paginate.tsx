@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactPaginate from 'react-paginate';
 import { paginateStyles } from './Paginate.style';
-import { reducer, reducerInitialState } from '../../reducers/reducer';
+import { AppContext } from '../../App';
 
 interface PaginateProps {
   pageCount: number;
 }
 
 const Paginate: React.FC<PaginateProps> = ({ pageCount }: PaginateProps) => {
-  const [state, dispatch] = React.useReducer(reducer, reducerInitialState);
+  const { state, dispatch } = useContext(AppContext);
   const { currentPage } = state;
 
   const handlePageClick: (selectedItem: { selected: number }) => void = (selectedItem) => {

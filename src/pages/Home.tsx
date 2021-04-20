@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const citiesByCounty = state?.constants?.counties && state?.constants?.counties;
   const saleDates = hasGottenConstants && Object.keys(state?.constants?.saleDates);
 
-  const listings: ListingInterface[] = state.data.listings;
+  const listings = state.data.listings;
 
   const initialFilterState = { county: '', city: '', saleDate: '' };
 

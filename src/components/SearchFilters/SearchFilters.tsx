@@ -11,7 +11,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   counties,
   citiesByCounty,
   filters,
-  filterErrors,
+  // filterErrors,
   onFilterChange,
   onFilterReset,
   onFilterSubmit,
@@ -23,7 +23,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   const selectedCity = filters.city;
   const selectedSaleDate = filters.saleDate;
 
-  const citiesOfSelectedCounty: string[] | [] = citiesByCounty?.[selectedCounty]?.cities || [];
+  const citiesOfSelectedCounty = citiesByCounty?.[selectedCounty]?.cities || [];
 
   const countyMenuItems = counties?.map((county) => (
     <MenuItem key={`county-${county}`} value={county}>
