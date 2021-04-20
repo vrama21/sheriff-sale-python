@@ -1,16 +1,23 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { paginateStyles } from './Paginate.style';
+import { reducer, reducerInitialState } from '../../reducers/reducer';
 
 interface PaginateProps {
-  onClick: (selectedItem: { selected: number }) => void;
   pageCount: number;
 }
 
-const Paginate: React.FC<PaginateProps> = ({ onClick, pageCount }) => {
+const Paginate: React.FC<PaginateProps> = ({ pageCount }: PaginateProps) => {
+  const [state, dispatch] = React.useReducer(reducer, reducerInitialState);
+  const { currentPage } = state;
+
+  const handlePageClick: (selectedItem: { selected: number }) => void = (selectedItem) => {
+    dispatch({ type: 'SET_PAGE', currentPage: selectedItem.selected + 1 });
+  };
+
   const classes = paginateStyles();
 
-  if (pageCount === 0) {
+  if (currentPage === 0) {
     return null;
   }
 
@@ -32,7 +39,7 @@ const Paginate: React.FC<PaginateProps> = ({ onClick, pageCount }) => {
       pageLinkClassName={classes.linkStyle}
       pageRangeDisplayed={3}
       previousClassName={classes.basicStyle}
-      onPageChange={onClick}
+      onPageChange={handlePageClick}
       activeLinkClassName={classes.activeLinkStyle}
     />
   );

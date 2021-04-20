@@ -3,8 +3,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 
-const App = () => {
-  return (
+export const AuthContext = React.createContext();
+
+const App = () => (
+  <AuthContext.Provider>
     <div>
       <Router>
         <Switch>
@@ -14,7 +16,7 @@ const App = () => {
         </Switch>
       </Router>
     </div>
-  );
-};
+  </AuthContext.Provider>
+);
 
 export default App;

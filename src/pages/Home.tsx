@@ -6,6 +6,7 @@ import ListingView from '../components/ListingView/ListingView';
 import { Paper } from '@material-ui/core';
 import { ListingInterface } from '../types/types';
 import { homePageStyles } from './Home.style';
+import { reducer, reducerInitialState } from '../reducers/reducer';
 
 const Home: React.FC = () => {
   const listings: ListingInterface[] = useFetch({ url: '/api/get_all_listings', method: 'GET' }).response?.data;
@@ -14,14 +15,10 @@ const Home: React.FC = () => {
 
   const initialFilterState = { county: '', city: '', saleDate: '' };
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [state, dispatch] = React.useReducer(reducer, reducerInitialState);
   const [filters, setFilters] = useState(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
   const [filteredListings, setFilteredListings] = useState([]);
-
-  const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
-
-  const handlePageClick: (selectedItem: { selected: number }) => void = (data) => setCurrentPage(data.selected + 1);
 
   const filterByCounty = (listing: ListingInterface) => listing.county === filters.county;
 
@@ -96,7 +93,7 @@ const Home: React.FC = () => {
           />
         </div>
       </div>
-      <ListingView currentPage={currentPage} listings={filteredListings} pageClick={handlePageClick} pageCount={pageCount} />
+      <ListingView listings={filteredListings} />
     </Paper>
   );
 };
