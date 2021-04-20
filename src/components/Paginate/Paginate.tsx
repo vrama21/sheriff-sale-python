@@ -1,9 +1,13 @@
-// @ts-nocheck
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { paginateStyles } from './Paginate.style';
 
-const Paginate = ({ onClick, pageCount }) => {
+interface PaginateProps {
+  onClick: (selectedItem: { selected: number }) => void;
+  pageCount: number;
+}
+
+const Paginate: React.FC<PaginateProps> = ({ onClick, pageCount }) => {
   const classes = paginateStyles();
 
   if (pageCount === 0) {
@@ -22,7 +26,7 @@ const Paginate = ({ onClick, pageCount }) => {
       containerClassName={classes.containerStyle}
       initialPage={0}
       pageCount={pageCount}
-      marginPagesDisplayed={3}
+      marginPagesDisplayed={5}
       nextClassName={classes.basicStyle}
       pageClassName={classes.basicStyle}
       pageLinkClassName={classes.linkStyle}

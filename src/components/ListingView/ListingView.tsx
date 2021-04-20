@@ -7,7 +7,7 @@ import { ListingInterface } from '../../types';
 interface ListingViewProps {
   currentPage: number;
   listings: Record<string, undefined>[];
-  pageClick: (event: React.MouseEvent<HTMLElement>) => void;
+  pageClick: (selectedItem: { selected: number; }) => void;
   pageCount: number;
 }
 

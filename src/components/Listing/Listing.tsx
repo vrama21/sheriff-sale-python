@@ -32,8 +32,8 @@ const Listing: React.FC<ListingInterface> = ({
       <div className={classes.addressHeader}>
         {formattedAddress || address}
         {maps_url && (
-          <a href={maps_url} target="_blank">
-            <img className={classes.googleMapsLogo} src={googleMapsIcon} />
+          <a href={maps_url} rel="noopener noreferrer" target="_blank">
+            <img className={classes.googleMapsLogo} src={googleMapsIcon} alt="google_maps_link" />
           </a>
         )}
       </div>

@@ -21,7 +21,7 @@ const Home = (): React.FC => {
 
   const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
 
-  const handlePageClick = (data) => setCurrentPage(data.selected + 1);
+  const handlePageClick: (selectedItem: { selected: number; }) => void = (data) => setCurrentPage(data.selected + 1);
 
   const filterByCounty = (listing: ListingInterface) => listing.county === filters.county;
 
