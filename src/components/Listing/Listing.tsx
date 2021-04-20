@@ -6,33 +6,20 @@ import { ListingInterface } from '../../types';
 import { formatToCurrency } from '../../helpers/formatToCurrency';
 import googleMapsIcon from '../../assets/google-maps-icon.png';
 
-const Listing: React.FC<ListingInterface> = ({
-  address,
-  attorney,
-  attorney_phone,
-  city,
-  defendant,
-  judgment,
-  maps_url,
-  latitude,
-  longitude,
-  plaintiff,
-  priors,
-  sale_date,
-  state,
-  street,
-  upset_amount,
-  zip_code,
-}: ListingInterface) => {
+interface ListingProps {
+  listing: ListingInterface;
+}
+
+const Listing: React.FC<ListingProps> = ({ listing }: ListingProps) => {
   const classes = listingStyles();
-  const formattedAddress = city && street && `${street}, ${city}, ${state} ${zip_code}`;
+  const formattedAddress = listing.city && listing.street && `${listing.street}, ${listing.city}, ${listing.state} ${listing.zip_code}`;
 
   return (
     <div className={classes.root}>
       <div className={classes.addressHeader}>
-        {formattedAddress || address}
-        {maps_url && (
-          <a href={maps_url} rel="noopener noreferrer" target="_blank">
+        {formattedAddress || listing.address}
+        {listing.maps_url && (
+          <a href={listing.maps_url} rel="noopener noreferrer" target="_blank">
             <img className={classes.googleMapsLogo} src={googleMapsIcon} alt="google_maps_link" />
           </a>
         )}
@@ -40,36 +27,36 @@ const Listing: React.FC<ListingInterface> = ({
 
       <Grid container className={classes.listingContainer}>
         <Grid item xs={4}>
-          {latitude && longitude && <ListingMap latitude={latitude} longitude={longitude} />}
+          {listing.latitude && listing.longitude && <ListingMap latitude={parseFloat(listing.latitude)} longitude={parseFloat(listing.longitude)} />}
         </Grid>
         <Grid item xs={2}>
           <span className={classes.listingLabel}>Sale Date: </span>
-          {judgment && <span className={classes.listingLabel}>Judgment: </span>}
-          {upset_amount && <span className={classes.listingLabel}>Upset Amount: </span>}
-          {priors && <span className={classes.listingLabel}>Priors: </span>}
+          {listing.judgment && <span className={classes.listingLabel}>Judgment: </span>}
+          {listing.upset_amount && <span className={classes.listingLabel}>Upset Amount: </span>}
+          {listing.priors && <span className={classes.listingLabel}>Priors: </span>}
         </Grid>
         <Grid item xs={2}>
-          <span className={classes.listingValue}>{sale_date}</span>
-          {judgment && <span className={classes.listingValue}>{formatToCurrency(judgment)}</span>}
-          {upset_amount && <span className={classes.listingValue}>{formatToCurrency(upset_amount)}</span>}
-          <span className={classes.listingValue}>{priors}</span>
+          <span className={classes.listingValue}>{listing.sale_date}</span>
+          {listing.judgment && <span className={classes.listingValue}>{formatToCurrency(listing.judgment)}</span>}
+          {listing.upset_amount && <span className={classes.listingValue}>{formatToCurrency(listing.upset_amount)}</span>}
+          <span className={classes.listingValue}>{listing.priors}</span>
         </Grid>
         <Grid item xs={2}>
           <span className={classes.listingLabel}>Attorney: </span>
-          {attorney_phone && <span className={classes.listingLabel}>Attorney Phone: </span>}
+          {listing.attorney_phone && <span className={classes.listingLabel}>Attorney Phone: </span>}
           <span className={classes.listingLabel}>Plaintiff: </span>
           <span className={classes.listingLabel}>Defendant: </span>
         </Grid>
         <Grid item xs={2}>
           <Typography noWrap className={classes.listingValue}>
-            {attorney}
+            {listing.attorney}
           </Typography>
-          {attorney_phone && <span className={classes.listingValue}>{attorney_phone}</span>}
+          {listing.attorney_phone && <span className={classes.listingValue}>{listing.attorney_phone}</span>}
           <Typography noWrap className={classes.listingValue}>
-            {plaintiff}
+            {listing.plaintiff}
           </Typography>
           <Typography noWrap className={classes.listingValue}>
-            {defendant}
+            {listing.defendant}
           </Typography>
         </Grid>
       </Grid>

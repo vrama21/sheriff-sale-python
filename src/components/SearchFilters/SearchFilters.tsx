@@ -23,7 +23,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   const selectedCity = filters.city;
   const selectedSaleDate = filters.saleDate;
 
-  const citiesOfSelectedCounty: string[] | [] = citiesByCounty && selectedCounty ? citiesByCounty.selectedCounty.cities : [];
+  const citiesOfSelectedCounty: string[] | [] = citiesByCounty?.[selectedCounty]?.cities || [];
 
   const countyMenuItems = counties?.map((county) => (
     <MenuItem key={`county-${county}`} value={county}>
@@ -31,8 +31,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
     </MenuItem>
   ));
 
-  const cityMenuItems = citiesOfSelectedCounty?.map((city, cityIndex) => (
-    <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
+  const cityMenuItems = citiesOfSelectedCounty?.map((city) => (
+    <MenuItem key={`city-${city}`} value={city}>
       {city}
     </MenuItem>
   ));
