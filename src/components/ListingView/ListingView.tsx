@@ -44,14 +44,14 @@ const ListingView: React.FC<ListingViewProps> = ({ currentPage, listings, pageCl
     <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>
       {(pageCount || pageCount > 0) && <Paginate onClick={pageClick} pageCount={pageCount} />}
       {!filteredListingsView && <Loading />}
-      {filteredListingsView?.length && (
+      {filteredListingsView?.length > 0 && (
         <Grid container direction="row" spacing={4}>
           <Grid item xs={12}>
             {filteredListingsView}
           </Grid>
         </Grid>
       )}
-      {/* {filteredListingsView?.length === 0 && <span>There are no results with the selected filters.</span>} */}
+      {filteredListingsView?.length === 0 && <span>There are no results with the selected filters.</span>}
     </div>
   );
 };
