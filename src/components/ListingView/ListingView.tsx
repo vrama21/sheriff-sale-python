@@ -23,6 +23,7 @@ const ListingView: React.FC<ListingViewProps> = ({ currentPage, listings, pageCl
         address={listing.address}
         attorney={listing.attorney}
         attorney_phone={listing.attorney_phone}
+        city={listing.city}
         defendant={listing.defendant}
         judgment={listing.judgment}
         latitude={parseFloat(listing.latitude)}
@@ -31,6 +32,9 @@ const ListingView: React.FC<ListingViewProps> = ({ currentPage, listings, pageCl
         plaintiff={listing.plaintiff}
         priors={listing.priors}
         sale_date={listing.sale_date}
+        state={listing.state}
+        street={listing.street}
+        zip_code={listing.zip_code}
         key={`${listing.address_sanitized}-${listingIndex}`}
       />
     ));
@@ -40,7 +44,7 @@ const ListingView: React.FC<ListingViewProps> = ({ currentPage, listings, pageCl
       {(pageCount || pageCount > 0) && <Paginate onClick={pageClick} pageCount={pageCount} />}
       {filteredListingsView?.length ? (
         <Grid container direction="row" spacing={4}>
-          <Grid item>{filteredListingsView}</Grid>
+          <Grid item xs={12}>{filteredListingsView}</Grid>
         </Grid>
       ) : (
         <span>There are no results with the selected filters.</span>

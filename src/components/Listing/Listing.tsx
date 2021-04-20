@@ -10,6 +10,7 @@ const Listing: React.FC<ListingInterface> = ({
   address,
   attorney,
   attorney_phone,
+  city,
   defendant,
   judgment,
   maps_url,
@@ -18,14 +19,18 @@ const Listing: React.FC<ListingInterface> = ({
   plaintiff,
   priors,
   sale_date,
+  state,
+  street,
   upset_amount,
+  zip_code,
 }: ListingInterface) => {
   const classes = listingStyles();
+  const formattedAddress = city && street && `${street}, ${city}, ${state} ${zip_code}`;
 
   return (
     <div className={classes.root}>
       <div className={classes.addressHeader}>
-        {address}
+        {formattedAddress || address}
         {maps_url && (
           <a href={maps_url} target="_blank">
             <img className={classes.googleMapsLogo} src={googleMapsIcon} />
@@ -35,12 +40,7 @@ const Listing: React.FC<ListingInterface> = ({
 
       <Grid container className={classes.listingContainer}>
         <Grid item xs={4}>
-          {latitude && longitude && (
-            <ListingMap 
-              latitude={latitude}
-              longitude={longitude}
-            />
-          )}
+          {latitude && longitude && <ListingMap latitude={latitude} longitude={longitude} />}
         </Grid>
         <Grid item xs={2}>
           <span className={classes.listingLabel}>Sale Date: </span>

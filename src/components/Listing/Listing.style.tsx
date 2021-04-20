@@ -1,10 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { relative } from 'node:path';
 
 export const listingStyles = makeStyles((theme) => ({
   root: {
     margin: '2rem auto',
     position: 'relative',
-    width: '65%',
+    width: '50%',
   },
   addressHeader: {
     background: theme.palette.secondary.main,
@@ -18,13 +19,14 @@ export const listingStyles = makeStyles((theme) => ({
     fontSize: '22px',
     fontWeight: 'bold',
     padding: '0.5rem 1rem',
+    position: 'relative',
   },
   googleMapsLogo: {
     backgroundColor: theme.palette.primary.main,
     borderRadius: '5px',
     bottom: '5px',
     margin: '0 0 0 15px',
-    maxHeight: '60%',
+    height: 30,
     padding: '0.25rem',
     position: 'absolute',
   },

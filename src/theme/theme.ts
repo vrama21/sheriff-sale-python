@@ -16,7 +16,8 @@ export default createMuiTheme({
     success: {
       light: '#A5C8B7',
       main: '#81B29A',
-      dark: '#53886E'
+      dark: '#53886E',
     },
-  }
+    type: 'dark',
+  },
 });

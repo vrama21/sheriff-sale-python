@@ -78,23 +78,25 @@ const Home = (): React.FC => {
 
   return (
     <Paper className={classes.root} elevation={0}>
-      <div className={classes.title}>
-        <h1>Sheriff Sale Scraper</h1>
+      <div className={classes.header}>
+        <div className={classes.title}>
+          <h1>Sheriff Sale Scraper</h1>
+        </div>
+        <div>
+          <SearchFilters
+            cities={initialData?.cities}
+            counties={initialData?.counties}
+            filters={filters}
+            filterErrors={filterErrors}
+            njData={initialData?.njData}
+            onFilterChange={onFilterChange}
+            onFilterReset={onFilterReset}
+            onFilterSubmit={onFilterSubmit}
+            saleDates={initialData?.saleDates}
+          />
+        </div>
       </div>
-      <div>
-        <SearchFilters
-          cities={initialData?.cities}
-          counties={initialData?.counties}
-          filters={filters}
-          filterErrors={filterErrors}
-          njData={initialData?.njData}
-          onFilterChange={onFilterChange}
-          onFilterReset={onFilterReset}
-          onFilterSubmit={onFilterSubmit}
-          saleDates={initialData?.saleDates}
-        />
-        <ListingView currentPage={currentPage} listings={filteredListings} pageClick={handlePageClick} pageCount={pageCount} />
-      </div>
+      <ListingView currentPage={currentPage} listings={filteredListings} pageClick={handlePageClick} pageCount={pageCount} />
     </Paper>
   );
 };

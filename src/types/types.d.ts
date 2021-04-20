@@ -33,6 +33,7 @@ export interface ListingInterface {
   sheriff?: string;
   state?: string;
   status_history?: Record<string, unknown>;
+  street?: string;
   unit?: string;
   unit_secondary?: string;
   upset_amount?: number;
