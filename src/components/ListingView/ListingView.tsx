@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Paginate from '../Paginate/Paginate';
 import Listing from '../Listing/Listing';
 import Loading from '../Loading/Loading';
 import { Grid } from '@material-ui/core';
 import { ListingInterface } from '../../types';
 import { reducer, reducerInitialState } from '../../reducers/reducer';
+import { ListingViewStyles } from './ListingView.styles';
 
 interface ListingViewProps {
   currentPage: number;
@@ -13,12 +14,13 @@ interface ListingViewProps {
 }
 
 const ListingView: React.FC<ListingViewProps> = ({ listings }: ListingViewProps) => {
+  const classes = ListingViewStyles();
   const [state, dispatch] = React.useReducer(reducer, reducerInitialState);
   const { currentPage } = state;
   const listingsPerPage = 10;
   const indexOfLastBorrower = currentPage * listingsPerPage;
   const indexOfFirstBorrower = indexOfLastBorrower - listingsPerPage;
-  const pageCount = listings && Math.ceil(listings.length / 10);
+  const pageCount = listings && Math.ceil(listings.length / listingsPerPage);
 
   const filteredListingsView = listings
     ?.slice(indexOfFirstBorrower, indexOfLastBorrower)
@@ -44,7 +46,7 @@ const ListingView: React.FC<ListingViewProps> = ({ listings }: ListingViewProps)
     ));
 
   return (
-    <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>
+    <div className={classes.root}>
       {(currentPage || currentPage > 0) && <Paginate pageCount={pageCount} />}
       {!filteredListingsView && <Loading />}
       {filteredListingsView?.length > 0 && (
