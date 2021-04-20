@@ -1,10 +1,12 @@
 import base64
+import json
 from flask import jsonify, request, Blueprint
 
 from .. import db, scheduler
 from ..models import Listing, StatusHistory, CountyClerk
 from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR
-from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history, parse_google_maps
+from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history
+from ..services.sheriff_sale.parse_google_maps import get_coordinates_from_address
 from ..services.nj_parcels.nj_parcels import NJParcels
 from ..services.county_clerk import county_clerk_document, county_clerk_search
 
@@ -96,7 +98,7 @@ def daily_scrape():
                     print(f'Inserting a new listing: {listing_details["address"]}')
 
                     formatted_address = f'{listing_details["street"]}, {listing_details["city"]}, NJ'
-                    coordinates = parse_google_maps.get_coordinates_from_address(formatted_address)
+                    coordinates = get_coordinates_from_address(formatted_address)
 
                     if coordinates:
                         listing_details['latitude'] = coordinates['lat']
@@ -213,3 +215,32 @@ def county_clerk_doc_to_pdf():
         pdf.write(bytes)
 
     return jsonify(data=content)
+
+
+@main_bp.route('/api/update_coordinates', methods=['POST'])
+async def update_coordinates():
+    listings = (
+        db.session.query(Listing)
+        .filter(Listing.latitude == None)
+        .filter(Listing.longitude == None)
+        .filter(Listing.street is not None)
+        .filter(Listing.city is not None)
+        .all()
+    )
+
+    for listing in listings:
+        formatted_address = f'{listing.street}, {listing.city}, NJ'
+        print(f'Adding address: {formatted_address} to be updated')
+
+        coordinates = get_coordinates_from_address(formatted_address)
+
+        if coordinates:
+            print(f'Updating coordinates for address: {formatted_address}')
+
+            listing.latitude = coordinates['lat']
+            listing.longitude = coordinates['lng']
+            listing.state = 'NJ'
+
+    db.session.commit()
+
+    return jsonify(message='Update complete')
