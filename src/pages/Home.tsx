@@ -7,7 +7,7 @@ import { Paper } from '@material-ui/core';
 import { ListingInterface } from '../types/types';
 import { homePageStyles } from './Home.style';
 
-const Home = (): React.FC => {
+const Home: React.FC = () => {
   const listings: ListingInterface[] = useFetch({ url: '/api/get_all_listings', method: 'GET' }).response?.data;
   const initialData = useFetch({ url: '/api/constants', method: 'GET' }).response?.data;
   const classes = homePageStyles();
@@ -21,7 +21,7 @@ const Home = (): React.FC => {
 
   const pageCount = filteredListings && Math.ceil(filteredListings.length / 10);
 
-  const handlePageClick: (selectedItem: { selected: number; }) => void = (data) => setCurrentPage(data.selected + 1);
+  const handlePageClick: (selectedItem: { selected: number }) => void = (data) => setCurrentPage(data.selected + 1);
 
   const filterByCounty = (listing: ListingInterface) => listing.county === filters.county;
 
@@ -85,10 +85,10 @@ const Home = (): React.FC => {
         <div>
           <SearchFilters
             cities={initialData?.cities}
+            citiesByCounty={initialData?.citiesByCounty}
             counties={initialData?.counties}
             filters={filters}
             filterErrors={filterErrors}
-            njData={initialData?.njData}
             onFilterChange={onFilterChange}
             onFilterReset={onFilterReset}
             onFilterSubmit={onFilterSubmit}

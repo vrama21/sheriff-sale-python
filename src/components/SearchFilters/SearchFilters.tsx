@@ -55,18 +55,18 @@ const MenuProps = {
 
 const SearchFilters: React.FC<SearchFiltersInterface> = ({
   cities,
+  citiesByCounty,
   counties,
   filters,
   filterErrors,
   onFilterChange,
   onFilterReset,
   onFilterSubmit,
-  njData,
   saleDates,
 }: SearchFiltersInterface) => {
   const classes = useStyles();
 
-  const citiesOfSelectedCounty: string[] = filters.county ? Object.keys(njData[filters.county].cities) : [];
+  const citiesOfSelectedCounty: string[] = filters.county ? citiesByCounty[filters.county]['cities'] : [];
 
   const countyMenuItems = counties?.map((county) => (
     <MenuItem key={`county-${county}`} value={county}>

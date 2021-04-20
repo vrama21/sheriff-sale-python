@@ -1,10 +1,11 @@
 import base64
 import json
 from flask import jsonify, request, Blueprint
+from datetime import datetime
 
 from .. import db, scheduler
 from ..models import Listing, StatusHistory, CountyClerk
-from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR
+from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR, CITIES_BY_COUNTY
 from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history
 from ..services.sheriff_sale.parse_google_maps import get_coordinates_from_address
 from ..services.nj_parcels.nj_parcels import NJParcels
@@ -22,13 +23,19 @@ def index():
 @main_bp.route('/api/constants', methods=['GET'])
 def home():
     counties = COUNTY_LIST
-    # cities = CITY_LIST
     nj_data = NJ_DATA
+    cities_by_county = CITIES_BY_COUNTY
+
+    sale_dates = [listing.sale_date for listing in db.session.query(Listing.sale_date).distinct()]
+    sorted_sale_dates = sorted(sale_dates, key=lambda date: datetime.strptime(date, '%m/%d/%Y'), reverse=True)
+    current_year = datetime.now().year
+    clean_sale_dates = [sale_date for sale_date in sorted_sale_dates if sale_date[-4:] <= str(current_year)]
 
     data = {
+        'citiesByCounty': cities_by_county,
         'counties': counties,
-        # 'cities': cities,
         'njData': nj_data,
+        'saleDates': clean_sale_dates,
     }
 
     return jsonify(data=data)
@@ -51,8 +58,8 @@ def get_sheriff_sale_data():
     return jsonify(data=data)
 
 
-@main_bp.route('/api/daily_scrape', methods=['POST'])
 @scheduler.task('cron', id='daily_scrape_job', day='*')
+@main_bp.route('/api/daily_scrape', methods=['POST'])
 def daily_scrape():
     county_list = [
         'Atlantic',

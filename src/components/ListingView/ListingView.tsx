@@ -1,13 +1,14 @@
 import React from 'react';
 import Paginate from '../Paginate/Paginate';
 import Listing from '../Listing/Listing';
+import Loading from '../Loading/Loading';
 import { Grid } from '@material-ui/core';
 import { ListingInterface } from '../../types';
 
 interface ListingViewProps {
   currentPage: number;
   listings: Record<string, undefined>[];
-  pageClick: (selectedItem: { selected: number; }) => void;
+  pageClick: (selectedItem: { selected: number }) => void;
   pageCount: number;
 }
 
@@ -42,13 +43,15 @@ const ListingView: React.FC<ListingViewProps> = ({ currentPage, listings, pageCl
   return (
     <div style={{ paddingTop: '2rem', margin: '0 3rem' }}>
       {(pageCount || pageCount > 0) && <Paginate onClick={pageClick} pageCount={pageCount} />}
-      {filteredListingsView?.length ? (
+      {!filteredListingsView && <Loading />}
+      {filteredListingsView?.length && (
         <Grid container direction="row" spacing={4}>
-          <Grid item xs={12}>{filteredListingsView}</Grid>
+          <Grid item xs={12}>
+            {filteredListingsView}
+          </Grid>
         </Grid>
-      ) : (
-        <span>There are no results with the selected filters.</span>
       )}
+      {/* {filteredListingsView?.length === 0 && <span>There are no results with the selected filters.</span>} */}
     </div>
   );
 };

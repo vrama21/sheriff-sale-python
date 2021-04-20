@@ -10,6 +10,7 @@ LOG_DIR = ROOT_DIR / 'logs'
 STATIC_DIR = ROOT_DIR / 'build' / 'static'
 
 NJ_DATA = load_json_data('data/NJ_Data.json')
+CITIES_BY_COUNTY = load_json_data('data/cities_by_county_mapping.json')
 COUNTY_LIST = sorted(list(NJ_DATA.keys()))
 COUNTY_MAP = [
     NJ_DATA[county]['sheriffSaleId']
