@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 import Paginate from '../Paginate/Paginate';
 import Listing from '../Listing/Listing';
 import Loading from '../Loading/Loading';
 import { Grid } from '@material-ui/core';
 import { ListingInterface } from '../../types';
-import { reducer, reducerInitialState } from '../../reducers/reducer';
 import { ListingViewStyles } from './ListingView.styles';
+import { AppContext } from '../../App';
 
 interface ListingViewProps {
-  currentPage: number;
   listings: Record<string, undefined>[];
-  pageCount: number;
 }
 
 const ListingView: React.FC<ListingViewProps> = ({ listings }: ListingViewProps) => {
   const classes = ListingViewStyles();
-  const [state, dispatch] = React.useReducer(reducer, reducerInitialState);
+  const { state } = useContext(AppContext);
+
   const { currentPage } = state;
   const listingsPerPage = 10;
   const indexOfLastBorrower = currentPage * listingsPerPage;

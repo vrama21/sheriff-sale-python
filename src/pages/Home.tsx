@@ -1,23 +1,26 @@
-//@ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SearchFilters from '../components/SearchFilters/SearchFilters';
-import fetchApi from '../helpers/fetch';
 import ListingView from '../components/ListingView/ListingView';
 import { Paper } from '@material-ui/core';
 import { ListingInterface } from '../types/types';
 import { homePageStyles } from './Home.style';
-import { reducer, reducerInitialState } from '../reducers/reducer';
-import { getAllListings } from '../actions/actions';
+import { getConstants, getAllListings } from '../actions/actions';
+import { AppContext } from '../App';
 
 const Home: React.FC = () => {
-  const [state, dispatch] = React.useReducer(reducer, reducerInitialState);
+  const { state, dispatch } = useContext(AppContext);
+
+  const hasGottenConstants = state.getConstantsSucceeded === true;
+  const hasGottenListings = state.getListingsSucceeded === true;
+
+  const classes = homePageStyles();
+  const counties = state?.constants?.counties && Object.keys(state?.constants?.counties);
+  const citiesByCounty = state?.constants?.counties && state?.constants?.counties;
+  const saleDates = hasGottenConstants && Object.keys(state?.constants?.saleDates);
 
   const listings: ListingInterface[] = state.data.listings;
-  const initialData = fetchApi({ url: '/api/constants', method: 'GET' }).response?.data;
-  const classes = homePageStyles();
 
   const initialFilterState = { county: '', city: '', saleDate: '' };
-  const getListingsSucceeded = state.getListingsSucceeded === true;
 
   const [filters, setFilters] = useState(initialFilterState);
   const [filterErrors, setFilterErrors] = useState(undefined);
@@ -44,8 +47,6 @@ const Home: React.FC = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  console.log(state);
-
   const onFilterReset = () => setFilters(initialFilterState);
 
   const onFilterSubmit = () => {
@@ -70,15 +71,19 @@ const Home: React.FC = () => {
 
     const listingsWithFilterApplied = listings.filter(filterByCounty).filter(filterByCity);
 
-    setCurrentPage(1);
+    dispatch({ type: 'SET_PAGE', currentPage: 1 });
     setFilteredListings(listingsWithFilterApplied);
   };
 
   useEffect(() => {
-    if (!getListingsSucceeded) {
+    if (!hasGottenListings) {
       getAllListings(dispatch);
     }
-  }, [getListingsSucceeded, listings]);
+
+    if (!hasGottenConstants) {
+      getConstants(dispatch);
+    }
+  }, [dispatch, hasGottenConstants, hasGottenListings, listings]);
 
   return (
     <Paper className={classes.root} elevation={0}>
@@ -87,17 +92,18 @@ const Home: React.FC = () => {
           <h1>Sheriff Sale Scraper</h1>
         </div>
         <div>
-          <SearchFilters
-            cities={initialData?.cities}
-            citiesByCounty={initialData?.citiesByCounty}
-            counties={initialData?.counties}
-            filters={filters}
-            filterErrors={filterErrors}
-            onFilterChange={onFilterChange}
-            onFilterReset={onFilterReset}
-            onFilterSubmit={onFilterSubmit}
-            saleDates={initialData?.saleDates}
-          />
+          {hasGottenConstants && (
+            <SearchFilters
+              counties={counties}
+              citiesByCounty={citiesByCounty}
+              filters={filters}
+              filterErrors={filterErrors}
+              onFilterChange={onFilterChange}
+              onFilterReset={onFilterReset}
+              onFilterSubmit={onFilterSubmit}
+              saleDates={saleDates}
+            />
+          )}
         </div>
       </div>
       <ListingView listings={filteredListings || listings} />

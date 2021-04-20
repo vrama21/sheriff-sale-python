@@ -22,8 +22,6 @@ def index():
 
 @main_bp.route('/api/constants', methods=['GET'])
 def home():
-    counties = COUNTY_LIST
-    nj_data = NJ_DATA
     cities_by_county = CITIES_BY_COUNTY
 
     sale_dates = [listing.sale_date for listing in db.session.query(Listing.sale_date).distinct()]
@@ -32,9 +30,7 @@ def home():
     clean_sale_dates = [sale_date for sale_date in sorted_sale_dates if sale_date[-4:] <= str(current_year)]
 
     data = {
-        'citiesByCounty': cities_by_county,
-        'counties': counties,
-        'njData': nj_data,
+        'counties': cities_by_county,
         'saleDates': clean_sale_dates,
     }
 

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import { reducer, reducerInitialState } from './reducers/reducer';
 
-export const AppContext = React.createContext({});
+export const AppContext = React.createContext(undefined);
 
 export const AppProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, reducerInitialState);
@@ -13,15 +13,13 @@ export const AppProvider: React.FC = ({ children }) => {
 
 const App: React.FC = () => (
   <AppProvider>
-    <div>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   </AppProvider>
 );
 

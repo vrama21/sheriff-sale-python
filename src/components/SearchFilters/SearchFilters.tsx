@@ -1,32 +1,21 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem } from '@material-ui/core';
 import ButtonSubmit from '../ButtonSumbit/ButtonSubmit';
 import ResetSubmit from '../ResetSubmit/ResetSubmit';
-import { SearchFiltersInterface } from '../../types';
+import { SearchFiltersProps } from '../../types';
+import { FilterSelect, MenuProps } from '../FilterSelect/FilterSelect';
 
-const useStyles = makeStyles(() => ({
-  container: {
+const useStyles = makeStyles((theme) => ({
+  filterContainer: {
     margin: '1rem',
   },
-}));
-
-const FilterFormControl = withStyles((theme) => ({
-  root: {
+  filterSelect: {
     backgroundColor: theme.palette.grey[700],
     margin: '0 0.5rem',
     width: 225,
   },
-}))(FormControl);
-
-const FilterSelect = withStyles(() => ({
-  root: {
-    border: '1px solid grey',
-    fontWeight: 'bold',
-    paddingBottom: '1rem',
-  },
-}))(Select);
+}));
 
 const FilterLabel = withStyles((theme) => ({
   root: {
@@ -41,31 +30,19 @@ const FilterLabel = withStyles((theme) => ({
   },
 }))(InputLabel);
 
-const MenuProps = {
-  anchorOrigin: {
-    vertical: 'bottom',
-    horizontal: 'left',
-  },
-  transformOrigin: {
-    vertical: 'top',
-    horizontal: 'left',
-  },
-  getContentAnchorEl: null,
-};
-
-const SearchFilters: React.FC<SearchFiltersInterface> = ({
-  cities,
-  citiesByCounty,
+const SearchFilters: React.FC<SearchFiltersProps> = ({
   counties,
+  citiesByCounty,
   filters,
   filterErrors,
   onFilterChange,
   onFilterReset,
   onFilterSubmit,
   saleDates,
-}: SearchFiltersInterface) => {
+}: SearchFiltersProps) => {
   const classes = useStyles();
 
+  console.log(counties, filters.county)
   const citiesOfSelectedCounty: string[] = filters.county ? citiesByCounty[filters.county]['cities'] : [];
 
   const countyMenuItems = counties?.map((county) => (
@@ -74,17 +51,11 @@ const SearchFilters: React.FC<SearchFiltersInterface> = ({
     </MenuItem>
   ));
 
-  const cityMenuItems = citiesOfSelectedCounty
-    ? citiesOfSelectedCounty.map((city, cityIndex) => (
-        <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
-          {city}
-        </MenuItem>
-      ))
-    : cities.map((city, cityIndex) => (
-        <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
-          {city}
-        </MenuItem>
-      ));
+  const cityMenuItems = citiesOfSelectedCounty?.map((city, cityIndex) => (
+    <MenuItem key={`city-${city}-${cityIndex}`} value={city}>
+      {city}
+    </MenuItem>
+  ));
 
   const saleDateMenuItems = saleDates?.map((saleDate) => (
     <MenuItem key={`saleDate-${saleDate}`} value={saleDate}>
@@ -93,9 +64,9 @@ const SearchFilters: React.FC<SearchFiltersInterface> = ({
   ));
 
   return (
-    <div className={classes.container}>
-      <div className={classes.container}>
-        <FilterFormControl>
+    <div>
+      <div className={classes.filterContainer}>
+        <FormControl className={classes.filterSelect}>
           <FilterLabel id="county-select-label">County</FilterLabel>
           <FilterSelect
             children={countyMenuItems}
@@ -107,8 +78,8 @@ const SearchFilters: React.FC<SearchFiltersInterface> = ({
             value={filters.county || ''}
             variant="outlined"
           />
-        </FilterFormControl>
-        <FilterFormControl>
+        </FormControl>
+        <FormControl className={classes.filterSelect}>
           <FilterLabel>City</FilterLabel>
           <FilterSelect
             children={cityMenuItems}
@@ -119,8 +90,8 @@ const SearchFilters: React.FC<SearchFiltersInterface> = ({
             value={filters.city || ''}
             variant="outlined"
           />
-        </FilterFormControl>
-        <FilterFormControl>
+        </FormControl>
+        <FormControl className={classes.filterSelect}>
           <FilterLabel>Sale Date</FilterLabel>
           <FilterSelect
             children={saleDateMenuItems}
@@ -131,10 +102,10 @@ const SearchFilters: React.FC<SearchFiltersInterface> = ({
             value={filters.saleDate || ''}
             variant="outlined"
           />
-        </FilterFormControl>
+        </FormControl>
       </div>
 
-      <div className={classes.container}>
+      <div>
         <ButtonSubmit onClick={onFilterSubmit} />
         <ResetSubmit onClick={onFilterReset} />
       </div>

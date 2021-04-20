@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export type Filter = {
+export interface Filter {
   county: string;
   city: string;
   saleDate: string;
-};
+}
 
 export type ButtonEvent = React.ChangeEvent<HTMLButtonElement>;
 
@@ -43,14 +43,19 @@ export interface ListingInterface {
   zip_code?: string;
 }
 
-export interface SearchFiltersInterface {
-  cities: string[];
+export interface SearchFiltersProps {
   counties: string[];
-  filters: Record<string, null>;
+  citiesByCounty: Record<string, null>;
+  filters: Filter;
   filterErrors: Record<string, null>;
-  njData: Record<string, null>;
-  onFilterChange: React.FormEvent<Element>;
-  onFilterReset: React.FormEvent<Element>;
-  onFilterSubmit: React.FormEvent<Element>;
+  onFilterChange: (
+    event: React.ChangeEvent<{
+      name?: string;
+      value: unknown;
+    }>,
+    child: React.ReactNode,
+  ) => void;
+  onFilterReset: (event: React.FormEvent<Element>) => void;
+  onFilterSubmit: (event: React.FormEvent<Element>) => void;
   saleDates: string[];
 }

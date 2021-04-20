@@ -1,8 +1,19 @@
 export const reducerInitialState = {
   currentPage: 1,
+
+  isGettingConstants: undefined,
+  getConstantsFailed: undefined,
+  getConstantsSucceeded: undefined,
+
   isGettingListings: undefined,
   getListingsFailed: undefined,
   getListingsSucceeded: undefined,
+
+  constants: {
+    counties: undefined,
+    saleDates: undefined,
+  },
+
   data: {
     listings: undefined,
     displayedListings: undefined,
@@ -11,6 +22,35 @@ export const reducerInitialState = {
 
 export const reducer = (state = reducerInitialState, action) => {
   switch (action.type) {
+    case 'GET_CONSTANTS':
+      return {
+        ...state,
+        isGettingConstants: true,
+        getConstantsFailed: false,
+        getConstantsSucceeded: false,
+      };
+
+    case 'GET_CONSTANTS_FAILED':
+      return {
+        ...state,
+        isGettingConstants: false,
+        getConstantsFailed: false,
+        getConstantsSucceeded: true,
+      };
+
+    case 'GET_CONSTANTS_SUCCEEDED':
+      return {
+        ...state,
+        isGettingConstants: false,
+        getConstantsFailed: false,
+        getConstantsSucceeded: true,
+        constants: {
+          ...state.constants,
+          counties: action.constants.counties,
+          saleDates: action.constants.saleDates,
+        },
+      };
+
     case 'GET_LISTINGS':
       return {
         ...state,

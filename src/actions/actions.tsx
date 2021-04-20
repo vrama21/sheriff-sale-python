@@ -1,6 +1,20 @@
 import fetch from '../helpers/fetch';
 import { Dispatch } from '../types/types';
 
+export const getConstants = async (dispatch: Dispatch): Promise<void> => {
+  dispatch({ type: 'GET_CONSTANTS' });
+
+  try {
+    const constants = await fetch({ url: '/api/constants', method: 'GET' });
+
+    dispatch({ constants: constants.data, type: 'GET_CONSTANTS_SUCCEEDED' });
+  } catch (err) {
+    console.error('getConstants error: ', err);
+
+    dispatch({ type: 'GET_CONSTANTS_FAILED' });
+  }
+};
+
 export const getAllListings = async (dispatch: Dispatch): Promise<void> => {
   dispatch({ type: 'GET_LISTINGS' });
 
