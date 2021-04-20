@@ -7,7 +7,7 @@ const LoadingSpinner: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <LoadingSVG style={{ background: undefined }} />
+      <LoadingSVG />
     </div>
   );
 };
