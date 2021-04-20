@@ -5,7 +5,10 @@ export const paginateStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     borderBottom: '1px solid',
   },
-  basicStyle: { display: 'block', padding: '0.5rem' },
+  basicStyle: {
+    display: 'block',
+    padding: '0.5rem',
+  },
   containerStyle: {
     backgroundColor: theme.palette.secondary.main,
     border: '2px solid',
