@@ -9,12 +9,12 @@ import { AppContext } from '../App';
 import { isEqual } from 'lodash';
 
 const Home: React.FC = () => {
+  const classes = homePageStyles();
   const { state, dispatch } = useContext(AppContext);
 
   const hasGottenConstants = state.getConstantsSucceeded === true;
   const hasGottenListings = state.getListingsSucceeded === true;
 
-  const classes = homePageStyles();
   const counties = state?.constants?.counties && Object.keys(state?.constants?.counties);
   const citiesByCounty = state?.constants?.counties && state?.constants?.counties;
   const saleDates = hasGottenConstants && state?.constants?.saleDates;
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
   const initialFilterState = { county: undefined, city: undefined, saleDate: undefined };
 
   const [filters, setFilters] = useState(initialFilterState);
-  const [filteredListings, setFilteredListings] = useState(undefined);
+  const [filteredListings, setFilteredListings] = useState([]);
 
   const filterByCounty = (listing: ListingInterface) => listing.county === filters.county;
 
@@ -46,8 +46,6 @@ const Home: React.FC = () => {
 
     setFilters({ ...filters, [name]: value });
   };
-
-  const onFilterReset = () => setFilters(initialFilterState);
 
   const onFilterSubmit = () => {
     if (!listings) {
@@ -73,7 +71,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!hasGottenListings) {
+    if (!hasGottenListings || listings.length === 0) {
       getAllListings(dispatch);
     }
 
@@ -95,14 +93,14 @@ const Home: React.FC = () => {
               citiesByCounty={citiesByCounty}
               filters={filters}
               onFilterChange={onFilterChange}
-              onFilterReset={onFilterReset}
+              onFilterReset={() => setFilters(initialFilterState)}
               onFilterSubmit={onFilterSubmit}
               saleDates={saleDates}
             />
           )}
         </div>
       </div>
-      <ListingView listings={filteredListings || listings} />
+      <ListingView listings={filteredListings.length > 0 ? filteredListings : listings} />
     </Paper>
   );
 };

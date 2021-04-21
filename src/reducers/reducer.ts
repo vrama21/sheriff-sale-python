@@ -15,8 +15,8 @@ export const reducerInitialState = {
   },
 
   data: {
-    listings: undefined,
-    displayedListings: undefined,
+    listings: [],
+    filteredListings: [],
   },
 };
 

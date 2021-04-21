@@ -3,6 +3,7 @@ import { useTable } from 'react-table';
 import { listingTableStyles } from './ListingTable.styles';
 import { ListingInterface } from '../../types/types';
 import { formatToCurrency } from '../../helpers/formatToCurrency';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
 interface ListingTableProps {
   listings: ListingInterface[];
@@ -17,16 +18,16 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
       accessor: 'address',
     },
     {
+      Header: 'County',
+      accessor: 'county',
+    },
+    {
       Header: 'Sale Date',
       accessor: 'saleDate',
     },
     {
       Header: 'Attorney',
       accessor: 'attorney',
-    },
-    {
-      Header: 'Defendant',
-      accessor: 'defendant',
     },
     {
       Header: 'Upset Amount or Judgment',
@@ -39,11 +40,12 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
       listings.map((listing) => ({
         address: listing.address,
         attorney: listing.attorney,
+        county: listing.county,
         defendant: listing.defendant,
         saleDate: listing.sale_date,
         upsetOrJudgment: formatToCurrency(listing.judgment || listing.upset_amount),
       })),
-    [],
+    [listings],
   );
 
   const columns = useMemo(() => columnHeaders, []);
@@ -52,13 +54,13 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
 
   const tableHeaders = headerGroups.map((headerGroup) => {
     return (
-      <tr {...headerGroup.getHeaderGroupProps()}>
+      <TableRow {...headerGroup.getHeaderGroupProps()}>
         {headerGroup.headers.map((column) => (
-          <th {...column.getHeaderProps()} className={classes.tableHeader}>
+          <TableCell className={classes.tableHeader} {...column.getHeaderProps()}>
             {column.render('Header')}
-          </th>
+          </TableCell>
         ))}
-      </tr>
+      </TableRow>
     );
   });
 
@@ -66,23 +68,23 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
     prepareRow(row);
 
     return (
-      <tr {...row.getRowProps()}>
+      <TableRow className={classes.tableRow} {...row.getRowProps()}>
         {row.cells.map((cell) => {
           return (
-            <td {...cell.getCellProps()} className={classes.tableRow}>
+            <TableCell className={classes.tableCell} {...cell.getCellProps()}>
               {cell.render('Cell')}
-            </td>
+            </TableCell>
           );
         })}
-      </tr>
+      </TableRow>
     );
   });
 
   return (
-    <table className={classes.tableContainer} {...getTableProps()}>
-      <thead>{tableHeaders}</thead>
-      <tbody {...getTableBodyProps()}>{tableRows}</tbody>
-    </table>
+    <Table className={classes.tableContainer} {...getTableProps()}>
+      <TableHead>{tableHeaders}</TableHead>
+      <TableBody {...getTableBodyProps()}>{tableRows}</TableBody>
+    </Table>
   );
 };
 

@@ -25,5 +25,3 @@ for listing in listings:
         listing.longitude = coordinates['lng']
 
 db.session.commit()
-
-

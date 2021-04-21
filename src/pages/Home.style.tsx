@@ -6,7 +6,7 @@ export const homePageStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
   },
   header: {
-    background: '#293241',
+    background: theme.palette.primary.dark,
     paddingBottom: '2rem',
   },
   title: {

@@ -17,7 +17,7 @@ export interface Reducer {
   };
 
   data: {
-    listings: ListingInterface[];
-    displayedListings: undefined;
+    filteredListings: any[];
+    listings: ListingInterface[] | any[];
   };
 }
