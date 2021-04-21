@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Paginate from '../Paginate/Paginate';
 import ListingTable from '../ListingTable/ListingTable';
-import { ListingViewStyles } from './ListingView.styles';
+import { listingViewStyles } from './ListingView.styles';
 import { AppContext } from '../../App';
 import { ListingInterface } from '../../types';
 
@@ -10,7 +10,7 @@ interface ListingViewProps {
 }
 
 const ListingView: React.FC<ListingViewProps> = ({ listings }: ListingViewProps) => {
-  const classes = ListingViewStyles();
+  const classes = listingViewStyles();
   const { state } = useContext(AppContext);
 
   const { currentPage } = state;

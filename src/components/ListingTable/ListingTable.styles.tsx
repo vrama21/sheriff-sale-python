@@ -44,5 +44,8 @@ export const listingTableStyles = makeStyles((theme) => ({
     fontSize: '1rem',
     fontWeight: 'bold',
     textAlign: 'center',
+    '& a': {
+      color: 'white',
+    },
   },
 }));

@@ -43,13 +43,12 @@ export const listingStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     marginRight: '10px',
     paddingBottom: '5px',
-    textAlign: 'right',
     textShadow: '1px 1px #000000',
   },
   listingValue: {
     display: 'block',
     paddingBottom: '5px',
     textAlign: 'left',
-    flexWrap: 'wrap'
+    marginLeft: '0.25rem',
   },
 }));

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const LoadingStyles = makeStyles(() => ({
+export const loadingStyles = makeStyles(() => ({
   root: {
     '& svg': {
       background: 'transparent',

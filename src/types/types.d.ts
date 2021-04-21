@@ -32,7 +32,7 @@ export interface ListingInterface {
   priors?: string;
   sale_date: string;
   secondary_unit?: string;
-  sheriff?: string;
+  sheriff_id?: string;
   state: string;
   status_history?: Record<string, unknown>;
   street?: string;
