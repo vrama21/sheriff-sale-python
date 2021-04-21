@@ -33,6 +33,10 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
       Header: 'Upset Amount or Judgment',
       accessor: 'upsetOrJudgment',
     },
+    {
+      Header: '',
+      accessor: 'linkToListing',
+    },
   ];
 
   const data = useMemo(
@@ -44,6 +48,7 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
         defendant: listing.defendant,
         saleDate: listing.sale_date,
         upsetOrJudgment: formatToCurrency(listing.judgment || listing.upset_amount),
+        linkToListing: <a href={`listing/${listing.id}`}>View Listing</a>,
       })),
     [listings],
   );

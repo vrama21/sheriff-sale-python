@@ -7,9 +7,13 @@ export interface Reducer {
   getConstantsFailed: boolean | undefined;
   getConstantsSucceeded: boolean | undefined;
 
-  isGettingListings: boolean | undefined;
-  getListingsFailed: boolean | undefined;
-  getListingsSucceeded: boolean | undefined;
+  isGettingListing: boolean | undefined;
+  getListingFailed: boolean | undefined;
+  getListingSucceeded: boolean | undefined;
+
+  isGettingAllListings: boolean | undefined;
+  getAllListingsFailed: boolean | undefined;
+  getAllListingsSucceeded: boolean | undefined;
 
   constants: {
     counties: Record<string, Record<'cities', string[]>> | undefined;
@@ -18,6 +22,7 @@ export interface Reducer {
 
   data: {
     filteredListings: any[];
+    listing: ListingInterface;
     listings: ListingInterface[] | any[];
   };
 }

@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import HomePage from './pages/HomePage/HomePage';
+import ListingPage from './pages/ListingPage/ListingPage';
 import { reducer, reducerInitialState } from './reducers/reducer';
 import { Dispatch } from './types/types';
 import { Reducer } from './reducers/reducer.types';
@@ -25,9 +26,8 @@ const App: React.FC = () => (
     <AppProvider>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route exact path="/" component={HomePage}></Route>
+          <Route path="/listing/:listingId" component={ListingPage}></Route>
         </Switch>
       </Router>
     </AppProvider>

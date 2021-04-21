@@ -16,8 +16,12 @@ export const listingTableStyles = makeStyles((theme) => ({
     minWidth: '70px',
     textAlign: 'center',
 
-    '&:last-child': {
+    '&:last-child(2)': {
       width: '300px',
+    },
+
+    '&:last-child': {
+      width: '150px',
     },
   },
 

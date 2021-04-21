@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
-import SearchFilters from '../components/SearchFilters/SearchFilters';
-import ListingView from '../components/ListingView/ListingView';
+import SearchFilters from '../../components/SearchFilters/SearchFilters';
+import ListingView from '../../components/ListingView/ListingView';
 import { Paper } from '@material-ui/core';
-import { ListingInterface } from '../types/types';
+import { ListingInterface } from '../../types/types';
 import { homePageStyles } from './Home.style';
-import { getConstants, getAllListings } from '../actions/actions';
-import { AppContext } from '../App';
+import { getConstants, getAllListings } from '../../actions/actions';
+import { AppContext } from '../../App';
 import { isEqual } from 'lodash';
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
   const classes = homePageStyles();
   const { state, dispatch } = useContext(AppContext);
 
   const hasGottenConstants = state.getConstantsSucceeded === true;
-  const hasGottenListings = state.getListingsSucceeded === true;
+  const hasGottenListings = state.getAllListingsSucceeded === true;
 
   const counties = state?.constants?.counties && Object.keys(state?.constants?.counties);
   const citiesByCounty = state?.constants?.counties && state?.constants?.counties;
@@ -105,4 +105,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomePage;

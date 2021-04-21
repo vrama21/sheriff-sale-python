@@ -132,11 +132,18 @@ def daily_scrape():
 
 @main_bp.route('/api/get_all_listings', methods=['GET'])
 def get_all_listings():
-    sheriff_sale_query = db.session.query(Listing).order_by(Listing.sale_date.desc()).all()
+    all_listings = db.session.query(Listing).order_by(Listing.sale_date.desc()).all()
 
-    sheriff_sale_query = [data.serialize for data in sheriff_sale_query]
+    all_listings = [data.serialize for data in all_listings]
 
-    return jsonify(data=sheriff_sale_query)
+    return jsonify(data=all_listings)
+
+
+@main_bp.route('/api/get_listing/<int:id>', methods=['GET'])
+def get_listing(id):
+    listing = (db.session.query(Listing).filter_by(id=id).one()).serialize
+    print(listing)
+    return jsonify(data=listing)
 
 
 @main_bp.route('/api/nj_parcels/get_static_data', methods=['GET'])

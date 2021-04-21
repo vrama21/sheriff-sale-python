@@ -12,13 +12,12 @@ export type ButtonEvent = React.ChangeEvent<HTMLButtonElement>;
 export type Dispatch = { (value: any): void; (arg0: { type: string; listings?: Record<string, unknown>[] }): void };
 
 export interface ListingInterface {
-  id?: number;
-  address?: string;
-  address_sanitized?: string;
+  id: number;
+  address: string;
   attorney?: string;
   attorney_phone?: string;
   city?: string;
-  county?: string;
+  county: string;
   court_case?: string;
   deed?: string;
   deed_address?: string;
@@ -31,14 +30,18 @@ export interface ListingInterface {
   parcel?: string;
   plaintiff?: string;
   priors?: string;
-  sale_date?: string;
+  sale_date: string;
   secondary_unit?: string;
   sheriff?: string;
-  state?: string;
+  state: string;
   status_history?: Record<string, unknown>;
   street?: string;
   unit?: string;
   unit_secondary?: string;
   upset_amount?: number;
   zip_code?: string;
+}
+
+export interface URLParams {
+  listingId: string;
 }
