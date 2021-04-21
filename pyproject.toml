@@ -17,7 +17,6 @@ flake8 = "3.9.0"
 flask-googlemaps = "0.4.1"
 gunicorn = "20.1.0"
 psycopg2 = "2.8.6"
-pyproject-flake8 = "0.0.1-alpha.2"
 python = "3.8"
 python-dotenv = "0.16.0"
 requests = "2.25.1"
@@ -40,12 +39,3 @@ line_length = 120
 multi_line_output = 3
 skip_string_normalization = true
 use_parentheses = true
-
-[flake8]
-exclude = [
-  ".git",
-  "*.pyc,",
-  "**/__pycache__/*build ",
-]
-ignore = ["E203", "E711", "W503", "F401"]
-max-line-length = 120
