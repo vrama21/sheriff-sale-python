@@ -35,7 +35,6 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
       accessor: 'upsetOrJudgment',
     },
     {
-      Header: '',
       accessor: 'linkToListing',
     },
   ];

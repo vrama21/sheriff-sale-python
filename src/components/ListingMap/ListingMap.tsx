@@ -11,8 +11,8 @@ const ListingMap: React.FC<ListingMapProps> = ({ latitude, longitude }: ListingM
   const classes = listingMapStyles();
 
   const containerStyle = {
-    width: 300,
-    height: 250,
+    width: 400,
+    height: 350,
   };
 
   const coordinates = {

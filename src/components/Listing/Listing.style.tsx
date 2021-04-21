@@ -4,7 +4,8 @@ export const listingStyles = makeStyles((theme) => ({
   root: {
     margin: '2rem auto',
     position: 'relative',
-    width: '50%',
+    maxWidth: '75%',
+    minWidth: '50%',
   },
   addressHeader: {
     background: theme.palette.secondary.main,

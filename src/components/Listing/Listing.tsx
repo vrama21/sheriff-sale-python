@@ -20,10 +20,10 @@ const Listing: React.FC<ListingProps> = ({ listing }: ListingProps) => {
       <div className={classes.addressHeader}>{formattedAddress || listing.address}</div>
 
       <Grid container className={classes.listingContainer}>
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           {listing.latitude && listing.longitude && <ListingMap latitude={parseFloat(listing.latitude)} longitude={parseFloat(listing.longitude)} />}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <div>
             <span className={classes.listingLabel}>Court Case: </span>
             <span className={classes.listingValue}>{listing.court_case}</span>

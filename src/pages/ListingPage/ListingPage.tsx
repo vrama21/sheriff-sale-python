@@ -6,7 +6,7 @@ import { getListing } from '../../actions/actions';
 import { URLParams } from '../../types/types';
 import { Button } from '@material-ui/core';
 
-const ListingPage = () => {
+const ListingPage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const { listingId }: URLParams = useParams();
 
