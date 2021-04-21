@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const classes = homePageStyles();
   const counties = state?.constants?.counties && Object.keys(state?.constants?.counties);
   const citiesByCounty = state?.constants?.counties && state?.constants?.counties;
-  const saleDates = hasGottenConstants && Object.keys(state?.constants?.saleDates);
+  const saleDates = hasGottenConstants && state?.constants?.saleDates;
 
   const listings = state.data.listings;
 
