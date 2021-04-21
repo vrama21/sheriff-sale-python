@@ -46,4 +46,6 @@ def run_script(script: str):
 
         return
 
+    print(f'Running script: {script_name}...')
     runpy.run_path(script_path)
+    print(f'{script_name} has completed.')

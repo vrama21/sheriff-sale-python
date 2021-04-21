@@ -26,4 +26,4 @@ for listing in listings:
 
 db.session.commit()
 
-print('Script: update_coordinates has completed.')
+
