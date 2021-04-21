@@ -1,34 +1,36 @@
 [tool.poetry]
+authors = ["Valon Rama"]
+description = ""
 name = "sheriffsale"
 version = "0.1.0"
-description = ""
-authors = ["Valon Rama"]
 
 [tool.poetry.dependencies]
-beautifulsoup4 = "^4.9.3"
-gunicorn = "^20.1.0"
-flake8 = "^3.9.0"
-Flask = "^2.0.0rc1"
-Flask-APScheduler = "^1.12.1"
-Flask-Cors = "^3.0.10"
-Flask-Migrate = "^2.7.0"
-Flask-SQLAlchemy = "^2.5.1"
-python = "^3.8"
-python-dotenv = "^0.16.0"
-psycopg2 = "^2.8.6"
-requests = "^2.25.1"
-flask-googlemaps = "^0.4.1"
-asgiref = "^3.3.4"
+Flask = "2.0.0rc1"
+Flask-APScheduler = "1.12.1"
+Flask-Cors = "3.0.10"
+Flask-Migrate = "2.7.0"
+Flask-SQLAlchemy = "2.5.1"
+asgiref = "3.3.4"
+beautifulsoup4 = "4.9.3"
+colorama = "0.4.4"
+flake8 = "3.9.0"
+flask-googlemaps = "0.4.1"
+gunicorn = "20.1.0"
+psycopg2 = "2.8.6"
+pyproject-flake8 = "0.0.1-alpha.2"
+python = "3.8"
+python-dotenv = "0.16.0"
+requests = "2.25.1"
 
 [tool.poetry.dev-dependencies]
-black = "^20.8b1"
-isort = "^5.8.0"
-flake8 = "^3.9.0"
-flake8-quotes = "^3.2.0"
+black = "20.8b1"
+flake8 = "3.9.0"
+flake8-quotes = "3.2.0"
+isort = "5.8.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
 
 [tool.black]
 ensure_newline_before_comments = true
@@ -39,7 +41,11 @@ multi_line_output = 3
 skip_string_normalization = true
 use_parentheses = true
 
-[tool.flake8]
+[flake8]
+exclude = [
+  ".git",
+  "*.pyc,",
+  "**/__pycache__/*build ",
+]
+ignore = ["E203", "E711", "W503", "F401"]
 max-line-length = 120
-ignore = ["E203", "W503", "F401"]
-exclude = [".git", "build", "*.pyc,", "**/__pycache__/*"]

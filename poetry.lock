@@ -544,6 +544,18 @@ python-versions = ">=3.6"
 Markdown = ">=3.2"
 
 [[package]]
+name = "pyproject-flake8"
+version = "0.0.1a2"
+description = "pyproject-flake8 (`pflake8`), a monkey patching wrapper to connect flake8 with pyproject.toml configuration"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+flake8 = "*"
+toml = "*"
+
+[[package]]
 name = "python-dateutil"
 version = "2.8.1"
 description = "Extensions to the standard Python datetime module"
@@ -666,7 +678,7 @@ sqlcipher = ["sqlcipher3-binary"]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -745,7 +757,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "58f4add9d0a06e34c61da90a7a98db7b3cced98bbd8a36a3f7bb7c3556f3c7aa"
+content-hash = "1c3308171f416dcc89a1d7a24d9b3466f10dc391f9599952b4d9a3d001a29b76"
 
 [metadata.files]
 alembic = [
@@ -1010,6 +1022,10 @@ pygments = [
 pymdown-extensions = [
     {file = "pymdown-extensions-8.1.1.tar.gz", hash = "sha256:632371fa3bf1b21a0e3f4063010da59b41db049f261f4c0b0872069a9b6d1735"},
     {file = "pymdown_extensions-8.1.1-py3-none-any.whl", hash = "sha256:478b2c04513fbb2db61688d5f6e9030a92fb9be14f1f383535c43f7be9dff95b"},
+]
+pyproject-flake8 = [
+    {file = "pyproject-flake8-0.0.1a2.tar.gz", hash = "sha256:bdeca37f78ecd34bd64a49d3657d53d099f5445831071a31c46e1fe20cd61461"},
+    {file = "pyproject_flake8-0.0.1a2-py2.py3-none-any.whl", hash = "sha256:e61ed1dc088e9f9f8a7170967ac4ec135acfef3a59ab9738c7b58cc11f294a7e"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},
