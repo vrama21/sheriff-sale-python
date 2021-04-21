@@ -218,32 +218,3 @@ def county_clerk_doc_to_pdf():
         pdf.write(bytes)
 
     return jsonify(data=content)
-
-
-@main_bp.route('/api/update_coordinates', methods=['POST'])
-async def update_coordinates():
-    listings = (
-        db.session.query(Listing)
-        .filter(Listing.latitude == None)
-        .filter(Listing.longitude == None)
-        .filter(Listing.street is not None)
-        .filter(Listing.city is not None)
-        .all()
-    )
-
-    for listing in listings:
-        formatted_address = f'{listing.street}, {listing.city}, NJ'
-        print(f'Adding address: {formatted_address} to be updated')
-
-        coordinates = get_coordinates_from_address(formatted_address)
-
-        if coordinates:
-            print(f'Updating coordinates for address: {formatted_address}')
-
-            listing.latitude = coordinates['lat']
-            listing.longitude = coordinates['lng']
-            listing.state = 'NJ'
-
-    db.session.commit()
-
-    return jsonify(message='Update complete')
