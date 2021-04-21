@@ -3,7 +3,7 @@ import SearchFilters from '../../components/SearchFilters/SearchFilters';
 import ListingView from '../../components/ListingView/ListingView';
 import { Paper } from '@material-ui/core';
 import { ListingInterface } from '../../types/types';
-import { homePageStyles } from './Home.style';
+import { homePageStyles } from './HomePage.style';
 import { getConstants, getAllListings } from '../../actions/actions';
 import { AppContext } from '../../App';
 import { isEqual } from 'lodash';

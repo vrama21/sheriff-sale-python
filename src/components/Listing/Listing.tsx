@@ -18,11 +18,6 @@ const Listing: React.FC<ListingProps> = ({ listing }: ListingProps) => {
     <div className={classes.root}>
       <div className={classes.addressHeader}>
         {formattedAddress || listing.address}
-        {listing.maps_url && (
-          <a href={listing.maps_url} rel="noopener noreferrer" target="_blank">
-            <img className={classes.googleMapsLogo} src={googleMapsIcon} alt="google_maps_link" />
-          </a>
-        )}
       </div>
 
       <Grid container className={classes.listingContainer}>
