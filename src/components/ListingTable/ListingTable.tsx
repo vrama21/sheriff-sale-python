@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
+import { Link } from 'react-router-dom';
 import { listingTableStyles } from './ListingTable.styles';
 import { ListingInterface } from '../../types/types';
 import { formatToCurrency } from '../../helpers/formatToCurrency';
@@ -48,7 +49,7 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
         defendant: listing.defendant,
         saleDate: listing.sale_date,
         upsetOrJudgment: formatToCurrency(listing.judgment || listing.upset_amount),
-        linkToListing: <a href={`listing/${listing.id}`}>View Listing</a>,
+        linkToListing: <Link to={`listing/${listing.id}`}>View Listing</Link>,
       })),
     [listings],
   );
