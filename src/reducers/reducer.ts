@@ -51,8 +51,8 @@ export const reducer = (state = reducerInitialState, action) => {
         getConstantsSucceeded: true,
         constants: {
           ...state.constants,
-          counties: action.constants.counties,
-          saleDates: action.constants.saleDates,
+          counties: action.counties,
+          saleDates: action.saleDates,
         },
       };
 

@@ -4,14 +4,14 @@ interface requestProps {
   options?: Record<string, unknown>;
 }
 
-interface requestType {
-  data: Record<string, unknown>[] | undefined;
+interface RequestType {
+  data: Record<string, [] | Record<string, unknown>>;
 }
 
 /**
  * Creates an http request to an url
  */
-const request = async ({ url, method, options }: requestProps): Promise<requestType> => {
+const request = async ({ url, method, options }: requestProps): Promise<RequestType> => {
   const defaultOption = {
     method,
     headers: { 'Content-Type': 'application/json' },

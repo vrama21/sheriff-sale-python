@@ -87,7 +87,7 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
   });
 
   return (
-    <Table className={classes.tableContainer} {...getTableProps()}>
+    <Table className={classes.tableContainer} stickyHeader={true} {...getTableProps()}>
       <TableHead>{tableHeaders}</TableHead>
       <TableBody {...getTableBodyProps()}>{tableRows}</TableBody>
     </Table>

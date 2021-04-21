@@ -7,7 +7,9 @@ export const getConstants = async (dispatch: Dispatch): Promise<void> => {
   try {
     const constants = await request({ url: '/api/constants', method: 'GET' });
 
-    dispatch({ constants: constants.data, type: 'GET_CONSTANTS_SUCCEEDED' });
+    const { counties, saleDates } = constants.data;
+
+    dispatch({ counties, saleDates, type: 'GET_CONSTANTS_SUCCEEDED' });
   } catch (err) {
     console.error('getConstants error: ', err);
 
