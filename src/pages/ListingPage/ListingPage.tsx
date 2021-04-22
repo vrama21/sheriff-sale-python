@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 
 import { AppContext } from 'App';
 import { getListing } from 'actions/actions';
 import { URLParams } from 'types';
 
+import ButtonSubmit from 'components/ButtonSubmit/ButtonSubmit';
 import Listing from 'components/Listing/Listing';
 
 const ListingPage: React.FC = () => {
@@ -24,7 +24,7 @@ const ListingPage: React.FC = () => {
   return (
     <div>
       <Link to="/">
-        <Button>HOME</Button>
+        <ButtonSubmit name="back" value="back" />
       </Link>
 
       {listing && <Listing listing={listing} />}
