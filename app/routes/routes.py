@@ -1,13 +1,11 @@
 import base64
-import json
 from flask import jsonify, request, Blueprint
 from datetime import datetime
 
 from .. import db, scheduler
-from ..models import Listing, StatusHistory, CountyClerk
-from ..constants import COUNTY_LIST, NJ_DATA, BUILD_DIR, CITIES_BY_COUNTY
-from ..services.sheriff_sale import SheriffSale, parse_listing_details, parse_status_history
-from ..services.sheriff_sale.parse_google_maps import get_coordinates_from_address
+from ..models import Listing, StatusHistory
+from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES
+from ..services.sheriff_sale import SheriffSale, SheriffSaleListing
 from ..services.nj_parcels.nj_parcels import NJParcels
 from ..services.county_clerk import county_clerk_document, county_clerk_search
 
@@ -39,82 +37,33 @@ def home():
     return jsonify(data=data)
 
 
-@main_bp.route('/api/sheriff_sale', methods=['POST'])
-def get_sheriff_sale_data():
-    """
-    Returns:
-         Up to date values from the Sheriff Sale Scraper
-    """
-    county = request.get_json()['county']
-    sheriff_sale = SheriffSale(county)
-
-    sale_dates = sheriff_sale.get_sale_dates()
-    property_ids = sheriff_sale.get_property_ids()
-
-    data = {'propertyIds': property_ids, 'saleDates': sale_dates}
-
-    return jsonify(data=data)
-
-
 @scheduler.task('cron', id='daily_scrape_job', day='*')
 @main_bp.route('/api/daily_scrape', methods=['POST'])
 def daily_scrape():
-    county_list = [
-        'Atlantic',
-        'Bergen',
-        'Burlington',
-        'Camden',
-        'Cumberland',
-        'Essex',
-        'Hudson',
-        'Hunterdon',
-        'Monmouth',
-        'Morris',
-        'Passaic',
-        'Salem',
-        'Union',
-    ]
+    county_list = NJ_SHERIFF_SALE_COUNTIES
 
     with scheduler.app.app_context():
         for county in county_list:
             print(f'Parsing Sheriff Sale Data for {county} County...')
             sheriff_sale = SheriffSale(county=county)
-            sheriff_sale_listings_html = sheriff_sale.get_all_listing_details_tables()
+            sheriff_sale_listings = sheriff_sale.get_all_listings()
 
             listings_to_update = []
 
-            for listing_html in sheriff_sale_listings_html:
-                listing_details = parse_listing_details(listing_html, county)
-                status_history = parse_status_history(listing_html)
-
-                listing = db.session.query(Listing).filter_by(address=listing_details.get('address')).scalar()
+            for sheriff_sale_listing in sheriff_sale_listings:
+                listing = db.session.query(Listing).filter_by(address=sheriff_sale_listing.address).scalar()
                 listing: dict = listing.serialize if listing else None
                 listing_exists: bool = listing is not None
 
-                # TODO: Move this to a separate update streets/cities route
-                # if listing_exists:
-                #     if (not listing.get('city') and listing_details.get('city')) or (
-                #         not listing.get('street') and listing_details.get('street')
-                #     ):
-                #         print(f'Updating {listing.get("address")}...')
-                #         listings_to_update.append({'id': listing['id'], **listing_details})
-
                 if not listing_exists:
-                    print(f'Inserting a new listing: {listing_details["address"]}')
+                    print(f'Inserting a new listing: {sheriff_sale_listing.address}')
 
-                    formatted_address = f'{listing_details["street"]}, {listing_details["city"]}, NJ'
-                    coordinates = get_coordinates_from_address(formatted_address)
-
-                    if coordinates:
-                        listing_details['latitude'] = coordinates['lat']
-                        listing_details['longitude'] = coordinates['lng']
-
-                    listing_to_insert = Listing(**listing_details)
+                    listing_to_insert = Listing(**sheriff_sale_listing)
                     db.session.add(listing_to_insert)
                     db.session.flush()
                     db.session.refresh(listing_to_insert)
 
-                    for status in status_history:
+                    for status in sheriff_sale_listing.status_history:
                         status_history_to_insert = StatusHistory(
                             listing_id=listing_to_insert.id,
                             status=status.get('status'),
@@ -134,7 +83,7 @@ def daily_scrape():
 
 @main_bp.route('/api/get_all_listings', methods=['GET'])
 def get_all_listings():
-    all_listings = db.session.query(Listing).order_by(Listing.sale_date.desc()).all()
+    all_listings = db.session.query(Listing).all()
 
     all_listings = [data.serialize for data in all_listings]
 
@@ -144,20 +93,8 @@ def get_all_listings():
 @main_bp.route('/api/get_listing/<int:id>', methods=['GET'])
 def get_listing(id):
     listing = (db.session.query(Listing).filter_by(id=id).one()).serialize
-    print(listing)
+
     return jsonify(data=listing)
-
-
-@main_bp.route('/api/nj_parcels/get_static_data', methods=['GET'])
-def nj_parcels_get_static_data():
-    nj_parcels = NJParcels()
-
-    counties = nj_parcels.get_county_list()
-    cities = nj_parcels.get_city_list()
-
-    data = {'cities': cities, 'counties': counties}
-
-    return jsonify(data=data)
 
 
 @main_bp.route('/api/nj_parcels/search', methods=['POST'])
@@ -168,13 +105,6 @@ def nj_parcels_search():
     search = nj_parcels.search(address=body['address'], county=body['county'])
 
     return jsonify(data=search)
-
-
-# @main.route('/api/zillow', methods=['GET'])
-# def run_zillow():
-#     _test = test()
-
-#     return jsonify(data=t)
 
 
 @main_bp.route('/api/county_clerk', methods=['GET', 'POST'])

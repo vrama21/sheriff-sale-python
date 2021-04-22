@@ -1,8 +1,10 @@
 import logging
 import re
 import requests
+from typing import List
 
 from ...utils import requests_content, load_json_data
+from .sheriff_sale_listing import SheriffSaleListing
 
 
 class SheriffSale:
@@ -16,13 +18,10 @@ class SheriffSale:
     def __init__(self, county: str):
 
         self.county_name = county
-        self.county_id = self.get_sheriff_sale_county_id(self.county_name)
+        self.county_id = self.get_sheriff_sale_county_id(county=self.county_name)
         self.session = requests.Session()
 
-        sheriff_sale_county_url = (
-            'https://salesweb.civilview.com/Sales/SalesSearch?countyId='
-            + self.county_id
-        )
+        sheriff_sale_county_url = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=' + self.county_id
 
         self.soup = requests_content(sheriff_sale_county_url, self.session)
 
@@ -31,15 +30,13 @@ class SheriffSale:
         if not self.table_div:
             logging.error(f'The Sheriff Sale Table Div for {county} County was not captured')
 
-            return
-
     def get_sheriff_sale_county_id(self, county):
         nj_json_data = load_json_data('data/NJ_Data.json')
         sheriff_sale_county_id = nj_json_data[county]['sheriffSaleId']
 
         return sheriff_sale_county_id
 
-    def get_counties(self):
+    def get_counties():
         """
         Gathers all counties that are listed on the sheriff sale website
         """
@@ -58,9 +55,7 @@ class SheriffSale:
         sale_dates = []
         selects = self.soup.find_all(name='select', attrs={'id': 'PropertyStatusDate'})
         for select in selects:
-            sale_dates = [
-                option['value'] for option in select.find_all(name='option')[1:]
-            ]
+            sale_dates = [option['value'] for option in select.find_all(name='option')[1:]]
 
         return sale_dates
 
@@ -125,3 +120,14 @@ class SheriffSale:
             listings_table_data.append(html)
 
         return listings_table_data
+
+    def get_all_listings(self):
+        listings_html = self.get_all_listing_details_tables()
+
+        all_listings = []
+        for listing_html in listings_html:
+            listing = SheriffSaleListing(listing_html=listing_html, county=self.county_name)
+            parsed_listing = listing.parse()
+            all_listings.append(parsed_listing)
+
+        return all_listings
