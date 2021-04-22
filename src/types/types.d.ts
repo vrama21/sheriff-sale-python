@@ -1,4 +1,4 @@
-import * as React from 'react';
+export * from '../actions/actions.types';
 
 export interface Filter {
   county: string;
@@ -10,6 +10,22 @@ export type ButtonEvent = React.ChangeEvent<HTMLButtonElement>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Dispatch = { (value: any): void; (arg0: { type: string; listings?: Record<string, unknown>[] }): void };
+
+export interface SearchFiltersProps {
+  counties: string[];
+  citiesByCounty: Record<string, Record<'cities', string[]>>;
+  filters: Filter;
+  onFilterChange: (
+    event: React.ChangeEvent<{
+      name?: string;
+      value: unknown;
+    }>,
+    child: React.ReactNode,
+  ) => void;
+  onFilterReset: (event: React.FormEvent<Element>) => void;
+  onFilterSubmit: (event: React.FormEvent<Element>) => void;
+  saleDates: string[];
+}
 
 export interface ListingInterface {
   id: number;

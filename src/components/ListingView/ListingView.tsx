@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
+
+import { AppContext } from 'App';
+import { ListingInterface } from 'types';
+
 import Paginate from '../Paginate/Paginate';
 import ListingTable from '../ListingTable/ListingTable';
 import { listingViewStyles } from './ListingView.styles';
-import { AppContext } from '../../App';
-import { ListingInterface } from '../../types';
 
 interface ListingViewProps {
   listings: ListingInterface[];

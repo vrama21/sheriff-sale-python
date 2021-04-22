@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import ReactPaginate from 'react-paginate';
+
+import { AppContext } from 'App';
+
 import { paginateStyles } from './Paginate.style';
-import { AppContext } from '../../App';
 
 interface PaginateProps {
   pageCount: number;

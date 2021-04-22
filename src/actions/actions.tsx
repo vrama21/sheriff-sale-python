@@ -1,6 +1,7 @@
-import request from '../helpers/request';
-import { Dispatch } from '../types/types';
+import { Dispatch } from 'types';
 import { DateTime } from 'luxon';
+
+import request from 'helpers/request';
 
 export const getConstants = async (dispatch: Dispatch): Promise<void> => {
   dispatch({ type: 'GET_CONSTANTS' });
@@ -8,7 +9,7 @@ export const getConstants = async (dispatch: Dispatch): Promise<void> => {
   try {
     const constants = await request({ url: '/api/constants', method: 'GET' });
 
-    const { counties, saleDates }: { counties: string; saleDates: string[] } = constants.data;
+    const { counties, saleDates } = constants.data;
 
     const saleDateTimes = saleDates.map((saleDate) => DateTime.fromFormat(saleDate, 'm/d/yyyy'));
 

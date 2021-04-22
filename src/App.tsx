@@ -1,11 +1,11 @@
 import React, { useReducer } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage/HomePage';
-import ListingPage from './pages/ListingPage/ListingPage';
-import { reducer, reducerInitialState } from './reducers/reducer';
-import { Dispatch } from './types/types';
-import { Reducer } from './reducers/reducer.types';
 import { LoadScript } from '@react-google-maps/api';
+
+import HomePage from 'pages/HomePage/HomePage';
+import ListingPage from 'pages/ListingPage/ListingPage';
+import { reducer, reducerInitialState } from 'reducers/reducer';
+import { Dispatch, Reducer } from 'types';
 
 export const AppContext = React.createContext<{
   state: Reducer;

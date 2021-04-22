@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { Link } from 'react-router-dom';
-import { listingTableStyles } from './ListingTable.styles';
-import { ListingInterface } from '../../types/types';
-import { formatToCurrency } from '../../helpers/formatToCurrency';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+
+import { ListingInterface } from 'types';
+import { formatToCurrency } from 'helpers/formatToCurrency';
+
+import { listingTableStyles } from './ListingTable.styles';
 
 interface ListingTableProps {
   listings: ListingInterface[];

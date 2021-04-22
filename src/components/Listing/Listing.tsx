@@ -1,9 +1,11 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
+
+import { ListingInterface } from 'types';
+import { formatToCurrency } from 'helpers/formatToCurrency';
+
 import ListingMap from '../ListingMap/ListingMap';
 import { listingStyles } from './Listing.style';
-import { ListingInterface } from '../../types';
-import { formatToCurrency } from '../../helpers/formatToCurrency';
 
 interface ListingProps {
   listing: ListingInterface;

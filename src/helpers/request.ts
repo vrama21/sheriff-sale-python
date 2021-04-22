@@ -1,3 +1,5 @@
+import { ConstantsResponse } from 'types';
+
 interface requestProps {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -5,7 +7,7 @@ interface requestProps {
 }
 
 interface RequestType {
-  data: Record<string, [] | string[] | Record<string, unknown>>;
+  data: ConstantsResponse;
 }
 
 /**

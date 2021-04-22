@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import SearchFilters from '../../components/SearchFilters/SearchFilters';
-import ListingView from '../../components/ListingView/ListingView';
 import { Paper } from '@material-ui/core';
-import { ListingInterface } from '../../types/types';
-import { homePageStyles } from './HomePage.style';
-import { getConstants, getAllListings } from '../../actions/actions';
-import { AppContext } from '../../App';
 import { isEqual } from 'lodash';
+
+import { AppContext } from 'App';
+import { getConstants, getAllListings } from 'actions/actions';
+import { ListingInterface } from 'types';
+
+import SearchFilters from 'components/SearchFilters/SearchFilters';
+import ListingView from 'components/ListingView/ListingView';
+import { homePageStyles } from './HomePage.style';
 
 const HomePage: React.FC = () => {
   const classes = homePageStyles();

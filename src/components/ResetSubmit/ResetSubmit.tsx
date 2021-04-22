@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ButtonProps } from '@material-ui/core';
+
 import { resetSubmitStyles } from './ResetSubmit.styles';
 
 const ResetSubmit: React.FC<ButtonProps> = ({ className, color, onClick, size, variant }: ButtonProps) => {

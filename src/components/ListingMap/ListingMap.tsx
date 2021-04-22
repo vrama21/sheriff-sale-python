@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleMap, Marker } from '@react-google-maps/api';
+
 import { listingMapStyles } from './ListingMap.styles';
 
 interface ListingMapProps {

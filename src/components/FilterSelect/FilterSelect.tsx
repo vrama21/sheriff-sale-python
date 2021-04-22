@@ -1,6 +1,5 @@
+import { Select, MenuProps as MenuP } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { Select } from '@material-ui/core';
-import { MenuProps as MenuP } from '@material-ui/core/Menu';
 
 export const MenuProps: Partial<MenuP> = {
   anchorOrigin: {
