@@ -1,5 +1,6 @@
 import request from '../helpers/request';
 import { Dispatch } from '../types/types';
+import { DateTime } from 'luxon';
 
 export const getConstants = async (dispatch: Dispatch): Promise<void> => {
   dispatch({ type: 'GET_CONSTANTS' });
@@ -7,9 +8,18 @@ export const getConstants = async (dispatch: Dispatch): Promise<void> => {
   try {
     const constants = await request({ url: '/api/constants', method: 'GET' });
 
-    const { counties, saleDates } = constants.data;
+    const { counties, saleDates }: { counties: string; saleDates: string[] } = constants.data;
 
-    dispatch({ counties, saleDates, type: 'GET_CONSTANTS_SUCCEEDED' });
+    const saleDateTimes = saleDates.map((saleDate) => DateTime.fromFormat(saleDate, 'm/d/yyyy'));
+
+    const currentMonth = DateTime.local().month;
+    const currentYear = DateTime.local().year;
+
+    const filteredSaleDates = saleDateTimes
+      .filter((saleDateTime) => saleDateTime.month <= currentMonth + 1 && saleDateTime.year === currentYear)
+      .map((saleDateTime) => saleDateTime.toFormat('m/d/yyyy'));
+
+    dispatch({ counties, saleDates: filteredSaleDates, type: 'GET_CONSTANTS_SUCCEEDED' });
   } catch (err) {
     console.error('getConstants error: ', err);
 

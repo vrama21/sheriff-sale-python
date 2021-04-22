@@ -5,7 +5,7 @@ interface requestProps {
 }
 
 interface RequestType {
-  data: Record<string, [] | Record<string, unknown>>;
+  data: Record<string, [] | string[] | Record<string, unknown>>;
 }
 
 /**

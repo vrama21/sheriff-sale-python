@@ -24,25 +24,19 @@ const HomePage: React.FC = () => {
   const initialFilterState = { county: undefined, city: undefined, saleDate: undefined };
 
   const [filters, setFilters] = useState(initialFilterState);
-  const [filteredListings, setFilteredListings] = useState([]);
+  const [filteredListings, setFilteredListings] = useState(undefined);
 
-  const filterByCounty = (listing: ListingInterface) => listing.county === filters.county;
+  const filterByCounty = (listing: ListingInterface) => (filters.county ? listing.county === filters.county : true);
+  const filterByCity = (listing: ListingInterface) => (filters.city ? listing.city === filters.city : true);
+  const filterBySaleDate = (listing: ListingInterface) => (filters.saleDate ? listing.sale_date === filters.saleDate : true);
 
-  const filterByCity = (listing: ListingInterface) => {
-    if (!filters.city) {
-      return true;
-    }
-
-    return listing.city === filters.city;
+  const onFilterReset = () => {
+    setFilters(initialFilterState);
+    setFilteredListings(listings);
   };
 
   const onFilterChange = (event) => {
     const { name, value } = event.target;
-
-    if (name === 'county') {
-      setFilters({ county: value, city: '', saleDate: '' });
-      return;
-    }
 
     setFilters({ ...filters, [name]: value });
   };
@@ -65,7 +59,7 @@ const HomePage: React.FC = () => {
       setFilteredListings(listings);
     }
 
-    const listingsWithFilterApplied = listings.filter(filterByCounty).filter(filterByCity);
+    const listingsWithFilterApplied = listings.filter(filterByCounty).filter(filterByCity).filter(filterBySaleDate);
 
     setFilteredListings(listingsWithFilterApplied);
   };
@@ -93,14 +87,14 @@ const HomePage: React.FC = () => {
               citiesByCounty={citiesByCounty}
               filters={filters}
               onFilterChange={onFilterChange}
-              onFilterReset={() => setFilters(initialFilterState)}
+              onFilterReset={onFilterReset}
               onFilterSubmit={onFilterSubmit}
               saleDates={saleDates}
             />
           )}
         </div>
       </div>
-      <ListingView listings={filteredListings.length > 0 ? filteredListings : listings} />
+      <ListingView listings={filteredListings || listings} />
     </Paper>
   );
 };
