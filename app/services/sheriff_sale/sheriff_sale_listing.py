@@ -65,11 +65,6 @@ class SheriffSaleListing:
     def parse_listing_details(self):
         """
         Parses the details table of a listings detail page
-
-        :param listing_html: A beautiful soup object to parse through
-        :param county: The county that is being parsed
-
-        :return: A dictionary of parsed data points
         """
         listing_table = self.listing_html.find('table', class_='table table-striped')
         listing_table_rows = listing_table.find_all('tr')
@@ -116,10 +111,6 @@ class SheriffSaleListing:
     def parse_status_history(self):
         """
         Parses the status history table of a listings detail page
-
-        :param listing_html: A beautiful soup object to parse through
-
-        :return: A list of status history data points
         """
         status_history_html = self.listing_html.find('table', id='longTable')
 
@@ -139,11 +130,6 @@ class SheriffSaleListing:
         """
         Sanitizes an address into separated properties of
         (street, city, county, unit, secondary_unit, zip_code)
-
-        :param address: Address to sanitize
-        :param county: County to sanitize
-
-        :return: A sanitized address
         """
         if not self.address:
             return
@@ -176,6 +162,9 @@ class SheriffSaleListing:
         self.zip_code = zip_code_match
 
     def get_coordinates(self):
+        """
+        Gets the coordinates of a given address using google maps API
+        """
         formatted_address = f'{self.street}, {self.city}, {self.state}'
 
         coordinates = google_maps_service.get_coordinates_from_address(formatted_address)
@@ -184,10 +173,17 @@ class SheriffSaleListing:
             self.latitude = coordinates['lat']
             self.longitude = coordinates['lng']
 
-    def parse(self):
+    def parse(self, get_coordinates: bool = True):
+        """
+        Runs all the parsing functions
+
+        :param get_coordinates: Whether to get coordinates from google maps API or not
+
+        :returns A clean Listing
+        """
         self.parse_listing_details()
         self.parse_status_history()
-        self.get_coordinates()
+        get_coordinates and self.get_coordinates()
         self.sanitize_address()
 
         return {
