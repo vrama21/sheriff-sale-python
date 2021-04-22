@@ -1,12 +1,12 @@
 import logging
-from datetime import datetime
 import re
+from datetime import datetime
 
 from bs4.element import Tag
-from ...constants import ADDRESS_REGEX_SPLIT, SUFFIX_ABBREVATIONS
-from ...utils import load_json_data
-from .match_parser import match_parser
+
 import app.services.google_maps as google_maps_service
+from app.constants import ADDRESS_REGEX_SPLIT, SUFFIX_ABBREVATIONS
+from app.utils import load_json_data, match_parser
 
 LISTING_KV_MAP = {
     'Address': 'address',
