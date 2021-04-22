@@ -1,5 +1,6 @@
 from pathlib import Path
 from pprint import PrettyPrinter
+import re
 
 from .utils import load_json_data
 
@@ -18,6 +19,22 @@ COUNTY_LIST = sorted(list(NJ_DATA.keys()))
 COUNTY_MAP = [NJ_DATA[county]['sheriffSaleId'] for county in COUNTY_LIST if NJ_DATA[county]['sheriffSaleId'] != '']
 
 PRETTIFY = PrettyPrinter(2)
+
+NJ_SHERIFF_SALE_COUNTIES = [
+    'Atlantic',
+    'Bergen',
+    'Burlington',
+    'Camden',
+    'Cumberland',
+    'Essex',
+    'Hudson',
+    'Hunterdon',
+    'Monmouth',
+    'Morris',
+    'Passaic',
+    'Salem',
+    'Union',
+]
 
 SUFFIX_ABBREVATIONS = {
     'Avenue': 'Ave',

@@ -42,3 +42,13 @@ def load_json_data(json_path: str):
         json_data = json.load(file)
 
         return json_data
+
+
+def get_class_attributes(class_instance, custom_attributes_only=True):
+    attributes = (
+        [a for a in dir(class_instance) if not a.startswith('__')]
+        if custom_attributes_only
+        else [a for a in dir(class_instance)]
+    )
+
+    return attributes

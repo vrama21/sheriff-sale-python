@@ -1,5 +1,3 @@
-export * from '../actions/actions.types';
-
 export interface Filter {
   county: string;
   city: string;
@@ -35,6 +33,7 @@ export interface ListingInterface {
   city?: string;
   county: string;
   court_case?: string;
+  created_on?: Date,
   deed?: string;
   deed_address?: string;
   defendant?: string;
