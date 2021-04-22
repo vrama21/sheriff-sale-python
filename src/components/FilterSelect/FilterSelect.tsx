@@ -13,10 +13,12 @@ export const MenuProps: Partial<MenuP> = {
   getContentAnchorEl: null,
 };
 
-export const FilterSelect = withStyles(() => ({
+const FilterSelect = withStyles(() => ({
   root: {
     border: '1px solid grey',
     fontWeight: 'bold',
     paddingBottom: '1rem',
   },
 }))(Select);
+
+export default FilterSelect;

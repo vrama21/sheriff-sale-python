@@ -1,7 +1,7 @@
 import { InputLabel } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-export const FilterLabel = withStyles((theme) => ({
+const FilterLabel = withStyles((theme) => ({
   root: {
     color: 'white',
     fontWeight: 'bold',
@@ -13,3 +13,5 @@ export const FilterLabel = withStyles((theme) => ({
     color: theme.palette.primary.light,
   },
 }))(InputLabel);
+
+export default FilterLabel;

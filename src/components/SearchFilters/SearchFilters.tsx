@@ -4,9 +4,8 @@ import { FormControl, MenuItem } from '@material-ui/core';
 import { SearchFiltersProps } from 'types';
 
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
-import ResetSubmit from '../ResetSubmit/ResetSubmit';
-import { FilterSelect, MenuProps } from '../FilterSelect/FilterSelect';
-import { FilterLabel } from '../FilterLabel/FilterLabel';
+import FilterSelect, { MenuProps } from '../FilterSelect/FilterSelect';
+import FilterLabel from '../FilterLabel/FilterLabel';
 import { searchFiltersStyles } from './SearchFilters.style';
 
 const SearchFilters: React.FC<SearchFiltersProps> = ({
@@ -87,8 +86,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
       </div>
 
       <div>
-        <ButtonSubmit onClick={onFilterSubmit} />
-        <ResetSubmit onClick={onFilterReset} />
+        <ButtonSubmit name="submit" onClick={onFilterSubmit} value="Submit" />
+        <ButtonSubmit name="reset" onClick={onFilterReset} value="Reset" />
       </div>
     </div>
   );

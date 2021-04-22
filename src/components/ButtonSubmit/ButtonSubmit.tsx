@@ -3,12 +3,17 @@ import { Button, ButtonProps } from '@material-ui/core';
 
 import { buttonSubmitStyles } from './ButtonSubmit.styles';
 
-const ButtonSubmit: React.FC<ButtonProps> = ({ className, onClick, size, variant }: ButtonProps) => {
+interface ButtonSubmitProps extends ButtonProps {
+  name: string;
+  value: string;
+}
+
+const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ name, onClick, size, variant, value }: ButtonSubmitProps) => {
   const classes = buttonSubmitStyles();
 
   return (
-    <Button className={className || classes.root} color="primary" onClick={onClick} size={size || 'large'} variant={variant || 'contained'}>
-      Submit
+    <Button className={`${classes.root} ${classes[name]}`} color="primary" onClick={onClick} size={size || 'large'} variant={variant || 'contained'}>
+      {value}
     </Button>
   );
 };
