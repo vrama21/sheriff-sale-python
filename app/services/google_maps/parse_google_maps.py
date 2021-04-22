@@ -19,8 +19,3 @@ def get_address_from_coordinates(lat, lng):
     address = get_address(GOOGLE_MAPS_API_KEY, lat, lng)
 
     return address
-
-
-if __name__ == '__main__':
-    coordinates = get_coordinates_from_address('122 S Reeds Rd, Galloway, NJ')
-    address = get_address_from_coordinates(coordinates['lat'], coordinates['lng'])

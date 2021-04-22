@@ -52,3 +52,11 @@ def get_class_attributes(class_instance, custom_attributes_only=True):
     )
 
     return attributes
+
+
+def get_class_attribute_values(class_instance):
+    attributes = get_class_attributes(class_instance)
+
+    attribute_values = [{attribute: getattr(class_instance, attribute) for attribute in attributes}]
+
+    return attribute_values
