@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GoogleMap, Marker } from '@react-google-maps/api';
 
 import { listingMapStyles } from './ListingMap.styles';
@@ -21,16 +21,9 @@ const ListingMap: React.FC<ListingMapProps> = ({ latitude, longitude }: ListingM
     lng: longitude,
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [map, setMap] = useState(null);
-
-  const onUnmount = React.useCallback(() => {
-    setMap(null);
-  }, []);
-
   return (
     <div className={classes.mapContainer}>
-      <GoogleMap mapContainerStyle={containerStyle} center={coordinates} zoom={17} onUnmount={onUnmount}>
+      <GoogleMap mapContainerStyle={containerStyle} center={coordinates} zoom={17}>
         <Marker position={coordinates}></Marker>
       </GoogleMap>
     </div>

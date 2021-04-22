@@ -7,6 +7,8 @@ import ListingPage from 'pages/ListingPage/ListingPage';
 import { reducer, reducerInitialState } from 'reducers/reducer';
 import { Dispatch, Reducer } from 'types';
 
+import { globalStyles } from 'styles/styles';
+
 export const AppContext = React.createContext<{
   state: Reducer;
   dispatch: Dispatch;
@@ -21,17 +23,23 @@ export const AppProvider: React.FC = ({ children }) => {
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 };
 
-const App: React.FC = () => (
-  <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-    <AppProvider>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={HomePage}></Route>
-          <Route path="/listing/:listingId" component={ListingPage}></Route>
-        </Switch>
-      </Router>
-    </AppProvider>
-  </LoadScript>
-);
+const App: React.FC = () => {
+  const classes = globalStyles();
+
+  return (
+    <div className={classes.container}>
+      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+        <AppProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={HomePage}></Route>
+              <Route path="/listing/:listingId" component={ListingPage}></Route>
+            </Switch>
+          </Router>
+        </AppProvider>
+      </LoadScript>
+    </div>
+  );
+};
 
 export default App;

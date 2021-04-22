@@ -1,10 +1,8 @@
 import { makeStyles } from '@material-ui/core';
 
-const useGlobalStyles = makeStyles(() => ({
+export const globalStyles = makeStyles(() => ({
   container: {
+    color: 'white',
     margin: '0 6rem',
-    textAlign: 'center',
   },
 }));
-
-export default useGlobalStyles; 

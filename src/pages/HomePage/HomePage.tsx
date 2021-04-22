@@ -19,9 +19,8 @@ const HomePage: React.FC = () => {
 
   const counties = state?.constants?.counties && Object.keys(state?.constants?.counties);
   const citiesByCounty = state?.constants?.counties && state?.constants?.counties;
-  const saleDates = hasGottenConstants && state?.constants?.saleDates;
-
   const listings = state.data.listings;
+  const saleDates = state.constants.saleDates;
 
   const initialFilterState = { county: undefined, city: undefined, saleDate: undefined };
 
