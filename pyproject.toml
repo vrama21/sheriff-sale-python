@@ -19,6 +19,7 @@ psycopg2 = "2.8.6"
 python = "3.8"
 python-dotenv = "0.16.0"
 requests = "2.25.1"
+regex = "2021.4.4"
 
 [tool.poetry.dev-dependencies]
 black = "20.8b1"

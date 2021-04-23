@@ -70,6 +70,15 @@ def test_parse_listing_details(parsed_listing_html):
             None,
             '07481',
         ),
+        (
+            'Hudson',
+            '117 KENSINGTON AVENUE APT. 101 A/K/A 117 - 121 KENSINGTON AVE',
+            '117 Kensington Ave',
+            None,
+            '101',
+            None,
+            None,
+        )
     ],
 )
 def test_sanitize_address(

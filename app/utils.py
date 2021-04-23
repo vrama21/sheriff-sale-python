@@ -1,6 +1,6 @@
 import json
 import logging
-import re
+import regex
 from pathlib import Path
 
 import requests
@@ -66,7 +66,7 @@ def get_class_attributes_and_values(class_instance):
 
 
 def match_parser(
-    regex_pattern: re.Pattern,
+    regex_pattern: regex.Pattern,
     target: str,
     regex_name: str,
     regex_group: int = 0,
@@ -87,7 +87,7 @@ def match_parser(
         logging.error(f'{target} is null')
         return None
 
-    search = re.search(regex_pattern, target)
+    search = regex.search(regex_pattern, target)
     if search:
         match = search.group(regex_group).rstrip().title()
 

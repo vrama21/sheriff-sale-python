@@ -1,8 +1,7 @@
-import logging
-import re
-from datetime import datetime
 import json
-from bs4.element import Tag
+import logging
+
+import regex
 
 import app.services.google_maps as google_maps_service
 from app.constants import ADDRESS_REGEX_SPLIT, SUFFIX_ABBREVATIONS
@@ -82,7 +81,7 @@ class SheriffSaleListing:
         for rows in listing_table_rows:
             td = rows.find_all('td')
 
-            label = ' '.join(re.findall(r'\w+', td[0].text))
+            label = ' '.join(regex.findall(r'\w+', td[0].text))
             value = td[1].text.strip().title()
 
             key = LISTING_KV_MAP.get(label)
@@ -97,14 +96,14 @@ class SheriffSaleListing:
                 value = raw_address.upper()
             elif key == 'attorney_phone':
                 if value:
-                    clean_phone_number = re.sub('[^0-9]', '', value)
+                    clean_phone_number = regex.sub('[^0-9]', '', value)
                     formatted_phone_number = (
                         f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
                     )
                     value = formatted_phone_number
             elif key == 'judgment' or key == 'upset_amount':
                 if value:
-                    clean_value = float(re.sub(r'[^\d.]', '', value))
+                    clean_value = float(regex.sub(r'[^\d.]', '', value))
                     value = clean_value
 
             if value == '':
@@ -149,15 +148,15 @@ class SheriffSaleListing:
         street_split = r'|'.join(ADDRESS_REGEX_SPLIT)
         city_split = r'|'.join(cities)
 
-        regex_street = re.compile(fr'.+(?:{street_split})')
-        regex_city = re.compile(fr'({city_split})(?:[.,`\s]+)?(?:[\(\w\s\)]+)?(NJ)')
-        regex_unit = re.compile(r'(UNIT|APT)[\.\s#]+?([0-9A-Za-z-]+)')
-        regex_secondary_unit = re.compile(r'(BUILDING|ESTATE)[\s#]+?([0-9a-zA-Z]+)')
-        regex_zip_code = re.compile(r'\d{5}')
+        regex_street = regex.compile(fr'[\w\s]+(?<={street_split})')
+        regex_city = regex.compile(fr'({city_split})(?:[.,`\s]+)?(?:[\(\w\s\)]+)?(NJ)')
+        regex_unit = regex.compile(r'(UNIT|APT)[\.\s#]+?([0-9A-Za-z-]+)')
+        regex_secondary_unit = regex.compile(r'(BUILDING|ESTATE)[\s#]+?([0-9a-zA-Z]+)')
+        regex_zip_code = regex.compile(r'\d{5}')
 
         street_match = match_parser(regex_street, target=self.raw_address, regex_name='street')
         city_match = match_parser(regex_city, target=self.raw_address, regex_name='city', regex_group=1)
-        unit_match = match_parser(regex_unit, target=self.raw_address, regex_name='unit', log=False)
+        unit_match = match_parser(regex_unit, target=self.raw_address, regex_group=2, regex_name='unit', log=False)
         secondary_unit_match = match_parser(
             regex_secondary_unit, target=self.raw_address, regex_name='secondary_unit', log=False
         )
@@ -165,13 +164,14 @@ class SheriffSaleListing:
 
         if street_match:
             for key, value in SUFFIX_ABBREVATIONS.items():
-                street_match = re.sub(key, value, street_match)
+                street_match = regex.sub(key, value, street_match)
 
-        self.street = street_match and street_match
-        self.city = city_match and city_match
-        self.unit = unit_match and unit_match
-        self.unit_secondary = secondary_unit_match and secondary_unit_match
-        self.zip_code = zip_code_match and zip_code_match
+        print(street_match)
+        self.street = street_match
+        self.city = city_match
+        self.unit = unit_match
+        self.unit_secondary = secondary_unit_match
+        self.zip_code = zip_code_match
         self.address = (
             street_match and city_match and zip_code_match and f'{street_match}, {city_match} {zip_code_match}'
         )
