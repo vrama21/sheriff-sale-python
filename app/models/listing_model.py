@@ -27,6 +27,7 @@ class Listing(db.Model):
     parcel = db.Column('parcel', db.String)
     plaintiff = db.Column('plaintiff', db.String)
     priors = db.Column('priors', db.String)
+    raw_address = db.Column('raw_address', db.String)
     sale_date = db.Column('sale_date', db.String)
     secondary_unit = db.Column('secondary_unit', db.String)
     state = db.Column('state', db.String)

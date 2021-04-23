@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://salesweb.civilview.com/Sales/SalesSearch?countyId=25 -->
+<html
+  style=""
+  class="js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface no-generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths"
+>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./Sales Listing_files/icon" />
+    <title>Sales Listing</title>
+
+    <link href="./Sales Listing_files/bootstrap.min.css" rel="stylesheet" />
+    <link href="./Sales Listing_files/site.css" rel="stylesheet" />
+
+    <link href="./Sales Listing_files/00855.css" rel="stylesheet" />
+
+    <script src="./Sales Listing_files/jquery-1.10.2.js.download"></script>
+
+    <script src="./Sales Listing_files/modernizr-2.6.2.js.download"></script>
+  </head>
+  <body style="">
+    <div>
+      <script>
+        function doClearBtnClick() {
+          $('#SheriffNumber').val('');
+          $('#PlaintiffTitle').val('');
+          $('#DefendantTitle').val('');
+          $('#Address').val('');
+          $('#CityDesc').val('');
+          $('#PropertyStatusDate').val('');
+          $('#MonthNumber').val('');
+          $('#PropertyTypeDesc').val('');
+        }
+
+        function getSearchCriteria(isOpen) {
+          try {
+            $.ajax({
+              type: 'GET',
+              data: 'IsOpen=' + isOpen,
+              url: 'GetSearchCriteria',
+              dataType: 'JSON',
+              cache: false,
+              success: criteriaSuccess,
+              error: criteriaError,
+            });
+          } catch (err) {
+            handleError('0001');
+          }
+        }
+
+        function getRadioButtonSearchCriteria(isOpen, radioButtonValue) {
+          try {
+            $.ajax({
+              type: 'GET',
+              data: 'IsOpen=' + isOpen + '&RadioButtonValue=' + radioButtonValue,
+              url: 'GetRadioButtonSearchCriteria',
+              dataType: 'JSON',
+              cache: false,
+              success: radioButtonCriteriaSuccess,
+              error: criteriaError,
+            });
+          } catch (err) {
+            handleError('0005');
+          }
+        }
+
+        function radioButtonCriteriaSuccess(data) {
+          try {
+            //clear select lists and re-populate with JSON results
+            var cboCity = $('#CityDesc');
+            cboCity.empty();
+            $.each(data[0], function (i, val) {
+              cboCity.append('<option id="' + val + '">' + val + '</option>');
+            });
+
+            var cboPropertyStatusDate = $('#PropertyStatusDate');
+            cboPropertyStatusDate.empty();
+            $.each(data[1], function (i, val) {
+              cboPropertyStatusDate.append('<option id="' + val + '">' + val + '</option>');
+            });
+
+            var cboMonthNumber = $('#MonthNumber');
+            cboMonthNumber.empty();
+            $.each(data[2], function (i, val) {
+              cboMonthNumber.append('<option id="' + val.MonthNumber + '">' + val.MonthName + '</option>');
+            });
+
+            ////SC-4275 - LA Orleans set default Auction Date; for all other counties this element will be empty
+            // Set default PropertyStatusDate after cboMonthNumber has been populated, see dateChanged()
+            // Would really like to see an object with properties returned from API instead of an array; order cannot change now or indexing will be wrong
+            if (data.length === 5 && !!data[4]) {
+              cboPropertyStatusDate.val(data[4]).change(); // fires the change event so that dateChanged() handler is called; it blanks out the month dropdown
+            }
+
+            // Note that on submit the entire view is re-rendered but since PropertyStatusDate is properly set the default value is correct.
+            $('form').submit();
+          } catch (err) {
+            handleError('0006');
+          }
+        }
+
+        function criteriaSuccess(data) {
+          try {
+            //clear select lists and re-populate with JSON results
+            var cboCity = $('#CityDesc');
+            cboCity.empty();
+            $.each(data[0], function (i, val) {
+              cboCity.append('<option id="' + val + '">' + val + '</option>');
+            });
+
+            var cboPropertyStatusDate = $('#PropertyStatusDate');
+            cboPropertyStatusDate.empty();
+            $.each(data[1], function (i, val) {
+              cboPropertyStatusDate.append('<option id="' + val + '">' + val + '</option>');
+            });
+
+            var cboMonthNumber = $('#MonthNumber');
+            cboMonthNumber.empty();
+            $.each(data[2], function (i, val) {
+              cboMonthNumber.append('<option id="' + val.MonthNumber + '">' + val.MonthName + '</option>');
+            });
+          } catch (err) {
+            handleError('0002');
+          }
+        }
+
+        function criteriaError(data) {
+          //alert(JSON.stringify(data));
+          handleError('0003');
+        }
+
+        function monthChanged() {
+          try {
+            $('#PropertyStatusDate').val('');
+          } catch (err) {
+            handleError('0004');
+          }
+        }
+
+        function dateChanged(selected) {
+          try {
+            $('#MonthNumber').val('');
+            //var field = $('form input[name=PropertyStatusDate]');
+            //field.val(selected.value);
+            $(selected)
+              .find('option[value="' + selected.value + '"]')
+              .attr('selected', true);
+            //$('#PropertyStatusDate').find('option[value="' + selected.value + '"]').attr("selected", true);
+          } catch (err) {
+            handleError('0004');
+          }
+        }
+
+        function handleError(errCode) {
+          $('#ErrorLabel').css('visibility', 'visible');
+          $('#ErrorLabel').text('An error has occurred.  Please refresh this web page and try again. (' + errCode + ')');
+        }
+
+        function openTab(url) {
+          window.open(url, '_blank');
+        }
+      </script>
+
+      <div class="container">
+        <table style="width: 100%">
+          <tbody>
+            <tr>
+              <th>
+                <h3>Atlantic County, NJ - Foreclosure Sales Listing <small>(last updated: 4/22/2021 8:30:28 PM)</small></h3>
+                <h5>
+                  <small
+                    >This site is provided as a public service by the Atlantic County Sheriffs Office and is only intended to be general summary
+                    information to the public. The Atlantic County Sheriffs Office does not warrant the accuracy, completeness, or timeliness of this
+                    information. For all listings click the search tab. To limit search fill in details and click search tab. If you have any
+                    questions regarding the sales listing please call Atlantic County Sheriffs Office at 609-909-7224; 7225; 7226. Or go to
+                    acsheriff.org for FAQ resources</small
+                  >
+                </h5>
+
+                <h5></h5>
+                <span id="ErrorLabel" class="btn-danger" style="visibility: hidden"></span>
+              </th>
+              <th></th>
+            </tr>
+          </tbody>
+        </table>
+
+        <form action="https://salesweb.civilview.com/Sales/SalesSearch" class="form-horizontal" method="post" role="form">
+          <div class="hidden-print">
+            <br />
+            <div class="form-group">
+              <div class="col-sm-9 row">
+                <div class="col-sm-2">
+                  <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+                <div class="col-sm-2">
+                  <input type="button" value="Clear" class="btn btn-primary" onclick="doClearBtnClick()" />
+                </div>
+              </div>
+              <div class="row"></div>
+              <br />
+              <div class="col-sm-12" row="">
+                <div class="col-sm-7"></div>
+                <div class="col-sm-2">
+                  <input checked="checked" id="IsOpen" name="IsOpen" onclick="getSearchCriteria(true)" type="radio" value="true" /> Open
+                </div>
+                <div class="col-sm-3">
+                  <input id="IsOpen" name="IsOpen" onclick="getSearchCriteria(false)" type="radio" value="false" /> Sold\Cancelled
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div><label class="col-sm-1 control-label text-nowrap" for="SheriffNumber">Sheriff #:</label></div>
+
+              <div class="col-sm-4">
+                <input
+                  class="form-control"
+                  id="SheriffNumber"
+                  name="SheriffNumber"
+                  type="text"
+                  value=""
+                  style="
+                    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==');
+                    background-repeat: no-repeat;
+                    background-attachment: scroll;
+                    background-size: 16px 18px;
+                    background-position: 98% 50%;
+                  "
+                />
+              </div>
+              <div class="col-sm-1"></div>
+              <div><label class="col-sm-1 control-label text-nowrap">Sales Date:</label></div>
+              <div class="col-sm-5 row">
+                <div class="col-sm-5">
+                  <select class="form-control" id="PropertyStatusDate" name="PropertyStatusDate" onchange="dateChanged(this)">
+                    <option value=""></option>
+                    <option value="04/22/2021">04/22/2021</option>
+                    <option value="04/29/2021">04/29/2021</option>
+                    <option value="05/06/2021">05/06/2021</option>
+                    <option value="05/13/2021">05/13/2021</option>
+                    <option value="05/20/2021">05/20/2021</option>
+                    <option value="05/27/2021">05/27/2021</option>
+                    <option value="06/03/2021">06/03/2021</option>
+                    <option value="06/10/2021">06/10/2021</option>
+                    <option value="06/17/2021">06/17/2021</option>
+                  </select>
+                </div>
+                <div><label class="col-sm-1 control-label text-nowrap">or</label></div>
+                <div class="col-sm-5">
+                  <select
+                    class="form-control"
+                    data-val="true"
+                    data-val-number="The field MonthNumber must be a number."
+                    data-val-required="The MonthNumber field is required."
+                    id="MonthNumber"
+                    name="MonthNumber"
+                    onchange="monthChanged()"
+                  >
+                    <option selected="selected" value="0"></option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div><label class="col-sm-1 control-label text-nowrap" for="PlaintiffTitle">Plaintiff:</label></div>
+              <div class="col-sm-4"><input class="form-control" id="PlaintiffTitle" name="PlaintiffTitle" type="text" value="" /></div>
+              <div class="col-sm-1"></div>
+              <div><label class="col-sm-1 control-label text-nowrap" for="DefendantTitle">Defendant:</label></div>
+              <div class="col-sm-5"><input class="form-control" id="DefendantTitle" name="DefendantTitle" type="text" value="" /></div>
+            </div>
+            <div class="form-group">
+              <div><label class="col-sm-1 control-label text-nowrap" for="Address">Address:</label></div>
+              <div class="col-sm-4"><input class="form-control" id="Address" name="Address" type="text" value="" /></div>
+              <div class="col-sm-1"></div>
+              <div><label class="col-sm-1 control-label text-nowrap" for="CityDesc">City:</label></div>
+              <div class="col-sm-5">
+                <select class="form-control" id="CityDesc" name="CityDesc">
+                  <option value=""></option>
+                  <option value="Absecon">Absecon</option>
+                  <option value="Atlantic City">Atlantic City</option>
+                  <option value="Brigantine">Brigantine</option>
+                  <option value="Egg Harbor City">Egg Harbor City</option>
+                  <option value="Egg Harbor Township">Egg Harbor Township</option>
+                  <option value="Folsom">Folsom</option>
+                  <option value="Galloway">Galloway</option>
+                  <option value="Galloway Township">Galloway Township</option>
+                  <option value="Linwood">Linwood</option>
+                  <option value="Margate City">Margate City</option>
+                  <option value="Mays Landing">Mays Landing</option>
+                  <option value="Minotola">Minotola</option>
+                  <option value="Northfield">Northfield</option>
+                  <option value="Pleasantville">Pleasantville</option>
+                </select>
+              </div>
+            </div>
+
+            <br />
+          </div>
+        </form>
+        <h4><small class="hidden-print">Click the Details link next to the property to view additional information. (42 search results)</small></h4>
+      </div>
+
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="hidden-print"></th>
+
+              <th>Sheriff #</th>
+              <th>Sales Date</th>
+              <th>Plaintiff</th>
+              <th>Defendant</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080676">Details</a></td>
+
+              <td>F-21000099</td>
+              <td>4/22/2021</td>
+              <td>Anchor Loans, LP...</td>
+              <td>TTK Investments LLC,...</td>
+              <td>2515 English Creek Avenue Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081286">Details</a></td>
+
+              <td>F-21000102</td>
+              <td>4/22/2021</td>
+              <td>Pentagon Federal Cre...</td>
+              <td>David Willis; JoAnn ...</td>
+              <td>4420 Yorktown Place Unit No. J-74 Mays Landing NJ 08330</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081181">Details</a></td>
+
+              <td>F-20000235</td>
+              <td>4/22/2021</td>
+              <td>Wells Fargo Bank, N....</td>
+              <td>Michael Cohen and Te...</td>
+              <td>6309 Benson Avenue Mays Landing NJ 08330</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081558">Details</a></td>
+
+              <td>F-17001679</td>
+              <td>4/22/2021</td>
+              <td>NewRez LLC d/b/a She...</td>
+              <td>Peter J. Lenard, Bev...</td>
+              <td>6620 Millville Road Mays Landing NJ 08330</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081288">Details</a></td>
+
+              <td>F-21000234</td>
+              <td>4/22/2021</td>
+              <td>Nationstar Mortgage ...</td>
+              <td>Doris E. Reinhard, h...</td>
+              <td>10 Pierce Road Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080439">Details</a></td>
+
+              <td>F-20000992</td>
+              <td>4/29/2021</td>
+              <td>Commercial Loan Inve...</td>
+              <td>Charles W. Cain, Jr....</td>
+              <td>285 West White Horse Pike Galloway Township NJ 08205</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081193">Details</a></td>
+
+              <td>F-21000208</td>
+              <td>4/29/2021</td>
+              <td>Nationstar Mortgage ...</td>
+              <td>Christopher Eck; Atl...</td>
+              <td>210 West Haines Avenue Linwood NJ 08221</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080671">Details</a></td>
+
+              <td>F-20001312</td>
+              <td>4/29/2021</td>
+              <td>Anchor Loans, LP...</td>
+              <td>TTK Homes 1 LLC, A N...</td>
+              <td>661 Pasadena Drive Northfield NJ 08225</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080672">Details</a></td>
+
+              <td>F-20001313</td>
+              <td>4/29/2021</td>
+              <td>Anchor Loans, LP...</td>
+              <td>TTK Investments, LLC...</td>
+              <td>421 Elm Avenue Galloway Township NJ 08205</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080985">Details</a></td>
+
+              <td>F-20001319</td>
+              <td>4/29/2021</td>
+              <td>Barnett Refinance 2,...</td>
+              <td>Zetony Progressive E...</td>
+              <td>1420 West Point Avenue Mays Landing NJ 08330</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081819">Details</a></td>
+
+              <td>F-19002389</td>
+              <td>5/6/2021</td>
+              <td>HSBC Bank USA N.A., ...</td>
+              <td>Li-Ai Chen A/K/A Li ...</td>
+              <td>604 South West Avenue Minotola NJ 08341</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081919">Details</a></td>
+
+              <td>F-20000103</td>
+              <td>5/6/2021</td>
+              <td>Ocwen Loan Servicing...</td>
+              <td>Jason E. Dorn and Cl...</td>
+              <td>2 Millard Avenue Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080441">Details</a></td>
+
+              <td>F-20001354</td>
+              <td>5/6/2021</td>
+              <td>Commercial Loan Inve...</td>
+              <td>Mohammed M. Hossain,...</td>
+              <td>3001-3005 Fairmont Avenue Atlantic City NJ 08401</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081875">Details</a></td>
+
+              <td>F-21000039</td>
+              <td>5/6/2021</td>
+              <td>TD Bank, N.A....</td>
+              <td>Lighthouse Outreach ...</td>
+              <td>1414 Doughty Road Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080725">Details</a></td>
+
+              <td>F-21000158</td>
+              <td>5/6/2021</td>
+              <td>1 Sharpe Opportunity...</td>
+              <td>Zetony Progressive E...</td>
+              <td>817 Marlborough Avenue Absecon NJ 08201</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081289">Details</a></td>
+
+              <td>F-21000286</td>
+              <td>5/6/2021</td>
+              <td>Wells Fargo Bank, Na...</td>
+              <td>Wayne A. Thompson; S...</td>
+              <td>123 Independence Trail Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081094">Details</a></td>
+
+              <td>F-21000298</td>
+              <td>5/13/2021</td>
+              <td>OceanFirst Bank N.A....</td>
+              <td>Frank P. Granieri; E...</td>
+              <td>1019 Woode-Lynne Boulevard Linwood NJ 08221</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081621">Details</a></td>
+
+              <td>F-21000300</td>
+              <td>5/13/2021</td>
+              <td>US Bank, National As...</td>
+              <td>Donald C. Williams; ...</td>
+              <td>444 Hackney Place Brigantine NJ 08203</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081859">Details</a></td>
+
+              <td>F-19002217</td>
+              <td>5/13/2021</td>
+              <td>Republic first Bank ...</td>
+              <td>The Family Bricks II...</td>
+              <td>9407 and 9403 Ventnor Avenue Margate City NJ 08402</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081368">Details</a></td>
+
+              <td>F-21000246</td>
+              <td>5/13/2021</td>
+              <td>Boomerang Finance Su...</td>
+              <td>CFRE Investment Flip...</td>
+              <td>316 South 34th Street Brigantine NJ 08203</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080784">Details</a></td>
+
+              <td>F-21000075</td>
+              <td>5/13/2021</td>
+              <td>Slape Investment Pro...</td>
+              <td>Charles W. Cain, Jr....</td>
+              <td>6122 Black Horse Pike Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080782">Details</a></td>
+
+              <td>F-21000075</td>
+              <td>5/13/2021</td>
+              <td>Slape Investment Pro...</td>
+              <td>Charles W. Cain, Jr....</td>
+              <td>6117 Black Horse Pike Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080785">Details</a></td>
+
+              <td>F-21000075</td>
+              <td>5/13/2021</td>
+              <td>Slape Investment Pro...</td>
+              <td>Charles W. Cain, Jr....</td>
+              <td>110 Columbia Street Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080781">Details</a></td>
+
+              <td>F-21000075</td>
+              <td>5/13/2021</td>
+              <td>Slape Investment Pro...</td>
+              <td>Charles W. Cain, Jr....</td>
+              <td>113 Lehigh Avenue Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080783">Details</a></td>
+
+              <td>F-21000075</td>
+              <td>5/13/2021</td>
+              <td>Slape Investment Pro...</td>
+              <td>Charles W. Cain, Jr....</td>
+              <td>111 Lehigh Avenue Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081894">Details</a></td>
+
+              <td>F-21000107</td>
+              <td>5/13/2021</td>
+              <td>Community Loan Servi...</td>
+              <td>William Bush a/k/a W...</td>
+              <td>641 Howard Avenue Atlantic City NJ 08401</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081093">Details</a></td>
+
+              <td>F-20000245</td>
+              <td>5/20/2021</td>
+              <td>Richard W. Fogelman ...</td>
+              <td>712 Fishers Creek Ro...</td>
+              <td>712 Fishers Creek Road Galloway NJ 08205</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081893">Details</a></td>
+
+              <td>F-20001320</td>
+              <td>5/20/2021</td>
+              <td>Lakeview Loan Servic...</td>
+              <td>Michael B. Headley...</td>
+              <td>219 Muccio Drive Minotola NJ 08341</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080779">Details</a></td>
+
+              <td>F-21000327</td>
+              <td>5/20/2021</td>
+              <td>Fidelity Bank...</td>
+              <td>Russell E. Aucott; S...</td>
+              <td>109 East Redwood Avenue Pleasantville NJ 08232</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081194">Details</a></td>
+
+              <td>F-21000317</td>
+              <td>5/27/2021</td>
+              <td>Wells Fargo Bank, N....</td>
+              <td>Jennifer Eichwald; A...</td>
+              <td>20 Country Magnolia Lane Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080457">Details</a></td>
+
+              <td>F-21000379</td>
+              <td>6/3/2021</td>
+              <td>The Estate of Vera P...</td>
+              <td>Shree Haree, LLC; J....</td>
+              <td>35 South New York Road Galloway Township NJ 08205</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081922">Details</a></td>
+
+              <td>F-21000384</td>
+              <td>6/3/2021</td>
+              <td>US Bank Trust Nation...</td>
+              <td>Ryan D. Ecker...</td>
+              <td>247 Fenimore Drive Folsom NJ 08319</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080743">Details</a></td>
+
+              <td>F-21000385</td>
+              <td>6/3/2021</td>
+              <td>Angel Oak Prime Brid...</td>
+              <td>Smartnet Consulting ...</td>
+              <td>121 North Maryland Avenue Atlantic City NJ 08401</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081847">Details</a></td>
+
+              <td>F-21000390</td>
+              <td>6/3/2021</td>
+              <td>Wilmington Savings F...</td>
+              <td>TTK Enterprises LLC;...</td>
+              <td>3019 Tremont Avenue Egg Harbor Township NJ 08234</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080729">Details</a></td>
+
+              <td>F-21000391</td>
+              <td>6/3/2021</td>
+              <td>U.S. Bank Trust Nati...</td>
+              <td>Donald R. Conner...</td>
+              <td>2 Cove Avenue Northfield NJ 08225</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081920">Details</a></td>
+
+              <td>F-20001321</td>
+              <td>6/3/2021</td>
+              <td>Velocity Commercial ...</td>
+              <td>David Martino; Cynth...</td>
+              <td>3101 Boardwalk Unit 3107-1 Atlantic City NJ 08401</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081892">Details</a></td>
+
+              <td>F-20001148</td>
+              <td>6/10/2021</td>
+              <td>Bayview Loan Servici...</td>
+              <td>Maria H. Spear, his/...</td>
+              <td>1548 Hamilton Court Mays Landing NJ 08330</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080995">Details</a></td>
+
+              <td>F-18002053</td>
+              <td>6/10/2021</td>
+              <td>U.S. ROF IV Legal Ti...</td>
+              <td>Robert E. Newmiller ...</td>
+              <td>8 Schooner Cove Unit B, Brigantine NJ 08203</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081923">Details</a></td>
+
+              <td>F-21000410</td>
+              <td>6/10/2021</td>
+              <td>Bayview Loan Servici...</td>
+              <td>Jeffrey C. Senecal; ...</td>
+              <td>724 East Village Drive Galloway Township NJ 08205</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080776">Details</a></td>
+
+              <td>F-21000415</td>
+              <td>6/10/2021</td>
+              <td>U.S. Bank Trust Nati...</td>
+              <td>Lenax Home Improveme...</td>
+              <td>a/k/a 335 W. Moss Mill Rd., Galloway, NJ335 West Moss Mill Road Egg Harbor City NJ 08215</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985080728">Details</a></td>
+
+              <td>F-21000252</td>
+              <td>6/17/2021</td>
+              <td>U.S. Bank National A...</td>
+              <td>Juana Mota and Mr. M...</td>
+              <td>6117 Hoover Drive Mays Landing NJ 08330</td>
+            </tr>
+            <tr>
+              <td class="hidden-print"><a href="https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=985081097">Details</a></td>
+
+              <td>F-21000224</td>
+              <td>6/17/2021</td>
+              <td>Forethought Life Ins...</td>
+              <td>TTK Homes 1 LLC, A N...</td>
+              <td>960 Marlborough Avenue Absecon NJ 08201</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container-fluid footer"></div>
+    </div>
+
+    <script src="./Sales Listing_files/bootstrap.min.js.download"></script>
+    <script src="./Sales Listing_files/respond.js.download"></script>
+  </body>
+</html>
