@@ -1,13 +1,14 @@
 import logging
 import os
+
 from flask import Flask
+from flask_apscheduler import APScheduler
 from flask_cors import CORS
 from flask_googlemaps import GoogleMaps
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from .constants import BUILD_DIR, LOG_DIR, MIGRATIONS_DIR
-from flask_apscheduler import APScheduler
 
+from app.constants import BUILD_DIR, LOG_DIR, MIGRATIONS_DIR
 
 cors = CORS()
 db = SQLAlchemy()

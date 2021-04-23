@@ -1,9 +1,10 @@
+from app.constants import PRETTIFY
 import os
 import tempfile
 
 import pytest
 
-from app import create_app, db
+from app import create_app
 
 
 @pytest.fixture
@@ -11,10 +12,9 @@ def app():
     """Create and configure a new app instance for each test."""
     # create a temporary file to isolate the database for each test
     db_fd, db_path = tempfile.mkstemp()
-    # create the app with common test config
+
     app = create_app()
-    app.config['TESTING'] = True
-    app.config['DATABASE'] = db_path
+    app.config.from_object('app.config.TestingConfig')
 
     # create the database and load test data
     # with app.app_context():

@@ -51,4 +51,7 @@ class DevelopmentConfig(DefaultConfig):
 
 
 class TestingConfig(DefaultConfig):
+    DEBUG = False
     TESTING = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_DEVELOPMENT') or 'sqlite:///:memory:'
