@@ -93,7 +93,6 @@ def test_sanitize_address(
     sheriff_sale_listing = SheriffSaleListing(listing_html=None, county=county)
     sheriff_sale_listing.raw_address = raw_address
     sheriff_sale_listing.sanitize_address()
-    print(sheriff_sale_listing)
 
     assert sheriff_sale_listing.county == county
     assert sheriff_sale_listing.street == expected_street

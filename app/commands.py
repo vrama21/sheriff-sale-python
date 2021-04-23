@@ -1,7 +1,5 @@
 from pathlib import Path
-import sys
 import click
-import importlib
 import runpy
 
 from flask.cli import AppGroup
@@ -22,7 +20,9 @@ def drop_tables():
     print('You are about to drop all tables from your database')
 
     response = input('Are you sure? (y/n): ')
-    if response == 'Y' or 'y' or 'Yes' or 'yes':
+
+    acceptable_responses = ['Y', 'y', 'Yes', 'yes']
+    if response in acceptable_responses:
         print('Dropping all tables...')
         db.drop_all()
 
@@ -46,6 +46,19 @@ def run_script(script: str):
 
         return
 
-    print(f'Running script: {script_name}...')
-    runpy.run_path(script_path)
-    print(f'{script_name} has completed.')
+    print(f'You are about to run script: {script_name}...')
+
+    response = input('Are you sure? (y/n): ')
+
+    acceptable_responses = ['Y', 'y', 'Yes', 'yes']
+    if response in acceptable_responses:
+        print(f'Running script: {script_name}...')
+        runpy.run_path(script_path)
+
+        print(f'{script_name} has completed.')
+
+        return
+
+    print(f'Did not run script: {script_name}')
+
+    return
