@@ -4,7 +4,7 @@ from datetime import datetime
 
 from .. import db, scheduler
 from ..models import Listing, StatusHistory
-from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES
+from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES, PRETTIFY
 from ..services.sheriff_sale import SheriffSale, SheriffSaleListing
 from ..services.nj_parcels.nj_parcels import NJParcels
 from ..services.county_clerk import county_clerk_document, county_clerk_search
@@ -46,34 +46,30 @@ def daily_scrape():
         for county in county_list:
             print(f'Parsing Sheriff Sale Data for {county} County...')
             sheriff_sale = SheriffSale(county=county)
-            sheriff_sale_listings = sheriff_sale.get_all_listings()
-
-            listings_to_update = []
+            sheriff_sale_listings = sheriff_sale.get_all_listings_and_details(use_google_map_api=False)
 
             for sheriff_sale_listing in sheriff_sale_listings:
-                listing = db.session.query(Listing).filter_by(address=sheriff_sale_listing.address).scalar()
+                PRETTIFY.pprint(sheriff_sale_listing)
+                listing = db.session.query(Listing).filter_by(address=sheriff_sale_listing['address']).scalar()
                 listing: dict = listing.serialize if listing else None
                 listing_exists: bool = listing is not None
 
                 if not listing_exists:
-                    print(f'Inserting a new listing: {sheriff_sale_listing.address}')
+                    print(f'Inserting a new listing: {sheriff_sale_listing["address"]}')
 
                     listing_to_insert = Listing(**sheriff_sale_listing)
                     db.session.add(listing_to_insert)
                     db.session.flush()
                     db.session.refresh(listing_to_insert)
 
-                    for status in sheriff_sale_listing.status_history:
-                        status_history_to_insert = StatusHistory(
-                            listing_id=listing_to_insert.id,
-                            status=status.get('status'),
-                            date=status.get('date'),
-                        )
+                    # for status in sheriff_sale_listing['status_history']:
+                    #     status_history_to_insert = StatusHistory(
+                    #         listing_id=listing_to_insert.id,
+                    #         status=status.get('status'),
+                    #         date=status.get('date'),
+                    #     )
 
-                        db.session.add(status_history_to_insert)
-
-            if len(listings_to_update):
-                db.session.bulk_update_mappings(Listing, listings_to_update)
+                    #     db.session.add(status_history_to_insert)
 
             db.session.commit()
             print(f'Parsing for {county} County has completed. ', '\n')

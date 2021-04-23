@@ -43,6 +43,7 @@ def test_parse_listing_details(parsed_listing_html):
 
 @pytest.mark.parametrize(
     (
+        'county',
         'raw_address',
         'expected_street',
         'expected_city',
@@ -52,6 +53,7 @@ def test_parse_listing_details(parsed_listing_html):
     ),
     [
         (
+            'Atlantic',
             '2515 ENGLISH CREEK AVENUE EGG HARBOR TOWNSHIP NJ 08234',
             '2515 English Creek Ave',
             'Egg Harbor Township',
@@ -60,6 +62,7 @@ def test_parse_listing_details(parsed_listing_html):
             '08234',
         ),
         (
+            'Bergen',
             '388 PATHWAY MANOR WYCKOFF NJ 07481',
             '388 Pathway Mnr',
             'Wyckoff',
@@ -70,19 +73,20 @@ def test_parse_listing_details(parsed_listing_html):
     ],
 )
 def test_sanitize_address(
+    county,
     raw_address,
     expected_street,
     expected_city,
     expected_unit,
     expected_secondary_unit,
     expected_zip_code,
-    parsed_listing_html,
 ):
-    sheriff_sale_listing = SheriffSaleListing(listing_html=parsed_listing_html, county='Atlantic')
+    sheriff_sale_listing = SheriffSaleListing(listing_html=None, county=county)
     sheriff_sale_listing.raw_address = raw_address
     sheriff_sale_listing.sanitize_address()
     print(sheriff_sale_listing)
 
+    assert sheriff_sale_listing.county == county
     assert sheriff_sale_listing.street == expected_street
     assert sheriff_sale_listing.city == expected_city
     assert sheriff_sale_listing.unit == expected_unit
