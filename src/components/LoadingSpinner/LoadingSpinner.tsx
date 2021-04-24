@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { ReactComponent as LoadingSVG } from 'assets/loading_spinner.svg';
-import { loadingStyles } from './Loading.style';
+import { loadingSpinnerStyles } from './LoadingSpinner.style';
 
 const LoadingSpinner: React.FC = () => {
-  const classes = loadingStyles();
+  const classes = loadingSpinnerStyles();
 
   return (
     <div className={classes.root}>
