@@ -50,38 +50,40 @@ def daily_scrape():
             sheriff_sale_listings = sheriff_sale.get_all_listings_and_details(use_google_map_api=False)
 
             for sheriff_sale_listing in sheriff_sale_listings:
+                listing = sheriff_sale_listing['listing']
+                status_history = sheriff_sale_listing['status_history']
+
                 listing_exists = (
                     db.session.query(Listing)
                     .filter(
                         and_(
-                            Listing.sheriff_id == sheriff_sale_listing.sheriff_id,
-                            Listing.court_case == sheriff_sale_listing.court_case,
+                            Listing.sheriff_id == listing.sheriff_id,
+                            Listing.court_case == listing.court_case,
                         )
                     )
                     .first()
                 ) is not None
 
                 if not listing_exists:
-                    print(f'Inserting a new listing: {sheriff_sale_listing.raw_address}')
+                    print(f'Saving a new listing: {listing.raw_address}..')
 
-                    listing = sheriff_sale_listing.__dict__()
-                    del listing['status_history']
-
-                    listing_to_insert = Listing(**listing)
+                    listing_to_insert = Listing(**listing.__dict__())
                     db.session.add(listing_to_insert)
                     db.session.flush()
                     db.session.refresh(listing_to_insert)
 
-                    # for status in sheriff_sale_listing['status_history']:
-                    #     status_history_to_insert = StatusHistory(
-                    #         listing_id=listing_to_insert.id,
-                    #         status=status.get('status'),
-                    #         date=status.get('date'),
-                    #     )
+                    for status in status_history:
+                        status_history_to_insert = StatusHistory(
+                            listing_id=listing_to_insert.id,
+                            status=status.get('status'),
+                            date=status.get('date'),
+                        )
 
-                    #     db.session.add(status_history_to_insert)
+                        db.session.add(status_history_to_insert)
 
-            # db.session.commit()
+                    print(f'Saved {len(status_history)} instances of status_history for listing_id: {listing_to_insert.id}')
+
+            db.session.commit()
             print(f'Parsing for {county} County has completed. ', '\n')
 
     return jsonify(message='daily scrape complete')

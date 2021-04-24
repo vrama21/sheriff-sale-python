@@ -6,6 +6,7 @@ from typing import List
 from app import db
 from app.utils import requests_content, load_json_data
 from .sheriff_sale_listing import SheriffSaleListing
+from .sheriff_sale_status_history import SheriffSaleStatusHistory
 from app.models import Listing
 
 
@@ -95,7 +96,7 @@ class SheriffSale:
         """
         if not self.table_div:
             logging.error(f'The Sheriff Sale Table Div for {self.county_name} County was not captured')
-            return
+            return []
 
         if self.listings is None:
             self.get_all_listings()
@@ -172,8 +173,8 @@ class SheriffSale:
 
         all_listings = []
         for listing_soup in listing_soups:
-            listing = SheriffSaleListing(listing_html=listing_soup, county=self.county_name)
-            parsed_listing = listing.parse_listing(use_google_map_api)
-            all_listings.append(parsed_listing)
+            listing = SheriffSaleListing(listing_html=listing_soup, county=self.county_name).parse(use_google_map_api)
+            status_history = SheriffSaleStatusHistory(listing_html=listing_soup).parse()
+            all_listings.append({'listing': listing, 'status_history': status_history})
 
         return all_listings

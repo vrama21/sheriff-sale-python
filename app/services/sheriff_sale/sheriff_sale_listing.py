@@ -54,7 +54,6 @@ class SheriffSaleListing:
         self.secondary_unit: str = None
         self.sheriff_id: str = None
         self.state: str = 'NJ'
-        self.status_history: str = None
         self.street: str = None
         self.unit: str = None
         self.unit_secondary: str = None
@@ -63,41 +62,37 @@ class SheriffSaleListing:
 
     def __dict__(self):
         return {
-            'address': self.address,
-            'attorney': self.attorney,
-            'attorney_phone': self.attorney_phone,
-            'city': self.city,
+            'address': None,
+            'attorney': None,
+            'attorney_phone': None,
+            'city': None,
             'county': self.county,
-            'court_case': self.court_case,
-            'deed': self.deed,
-            'deed_address': self.deed_address,
-            'defendant': self.defendant,
-            'description': self.description,
-            'judgment': self.judgment,
-            'latitude': self.latitude,
-            'longitude': self.longitude,
-            'maps_url': self.maps_url,
-            'parcel': self.parcel,
-            'plaintiff': self.plaintiff,
-            'priors': self.priors,
-            'raw_address': self.raw_address,
-            'sale_date': self.sale_date,
-            'secondary_unit': self.secondary_unit,
-            'sheriff_id': self.sheriff_id,
+            'court_case': None,
+            'deed': None,
+            'deed_address': None,
+            'defendant': None,
+            'description': None,
+            'judgment': None,
+            'latitude': None,
+            'longitude': None,
+            'maps_url': None,
+            'parcel': None,
+            'plaintiff': None,
+            'priors': None,
+            'raw_address': None,
+            'sale_date': None,
+            'secondary_unit': None,
+            'sheriff_id': None,
             'state': self.state,
-            'status_history': self.status_history,
-            'street': self.street,
-            'unit': self.unit,
-            'unit_secondary': self.unit_secondary,
-            'upset_amount': self.upset_amount,
-            'zip_code': self.zip_code,
+            'street': None,
+            'unit': None,
+            'unit_secondary': None,
+            'upset_amount': None,
+            'zip_code': None,
         }
 
     def __repr__(self) -> str:
-        _attrs_list = [(k, v) for (k, v) in self.__dict__.items() if k != 'listing_html']
-        _attrs = dict((k, v) for k, v in _attrs_list)
-
-        return json.dumps(_attrs, sort_keys=True, indent=4)
+        self.__dict__()
 
     def parse_listing_details(self):
         """
@@ -148,24 +143,6 @@ class SheriffSaleListing:
 
         for key, value in listing_details.items():
             setattr(self, key, value)
-
-    def parse_status_history_details(self):
-        """
-        Parses the status history table of a listings detail page
-        """
-        status_history_html = self.listing_html.find('table', id='longTable')
-
-        status_history = []
-        if status_history_html is not None:
-            for tr in status_history_html.find_all('tr')[1:]:
-                td = tr.find_all('td')
-                listing_status = {
-                    'status': td[0].text.strip(),
-                    'date': td[1].text.strip(),
-                }
-                status_history.append(listing_status)
-
-        self.status_history = status_history
 
     def sanitize_address(self):
         """
@@ -220,7 +197,7 @@ class SheriffSaleListing:
             self.latitude = coordinates['lat']
             self.longitude = coordinates['lng']
 
-    def parse_listing(self, use_google_maps_api: bool = True):
+    def parse(self, use_google_maps_api: bool = True):
         """
         Runs all the parsing functions
 
@@ -233,8 +210,3 @@ class SheriffSaleListing:
         self.sanitize_address()
 
         return self
-
-    def parse_status_history(self):
-        self.parse_status_history_details()
-
-        return self.status_history
