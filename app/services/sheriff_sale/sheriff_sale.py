@@ -167,7 +167,7 @@ class SheriffSale:
 
         return listing_details_html
 
-    def get_all_listings_and_details(self, use_google_map_api: bool):
+    def get_listing_details_and_status_history(self, use_google_map_api: bool):
         property_ids = self.get_all_listing_property_ids()
         listing_soups = [self.get_new_listing_details_html(property_id) for property_id in property_ids]
 

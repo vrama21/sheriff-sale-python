@@ -48,7 +48,7 @@ def daily_scrape():
         for county in county_list:
             print(f'Parsing Sheriff Sale Data for {county} County...')
             sheriff_sale = SheriffSale(county=county)
-            sheriff_sale_listings = sheriff_sale.get_all_listings_and_details(use_google_map_api=False)
+            sheriff_sale_listings = sheriff_sale.get_listing_details_and_status_history(use_google_map_api=False)
 
             for sheriff_sale_listing in sheriff_sale_listings:
                 listing = sheriff_sale_listing['listing']
@@ -66,12 +66,14 @@ def daily_scrape():
                 ) is not None
 
                 if not listing_exists:
-                    print(f'Saving a new listing: {listing.raw_address}..')
+                    print(f'Saving a new listing: {listing.raw_address}...')
 
                     listing_to_insert = Listing(**listing.__dict__())
                     db.session.add(listing_to_insert)
                     db.session.flush()
                     db.session.refresh(listing_to_insert)
+
+                    print(f'Saved new listing: ${listing_to_insert.id}')
 
                     for status in status_history:
                         status_history_to_insert = StatusHistory(
