@@ -121,7 +121,7 @@ class SheriffSaleListing:
             if key == 'raw_address':
                 address_br = td[1].find('br')
                 raw_address = f'{address_br.previous_element} {address_br.next_element}'.strip()
-                value = raw_address.upper()
+                value = raw_address
             elif key == 'attorney_phone':
                 if value:
                     clean_phone_number = regex.sub('[^0-9]', '', value)

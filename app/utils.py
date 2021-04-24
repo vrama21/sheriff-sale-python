@@ -87,7 +87,7 @@ def match_parser(
         logging.error(f'{target} is null')
         return None
 
-    search = regex.search(regex_pattern, target)
+    search = regex.search(regex_pattern, target.upper())
     if search:
         match = search.group(regex_group).rstrip().title()
 

@@ -1,15 +1,16 @@
 import base64
 import json
-from flask import jsonify, request, Blueprint
 from datetime import datetime
 
-from .. import db, scheduler
-from ..models import Listing, StatusHistory
-from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES, PRETTIFY
-from ..services.sheriff_sale import SheriffSale, SheriffSaleListing
-from ..services.nj_parcels.nj_parcels import NJParcels
-from ..services.county_clerk import county_clerk_document, county_clerk_search
+from flask import Blueprint, jsonify, request
 from sqlalchemy import and_
+
+from .. import db, scheduler
+from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES, PRETTIFY
+from ..models import Listing, StatusHistory
+from ..services.county_clerk import county_clerk_document, county_clerk_search
+from ..services.nj_parcels.nj_parcels import NJParcels
+from ..services.sheriff_sale import SheriffSale, SheriffSaleListing
 
 main_bp = Blueprint('main_bp', __name__, static_folder=str(BUILD_DIR), static_url_path='/home-static')
 
@@ -81,7 +82,9 @@ def daily_scrape():
 
                         db.session.add(status_history_to_insert)
 
-                    print(f'Saved {len(status_history)} instances of status_history for listing_id: {listing_to_insert.id}')
+                    print(
+                        f'Saved {len(status_history)} instances of status_history for listing_id: {listing_to_insert.id}'
+                    )
 
             db.session.commit()
             print(f'Parsing for {county} County has completed. ', '\n')
@@ -146,9 +149,10 @@ def county_clerk():
 
 @main_bp.route('/api/county_clerk_doc_to_pdf', methods=['GET', 'POST'])
 def county_clerk_doc_to_pdf():
-    from base64 import b64decode
-    import requests
     import codecs
+    from base64 import b64decode
+
+    import requests
 
     test_doc = {'ID': 5705275, 'convert': True, 'page': 1}
     response = requests.post(url='http://24.246.110.8/or_web1/api/document', data=test_doc)
