@@ -1,7 +1,6 @@
 from .. import db
 from decimal import Decimal
 from datetime import datetime
-from typing import List
 
 
 class Listing(db.Model):
@@ -33,7 +32,7 @@ class Listing(db.Model):
     sale_date: str = db.Column('sale_date', db.String)
     secondary_unit: str = db.Column('secondary_unit', db.String)
     state: str = db.Column('state', db.String)
-    status_history: List(dict) = db.relationship('StatusHistory', backref='StatusHistory', lazy=True)
+    status_history = db.relationship('StatusHistory', backref='StatusHistory', lazy=True)
     street: str = db.Column('street', db.String)
     unit: str = db.Column('unit', db.String)
     unit_secondary: str = db.Column('unit_secondary', db.String)

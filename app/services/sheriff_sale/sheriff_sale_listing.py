@@ -10,9 +10,7 @@ from app.utils import load_json_data, match_parser
 LISTING_KV_MAP = {
     'Address': 'raw_address',
     'Approx Judgment': 'judgment',
-    'Approx. Judgment': 'judgment',
-    'Approx. Judgment*': 'judgment',
-    'Approx. Upset*': 'upset_amount',
+    'Approx Upset': 'upset_amount',
     'Attorney': 'attorney',
     'Attorney Phone': 'attorney_phone',
     'Court Case': 'court_case',
@@ -20,7 +18,7 @@ LISTING_KV_MAP = {
     'Deed Address': 'deed_address',
     'Defendant': 'defendant',
     'Description': 'description',
-    'Judgment Amount*': 'judgment',
+    'Judgment Amount': 'judgment',
     'Parcel': 'parcel',
     'Plaintiff': 'plaintiff',
     'Priors': 'priors',
@@ -63,6 +61,38 @@ class SheriffSaleListing:
         self.upset_amount: float = None
         self.zip_code: str = None
 
+    def __dict__(self):
+        return {
+            'address': self.address,
+            'attorney': self.attorney,
+            'attorney_phone': self.attorney_phone,
+            'city': self.city,
+            'county': self.county,
+            'court_case': self.court_case,
+            'deed': self.deed,
+            'deed_address': self.deed_address,
+            'defendant': self.defendant,
+            'description': self.description,
+            'judgment': self.judgment,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'maps_url': self.maps_url,
+            'parcel': self.parcel,
+            'plaintiff': self.plaintiff,
+            'priors': self.priors,
+            'raw_address': self.raw_address,
+            'sale_date': self.sale_date,
+            'secondary_unit': self.secondary_unit,
+            'sheriff_id': self.sheriff_id,
+            'state': self.state,
+            'status_history': self.status_history,
+            'street': self.street,
+            'unit': self.unit,
+            'unit_secondary': self.unit_secondary,
+            'upset_amount': self.upset_amount,
+            'zip_code': self.zip_code,
+        }
+
     def __repr__(self) -> str:
         _attrs_list = [(k, v) for (k, v) in self.__dict__.items() if k != 'listing_html']
         _attrs = dict((k, v) for k, v in _attrs_list)
@@ -81,7 +111,10 @@ class SheriffSaleListing:
         for rows in listing_table_rows:
             td = rows.find_all('td')
 
-            label = ' '.join(regex.findall(r'\w+', td[0].text))
+            label_regex = regex.compile(r'[?=\#\&\.\*]+(colon)?')
+            label: str = regex.sub(label_regex, '', td[0].text)
+            label = label.rstrip()
+
             value = td[1].text.strip().title()
 
             key = LISTING_KV_MAP.get(label)
@@ -166,7 +199,6 @@ class SheriffSaleListing:
             for key, value in SUFFIX_ABBREVATIONS.items():
                 street_match = regex.sub(key, value, street_match)
 
-        print(street_match)
         self.street = street_match
         self.city = city_match
         self.unit = unit_match
@@ -200,34 +232,7 @@ class SheriffSaleListing:
         use_google_maps_api and self.get_coordinates()
         self.sanitize_address()
 
-        return {
-            'address': self.address,
-            'attorney': self.attorney,
-            'attorney_phone': self.attorney_phone,
-            'city': self.city,
-            'county': self.county,
-            'court_case': self.court_case,
-            'deed': self.deed,
-            'deed_address': self.deed_address,
-            'defendant': self.defendant,
-            'description': self.description,
-            'judgment': self.judgment,
-            'latitude': self.latitude,
-            'longitude': self.longitude,
-            'maps_url': self.maps_url,
-            'parcel': self.parcel,
-            'plaintiff': self.plaintiff,
-            'priors': self.priors,
-            'raw_address': self.raw_address,
-            'sale_date': self.sale_date,
-            'secondary_unit': self.secondary_unit,
-            'state': self.state,
-            'street': self.street,
-            'unit': self.unit,
-            'unit_secondary': self.unit_secondary,
-            'upset_amount': self.upset_amount,
-            'zip_code': self.zip_code,
-        }
+        return self
 
     def parse_status_history(self):
         self.parse_status_history_details()

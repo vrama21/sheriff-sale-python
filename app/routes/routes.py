@@ -1,4 +1,5 @@
 import base64
+import json
 from flask import jsonify, request, Blueprint
 from datetime import datetime
 
@@ -8,7 +9,7 @@ from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES, P
 from ..services.sheriff_sale import SheriffSale, SheriffSaleListing
 from ..services.nj_parcels.nj_parcels import NJParcels
 from ..services.county_clerk import county_clerk_document, county_clerk_search
-
+from sqlalchemy import and_
 
 main_bp = Blueprint('main_bp', __name__, static_folder=str(BUILD_DIR), static_url_path='/home-static')
 
@@ -49,15 +50,24 @@ def daily_scrape():
             sheriff_sale_listings = sheriff_sale.get_all_listings_and_details(use_google_map_api=False)
 
             for sheriff_sale_listing in sheriff_sale_listings:
-                PRETTIFY.pprint(sheriff_sale_listing)
-                listing = db.session.query(Listing).filter_by(address=sheriff_sale_listing['address']).scalar()
-                listing: dict = listing.serialize if listing else None
-                listing_exists: bool = listing is not None
+                listing_exists = (
+                    db.session.query(Listing)
+                    .filter(
+                        and_(
+                            Listing.sheriff_id == sheriff_sale_listing.sheriff_id,
+                            Listing.court_case == sheriff_sale_listing.court_case,
+                        )
+                    )
+                    .first()
+                ) is not None
 
                 if not listing_exists:
-                    print(f'Inserting a new listing: {sheriff_sale_listing["address"]}')
+                    print(f'Inserting a new listing: {sheriff_sale_listing.raw_address}')
 
-                    listing_to_insert = Listing(**sheriff_sale_listing)
+                    listing = sheriff_sale_listing.__dict__()
+                    del listing['status_history']
+
+                    listing_to_insert = Listing(**listing)
                     db.session.add(listing_to_insert)
                     db.session.flush()
                     db.session.refresh(listing_to_insert)
@@ -71,7 +81,7 @@ def daily_scrape():
 
                     #     db.session.add(status_history_to_insert)
 
-            db.session.commit()
+            # db.session.commit()
             print(f'Parsing for {county} County has completed. ', '\n')
 
     return jsonify(message='daily scrape complete')
