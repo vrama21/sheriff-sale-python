@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { Link } from 'react-router-dom';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery } from '@material-ui/core';
 
 import { ListingInterface } from 'types';
 import { formatToCurrency } from 'helpers/formatToCurrency';
@@ -14,32 +14,47 @@ interface ListingTableProps {
 
 const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTableProps) => {
   const classes = listingTableStyles();
+  const mobileView = useMediaQuery('(min-width: 0px)', { noSsr: true });
 
-  const columnHeaders = [
-    {
-      Header: 'Address',
-      accessor: 'address',
-    },
-    {
-      Header: 'County',
-      accessor: 'county',
-    },
-    {
-      Header: 'Sale Date',
-      accessor: 'saleDate',
-    },
-    {
-      Header: 'Attorney',
-      accessor: 'attorney',
-    },
-    {
-      Header: 'Upset Amount or Judgment',
-      accessor: 'upsetOrJudgment',
-    },
-    {
-      accessor: 'linkToListing',
-    },
-  ];
+  const columnHeaders = mobileView
+    ? [
+        {
+          Header: 'Address',
+          accessor: 'address',
+        },
+        {
+          Header: 'Upset Amount or Judgment',
+          accessor: 'upsetOrJudgment',
+        },
+        {
+          accessor: 'linkToListing',
+        },
+      ]
+    : [
+        {
+          Header: 'Address',
+          accessor: 'address',
+        },
+        {
+          Header: 'County',
+          accessor: 'county',
+        },
+        {
+          Header: 'Sale Date',
+          accessor: 'saleDate',
+        },
+        {
+          Header: 'Attorney',
+          accessor: 'attorney',
+        },
+        {
+          Header: 'Upset Amount or Judgment',
+          accessor: 'upsetOrJudgment',
+        },
+        {
+          accessor: 'linkToListing',
+        },
+      ];
 
   const data = useMemo(
     () =>
@@ -55,7 +70,7 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
     [listings],
   );
 
-  const columns = useMemo(() => columnHeaders, []);
+  const columns = useMemo(() => columnHeaders, [mobileView]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 

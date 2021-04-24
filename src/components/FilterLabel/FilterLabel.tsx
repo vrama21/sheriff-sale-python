@@ -1,17 +1,22 @@
+import React from 'react';
 import { InputLabel } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { filterLabelStyles } from './FilterLabel.styles';
 
-const FilterLabel = withStyles((theme) => ({
-  root: {
-    color: 'white',
-    fontWeight: 'bold',
-    paddingLeft: '0.5rem',
-    position: 'absolute',
-    zIndex: 1,
-  },
-  focused: {
-    color: theme.palette.primary.light,
-  },
-}))(InputLabel);
+interface FilterLabelProps {
+  id?: string;
+  value: string;
+}
+
+const FilterLabel: React.FC<FilterLabelProps> = ({ id, value }: FilterLabelProps) => {
+  const classes = filterLabelStyles();
+
+  return (
+    <div>
+      <InputLabel className={classes.filterLabelRoot} id={id}>
+        {value}
+      </InputLabel>
+    </div>
+  );
+};
 
 export default FilterLabel;

@@ -1,11 +1,42 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-import { ListingInterface } from 'types';
 import { formatToCurrency } from 'helpers/formatToCurrency';
 
 import ListingMap from '../ListingMap/ListingMap';
 import { listingStyles } from './Listing.style';
+
+export interface ListingInterface {
+  id: number;
+  address: string;
+  attorney?: string;
+  attorney_phone?: string;
+  city?: string;
+  county: string;
+  court_case?: string;
+  created_on?: Date;
+  deed?: string;
+  deed_address?: string;
+  defendant?: string;
+  description?: string;
+  judgment?: number;
+  latitude?: string;
+  longitude?: string;
+  maps_url?: string;
+  parcel?: string;
+  plaintiff?: string;
+  priors?: string;
+  sale_date: string;
+  secondary_unit?: string;
+  sheriff_id?: string;
+  state: string;
+  status_history?: Record<string, unknown>;
+  street?: string;
+  unit?: string;
+  unit_secondary?: string;
+  upset_amount?: number;
+  zip_code?: string;
+}
 
 interface ListingProps {
   listing: ListingInterface;

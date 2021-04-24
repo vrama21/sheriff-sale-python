@@ -24,7 +24,7 @@ const ListingView: React.FC<ListingViewProps> = ({ listings }: ListingViewProps)
   const viewableListings = listings.slice(indexOfFirstBorrower, indexOfLastBorrower);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.listingViewContainer}>
       <div>
         <Paginate pageCount={pageCount} />
         <ListingTable listings={viewableListings} />

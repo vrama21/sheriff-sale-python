@@ -1,12 +1,32 @@
 import React from 'react';
 import { FormControl, MenuItem } from '@material-ui/core';
 
-import { SearchFiltersProps } from 'types';
-
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import FilterSelect, { MenuProps } from '../FilterSelect/FilterSelect';
 import FilterLabel from '../FilterLabel/FilterLabel';
 import { searchFiltersStyles } from './SearchFilters.style';
+
+export interface SearchFiltersProps {
+  counties: string[];
+  citiesByCounty: Record<string, Record<'cities', string[]>>;
+  filters: Filter;
+  onFilterChange: (
+    event: React.ChangeEvent<{
+      name?: string;
+      value: unknown;
+    }>,
+    child: React.ReactNode,
+  ) => void;
+  onFilterReset: (event: React.FormEvent<Element>) => void;
+  onFilterSubmit: (event: React.FormEvent<Element>) => void;
+  saleDates: string[];
+}
+
+export interface Filter {
+  county: string;
+  city: string;
+  saleDate: string;
+}
 
 const SearchFilters: React.FC<SearchFiltersProps> = ({
   counties,
@@ -47,7 +67,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
     <div>
       <div className={classes.filterContainer}>
         <FormControl className={classes.filterSelect}>
-          <FilterLabel id="county-select-label">County</FilterLabel>
+          <FilterLabel id="county-select-label" value="County" />
           <FilterSelect
             children={countyMenuItems}
             id="county-select"
@@ -60,7 +80,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
           />
         </FormControl>
         <FormControl className={classes.filterSelect}>
-          <FilterLabel>City</FilterLabel>
+          <FilterLabel id="city-select-label" value="City" />
           <FilterSelect
             children={cityMenuItems}
             id="city-select"
@@ -72,7 +92,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
           />
         </FormControl>
         <FormControl className={classes.filterSelect}>
-          <FilterLabel>Sale Date</FilterLabel>
+          <FilterLabel id="sale-date-select-label" value="Sale Date" />
           <FilterSelect
             children={saleDateMenuItems}
             id="sale-date-select"
