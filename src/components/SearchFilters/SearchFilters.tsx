@@ -2,7 +2,7 @@ import React from 'react';
 import { FormControl, MenuItem } from '@material-ui/core';
 
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
-import FilterSelect, { MenuProps } from '../FilterSelect/FilterSelect';
+import Select from '../Select/Select';
 import FilterLabel from '../FilterLabel/FilterLabel';
 import { searchFiltersStyles } from './SearchFilters.style';
 
@@ -68,39 +68,32 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
       <div className={classes.filterContainer}>
         <FormControl className={classes.filterSelect}>
           <FilterLabel id="county-select-label" value="County" />
-          <FilterSelect
-            children={countyMenuItems}
+          <Select
+            options={countyMenuItems}
             id="county-select"
-            labelId="county-select-label"
-            MenuProps={MenuProps}
             name="county"
             onChange={onFilterChange}
             value={selectedCounty || ''}
-            variant="outlined"
           />
         </FormControl>
         <FormControl className={classes.filterSelect}>
           <FilterLabel id="city-select-label" value="City" />
-          <FilterSelect
-            children={cityMenuItems}
+          <Select
+            options={cityMenuItems}
             id="city-select"
-            MenuProps={MenuProps}
             name="city"
             onChange={onFilterChange}
             value={selectedCity || ''}
-            variant="outlined"
           />
         </FormControl>
         <FormControl className={classes.filterSelect}>
           <FilterLabel id="sale-date-select-label" value="Sale Date" />
-          <FilterSelect
-            children={saleDateMenuItems}
+          <Select
+            options={saleDateMenuItems}
             id="sale-date-select"
-            MenuProps={MenuProps}
             name="saleDate"
             onChange={onFilterChange}
             value={selectedSaleDate || ''}
-            variant="outlined"
           />
         </FormControl>
       </div>

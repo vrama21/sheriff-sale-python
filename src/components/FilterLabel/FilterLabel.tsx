@@ -11,11 +11,11 @@ const FilterLabel: React.FC<FilterLabelProps> = ({ id, value }: FilterLabelProps
   const classes = filterLabelStyles();
 
   return (
-    <div>
+    <>
       <InputLabel className={classes.filterLabelRoot} id={id}>
         {value}
       </InputLabel>
-    </div>
+    </>
   );
 };
 
