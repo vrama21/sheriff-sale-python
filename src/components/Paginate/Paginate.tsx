@@ -35,7 +35,7 @@ const Paginate: React.FC<PaginateProps> = ({ pageCount }: PaginateProps) => {
       containerClassName={classes.containerStyle}
       initialPage={0}
       pageCount={pageCount}
-      marginPagesDisplayed={5}
+      marginPagesDisplayed={4}
       nextClassName={classes.basicStyle}
       pageClassName={classes.basicStyle}
       pageLinkClassName={classes.linkStyle}

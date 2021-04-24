@@ -6,6 +6,10 @@ export const listingStyles = makeStyles((theme) => ({
     position: 'relative',
     maxWidth: '75%',
     minWidth: '50%',
+
+    [theme.breakpoints.down('sm')]: {
+      margin: '0.5rem',
+    },
   },
   addressHeader: {
     background: theme.palette.secondary.main,

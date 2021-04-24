@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 
-export const globalStyles = makeStyles(() => ({
+export const globalStyles = makeStyles((theme) => ({
   container: {
     color: 'white',
-    margin: '0 6rem',
+
+    [theme.breakpoints.down('sm')]: {
+      margin: 0,
+    },
   },
 }));

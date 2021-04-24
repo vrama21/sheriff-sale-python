@@ -5,13 +5,11 @@ export const listingTableStyles = makeStyles((theme) => ({
     border: `solid 3px ${theme.palette.primary.main}`,
     margin: '0 auto',
     maxWidth: '1200px',
-    minWidth: '960px',
   },
 
   tableHeader: {
     background: theme.palette.secondary.main,
     color: theme.palette.primary.main,
-    fontSize: '18px',
     fontWeight: 'bold',
     minWidth: '70px',
     textAlign: 'center',
@@ -22,6 +20,10 @@ export const listingTableStyles = makeStyles((theme) => ({
 
     '&:last-child': {
       width: '150px',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
     },
   },
 
@@ -44,8 +46,13 @@ export const listingTableStyles = makeStyles((theme) => ({
     fontSize: '1rem',
     fontWeight: 'bold',
     textAlign: 'center',
+
     '& a': {
       color: 'white',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
     },
   },
 }));

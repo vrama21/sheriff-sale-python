@@ -15,8 +15,6 @@ const Listing: React.FC<ListingProps> = ({ listing }: ListingProps) => {
   const classes = listingStyles();
   const formattedAddress = listing.city && listing.street && `${listing.street}, ${listing.city}, ${listing.state} ${listing.zip_code}`;
 
-  console.log(listing);
-
   return (
     <div className={classes.root}>
       <div className={classes.addressHeader}>{formattedAddress || listing.address}</div>
