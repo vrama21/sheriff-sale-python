@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def requests_content(url: str, session: requests.Session = None):
+def requests_content(url: str, method: str, session: requests.Session = None, cookies=None, data=None):
     """
     Creates an html request session and returns the BeautifulSoup parse
 
@@ -18,14 +18,24 @@ def requests_content(url: str, session: requests.Session = None):
     Returns:
         A beautifulsoup object of the request
     """
+    requests_session = session or requests
+    response = None
+
     try:
-        response = session.get(url) if session else requests.get(url)
+        if method == 'GET':
+            response = requests_session.get(url, cookies=cookies, data=data)
+
+        elif method == 'POST':
+            response = requests_session.post(url, cookies=cookies, data=data)
+
+    except ConnectionError as err:
+        raise ConnectionError('Cannot Access URL: ', err)
+
+    if response:
         content = response.content
         soup = BeautifulSoup(content, 'html.parser')
 
         return soup
-    except ConnectionError as err:
-        raise ConnectionError('Cannot Access URL: ', err)
 
 
 def load_json_data(json_path: str):

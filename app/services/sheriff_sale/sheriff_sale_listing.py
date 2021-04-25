@@ -32,34 +32,34 @@ class SheriffSaleListing:
     def __init__(self, county, listing_html, property_id):
         self.listing_html = listing_html
 
-        self.address: str = None
-        self.attorney: str = None
-        self.attorney_phone: str = None
-        self.city: str = None
-        self.county: str = county
-        self.court_case: str = None
-        self.deed: str = None
-        self.deed_address: str = None
-        self.defendant: str = None
-        self.description: str = None
-        self.judgment: float = None
-        self.latitude: str = None
-        self.longitude: str = None
-        self.maps_url: str = None
-        self.parcel: str = None
-        self.plaintiff: str = None
-        self.priors: str = None
+        self.address: Union[str, None] = None
+        self.attorney: Union[str, None] = None
+        self.attorney_phone: Union[str, None] = None
+        self.city: Union[str, None] = None
+        self.county: Union[str, None] = county
+        self.court_case: Union[str, None] = None
+        self.deed: Union[str, None] = None
+        self.deed_address: Union[str, None] = None
+        self.defendant: Union[str, None] = None
+        self.description: Union[str, None] = None
+        self.judgment: Union[float, None] = None
+        self.latitude: Union[str, None] = None
+        self.longitude: Union[str, None] = None
+        self.maps_url: Union[str, None] = None
+        self.parcel: Union[str, None] = None
+        self.plaintiff: Union[str, None] = None
+        self.priors: Union[str, None] = None
         self.property_id: int = property_id
-        self.raw_address: str = None
-        self.sale_date: str = None
-        self.secondary_unit: str = None
-        self.sheriff_id: str = None
-        self.state: str = 'NJ'
-        self.street: str = None
-        self.unit: str = None
-        self.unit_secondary: str = None
-        self.upset_amount: float = None
-        self.zip_code: str = None
+        self.raw_address: Union[str, None] = None
+        self.sale_date: Union[str, None] = None
+        self.secondary_unit: Union[str, None] = None
+        self.sheriff_id: Union[str, None] = None
+        self.state: Union[str, None] = 'NJ'
+        self.street: Union[str, None] = None
+        self.unit: Union[str, None] = None
+        self.unit_secondary: Union[str, None] = None
+        self.upset_amount: Union[float, None] = None
+        self.zip_code: Union[str, None] = None
 
     def __dict__(self) -> dict:
         return {
@@ -125,10 +125,9 @@ class SheriffSaleListing:
                     listing_detail_value = raw_address
                 elif key == 'attorney_phone':
                     clean_phone_number = regex.sub('[^0-9]', '', listing_detail_value)
-                    formatted_phone_number = (
+                    listing_detail_value = (
                         f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
                     )
-                    listing_detail_value = formatted_phone_number
                 elif key == 'judgment' or key == 'upset_amount':
                     listing_detail_value = float(regex.sub(r'[^\d.]', '', listing_detail_value))
 

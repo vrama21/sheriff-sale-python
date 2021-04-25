@@ -1,13 +1,12 @@
 import logging
 import re
-import requests
-from typing import List
 
-from app import db
-from app.utils import requests_content, load_json_data
+import requests
+
+from app.utils import load_json_data, requests_content
+
 from .sheriff_sale_listing import SheriffSaleListing
 from .sheriff_sale_status_history import SheriffSaleStatusHistory
-from app.models import Listing
 
 
 class SheriffSale:
@@ -18,23 +17,30 @@ class SheriffSale:
 
     """
 
-    def __init__(self, county: str):
-
+    def __init__(self, county: str, filter_out_sold_listings: bool = True):
         self.county_name = county
-        self.county_id = self.get_sheriff_sale_county_id(county=self.county_name)
+        self.county_id = self.get_sheriff_sale_county_id()
         self.session = requests.Session()
 
-        sheriff_sale_county_url = 'https://salesweb.civilview.com/Sales/SalesSearch?countyId=' + self.county_id
+        sheriff_sale_url = 'https://salesweb.civilview.com/Sales/SalesSearch?'
+        cookies = {'ASP.NET_SessionId': 'swrddrsjkdy4yq5vskb42w22'}
+        payload = {'countyId': self.county_id, 'isOpen': filter_out_sold_listings}
 
-        self.soup = requests_content(sheriff_sale_county_url, self.session)
+        self.soup = requests_content(
+            url=sheriff_sale_url,
+            method='POST',
+            cookies=cookies,
+            data=payload,
+            session=self.session,
+        )
         self.table_div = self.soup.find('table', class_='table table-striped')
 
         self.sale_links = None
         self.listings = None
 
-    def get_sheriff_sale_county_id(self, county):
+    def get_sheriff_sale_county_id(self):
         nj_json_data = load_json_data('data/NJ_Data.json')
-        sheriff_sale_county_id = nj_json_data[county]['sheriffSaleId']
+        sheriff_sale_county_id = nj_json_data[self.county_name]['sheriffSaleId']
 
         return sheriff_sale_county_id
 
@@ -49,21 +55,6 @@ class SheriffSale:
         counties = [tr[0] for tr in trs if tr[-1] == 'NJ']
 
         return counties
-
-    def get_listings_details_links(self):
-        """
-        Gathers all of the href links for each listing and builds a list of all the links to each listing's details
-        in the form of 'https://salesweb.civilview.com/Sales/SaleDetails?PropertyId=563667001'
-        """
-        table_rows = [table_row.find_all('td')[0] for table_row in self.table_div.find_all('tr')[1:]]
-        sale_links = [table_row.find('a', href=True)['href'] for table_row in table_rows]
-        print(sale_links)
-
-        # for row in self.table_div.find_all('td', attrs={'class': 'hidden-print'}):
-        #     for link in row.find_all('a', href=True):
-        #         sale_links.append('https://salesweb.civilview.com' + link['href'])
-
-        self.sale_links = sale_links
 
     def get_all_listings(self):
         """
@@ -174,11 +165,12 @@ class SheriffSale:
         for property_id in property_ids:
             listing_soup = self.get_new_listing_details_html(property_id)
 
-            listing = SheriffSaleListing(
-                county=self.county_name, listing_html=listing_soup, property_id=property_id
-            ).parse(use_google_map_api)
-            status_history = SheriffSaleStatusHistory(listing_html=listing_soup).parse()
+            if listing_soup:
+                listing = SheriffSaleListing(
+                    county=self.county_name, listing_html=listing_soup, property_id=property_id
+                ).parse(use_google_map_api)
+                status_history = SheriffSaleStatusHistory(listing_html=listing_soup).parse()
 
-            all_listings.append({'listing': listing, 'status_history': status_history})
+                all_listings.append({'listing': listing, 'status_history': status_history})
 
         return all_listings
