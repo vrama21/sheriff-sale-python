@@ -1,4 +1,3 @@
-import json
 import logging
 
 import regex
@@ -106,11 +105,13 @@ class SheriffSaleListing:
         for rows in listing_table_rows:
             td = rows.find_all('td')
 
-            label_regex = regex.compile(r'[?=\#\&\.\*]+(colon)?')
-            label: str = regex.sub(label_regex, '', td[0].text)
-            label = label.rstrip()
+            listing_detail_label: str = td[0].text
+            listing_detail_value: str = td[1].text
 
-            value = td[1].text.strip().title()
+            label_regex = regex.compile(r'\s?[?=\#\&\.\*\:]+(colon)?')
+            label: str = regex.sub(label_regex, '', listing_detail_label)
+
+            value = listing_detail_value.strip()
 
             key = LISTING_KV_MAP.get(label)
 
@@ -118,19 +119,18 @@ class SheriffSaleListing:
                 logging.error(f'Missing Key: "{label}" listing_kv_mapping')
                 return {}
 
-            if key == 'raw_address':
-                address_br = td[1].find('br')
-                raw_address = f'{address_br.previous_element} {address_br.next_element}'.strip()
-                value = raw_address
-            elif key == 'attorney_phone':
-                if value:
+            if value:
+                if key == 'raw_address':
+                    address_br = td[1].find('br')
+                    raw_address = f'{address_br.previous_element} {address_br.next_element}'.strip()
+                    value = raw_address
+                elif key == 'attorney_phone':
                     clean_phone_number = regex.sub('[^0-9]', '', value)
                     formatted_phone_number = (
                         f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
                     )
                     value = formatted_phone_number
-            elif key == 'judgment' or key == 'upset_amount':
-                if value:
+                elif key == 'judgment' or key == 'upset_amount':
                     clean_value = float(regex.sub(r'[^\d.]', '', value))
                     value = clean_value
 
@@ -176,14 +176,14 @@ class SheriffSaleListing:
             for key, value in SUFFIX_ABBREVATIONS.items():
                 street_match = regex.sub(key, value, street_match)
 
+        self.address = (
+            street_match and city_match and zip_code_match and f'{street_match}, {city_match} {zip_code_match}'
+        )
         self.street = street_match
         self.city = city_match
         self.unit = unit_match
         self.unit_secondary = secondary_unit_match
         self.zip_code = zip_code_match
-        self.address = (
-            street_match and city_match and zip_code_match and f'{street_match}, {city_match} {zip_code_match}'
-        )
 
     def get_coordinates(self):
         """
@@ -206,7 +206,7 @@ class SheriffSaleListing:
         :returns A clean Listing
         """
         self.parse_listing_details()
-        use_google_maps_api and self.get_coordinates()
         self.sanitize_address()
+        use_google_maps_api and self.get_coordinates()
 
         return self

@@ -16,6 +16,7 @@ def parsed_listing_html():
         html_file = html_file_reader.read()
 
     soup = BeautifulSoup(html_file, 'html.parser')
+
     return soup
 
 
@@ -27,17 +28,17 @@ def test_parse_listing_details(parsed_listing_html):
     assert sheriff_sale_listing.court_case == 'F-5811-20'
     assert (
         sheriff_sale_listing.defendant
-        == 'Ttk Investments Llc, A Deleware Limited Liability Company, Et Als; Emily K. Vu; State Of New Jersey'
+        == 'TTK Investments LLC, A Deleware Limited Liability Company, et als; Emily K. Vu; State of New Jersey'
     )
     assert (
         sheriff_sale_listing.maps_url
         == 'https://www.google.com/maps/search/2515+English+Creek+Avenue+Egg+Harbor+Township+NJ+08234'
     )
-    assert sheriff_sale_listing.plaintiff == 'Anchor Loans, Lp'
-    assert sheriff_sale_listing.priors == '3Rd Party Tax Sale Cert No.: 19-00154 $5,424.85'
+    assert sheriff_sale_listing.plaintiff == 'Anchor Loans, LP'
+    assert sheriff_sale_listing.priors == '3rd Party Tax Sale Cert No.: 19-00154 $5,424.85'
     assert sheriff_sale_listing.sale_date == '4/22/2021'
     assert sheriff_sale_listing.sheriff_id == 'F-21000099'
-    assert sheriff_sale_listing.raw_address == '2515 ENGLISH CREEK AVENUE EGG HARBOR TOWNSHIP NJ 08234'
+    assert sheriff_sale_listing.raw_address == '2515 English Creek Avenue Egg Harbor Township NJ 08234'
     assert sheriff_sale_listing.judgment == 145099.02
 
 
@@ -54,7 +55,7 @@ def test_parse_listing_details(parsed_listing_html):
     [
         (
             'Atlantic',
-            '2515 ENGLISH CREEK AVENUE EGG HARBOR TOWNSHIP NJ 08234',
+            '2515 English Creek Avenue Egg Harbor Township NJ 08234',
             '2515 English Creek Ave',
             'Egg Harbor Township',
             None,
@@ -63,7 +64,7 @@ def test_parse_listing_details(parsed_listing_html):
         ),
         (
             'Bergen',
-            '388 PATHWAY MANOR WYCKOFF NJ 07481',
+            '388 Pathway Manor Wyckoff NJ 07481',
             '388 Pathway Mnr',
             'Wyckoff',
             None,
@@ -72,7 +73,7 @@ def test_parse_listing_details(parsed_listing_html):
         ),
         (
             'Hudson',
-            '117 KENSINGTON AVENUE APT. 101 A/K/A 117 - 121 KENSINGTON AVE',
+            '117 Kensington Avenue Apt. 101 A/K/A 117 - 121 Kensington Ave',
             '117 Kensington Ave',
             None,
             '101',
