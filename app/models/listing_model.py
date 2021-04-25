@@ -8,6 +8,7 @@ class Listing(db.Model):
     __table_args__ = {'extend_existing': True}
 
     id: int = db.Column('id', db.Integer, primary_key=True, nullable=False)
+    property_id: int = db.Column('property_id', db.Integer)
     sheriff_id: str = db.Column('sheriff_id', db.String)
 
     address: str = db.Column('address', db.String, unique=True)

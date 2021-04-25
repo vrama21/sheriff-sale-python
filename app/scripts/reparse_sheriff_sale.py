@@ -1,5 +1,4 @@
-# Update raw_address to its original state
-
+# Parses NJ sheriff sale website and updates listing table with new/missing data
 from sqlalchemy import and_
 
 from app import db
@@ -16,23 +15,24 @@ for county in county_list:
     sheriff_sale_listings = sheriff_sale.get_listing_details_and_status_history(use_google_map_api=False)
 
     for sheriff_sale_listing in sheriff_sale_listings:
-        listing: SheriffSaleListing = sheriff_sale_listing['listing']
+        parsed_listing: SheriffSaleListing = sheriff_sale_listing['listing']
         status_history: SheriffSaleStatusHistory = sheriff_sale_listing['status_history']
 
         db_listing = (
             db.session.query(Listing)
             .filter(
                 and_(
-                    Listing.sheriff_id == listing.sheriff_id,
-                    Listing.court_case == listing.court_case,
+                    Listing.sheriff_id == parsed_listing.sheriff_id,
+                    Listing.court_case == parsed_listing.court_case,
                 )
             )
             .first()
         )
 
         if db_listing:
-            print(f'Updating listing: {db_listing.raw_address} to {listing.raw_address}')
+            print(f'Updating listing_id {db_listing.id}')
 
-            db_listing.raw_address = listing.raw_address
+            for key, value in parsed_listing.__dict__().items():
+                setattr(db_listing, key, value)
 
     db.session.commit()

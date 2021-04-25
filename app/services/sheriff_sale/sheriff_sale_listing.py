@@ -1,4 +1,5 @@
 import logging
+from typing import Union
 
 import regex
 
@@ -28,7 +29,7 @@ LISTING_KV_MAP = {
 
 
 class SheriffSaleListing:
-    def __init__(self, listing_html, county):
+    def __init__(self, county, listing_html, property_id):
         self.listing_html = listing_html
 
         self.address: str = None
@@ -48,6 +49,7 @@ class SheriffSaleListing:
         self.parcel: str = None
         self.plaintiff: str = None
         self.priors: str = None
+        self.property_id: int = property_id
         self.raw_address: str = None
         self.sale_date: str = None
         self.secondary_unit: str = None
@@ -59,39 +61,40 @@ class SheriffSaleListing:
         self.upset_amount: float = None
         self.zip_code: str = None
 
-    def __dict__(self):
+    def __dict__(self) -> dict:
         return {
-            'address': None,
-            'attorney': None,
-            'attorney_phone': None,
-            'city': None,
+            'address': self.address,
+            'attorney': self.attorney,
+            'attorney_phone': self.attorney_phone,
+            'city': self.city,
             'county': self.county,
-            'court_case': None,
-            'deed': None,
-            'deed_address': None,
-            'defendant': None,
-            'description': None,
-            'judgment': None,
-            'latitude': None,
-            'longitude': None,
-            'maps_url': None,
-            'parcel': None,
-            'plaintiff': None,
-            'priors': None,
-            'raw_address': None,
-            'sale_date': None,
-            'secondary_unit': None,
-            'sheriff_id': None,
+            'court_case': self.court_case,
+            'deed': self.deed,
+            'deed_address': self.deed_address,
+            'defendant': self.defendant,
+            'description': self.description,
+            'judgment': self.judgment,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'maps_url': self.maps_url,
+            'parcel': self.parcel,
+            'plaintiff': self.plaintiff,
+            'priors': self.priors,
+            'property_id': self.property_id,
+            'raw_address': self.raw_address,
+            'sale_date': self.sale_date,
+            'secondary_unit': self.secondary_unit,
+            'sheriff_id': self.sheriff_id,
             'state': self.state,
-            'street': None,
-            'unit': None,
-            'unit_secondary': None,
-            'upset_amount': None,
-            'zip_code': None,
+            'street': self.street,
+            'unit': self.unit,
+            'unit_secondary': self.unit_secondary,
+            'upset_amount': self.upset_amount,
+            'zip_code': self.zip_code,
         }
 
     def __repr__(self) -> str:
-        self.__dict__()
+        return str(self.__dict__())
 
     def parse_listing_details(self):
         """
@@ -105,44 +108,39 @@ class SheriffSaleListing:
         for rows in listing_table_rows:
             td = rows.find_all('td')
 
-            listing_detail_label: str = td[0].text
-            listing_detail_value: str = td[1].text
-
             label_regex = regex.compile(r'\s?[?=\#\&\.\*\:]+(colon)?')
-            label: str = regex.sub(label_regex, '', listing_detail_label)
+            listing_detail_label: str = regex.sub(label_regex, '', td[0].text)
+            listing_detail_value: Union[str, float] = regex.sub(r'\s\s+', ' ', td[1].text.strip())
 
-            value = listing_detail_value.strip()
-
-            key = LISTING_KV_MAP.get(label)
+            key = LISTING_KV_MAP.get(listing_detail_label)
 
             if not key:
-                logging.error(f'Missing Key: "{label}" listing_kv_mapping')
-                return {}
+                logging.error(f'Missing Key: "{listing_detail_label}" listing_kv_mapping')
+                return
 
-            if value:
+            if listing_detail_value:
                 if key == 'raw_address':
                     address_br = td[1].find('br')
-                    raw_address = f'{address_br.previous_element} {address_br.next_element}'.strip()
-                    value = raw_address
+                    raw_address = f'{address_br.previous_element} {address_br.next_element}'
+                    listing_detail_value = raw_address
                 elif key == 'attorney_phone':
-                    clean_phone_number = regex.sub('[^0-9]', '', value)
+                    clean_phone_number = regex.sub('[^0-9]', '', listing_detail_value)
                     formatted_phone_number = (
                         f'{clean_phone_number[0:3]}-{clean_phone_number[3:6]}-{clean_phone_number[6:10]}'
                     )
-                    value = formatted_phone_number
+                    listing_detail_value = formatted_phone_number
                 elif key == 'judgment' or key == 'upset_amount':
-                    clean_value = float(regex.sub(r'[^\d.]', '', value))
-                    value = clean_value
+                    listing_detail_value = float(regex.sub(r'[^\d.]', '', listing_detail_value))
 
-            if value == '':
-                value = None
+            if listing_detail_value == '':
+                listing_detail_value = None
 
-            listing_details[key] = value
+            listing_details[key] = listing_detail_value
 
         listing_details['maps_url'] = maps_url and maps_url['href']
 
-        for key, value in listing_details.items():
-            setattr(self, key, value)
+        for key, listing_detail_value in listing_details.items():
+            setattr(self, key, listing_detail_value)
 
     def sanitize_address(self):
         """

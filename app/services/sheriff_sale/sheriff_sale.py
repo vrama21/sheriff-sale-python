@@ -101,7 +101,7 @@ class SheriffSale:
         if self.listings is None:
             self.get_all_listings()
 
-        property_ids = [listing['property_id'] for listing in self.listings]
+        property_ids = [int(listing['property_id']) for listing in self.listings]
 
         return property_ids
 
@@ -169,12 +169,16 @@ class SheriffSale:
 
     def get_listing_details_and_status_history(self, use_google_map_api: bool):
         property_ids = self.get_all_listing_property_ids()
-        listing_soups = [self.get_new_listing_details_html(property_id) for property_id in property_ids]
 
         all_listings = []
-        for listing_soup in listing_soups:
-            listing = SheriffSaleListing(listing_html=listing_soup, county=self.county_name).parse(use_google_map_api)
+        for property_id in property_ids:
+            listing_soup = self.get_new_listing_details_html(property_id)
+
+            listing = SheriffSaleListing(
+                county=self.county_name, listing_html=listing_soup, property_id=property_id
+            ).parse(use_google_map_api)
             status_history = SheriffSaleStatusHistory(listing_html=listing_soup).parse()
+
             all_listings.append({'listing': listing, 'status_history': status_history})
 
         return all_listings
