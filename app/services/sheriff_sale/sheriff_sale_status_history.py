@@ -1,14 +1,21 @@
-class SheriffSaleStatusHistory:
-    def __init__(self, listing_html):
-        self.listing_html = listing_html
+from bs4.element import Tag
+from typing import Union, List
 
-        self.status_history = None
+
+class SheriffSaleStatusHistory:
+    def __init__(self, listing_html: Tag, property_id: int):
+        self.listing_html = listing_html
+        self.property_id = property_id
+
+        self.status_history: Union[list[dict[str, str]], None] = None
 
     def parse_status_history_details(self):
         """
         Parses the status history table of a listings detail page
         """
         status_history_html = self.listing_html.find('table', id='longTable')
+        if not status_history_html:
+            print(f'Status History table was not located for property_id: {self.property_id}')
 
         status_history = []
         if status_history_html is not None:

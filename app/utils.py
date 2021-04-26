@@ -2,12 +2,15 @@ import json
 import logging
 import regex
 from pathlib import Path
+from typing import Literal
 
 import requests
 from bs4 import BeautifulSoup
 
 
-def requests_content(url: str, method: str, session: requests.Session = None, cookies=None, data=None):
+def requests_content(
+    url: str, method: Literal['GET', 'POST'], session: requests.Session = None, cookies=None, data=None
+):
     """
     Creates an html request session and returns the BeautifulSoup parse
 
@@ -57,11 +60,11 @@ def load_json_data(json_path: str):
         return json_data
 
 
-def get_class_attributes(class_instance, custom_attributes_only=True):
+def get_class_attributes(class_instance, custom_attributes_only: bool = True):
     attributes = (
-        [a for a in dir(class_instance) if not a.startswith('__')]
+        [attr for attr in dir(class_instance) if not attr.startswith('__')]
         if custom_attributes_only
-        else [a for a in dir(class_instance)]
+        else [attr for attr in dir(class_instance)]
     )
 
     return attributes

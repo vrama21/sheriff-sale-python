@@ -1,5 +1,7 @@
 import logging
 import re
+from typing import Literal, Union
+from bs4 import BeautifulSoup
 
 import requests
 
@@ -35,28 +37,28 @@ class SheriffSale:
         )
         self.table_div = self.soup.find('table', class_='table table-striped')
 
-        self.sale_links = None
-        self.listings = None
+        self.sale_links: Union[list[str], None] = None
+        self.listings: Union[list[dict[str, any]], None] = None
 
-    def get_sheriff_sale_county_id(self):
+    def get_sheriff_sale_county_id(self) -> str:
         nj_json_data = load_json_data('data/NJ_Data.json')
         sheriff_sale_county_id = nj_json_data[self.county_name]['sheriffSaleId']
 
         return sheriff_sale_county_id
 
-    def get_counties(self):
+    def get_counties(self) -> list:
         """
         Gathers all counties that are listed on the sheriff sale website
         """
         sheriff_sales_url = 'https://salesweb.civilview.com/'
-        request = requests_content(sheriff_sales_url)
+        request = requests_content(url=sheriff_sales_url, method='GET')
 
         trs = [x.text.strip().split() for x in request.find_all('tr')]
         counties = [tr[0] for tr in trs if tr[-1] == 'NJ']
 
         return counties
 
-    def get_all_listings(self):
+    def get_all_listings(self) -> list:
         """
         Gathers all aggregate listings on the initial county view
         """
@@ -81,7 +83,7 @@ class SheriffSale:
 
         return self.listings
 
-    def get_all_listing_property_ids(self):
+    def get_all_listing_property_ids(self) -> list:
         """
         Gathers all of the property ids for each listing
         """
@@ -96,7 +98,7 @@ class SheriffSale:
 
         return property_ids
 
-    def get_all_listing_sheriff_ids(self):
+    def get_all_listing_sheriff_ids(self) -> list:
         """
         Gathers all the sheriff id's from the table_data
         'F-18001491'
@@ -109,7 +111,7 @@ class SheriffSale:
 
         return sheriff_ids
 
-    def get_all_listing_address(self):
+    def get_all_listing_address(self) -> list:
         """
         Gathers all of the address data for each listing
         """
@@ -120,7 +122,7 @@ class SheriffSale:
 
         return addresses
 
-    def get_all_listing_sale_dates(self):
+    def get_all_listing_sale_dates(self) -> list:
         """
         Gathers all of the sale date for each listing
         """
@@ -149,16 +151,16 @@ class SheriffSale:
 
         return listings_table_data
 
-    def get_new_listing_details_html(self, property_id):
+    def get_new_listing_details_html(self, property_id) -> Union[BeautifulSoup, None]:
         """
         Gathers all table html data from listings that do not exist within the database yet.
         """
         listing_details_url = f'https://salesweb.civilview.com/Sales/SaleDetails?PropertyId={property_id}'
-        listing_details_html = requests_content(listing_details_url, self.session)
+        listing_details_html = requests_content(url=listing_details_url, method='GET', session=self.session)
 
         return listing_details_html
 
-    def get_listing_details_and_status_history(self, use_google_map_api: bool):
+    def get_listing_details_and_status_history(self, use_google_map_api: bool) -> list:
         property_ids = self.get_all_listing_property_ids()
 
         all_listings = []
@@ -169,7 +171,7 @@ class SheriffSale:
                 listing = SheriffSaleListing(
                     county=self.county_name, listing_html=listing_soup, property_id=property_id
                 ).parse(use_google_map_api)
-                status_history = SheriffSaleStatusHistory(listing_html=listing_soup).parse()
+                status_history = SheriffSaleStatusHistory(listing_html=listing_soup, property_id=property_id).parse()
 
                 all_listings.append({'listing': listing, 'status_history': status_history})
 

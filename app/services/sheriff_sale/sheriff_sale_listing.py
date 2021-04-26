@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import logging
 from typing import Union
 
 import regex
+from bs4 import BeautifulSoup
 
 import app.services.google_maps as google_maps_service
 from app.constants import ADDRESS_REGEX_SPLIT, SUFFIX_ABBREVATIONS
@@ -29,7 +32,7 @@ LISTING_KV_MAP = {
 
 
 class SheriffSaleListing:
-    def __init__(self, county, listing_html, property_id):
+    def __init__(self, county: str, listing_html: Union[BeautifulSoup, None], property_id: int):
         self.listing_html = listing_html
 
         self.address: Union[str, None] = None
@@ -96,7 +99,7 @@ class SheriffSaleListing:
     def __repr__(self) -> str:
         return str(self.__dict__())
 
-    def parse_listing_details(self):
+    def parse_listing_details(self) -> None:
         """
         Parses the details table of a listings detail page
         """
@@ -141,7 +144,7 @@ class SheriffSaleListing:
         for key, listing_detail_value in listing_details.items():
             setattr(self, key, listing_detail_value)
 
-    def sanitize_address(self):
+    def sanitize_address(self) -> None:
         """
         Sanitizes an address into separated properties of
         (street, city, county, unit, secondary_unit, zip_code)
@@ -182,7 +185,7 @@ class SheriffSaleListing:
         self.unit_secondary = secondary_unit_match
         self.zip_code = zip_code_match
 
-    def get_coordinates(self):
+    def get_coordinates(self) -> None:
         """
         Gets the coordinates of a given address using google maps API
         """
@@ -194,7 +197,7 @@ class SheriffSaleListing:
             self.latitude = coordinates['lat']
             self.longitude = coordinates['lng']
 
-    def parse(self, use_google_maps_api: bool = True):
+    def parse(self, use_google_maps_api: bool = True) -> SheriffSaleListing:
         """
         Runs all the parsing functions
 

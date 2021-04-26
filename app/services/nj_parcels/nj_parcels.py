@@ -3,6 +3,8 @@ import re
 import requests
 import urllib
 
+from requests.sessions import session
+
 from ...utils import requests_content, load_json_data
 
 
@@ -18,7 +20,7 @@ class NJParcels:
         self.county = county
         self.city = city
         self.session = requests.Session()
-        self.request = requests_content('http://njparcels.com/property', self.session)
+        self.request = requests_content(url='http://njparcels.com/property', method='GET', session=self.session)
 
     def get_county_list(self):
         """ Returns a list of all the available counties"""
@@ -36,9 +38,7 @@ class NJParcels:
         """ Returns a list of the numbers used for each city (E.g. Absecon is 0101)"""
         div = self.request.find('div', class_='col-md-12')
 
-        find_all_nums = [
-            re.findall(r'\d{4}', x['href']) for x in div.find_all('a', href=True)
-        ]
+        find_all_nums = [re.findall(r'\d{4}', x['href']) for x in div.find_all('a', href=True)]
         city_num_list = [x[0] for x in find_all_nums[3:]]
 
         return city_num_list
@@ -51,14 +51,10 @@ class NJParcels:
         json_data = load_json_data('data/NJParcels_CityNums.json')
         county_id = json_data[county]['countyId']
 
-        encoded_query_string = urllib.parse.urlencode(
-            {'s': address, 's_co': county_id or ''}
-        )
-        nj_parcels_search_url = (
-            'http://njparcels.com/search/address/?' + encoded_query_string
-        )
+        encoded_query_string = urllib.parse.urlencode({'s': address, 's_co': county_id or ''})
+        nj_parcels_search_url = 'http://njparcels.com/search/address/?' + encoded_query_string
 
-        self.request = requests_content(nj_parcels_search_url)
+        self.request = requests_content(url=nj_parcels_search_url, method='GET', session=self.session)
 
         try:
             results_html = self.request.find('div', class_='btn-group-vertical')
@@ -74,9 +70,7 @@ class NJParcels:
                 'cityBlockLot': city_block_lot,
             }
         except AttributeError as error:
-            logging.error(
-                f'{error}. There were no NJ Parcels Search Results for {address}'
-            )
+            logging.error(f'{error}. There were no NJ Parcels Search Results for {address}')
 
     def get_property_taxes(self, city_block_lot):
         """
