@@ -141,7 +141,7 @@ class SheriffSale:
         Gathers all table html data from listings that do not exist within the database yet.
         """
         listing_details_url = f'https://salesweb.civilview.com/Sales/SaleDetails?PropertyId={property_id}'
-        listing_details_html = requests_content(url=listing_details_url, method='GET', session=self.session)
+        listing_details_html = requests_content(url=listing_details_url, session=self.session)
 
         return listing_details_html
 

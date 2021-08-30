@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 
 def requests_content(
-    url: str, method: Literal['GET', 'POST'], session: requests.Session = None, cookies=None, data=None
+    url: str, method: Literal['GET', 'POST'] = 'GET', session: requests.Session = None, cookies=None, data=None
 ):
     """
     Creates an html request session and returns the BeautifulSoup parse

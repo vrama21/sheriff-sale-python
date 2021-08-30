@@ -10,11 +10,29 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app.constants import BUILD_DIR, LOG_DIR, MIGRATIONS_DIR
 
+
 cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
 scheduler = APScheduler()
 google_maps = GoogleMaps()
+
+
+def load_dev_environment(app):
+    cors.init_app(app)
+    app.config.from_object('app.config.DevelopmentConfig')
+
+    if not LOG_DIR.exists():
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+    if not (LOG_DIR / 'errors.log').exists():
+        (LOG_DIR / 'errors.log').touch()
+
+    app.logger.setLevel(logging.INFO)
+
+
+def load_prod_environment(app):
+    app.config.from_object('app.config.ProductionConfig')
 
 
 def create_app():
@@ -34,31 +52,14 @@ def create_app():
 
     with app.app_context():
         from .commands import cli
-        from .routes import routes
+        from .routes import main_bp
 
         db.create_all()
 
         app.cli.add_command(cli)
 
-        app.register_blueprint(blueprint=routes.main_bp)
+        app.register_blueprint(blueprint=main_bp)
 
         scheduler.start()
 
         return app
-
-
-def load_dev_environment(app):
-    cors.init_app(app)
-    app.config.from_object('app.config.DevelopmentConfig')
-
-    if not LOG_DIR.exists():
-        LOG_DIR.mkdir(parents=True, exist_ok=True)
-
-    if not (LOG_DIR / 'errors.log').exists():
-        (LOG_DIR / 'errors.log').touch()
-
-    app.logger.setLevel(logging.INFO)
-
-
-def load_prod_environment(app):
-    app.config.from_object('app.config.ProductionConfig')
