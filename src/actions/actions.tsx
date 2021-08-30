@@ -7,7 +7,7 @@ export const getConstants = async (dispatch: Dispatch): Promise<void> => {
   dispatch({ type: 'GET_CONSTANTS' });
 
   try {
-    const constants = await request({ url: '/api/constants', method: 'GET' });
+    const constants = await request({ url: '/api/get_constants', method: 'GET' });
 
     const { counties, saleDates } = constants.data;
 

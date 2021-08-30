@@ -12,3 +12,4 @@ def index():
 from .daily_scrape import daily_scrape
 from .get_all_listings import get_all_listings
 from .get_constants import get_constants
+from .get_listing import get_listing
