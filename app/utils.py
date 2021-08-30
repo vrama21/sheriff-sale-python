@@ -16,10 +16,12 @@ def requests_content(
 
     Parameters:
         url: The url to fetch the request from
+        method: HTTP method
+        cookies: Request cookies
+        data: Payload data
         session: If a session already exists, update the request in the current session
 
-    Returns:
-        A beautifulsoup object of the request
+    Returns: A beautifulsoup object of the request
     """
     requests_session = session or requests
     response = None

@@ -1,9 +1,10 @@
 import logging
 import re
-from typing import Literal, Union
-from bs4 import BeautifulSoup
+from typing import Union
+from urllib.parse import urlencode
 
 import requests
+from bs4 import BeautifulSoup
 
 from app.utils import load_json_data, requests_content
 
@@ -25,17 +26,16 @@ class SheriffSale:
         self.session = requests.Session()
 
         sheriff_sale_url = 'https://salesweb.civilview.com/Sales/SalesSearch?'
-        cookies = {'ASP.NET_SessionId': 'swrddrsjkdy4yq5vskb42w22'}
-        payload = {'countyId': self.county_id, 'isOpen': filter_out_sold_listings}
+        query_params = {'countyId': self.county_id}
+        sheriff_sale_request_url = sheriff_sale_url + urlencode(query_params)
 
         self.soup = requests_content(
-            url=sheriff_sale_url,
-            method='POST',
-            cookies=cookies,
-            data=payload,
+            url=sheriff_sale_request_url,
+            method='GET',
             session=self.session,
         )
-        self.table_div = self.soup.find('table', class_='table table-striped')
+
+        self.table_div = self.soup.find_all('table')[-1]
 
         self.sale_links: Union[list[str], None] = None
         self.listings: Union[list[dict[str, any]], None] = None
@@ -70,9 +70,11 @@ class SheriffSale:
         table_rows = [table_row.find_all('td') for table_row in self.table_div.find_all('tr')[1:]]
 
         for table_row in table_rows:
-            property_id = re.search(r'\d{9}', table_row[0].find('a', href=True)['href']).group(0)
+            details_link_cell = table_row[0].find('a', href=True)['href']
+            details_href = re.search(r'\d{9}', details_link_cell)
+
             data = {
-                'property_id': property_id,
+                'property_id': details_href.group(0),
                 'sheriff_id': table_row[1].text,
                 'sale_date': table_row[2].text,
                 'address': table_row[5].text,
@@ -134,24 +136,7 @@ class SheriffSale:
 
         return sale_dates
 
-    def get_listing_details(self, property_id: str):
-        """
-        Gathers all table html data from each listings details.
-        """
-        if self.listings is None:
-            self.get_all_listings()
-
-        listings_table_data = []
-
-        for links in self.sale_links:
-            request = requests_content(links, self.session)
-            html = request.find('div', class_='table-responsive')
-
-            listings_table_data.append(html)
-
-        return listings_table_data
-
-    def get_new_listing_details_html(self, property_id) -> Union[BeautifulSoup, None]:
+    def parse_listing_details_html(self, property_id) -> Union[BeautifulSoup, None]:
         """
         Gathers all table html data from listings that do not exist within the database yet.
         """
@@ -165,13 +150,13 @@ class SheriffSale:
 
         all_listings = []
         for property_id in property_ids:
-            listing_soup = self.get_new_listing_details_html(property_id)
+            listing_html = self.parse_listing_details_html(property_id)
 
-            if listing_soup:
+            if listing_html:
                 listing = SheriffSaleListing(
-                    county=self.county_name, listing_html=listing_soup, property_id=property_id
+                    county=self.county_name, listing_html=listing_html, property_id=property_id
                 ).parse(use_google_map_api)
-                status_history = SheriffSaleStatusHistory(listing_html=listing_soup, property_id=property_id).parse()
+                status_history = SheriffSaleStatusHistory(listing_html=listing_html, property_id=property_id).parse()
 
                 all_listings.append({'listing': listing, 'status_history': status_history})
 

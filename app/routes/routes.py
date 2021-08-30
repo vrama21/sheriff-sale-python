@@ -1,12 +1,11 @@
 import base64
-import json
 from datetime import datetime
 
 from flask import Blueprint, jsonify, request
 from sqlalchemy import and_
 
 from .. import db, scheduler
-from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES, PRETTIFY
+from ..constants import BUILD_DIR, CITIES_BY_COUNTY, NJ_SHERIFF_SALE_COUNTIES
 from ..models import Listing, StatusHistory
 from ..services.county_clerk import county_clerk_document, county_clerk_search
 from ..services.nj_parcels.nj_parcels import NJParcels
@@ -42,7 +41,7 @@ def home():
 
 
 @scheduler.task('cron', id='daily_scrape_job', day='*')
-@main_bp.route('/api/daily_scrape', methods=['POST'])
+@main_bp.route('/api/daily_scrape', methods=['GET', 'POST'])
 def daily_scrape():
     county_list = NJ_SHERIFF_SALE_COUNTIES
 
@@ -53,6 +52,7 @@ def daily_scrape():
             sheriff_sale_listings = sheriff_sale.get_listing_details_and_status_history(use_google_map_api=False)
 
             for sheriff_sale_listing in sheriff_sale_listings:
+                print(sheriff_sale_listing)
                 listing = sheriff_sale_listing['listing']
                 status_history = sheriff_sale_listing['status_history']
 
@@ -67,7 +67,10 @@ def daily_scrape():
                     .first()
                 ) is not None
 
-                if not listing_exists:
+                if listing_exists:
+                    print(listing.address, listing.raw_address)
+                    print(f'{listing.raw_address} already exists...')
+                else:
                     print(f'Saving a new listing: {listing.raw_address}...')
 
                     listing_to_insert = Listing(**listing.__dict__())

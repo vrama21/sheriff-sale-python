@@ -1,5 +1,10 @@
+from __future__ import annotations
+
+from typing import Dict, Literal, Union
+
 from bs4.element import Tag
-from typing import Union, List
+
+StatusHistoryType = Dict[Literal['status', 'date'], str]
 
 
 class SheriffSaleStatusHistory:
@@ -7,7 +12,7 @@ class SheriffSaleStatusHistory:
         self.listing_html = listing_html
         self.property_id = property_id
 
-        self.status_history: Union[list[dict[str, str]], None] = None
+        self.status_history: Union[list[StatusHistoryType], None] = None
 
     def parse_status_history_details(self):
         """
