@@ -13,12 +13,13 @@ def check_if_listing_exists(listing) -> bool:
         db.session.query(Listing)
         .filter(
             and_(
-                Listing.sheriff_id == listing.sheriff_id,
                 Listing.court_case == listing.court_case,
+                Listing.raw_address == listing.raw_address,
+                Listing.sheriff_id == listing.sheriff_id,
             )
         )
         .first()
-    )
+    ) is not None
 
     return listing_exists
 
