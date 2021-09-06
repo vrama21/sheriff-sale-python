@@ -1,20 +1,19 @@
 import logging
 import os
 
+import flask_migrate
 from flask import Flask
 from flask_apscheduler import APScheduler
 from flask_cors import CORS
 from flask_googlemaps import GoogleMaps
-from flask_migrate import Migrate
-import flask_migrate
-from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
-from app.constants import BUILD_DIR, LOG_DIR, MIGRATIONS_DIR
+from flask_sqlalchemy import SQLAlchemy
 
+from app.constants import BUILD_DIR, LOG_DIR, MIGRATIONS_DIR
 
 cors = CORS()
 db = SQLAlchemy()
-migrate = Migrate()
+migrate = flask_migrate.Migrate()
 scheduler = APScheduler()
 google_maps = GoogleMaps()
 jwt = JWTManager()
@@ -34,7 +33,6 @@ def create_app():
     google_maps.init_app(app)
     migrate.init_app(app, db, directory=str(MIGRATIONS_DIR))
     scheduler.init_app(app)
-    jwt.init_app(app)
 
     with app.app_context():
         from .commands import cli
