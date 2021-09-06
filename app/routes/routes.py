@@ -14,13 +14,6 @@ from ..services.sheriff_sale import SheriffSale, SheriffSaleListing
 main_bp = Blueprint('main_bp', __name__, static_folder=str(BUILD_DIR), static_url_path='/home-static')
 
 
-@main_bp.route('/api/get_listing/<int:id>', methods=['GET'])
-def get_listing(id):
-    listing = (db.session.query(Listing).filter_by(id=id).one()).serialize
-
-    return jsonify(data=listing)
-
-
 @main_bp.route('/api/nj_parcels/search', methods=['POST'])
 def nj_parcels_search():
     nj_parcels = NJParcels()

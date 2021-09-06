@@ -137,6 +137,9 @@ class SheriffSaleListing:
             if listing_detail_value == '':
                 listing_detail_value = None
 
+            if isinstance(listing_detail_value, str):
+                listing_detail_value = listing_detail_value.strip()
+
             listing_details[key] = listing_detail_value
 
         listing_details['maps_url'] = maps_url and maps_url['href']

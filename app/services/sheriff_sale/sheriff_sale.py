@@ -31,7 +31,6 @@ class SheriffSale:
 
         self.soup = requests_content(
             url=sheriff_sale_request_url,
-            method='GET',
             session=self.session,
         )
 
@@ -51,7 +50,7 @@ class SheriffSale:
         Gathers all counties that are listed on the sheriff sale website
         """
         sheriff_sales_url = 'https://salesweb.civilview.com/'
-        request = requests_content(url=sheriff_sales_url, method='GET')
+        request = requests_content(url=sheriff_sales_url)
 
         trs = [x.text.strip().split() for x in request.find_all('tr')]
         counties = [tr[0] for tr in trs if tr[-1] == 'NJ']
@@ -70,11 +69,11 @@ class SheriffSale:
         table_rows = [table_row.find_all('td') for table_row in self.table_div.find_all('tr')[1:]]
 
         for table_row in table_rows:
-            details_link_cell = table_row[0].find('a', href=True)['href']
-            details_href = re.search(r'\d{9}', details_link_cell)
+            details_href = table_row[0].find('a', href=True)['href']
+            property_id_search = re.search(r'\d+', details_href)
 
             data = {
-                'property_id': details_href.group(0),
+                'property_id': property_id_search.group(0),
                 'sheriff_id': table_row[1].text,
                 'sale_date': table_row[2].text,
                 'address': table_row[5].text,
@@ -93,7 +92,7 @@ class SheriffSale:
             logging.error(f'The Sheriff Sale Table Div for {self.county_name} County was not captured')
             return []
 
-        if self.listings is None:
+        if not self.listings:
             self.get_all_listings()
 
         property_ids = [int(listing['property_id']) for listing in self.listings]
@@ -106,7 +105,7 @@ class SheriffSale:
         'F-18001491'
         """
 
-        if self.listings is None:
+        if not self.listings:
             self.get_all_listings()
 
         sheriff_ids = [listing['sheriff_id'] for listing in self.listings]
@@ -117,7 +116,7 @@ class SheriffSale:
         """
         Gathers all of the address data for each listing
         """
-        if self.listings is None:
+        if not self.listings:
             self.get_all_listings()
 
         addresses = [listing['address'] for listing in self.listings]
@@ -128,7 +127,7 @@ class SheriffSale:
         """
         Gathers all of the sale date for each listing
         """
-        if self.listings is None:
+        if not self.listings:
             self.get_all_listings()
 
         sale_dates = [listing['sale_date'] for listing in self.listings]
@@ -140,7 +139,8 @@ class SheriffSale:
         """
         Gathers all table html data from listings that do not exist within the database yet.
         """
-        listing_details_url = f'https://salesweb.civilview.com/Sales/SaleDetails?PropertyId={property_id}'
+        query_params = {'PropertyId': property_id}
+        listing_details_url = 'https://salesweb.civilview.com/Sales/SaleDetails?' + urlencode(query_params)
         listing_details_html = requests_content(url=listing_details_url, session=self.session)
 
         return listing_details_html

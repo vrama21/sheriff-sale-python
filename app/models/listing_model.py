@@ -11,7 +11,7 @@ class Listing(db.Model):
     property_id: int = db.Column('property_id', db.Integer)
     sheriff_id: str = db.Column('sheriff_id', db.String)
 
-    address: str = db.Column('address', db.String, unique=True)
+    address: str = db.Column('address', db.String)
     attorney: str = db.Column('attorney', db.String)
     attorney_phone: str = db.Column('attorney_phone', db.String)
     city: str = db.Column('city', db.String)
