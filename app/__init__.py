@@ -6,7 +6,6 @@ from flask import Flask
 from flask_apscheduler import APScheduler
 from flask_cors import CORS
 from flask_googlemaps import GoogleMaps
-from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
 from app.constants import BUILD_DIR, LOG_DIR, MIGRATIONS_DIR
@@ -16,7 +15,6 @@ db = SQLAlchemy()
 migrate = flask_migrate.Migrate()
 scheduler = APScheduler()
 google_maps = GoogleMaps()
-jwt = JWTManager()
 
 
 def create_app():
