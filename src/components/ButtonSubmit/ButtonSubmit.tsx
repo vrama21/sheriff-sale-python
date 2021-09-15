@@ -4,7 +4,7 @@ import { Button, ButtonProps } from '@material-ui/core';
 import { buttonSubmitStyles } from './ButtonSubmit.styles';
 
 interface ButtonSubmitProps extends ButtonProps {
-  name: string;
+  name?: string;
   value: string;
 }
 
