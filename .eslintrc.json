@@ -1,14 +1,11 @@
 {
-  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
     "es6": true
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended"],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
+  "ignorePatterns": ["node_modules", "build", "app", "__pycache__", ".vscode", "public", "src/serviceWorker.ts"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true,
@@ -18,10 +15,10 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
+  "root": true,
   "rules": {
     "semi": "error",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["off"]
-  },
-  "root": true
+  }
 }

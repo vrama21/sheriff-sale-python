@@ -14,8 +14,7 @@ interface ListingTableProps {
 
 const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTableProps) => {
   const classes = listingTableStyles();
-  // const mobileView = useMediaQuery('(min-width: 0px)', { noSsr: true });
-  const mobileView = false;
+  const mobileView = useMediaQuery('(min-width: 0px)', { noSsr: true });
 
   const columnHeaders = mobileView
     ? [

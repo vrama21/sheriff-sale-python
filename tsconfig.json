@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
@@ -15,9 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": false,
-    "baseUrl": "src"
+    "noImplicitAny": false
   },
   "include": ["src"],
-  "exclude": ["**/node_modules"]
+  "exclude": ["**/node_modules", "app", "public"]
 }

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from dataclasses import dataclass
 
 import logging
 from typing import Union
@@ -31,73 +32,105 @@ LISTING_KV_MAP = {
 }
 
 
+@dataclass
 class SheriffSaleListing:
-    def __init__(self, county: str, listing_html: Union[BeautifulSoup, None], property_id: int):
-        self.listing_html = listing_html
+    listing_html: Union[BeautifulSoup, None] = None
 
-        self.address: Union[str, None] = None
-        self.attorney: Union[str, None] = None
-        self.attorney_phone: Union[str, None] = None
-        self.city: Union[str, None] = None
-        self.county: Union[str, None] = county
-        self.court_case: Union[str, None] = None
-        self.deed: Union[str, None] = None
-        self.deed_address: Union[str, None] = None
-        self.defendant: Union[str, None] = None
-        self.description: Union[str, None] = None
-        self.judgment: Union[float, None] = None
-        self.latitude: Union[str, None] = None
-        self.longitude: Union[str, None] = None
-        self.maps_url: Union[str, None] = None
-        self.parcel: Union[str, None] = None
-        self.plaintiff: Union[str, None] = None
-        self.priors: Union[str, None] = None
-        self.property_id: int = property_id
-        self.raw_address: Union[str, None] = None
-        self.sale_date: Union[str, None] = None
-        self.secondary_unit: Union[str, None] = None
-        self.sheriff_id: Union[str, None] = None
-        self.state: Union[str, None] = 'NJ'
-        self.street: Union[str, None] = None
-        self.unit: Union[str, None] = None
-        self.unit_secondary: Union[str, None] = None
-        self.upset_amount: Union[float, None] = None
-        self.zip_code: Union[str, None] = None
+    address: Union[str, None] = None
+    attorney: Union[str, None] = None
+    attorney_phone: Union[str, None] = None
+    city: Union[str, None] = None
+    county: Union[str, None] = None
+    court_case: Union[str, None] = None
+    deed: Union[str, None] = None
+    deed_address: Union[str, None] = None
+    defendant: Union[str, None] = None
+    description: Union[str, None] = None
+    judgment: Union[float, None] = None
+    latitude: Union[str, None] = None
+    longitude: Union[str, None] = None
+    maps_url: Union[str, None] = None
+    parcel: Union[str, None] = None
+    plaintiff: Union[str, None] = None
+    priors: Union[str, None] = None
+    property_id: int = None
+    raw_address: Union[str, None] = None
+    sale_date: Union[str, None] = None
+    secondary_unit: Union[str, None] = None
+    sheriff_id: Union[str, None] = None
+    state: Union[str, None] = 'NJ'
+    street: Union[str, None] = None
+    unit: Union[str, None] = None
+    unit_secondary: Union[str, None] = None
+    upset_amount: Union[float, None] = None
+    zip_code: Union[str, None] = None
 
-    def __dict__(self) -> dict:
-        return {
-            'address': self.address,
-            'attorney': self.attorney,
-            'attorney_phone': self.attorney_phone,
-            'city': self.city,
-            'county': self.county,
-            'court_case': self.court_case,
-            'deed': self.deed,
-            'deed_address': self.deed_address,
-            'defendant': self.defendant,
-            'description': self.description,
-            'judgment': self.judgment,
-            'latitude': self.latitude,
-            'longitude': self.longitude,
-            'maps_url': self.maps_url,
-            'parcel': self.parcel,
-            'plaintiff': self.plaintiff,
-            'priors': self.priors,
-            'property_id': self.property_id,
-            'raw_address': self.raw_address,
-            'sale_date': self.sale_date,
-            'secondary_unit': self.secondary_unit,
-            'sheriff_id': self.sheriff_id,
-            'state': self.state,
-            'street': self.street,
-            'unit': self.unit,
-            'unit_secondary': self.unit_secondary,
-            'upset_amount': self.upset_amount,
-            'zip_code': self.zip_code,
-        }
+    # def __init__(self, county: str, listing_html: Union[BeautifulSoup, None], property_id: int):
+    #     self.listing_html = listing_html
 
-    def __repr__(self) -> str:
-        return str(self.__dict__())
+    #     self.address: Union[str, None] = None
+    #     self.attorney: Union[str, None] = None
+    #     self.attorney_phone: Union[str, None] = None
+    #     self.city: Union[str, None] = None
+    #     self.county: Union[str, None] = county
+    #     self.court_case: Union[str, None] = None
+    #     self.deed: Union[str, None] = None
+    #     self.deed_address: Union[str, None] = None
+    #     self.defendant: Union[str, None] = None
+    #     self.description: Union[str, None] = None
+    #     self.judgment: Union[float, None] = None
+    #     self.latitude: Union[str, None] = None
+    #     self.longitude: Union[str, None] = None
+    #     self.maps_url: Union[str, None] = None
+    #     self.parcel: Union[str, None] = None
+    #     self.plaintiff: Union[str, None] = None
+    #     self.priors: Union[str, None] = None
+    #     self.property_id: int = property_id
+    #     self.raw_address: Union[str, None] = None
+    #     self.sale_date: Union[str, None] = None
+    #     self.secondary_unit: Union[str, None] = None
+    #     self.sheriff_id: Union[str, None] = None
+    #     self.state: Union[str, None] = 'NJ'
+    #     self.street: Union[str, None] = None
+    #     self.unit: Union[str, None] = None
+    #     self.unit_secondary: Union[str, None] = None
+    #     self.upset_amount: Union[float, None] = None
+    #     self.zip_code: Union[str, None] = None
+
+    # def __dict__(self) -> dict:
+    #     return {
+    #         'address': self.address,
+    #         'attorney': self.attorney,
+    #         'attorney_phone': self.attorney_phone,
+    #         'city': self.city,
+    #         'county': self.county,
+    #         'court_case': self.court_case,
+    #         'deed': self.deed,
+    #         'deed_address': self.deed_address,
+    #         'defendant': self.defendant,
+    #         'description': self.description,
+    #         'judgment': self.judgment,
+    #         'latitude': self.latitude,
+    #         'longitude': self.longitude,
+    #         'maps_url': self.maps_url,
+    #         'parcel': self.parcel,
+    #         'plaintiff': self.plaintiff,
+    #         'priors': self.priors,
+    #         'property_id': self.property_id,
+    #         'raw_address': self.raw_address,
+    #         'sale_date': self.sale_date,
+    #         'secondary_unit': self.secondary_unit,
+    #         'sheriff_id': self.sheriff_id,
+    #         'state': self.state,
+    #         'street': self.street,
+    #         'unit': self.unit,
+    #         'unit_secondary': self.unit_secondary,
+    #         'upset_amount': self.upset_amount,
+    #         'zip_code': self.zip_code,
+    #     }
+
+    # def __repr__(self) -> str:
+    #     return str(self.__dict__())
 
     def parse_listing_details(self) -> None:
         """
@@ -210,6 +243,8 @@ class SheriffSaleListing:
         """
         self.parse_listing_details()
         self.sanitize_address()
-        use_google_maps_api and self.get_coordinates()
+
+        if use_google_maps_api:
+            self.get_coordinates()
 
         return self
