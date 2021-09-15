@@ -8,8 +8,8 @@ export const listingTableStyles = makeStyles((theme) => ({
   },
 
   tableHeader: {
-    background: theme.palette.secondary.main,
-    color: theme.palette.primary.main,
+    background: theme.palette.grey[500],
+    // color: theme.palette.primary.main,
     fontWeight: 'bold',
     minWidth: '70px',
     textAlign: 'center',
@@ -34,11 +34,11 @@ export const listingTableStyles = makeStyles((theme) => ({
     textAlign: 'center',
 
     '&:nth-child(odd)': {
-      background: theme.palette.primary.dark,
+      background: theme.palette.grey[700],
     },
 
     '&:nth-child(even)': {
-      background: theme.palette.primary.main,
+      background: theme.palette.grey[500],
     },
   },
 
@@ -46,9 +46,10 @@ export const listingTableStyles = makeStyles((theme) => ({
     fontSize: '1rem',
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'black',
 
     '& a': {
-      color: 'white',
+      color: theme.palette.primary.main,
     },
 
     [theme.breakpoints.down('sm')]: {

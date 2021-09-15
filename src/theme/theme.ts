@@ -2,15 +2,18 @@ import { colors, unstable_createMuiStrictModeTheme as createMuiTheme } from '@ma
 
 export default createMuiTheme({
   palette: {
+    common: {
+      black: '#121212',
+    },
     primary: {
       light: '#6487B4',
-      main: '#3D5A80',
-      dark: '#2C405B',
+      main: '#1DDECB',
+      dark: '#08423C',
       contrastText: colors.common.white,
     },
     secondary: {
       light: '#B5D2E3',
-      main: '#98C1D9',
+      main: '#bac9cc',
       dark: '#4A92BC',
       contrastText: colors.common.white,
     },

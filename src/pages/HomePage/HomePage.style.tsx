@@ -5,7 +5,7 @@ export const homePageStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   header: {
-    background: theme.palette.primary.dark,
+    background: theme.palette.common.black,
     paddingBottom: '2rem',
   },
   title: {

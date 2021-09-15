@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
-import { Link } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery } from '@material-ui/core';
 
 import { ListingInterface } from 'types';
 import { formatToCurrency } from 'helpers/formatToCurrency';
 
+import ViewListingButton from '../ViewListingButton/ViewListingButton';
 import { listingTableStyles } from './ListingTable.styles';
 
 interface ListingTableProps {
@@ -60,13 +60,13 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
   const data = useMemo(
     () =>
       listings.map((listing) => ({
-        address: listing.address,
+        address: listing.address || listing.raw_address,
         attorney: listing.attorney,
         county: listing.county,
         defendant: listing.defendant,
         saleDate: listing.sale_date,
         upsetOrJudgment: formatToCurrency(listing.judgment || listing.upset_amount),
-        linkToListing: <Link to={`listing/${listing.id}`}>View Listing</Link>,
+        linkToListing: <ViewListingButton listingId={listing.id} />,
       })),
     [listings],
   );
@@ -92,13 +92,11 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
 
     return (
       <TableRow className={classes.tableRow} {...row.getRowProps()}>
-        {row.cells.map((cell) => {
-          return (
-            <TableCell className={classes.tableCell} {...cell.getCellProps()}>
-              {cell.render('Cell')}
-            </TableCell>
-          );
-        })}
+        {row.cells.map((cell) => (
+          <TableCell className={classes.tableCell} {...cell.getCellProps()}>
+            {cell.render('Cell')}
+          </TableCell>
+        ))}
       </TableRow>
     );
   });

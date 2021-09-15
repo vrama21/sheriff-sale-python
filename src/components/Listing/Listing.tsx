@@ -26,6 +26,7 @@ export interface ListingInterface {
   parcel?: string;
   plaintiff?: string;
   priors?: string;
+  raw_address?: string;
   sale_date: string;
   secondary_unit?: string;
   sheriff_id?: string;
