@@ -1,6 +1,6 @@
 import logging
 import re
-from typing import Union
+from typing import TypedDict, Union
 from urllib.parse import urlencode
 
 import requests
@@ -10,6 +10,11 @@ from app.utils import load_json_data, requests_content
 
 from .sheriff_sale_listing import SheriffSaleListing
 from .sheriff_sale_status_history import SheriffSaleStatusHistory
+
+
+class ParsedListingType(TypedDict):
+    listing: SheriffSaleListing
+    status_history: list[SheriffSaleStatusHistory]
 
 
 class SheriffSale:
@@ -145,7 +150,7 @@ class SheriffSale:
 
         return listing_details_html
 
-    def get_listing_details_and_status_history(self, use_google_map_api: bool) -> list:
+    def get_listing_details_and_status_history(self, use_google_map_api: bool) -> list[ParsedListingType]:
         property_ids = self.get_all_listing_property_ids()
 
         all_listings = []

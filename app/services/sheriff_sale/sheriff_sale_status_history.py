@@ -1,10 +1,11 @@
-from __future__ import annotations
-
-from typing import Dict, Literal, Union
+from typing import TypedDict, Union
 
 from bs4.element import Tag
 
-StatusHistoryType = Dict[Literal['status', 'date'], str]
+
+class StatusHistoryType(TypedDict):
+    status: str
+    date: str
 
 
 class SheriffSaleStatusHistory:

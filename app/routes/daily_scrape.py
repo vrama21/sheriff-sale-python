@@ -6,6 +6,7 @@ from ..constants import NJ_SHERIFF_SALE_COUNTIES
 from ..models import Listing, StatusHistory
 from ..services.sheriff_sale import SheriffSale
 from . import main_bp
+from typing import Dict
 
 
 def check_if_listing_exists(listing) -> bool:
@@ -41,10 +42,7 @@ def daily_scrape():
 
                 listing_exists = check_if_listing_exists(listing)
 
-                if listing_exists:
-                    print(listing.address, listing.raw_address)
-                    print(f'{listing.raw_address} already exists...')
-                else:
+                if not listing_exists:
                     print(f'Saving a new listing: {listing.raw_address}...')
 
                     listing_to_insert = Listing(**listing.__dict__())
@@ -52,18 +50,21 @@ def daily_scrape():
                     db.session.flush()
                     db.session.refresh(listing_to_insert)
 
-                    print(f'Saved new listing: ${listing_to_insert.id}')
+                    print(f'Saved new listing: {listing_to_insert.id}')
 
                     for status in status_history:
                         status_history_to_insert = StatusHistory(
                             listing_id=listing_to_insert.id,
-                            status=status.get('status'),
-                            date=status.get('date'),
+                            status=status['status'],
+                            date=status['date'],
                         )
 
                         db.session.add(status_history_to_insert)
 
                     print(f'Saved {len(status_history)} status histories for listing_id: {listing_to_insert.id}')
+                else:
+                    print(listing.address, listing.raw_address)
+                    print(f'{listing.raw_address} already exists...')
 
             db.session.commit()
             print(f'Parsing for {county} County has completed. ', '\n')
