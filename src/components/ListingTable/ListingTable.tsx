@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useTable } from 'react-table';
+import { Column, useTable } from 'react-table';
 import { Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery } from '@material-ui/core';
 
 import { Listing } from 'types';
@@ -30,7 +30,7 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
           accessor: 'linkToListing',
         },
       ]
-    : [
+    : ([
         {
           Header: 'Address',
           accessor: 'address',
@@ -50,11 +50,22 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
         {
           Header: 'Upset Amount or Judgment',
           accessor: 'upsetOrJudgment',
+          Cell(cellProps) {
+            const rowData = cellProps.row.original as Listing;
+
+            const value = (rowData.judgment || rowData.upset_amount) as number;
+
+            return <span>{formatToCurrency(value)}</span>;
+          },
         },
         {
-          accessor: 'linkToListing',
+          Header: 'Link',
+          accessor: 'id',
+          Cell(cellProps) {
+            return <ViewListingButton listingId={cellProps.cell.value} />;
+          },
         },
-      ];
+      ] as Column[]);
 
   const data = useMemo(
     () =>
@@ -64,8 +75,7 @@ const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTablePro
         county: listing.county,
         defendant: listing.defendant,
         saleDate: listing.sale_date,
-        upsetOrJudgment: formatToCurrency(listing.judgment || listing.upset_amount),
-        linkToListing: <ViewListingButton listingId={listing.id} />,
+        id: listing.id,
       })),
     [listings],
   );
