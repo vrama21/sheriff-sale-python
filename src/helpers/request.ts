@@ -1,5 +1,3 @@
-import { ConstantsResponse } from 'types';
-
 interface requestProps {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -7,13 +5,13 @@ interface requestProps {
 }
 
 interface RequestType {
-  data: ConstantsResponse;
+  data: unknown;
 }
 
 /**
  * Creates an http request to an url
  */
-const request = async ({ url, method, options }: requestProps): Promise<RequestType> => {
+export const request = async ({ url, method, options }: requestProps): Promise<RequestType | undefined> => {
   const defaultOption = {
     method,
     headers: { 'Content-Type': 'application/json' },
@@ -27,5 +25,3 @@ const request = async ({ url, method, options }: requestProps): Promise<RequestT
     console.error('useFetch failed with: ', err);
   }
 };
-
-export default request;

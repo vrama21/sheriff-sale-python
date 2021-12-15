@@ -1,7 +1,7 @@
-import { ListingInterface } from '../types/types';
+import { Listing } from 'types';
 
 export interface Reducer {
-  currentPage: number;
+  currentPage: number | undefined;
 
   isGettingConstants: boolean | undefined;
   getConstantsFailed: boolean | undefined;
@@ -16,13 +16,13 @@ export interface Reducer {
   getAllListingsSucceeded: boolean | undefined;
 
   constants: {
-    counties: Record<string, Record<'cities', string[]>> | undefined;
+    counties: string[] | undefined;
     saleDates: string[] | [] | undefined;
   };
 
   data: {
-    filteredListings: any[];
-    listing: ListingInterface;
-    listings: ListingInterface[] | any[];
+    filteredListings: Listing[];
+    listing: Listing | undefined;
+    listings: Listing[] | undefined;
   };
 }

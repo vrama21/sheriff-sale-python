@@ -8,7 +8,8 @@ import { searchFiltersStyles } from './SearchFilters.style';
 
 export interface SearchFiltersProps {
   counties: string[];
-  citiesByCounty: Record<string, Record<'cities', string[]>>;
+  // citiesByCounty: Record<string, Record<'cities', string[]>>;
+  citiesByCounty: { [index: string]: { cities: string[] } };
   filters: Filter;
   onFilterChange: (
     event: React.ChangeEvent<{
@@ -68,33 +69,15 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
       <div className={classes.filterContainer}>
         <FormControl className={classes.filterSelect}>
           <FilterLabel id="county-select-label" value="County" />
-          <Select
-            options={countyMenuItems}
-            id="county-select"
-            name="county"
-            onChange={onFilterChange}
-            value={selectedCounty || ''}
-          />
+          <Select options={countyMenuItems} id="county-select" name="county" onChange={onFilterChange} value={selectedCounty || ''} />
         </FormControl>
         <FormControl className={classes.filterSelect}>
           <FilterLabel id="city-select-label" value="City" />
-          <Select
-            options={cityMenuItems}
-            id="city-select"
-            name="city"
-            onChange={onFilterChange}
-            value={selectedCity || ''}
-          />
+          <Select options={cityMenuItems} id="city-select" name="city" onChange={onFilterChange} value={selectedCity || ''} />
         </FormControl>
         <FormControl className={classes.filterSelect}>
           <FilterLabel id="sale-date-select-label" value="Sale Date" />
-          <Select
-            options={saleDateMenuItems}
-            id="sale-date-select"
-            name="saleDate"
-            onChange={onFilterChange}
-            value={selectedSaleDate || ''}
-          />
+          <Select options={saleDateMenuItems} id="sale-date-select" name="saleDate" onChange={onFilterChange} value={selectedSaleDate || ''} />
         </FormControl>
       </div>
 

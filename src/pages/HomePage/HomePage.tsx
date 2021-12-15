@@ -4,7 +4,7 @@ import { isEqual } from 'lodash';
 
 import { AppContext } from 'App';
 import { getConstants, getAllListings } from 'actions/actions';
-import { ListingInterface } from 'types';
+import { Listing } from 'types';
 
 import SearchFilters from 'components/SearchFilters/SearchFilters';
 import ListingView from 'components/ListingView/ListingView';
@@ -17,8 +17,8 @@ const HomePage: React.FC = () => {
   const hasGottenConstants = state.getConstantsSucceeded === true;
   const hasGottenListings = state.getAllListingsSucceeded === true;
 
-  const counties = state?.constants?.counties && Object.keys(state?.constants?.counties);
-  const citiesByCounty = state?.constants?.counties && state?.constants?.counties;
+  const counties = (state.constants.counties && Object.keys(state.constants.counties)) as string[];
+  const citiesByCounty = state.constants.counties;
   const listings = state.data.listings;
   const saleDates = state.constants.saleDates;
 
@@ -27,9 +27,9 @@ const HomePage: React.FC = () => {
   const [filters, setFilters] = useState(initialFilterState);
   const [filteredListings, setFilteredListings] = useState(undefined);
 
-  const filterByCounty = (listing: ListingInterface) => (filters.county ? listing.county === filters.county : true);
-  const filterByCity = (listing: ListingInterface) => (filters.city ? listing.city === filters.city : true);
-  const filterBySaleDate = (listing: ListingInterface) => (filters.saleDate ? listing.sale_date === filters.saleDate : true);
+  const filterByCounty = (listing: Listing) => (filters.county ? listing.county === filters.county : true);
+  const filterByCity = (listing: Listing) => (filters.city ? listing.city === filters.city : true);
+  const filterBySaleDate = (listing: Listing) => (filters.saleDate ? listing.sale_date === filters.saleDate : true);
 
   const onFilterReset = () => {
     setFilters(initialFilterState);

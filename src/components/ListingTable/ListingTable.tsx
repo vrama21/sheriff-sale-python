@@ -2,14 +2,14 @@ import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery } from '@material-ui/core';
 
-import { ListingInterface } from 'types';
+import { Listing } from 'types';
 import { formatToCurrency } from 'helpers/formatToCurrency';
 
 import ViewListingButton from '../ViewListingButton/ViewListingButton';
 import { listingTableStyles } from './ListingTable.styles';
 
 interface ListingTableProps {
-  listings: ListingInterface[];
+  listings: Listing[];
 }
 
 const ListingTable: React.FC<ListingTableProps> = ({ listings }: ListingTableProps) => {

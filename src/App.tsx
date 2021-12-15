@@ -5,14 +5,16 @@ import { LoadScript } from '@react-google-maps/api';
 import HomePage from 'pages/HomePage/HomePage';
 import ListingPage from 'pages/ListingPage/ListingPage';
 import { reducer, reducerInitialState } from 'reducers/reducer';
-import { Dispatch, Reducer } from 'types';
+import { Action, Reducer } from 'types';
 
 import { globalStyles } from 'styles/styles';
 
-export const AppContext = React.createContext<{
+type GlobalContent = {
   state: Reducer;
-  dispatch: Dispatch;
-}>({
+  dispatch: React.Dispatch<Action>;
+};
+
+export const AppContext = React.createContext<GlobalContent>({
   state: reducerInitialState,
   dispatch: () => null,
 });
@@ -28,7 +30,7 @@ const App: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string}>
         <AppProvider>
           <Router>
             <Switch>

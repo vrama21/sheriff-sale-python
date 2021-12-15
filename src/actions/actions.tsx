@@ -1,13 +1,12 @@
-import { Dispatch } from 'types';
 import { DateTime } from 'luxon';
+import { request } from 'helpers';
+import { ConstantsResponse, DispatchAction, Listing } from 'types';
 
-import request from 'helpers/request';
-
-export const getConstants = async (dispatch: Dispatch): Promise<void> => {
+export const getConstants = async (dispatch: DispatchAction): Promise<void> => {
   dispatch({ type: 'GET_CONSTANTS' });
 
   try {
-    const constants = await request({ url: '/api/get_constants', method: 'GET' });
+    const constants = (await request({ url: '/api/get_constants', method: 'GET' })) as { data: ConstantsResponse };
 
     const { counties, saleDates } = constants.data;
 
@@ -28,11 +27,11 @@ export const getConstants = async (dispatch: Dispatch): Promise<void> => {
   }
 };
 
-export const getAllListings = async (dispatch: Dispatch): Promise<void> => {
+export const getAllListings = async (dispatch: DispatchAction): Promise<void> => {
   dispatch({ type: 'GET_ALL_LISTINGS' });
 
   try {
-    const allListings = await request({ url: '/api/get_all_listings', method: 'GET' });
+    const allListings = (await request({ url: '/api/get_all_listings', method: 'GET' })) as { data: Listing[] };
 
     dispatch({ listings: allListings.data, type: 'GET_ALL_LISTINGS_SUCCEEDED' });
   } catch (err) {
@@ -42,11 +41,11 @@ export const getAllListings = async (dispatch: Dispatch): Promise<void> => {
   }
 };
 
-export const getListing = async ({ listingId, dispatch }: { listingId: string; dispatch: Dispatch }): Promise<void> => {
+export const getListing = async ({ listingId, dispatch }: { listingId: string; dispatch: DispatchAction }): Promise<void> => {
   dispatch({ type: 'GET_LISTING' });
 
   try {
-    const listing = await request({ url: `/api/get_listing/${listingId}`, method: 'GET' });
+    const listing = (await request({ url: `/api/get_listing/${listingId}`, method: 'GET' })) as { data: Listing };
 
     dispatch({ listing: listing.data, type: 'GET_LISTING_SUCCEEDED' });
   } catch (err) {

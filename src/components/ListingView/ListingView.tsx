@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { AppContext } from 'App';
-import { ListingInterface } from 'types';
+import { Listing } from 'types';
 
 import Paginate from '../Paginate/Paginate';
 import ListingTable from '../ListingTable/ListingTable';
@@ -9,7 +9,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { listingViewStyles } from './ListingView.styles';
 
 interface ListingViewProps {
-  listings: ListingInterface[];
+  listings: Listing[];
 }
 
 const ListingView: React.FC<ListingViewProps> = ({ listings }: ListingViewProps) => {

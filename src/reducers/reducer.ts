@@ -1,3 +1,5 @@
+import { Action, Reducer } from 'types';
+
 export const reducerInitialState = {
   currentPage: 1,
 
@@ -25,7 +27,7 @@ export const reducerInitialState = {
   },
 };
 
-export const reducer = (state = reducerInitialState, action) => {
+export const reducer = (state: Reducer = reducerInitialState, action: Action): Reducer => {
   switch (action.type) {
     case 'GET_CONSTANTS':
       return {
@@ -72,7 +74,7 @@ export const reducer = (state = reducerInitialState, action) => {
         getListingSucceeded: false,
         data: {
           ...state.data,
-          listing: {},
+          listing: undefined,
         },
       };
 
